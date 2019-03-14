@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wondersgroup.k00.f30100103.dao.F30100103DAO">
+
+  <sql id="Base_Column_List">
+    BKZ107, BKA147, BKA148, BKA149, BKA150, AAE030, AAE031, AAA027, AAE013
+  </sql>
+  
+  <select id="getListPage" parameterType="java.util.Map" resultType="com.wondersgroup.k00.f30100103.vo.F30100103VO">
+  	SELECT <include refid="Base_Column_List" />
+  	 FROM ka16 a where 1=1
+  	         <if test="bkz107!=null and bkz107!=''">
+		   	 and  a.bkz107 = #{bkz107} <!--转外自理比例ID -->		   
+	         </if>
+	         <if test="bka147!=null and bka147!=''">
+		   	 and  a.bka147 = #{bka147} <!--转诊标志 -->		   
+	         </if>
+	         <if test="bka148!=null and bka148!=''">
+		   	 and  a.bka148 = #{bka148} <!--转诊类型-->		   
+	         </if>
+	         <if test="bka149!=null and bka149!=''">
+		   	 and  a.bka149 = #{bka149} <!--特约标志 -->		   
+	         </if>
+	         <if test="bka150!=null and bka150!=''">
+		   	 and  a.bka150 = #{bka150} <!--转外自理比例 -->		   
+	         </if>
+	         <if test="aaa027!=null and aaa027!=''">
+		   	 and  a.aaa027 = #{aaa027} <!--统筹区编码-->		   
+	         </if>
+	         <if test="aae013!=null and aae013!=''">
+		   	 and  a.aae013 = #{aae013} <!--备注-->		   
+	         </if>
+	         <if test="aae030!=null and aae030!=''">
+		   	 and  a.aae030 <![CDATA[>=]]> #{aae030} <!-- 开始日期-->		   
+	         </if>
+	         <if test="aae031!=null and aae031!=''">
+		   	 and  a.aae031 <![CDATA[<=]]>  #{aae031} <!-- 终止日期-->		   
+	         </if>
+  </select>
+  
+  <select id="queryKa16ByTime" parameterType="java.util.Map" resultType="com.wondersgroup.k00.f30100103.vo.F30100103VO">
+  	SELECT <include refid="Base_Column_List" />
+  	 FROM ka16 a where 1=1
+  	         <if test="bkz107!=null and bkz107!=''">
+		   	 and  a.bkz107 <![CDATA[<>]]> #{bkz107} <!--转外自理比例ID -->		   
+	         </if>
+	         <if test="bka147!=null and bka147!=''">
+		   	 and  a.bka147 = #{bka147} <!--转诊标志 -->		   
+	         </if>
+	         <if test="bka148!=null and bka148!=''">
+		   	 and  a.bka148 = #{bka148} <!--转诊类型-->		   
+	         </if>
+	         <if test="bka149!=null and bka149!=''">
+		   	 and  a.bka149 = #{bka149} <!--特约标志 -->		   
+	         </if>
+	         <if test="aaa027!=null and aaa027!=''">
+		   	 and  a.aaa027 = #{aaa027} <!--统筹区编码-->
+		   	 </if>   
+	         <if test="aae030!=null and aae030!=''">
+		   	 and  #{aae030} <![CDATA[<=]]> a.aae031 <!-- 开始日期-->		   
+	         </if>
+	         <if test="aae031!=null and aae031!=''">
+		   	 and  a.aae030 <![CDATA[<=]]>  #{aae031} <!-- 终止日期-->		   
+	         </if>
+  </select>
+  
+  <insert id="saveKa16" parameterType="java.util.Map">
+    <!--
+    	转外自理比例ID,转诊标志,转诊类型,特约标志,转外自理比例,开始日期,终止日期,统筹区编码,备注
+    -->
+    <selectKey resultType="java.lang.String" keyProperty="bkz107" order="BEFORE">
+			select to_char(sysdate,'yyyymmdd')||lpad(seq_bkz107.nextval,8,'0') as bkz107 from dual
+     </selectKey>
+    insert into KA16 (BKZ107, BKA147, BKA148, BKA149, BKA150, AAE030, AAE031, AAA027, AAE013)
+    values (#{bkz107,jdbcType=CHAR}, #{bka147,jdbcType=VARCHAR}, #{bka148,jdbcType=VARCHAR}, 
+      #{bka149,jdbcType=VARCHAR}, #{bka150,jdbcType=DECIMAL}, #{aae030,jdbcType=DECIMAL}, 
+      #{aae031,jdbcType=DECIMAL}, #{aaa027,jdbcType=VARCHAR}, #{aae013,jdbcType=VARCHAR}
+      )
+  </insert>
+  
+  <update id="updateKa16" parameterType="java.util.Map">
+    update KA16
+    <set>
+      <if test="bka147 != null">
+        BKA147 = #{bka147,jdbcType=VARCHAR},
+      </if>
+      <if test="bka148 != null">
+        BKA148 = #{bka148,jdbcType=VARCHAR},
+      </if>
+      <if test="bka149 != null">
+        BKA149 = #{bka149,jdbcType=VARCHAR},
+      </if>
+      <if test="bka150 != null">
+        BKA150 = #{bka150,jdbcType=DECIMAL},
+      </if>
+      <if test="aae030 != null">
+        AAE030 = #{aae030,jdbcType=DECIMAL},
+      </if>
+      <if test="aae031 != null">
+        AAE031 = #{aae031,jdbcType=DECIMAL},
+      </if>
+      <if test="aaa027 != null">
+        AAA027 = #{aaa027,jdbcType=VARCHAR},
+      </if>
+      <if test="aae013 != null">
+        AAE013 = #{aae013,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where BKZ107 = #{bkz107,jdbcType=CHAR}
+  </update>
+  
+</mapper>

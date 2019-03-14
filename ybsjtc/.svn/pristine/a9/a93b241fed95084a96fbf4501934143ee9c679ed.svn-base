@@ -1,0 +1,132 @@
+<%@ page contentType="text/html; charset=utf-8"%>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<%@ taglib prefix="cw" uri="/widget-tags"%>
+<%@ include file="/pages/include/header.jsp"%>
+<head>
+<title>字典维护</title>
+
+<style type="text/css">
+html, body {
+	font-size: 12px;
+	padding: 0;
+	margin: 0;
+	border: 0;
+	height: 100%;
+	overflow: hidden;
+}
+.mini-panel-header{
+	background-color:#E0EEEE;
+}
+.mini-panel-body{
+padding:0px;
+}
+
+</style>
+
+<object id="LODOP" classid="clsid:2105C259-1E0C-4534-8141-A753534CB4CA"
+	width=0 height=0></object>
+</head>
+<body>
+
+	<div class="mini-fit">
+		<div class="mini-panel" title="查询条件" showCollapseButton="true"
+			style="width: 100%; height: 20%;" iconCls="icon-search">
+			<form id="form1" name="form1" style="padding-top:12px" action="#" method="post">
+				<table cellpadding="0" class="main-table" cellspacing="0" border="0"
+					width="100%">
+
+					<tr>
+						<td class="mini_title">代码类别：</td>
+						<td><input id="aaa100" name="aaa100" class="mini-textbox" /></td>
+						<td class="mini_title">代码名称：</td>
+						<td><input id="aaa103" name="aaa103" class="mini-textbox" /></td>
+						<td colspan="2">
+							<div style="width: 200px" class="operate">
+								<button type="button" class="cx_color" onclick="search()">
+									<span class="cx"></span>查询
+								</button>
+								<button type="button" class="cz_color" onclick="resetForm()">
+									<span class="cz"></span>重置
+								</button>
+							</div>
+						</td>
+					</tr>
+				</table>
+			</form>
+		</div>
+
+
+		<!-- center begin -->
+		<div class="mini-panel" title="查询结果" showCollapseButton="true"
+			style="width: 100%; height: 80%;" iconCls="icon-find">
+	        <div class="mini-toolbar" style="border-bottom:0;padding:0px;">
+	            <table style="width:100%;">
+	                <tr>
+	                    <td style="width:100%;">
+	                        <a class="mini-button" iconCls="icon-add" onclick="add()">增加</a>  
+	                    </td>
+	                </tr>
+	            </table>           
+	        </div>
+
+			<div id="grid1" class="mini-datagrid" idField="id" multiSelect="true"
+				style="width: 100%; height: 90%;" allowResize="true" pageSize="10"
+				onload="onload"
+				url="${pageContext.request.contextPath}/f30010104/queryAa10.do">
+				<div property="columns">
+					<div type="indexcolumn">序号</div>
+					<div field="aaa100" width="100" headerAlign="center" align="center">代码类别</div>
+					<div field="aaa103" width="100" headerAlign="center" align="center">代码名称</div>		
+					<div field="aaa102" width="100" headerAlign="center" align="center">代码值</div>		
+					<div field="aae030" width="100" headerAlign="center" align="center">开始日期</div>
+					<div field="aae031" width="100" headerAlign="center" align="center">终止日期</div>
+					<div field="aaa101" width="100" headerAlign="center" align="center">代码类别名称</div>
+				</div>
+			</div>
+			<!-- center end -->
+		</div>
+	</div>
+	<script type="text/javascript">
+		mini.parse();
+		var form = new mini.Form("form1");
+		var grid = mini.get("grid1");
+		
+		function search(){
+			 form.validate();
+			if (form.isValid() == false) {
+				return;
+			} 
+			var data = form.getData(true);
+			grid.load(data);			
+			}
+		
+		function resetForm() {
+			form.reset();
+		}
+		
+		
+        function add() {
+
+            mini.open({
+                url:  "${pageContext.request.contextPath}/pages/k00/f30010104/f30010104_add.jsp",
+                title: "字典新增",
+                width: 680,
+                height: 470,
+                showMaxButton: true,
+                iconCls:"icon-add",
+                onload: function () {               	 
+                },
+                ondestroy: function (action) {
+                	var data = form.getData(true);
+                    grid.load(data);
+                }
+            });
+        }
+		
+	</script>
+
+</body>
+</html>

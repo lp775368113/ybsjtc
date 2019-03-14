@@ -1,0 +1,214 @@
+package com.wondersgroup.k01.f30100108.service;
+
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import javax.annotation.Resource;
+import org.springframework.beans.BeanUtils;
+import org.springframework.stereotype.Service;
+import com.wondersgroup.application.basedao.bo.Ae02;
+import com.wondersgroup.application.basedao.bo.Ka06;
+import com.wondersgroup.application.basedao.bo.Ke08;
+import com.wondersgroup.application.basedao.dao.Ae02Dao;
+import com.wondersgroup.application.basedao.dao.Ka06Dao;
+import com.wondersgroup.application.basedao.dao.Ke08Dao;
+import com.wondersgroup.framework.comwork.dao.BaseDAO;
+import com.wondersgroup.framework.comwork.service.BaseService;
+import com.wondersgroup.framework.comwork.vo.BaseObject;
+import com.wondersgroup.application.wj01.ComHead_;
+import com.wondersgroup.application.wj01.Wj01Proxy;
+import com.wondersgroup.application.wj01.j2108.ReqBody2108_;
+import com.wondersgroup.application.wj01.j2108.ResBody2108_;
+import com.wondersgroup.application.wj01.j2108.ResBody2108_C;
+import com.wondersgroup.framework.exception.BusinessException;
+import com.wondersgroup.framework.fmtcheck.ValidateService;
+import com.wondersgroup.framework.upms.vo.UasUserVO;
+import com.wondersgroup.framework.util.DateUtil;
+import com.wondersgroup.framework.util.Tools;
+import com.wondersgroup.k01.f30100108.dao.F30100108Dao;
+import com.wondersgroup.k01.f30100108.vo.F30100108VO;
+
+/**
+ * @author Yuanqiwen
+ * @date  2018年1月27日
+ */
+@Service
+public class F30100108Service extends BaseService<BaseObject>{
+
+	@Resource(name="f30100108Dao")
+	private F30100108Dao f30100108Dao;
+	
+	@Resource(name="ae02Dao")
+	private Ae02Dao ae02Dao;
+	
+	@Resource(name="ke08Dao")
+	private Ke08Dao ke08Dao;
+	
+	@Resource(name="ka06Dao")
+	private Ka06Dao ka06Dao;
+	
+	@Resource(name="f30100108Dao")
+	public void setDao(BaseDAO<BaseObject> dao){
+		super.dao = dao;
+	}
+	
+    /**
+	 * 
+	 * @description  查询KA06
+	 * @author Yuanqiwen
+	 * @date  2018年1月27日 
+	 * @param params()
+	 * @return
+	 */
+	public List<F30100108VO> queryAa13( Map<String, Object> map){
+		return f30100108Dao.queryAa13(map);
+	}
+	
+
+	   /**
+		 * @description  下载更新疾病目录
+		 * @author Yuanqiwen
+		 * @date  2018年1月31日 
+		 * @param params()
+		 * @return
+		 */
+	public void save( F30100108VO vo){
+		
+		/**
+    	 * 获取操作人员信息
+    	 */
+    	UasUserVO userVO= getLoginUser();
+       //保存AE02
+    	Ae02 ae02= new Ae02();
+    	ae02.setAaa121("f3010010800");
+    	String aaz002=this.getSequence("SEQ_AAZ002", 8, "yyyymmdd", true);
+    	ae02.setAaz002(aaz002);
+        ae02.setAae011(userVO.getLoginname());
+        ae02.setBae121(userVO.getName());
+        ae02.setAae036(new Date());
+        ae02.setBae122(userVO.getName());
+        ae02.setAae015(new Date());
+        ae02.setAae014(userVO.getLoginname());
+        ae02.setAae016("3");
+        ae02.setAae012(userVO.getLoginname());
+        ae02.setBae123(userVO.getName());
+        ae02.setBae124(new Date());
+        ae02.setAae013("");
+        ae02.setAae148("1");
+        ae02.setAae215(Tools.dateToString(new Date(), "yyyyMMdd"));
+        ae02.setAae216(Tools.dateToString(new Date(), "yyyyMMdd"));
+        ae02.setAae217(Tools.dateToString(new Date(), "yyyyMMdd"));
+        ae02.setAae218(Tools.dateToString(new Date(), "yyyyMMdd"));
+    	ae02Dao.save(ae02);
+		//执行下载
+		this.download(ae02);
+	}
+
+	public void download(Ae02 ae02){
+		String jydm="2108";//1、交易代码
+    	String jyjg="";    //2、交易结果	
+    	String yl1="";      //3、预留;
+    	int wjcd=0;//4、文件长度;
+    	String jylsh="330602"+this.getSequence("SEQ_PROVINCE_CZJL", 10, "YYYYMMDDhh24miss", true);//5、交易流水号
+    	int xxtcd=0;//6、报文体数据长度
+    	String fsfjd="330699";//7、发送方节点
+    	String yl2="";//8、预留2
+    	String jsfjd="330000";//9、接收方节点
+    	String  bbh="0400";//10、版本号
+    	//调用省一卡通WebService下载
+    	ComHead_ reqH = new ComHead_();
+    	reqH.setCol01(jydm);
+		reqH.setCol02(jyjg);
+		reqH.setCol03(yl1);
+		reqH.setCol04(wjcd);
+		reqH.setCol05(jylsh);
+		reqH.setCol06(xxtcd);
+		reqH.setCol07(fsfjd);
+		reqH.setCol08(yl2);
+		reqH.setCol09(jsfjd);
+		reqH.setCol10(bbh);
+		try {
+			ValidateService.valid(reqH);
+		}catch(Exception e) {
+				throw new BusinessException(e.getMessage());
+			}
+		ReqBody2108_ reqb =  new ReqBody2108_();
+		reqb.setFqjgdm("330602");
+		reqb.setFqjgmc("绍兴城乡居保");
+		reqb.setFqjglx("20");
+		reqb.setFqjgtcq("330602");
+		//获取已下载的最大流水号
+		String aaz082=f30100108Dao.queryMaxAaz082();
+		reqb.setZdlsh(aaz082);
+		HashMap<String, Object> ret = Wj01Proxy.wj01Proxy("123","330602",reqH,reqb);
+		//进行解析
+		ResBody2108_ resbody =new ResBody2108_();
+		ComHead_ reshead = new ComHead_();
+		reshead =(ComHead_)ret.get("head");
+		resbody=(ResBody2108_)ret.get("body");
+		String jg =resbody.getJyjg();//交易处理结果
+	    String jxxzbz=resbody.getJxxzbz();//继续下载标志，0下载完毕，1继续下载
+	    List<ResBody2108_C> list=resbody.getJblb();//疾病列表
+	    if(!"0".equals(jg)) {
+	    	throw new BusinessException(resbody.getCwxx());//错误信息
+	    }
+		if("0".equals(resbody.getBcts())) {
+			throw new BusinessException("没有需要下载的数据");
+		}
+		if(Integer.parseInt(resbody.getBcts())!=list.size()) {
+			throw new BusinessException("条数与明细记录数不等");
+		}
+		//存在下载记录，对记录进行处理
+		if(list.size()>0&&list!=null) {
+			
+			for (int i=0;i<list.size();i++) {
+				ResBody2108_C body =list.get(i);
+				//先根据疾病编码，开始时间查看KA06是否存在有效记录，如存在，修改已存在记录截止时间，同时新增新记录，如不存在，则直接新增记录
+				F30100108VO vo =new F30100108VO();
+				vo.setAka120(body.getJbbm());
+				vo.setAae031(Tools.dateToString(Tools.stringToDate(body.getKssj(), "yyyy-MM-dd"),"yyyyMMdd"));
+				List<F30100108VO> f30100108list =f30100108Dao.listKa06(vo);
+				if(f30100108list.size()>0&&f30100108list!=null) {
+					//将已存在记录的终止时间修改为下载记录开始日期的前一天
+					for(int j=0;j<f30100108list.size();j++) {
+						Ka06 ka06 =new Ka06();
+						BeanUtils.copyProperties(f30100108list.get(j), ka06);
+						ka06.setAae031(Tools.dateToString(DateUtil.addDay(Tools.stringToDate(body.getKssj(), "yyyy-MM-dd"),-1),"yyyyMMdd"));
+						ka06Dao.update(ka06);
+					}
+				}
+				//插入新记录 
+				Ka06 ka06 =new Ka06();
+				String aaz164=this.getSequence("SEQ_AAZ164", 8, "yyyymmdd", true);
+				ka06.setAaz164(aaz164);
+				ka06.setAka120(body.getJbbm());
+				ka06.setAka121(body.getJbmc());
+				ka06.setAka122("10");
+				ka06.setAka020(body.getPyjm());
+				ka06.setAka021("");
+				ka06.setAae030(Tools.dateToString(Tools.stringToDate(body.getKssj(), "yyyy-MM-dd"),"yyyyMMdd"));
+				if(body.getJssj()!=null&&!"".equals(body.getJssj())) {
+				ka06.setAae031(Tools.dateToString(Tools.stringToDate(body.getJssj(), "yyyy-MM-dd"),"yyyyMMdd"));
+				}else {
+			    ka06.setAae031("30000101");
+				}
+				ka06.setAae100("1");
+				ka06Dao.save(ka06);
+				//保存下载记录
+				Ke08 ke08 =new Ke08();			
+				ke08.setAaz082(body.getJlls());//记录流水号
+				BeanUtils.copyProperties(ka06, ke08);
+	        	BeanUtils.copyProperties(ae02, ke08);
+	        	ke08Dao.save(ke08);
+			
+			}
+			
+		}
+		
+		if("1".equals(jxxzbz)) {
+			this.download(ae02);
+		}
+	}
+
+}

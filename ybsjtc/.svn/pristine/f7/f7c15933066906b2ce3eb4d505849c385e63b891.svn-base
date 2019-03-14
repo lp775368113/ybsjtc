@@ -1,0 +1,55 @@
+package com.wondersgroup.application.wj01.j2108;
+
+import java.util.ArrayList;
+
+import com.wondersgroup.framework.fmtcheck.Fmtdescribe;
+
+/**   *********************************************** 
+ * @Description:  2108返回报文  
+ * @Author:       yuanqiwen   	   
+ * @CreateDate:   [2018年2月2日 下午2:23:25]  
+ 	   
+ ************************************************** **/
+public class ResBody2108_ {
+	@Fmtdescribe(description = "交易处理结果", minLength = 1, maxLength = 4, nullable = false)
+	private String jyjg;//交易处理结果
+	@Fmtdescribe(description = "错误信息", minLength = 1, maxLength = 200, nullable = true)
+	private String cwxx;//错误信息
+	@Fmtdescribe(description = "继续下载标志", minLength = 1, maxLength = 1, nullable = false)
+	private String jxxzbz;//继续下载标志
+	@Fmtdescribe(description = "本次下载条数", minLength = 1, maxLength =5, nullable = false)
+	private String bcts;//本次下载条数
+	private ArrayList<ResBody2108_C> jblb;//疾病列表
+	public String getJyjg() {
+		return jyjg;
+	}
+	public void setJyjg(String jyjg) {
+		this.jyjg = jyjg;
+	}
+	public String getCwxx() {
+		return cwxx;
+	}
+	public void setCwxx(String cwxx) {
+		this.cwxx = cwxx;
+	}
+	public String getJxxzbz() {
+		return jxxzbz;
+	}
+	public void setJxxzbz(String jxxzbz) {
+		this.jxxzbz = jxxzbz;
+	}
+	public String getBcts() {
+		return bcts;
+	}
+	public void setBcts(String bcts) {
+		this.bcts = bcts;
+	}
+	public ArrayList<ResBody2108_C> getJblb() {
+		return jblb;
+	}
+	public void setJblb(ArrayList<ResBody2108_C> jblb) {
+		this.jblb = jblb;
+	}
+	
+	
+}

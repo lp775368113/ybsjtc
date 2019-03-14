@@ -1,0 +1,217 @@
+package com.wondersgroup.k00.f30010101.service;
+
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import javax.annotation.Resource;
+
+import org.springframework.beans.BeanUtils;
+import org.springframework.stereotype.Service;
+
+import com.alibaba.fastjson.JSONArray;
+import com.wondersgroup.application.basedao.bo.Aa01;
+import com.wondersgroup.application.basedao.dao.Aa01Dao;
+import com.wondersgroup.application.basedao.bo.Ae02;
+import com.wondersgroup.application.basedao.dao.Ae02Dao;
+import com.wondersgroup.application.basedao.bo.Ae11;
+import com.wondersgroup.application.basedao.dao.Ae11Dao;
+import com.wondersgroup.framework.comwork.dao.BaseDAO;
+import com.wondersgroup.framework.comwork.service.BaseService;
+import com.wondersgroup.framework.comwork.vo.BaseObject;
+import com.wondersgroup.framework.exception.BusinessException;
+import com.wondersgroup.framework.upms.vo.UasUserVO;
+import com.wondersgroup.framework.util.Tools;
+import com.wondersgroup.k00.f30010101.dao.F30010101Dao;
+import com.wondersgroup.k00.f30010101.vo.F30010101VO;
+/**
+ * @author Yuanqiwen
+ * @date  2018年1月21日
+ */
+@Service
+public class F30010101Service extends BaseService<BaseObject>{
+
+	@Resource(name="f30010101Dao")
+	private F30010101Dao f30010101Dao;
+	
+	@Resource(name="f30010101Dao")
+	public void setDao(BaseDAO<BaseObject> dao){
+		super.dao = dao;
+	}
+	
+	@Resource(name="ae02Dao")
+	private Ae02Dao ae02Dao;
+	
+	@Resource(name="aa01Dao")
+	private Aa01Dao aa01Dao;
+	
+	@Resource(name="ae11Dao")
+	private Ae11Dao ae11Dao;
+
+	
+    /**
+	 * 
+	 * @description  查询AA01
+	 * @author Yuanqiwen
+	 * @date  2018年1月17日 
+	 * @param params()
+	 * @return
+	 */
+	public List<F30010101VO> queryAa01( Map<String, Object> map){
+		return f30010101Dao.queryAa01(map);
+	}
+	   /**
+		 * @description  保存AA01
+		 * @author Yuanqiwen
+		 * @date  2018年1月17日 
+		 * @param params()
+		 * @return
+		 */
+	public void save( F30010101VO vo){
+		
+		/**
+    	 * 保存的时候需先判断有没有结束时间大于目前开始时间的记录
+    	 */
+    	List<F30010101VO> list =f30010101Dao.queryAae031(vo);
+    	
+    	if (list !=null && list.size()>0) {
+    		throw new BusinessException("已存在终止时间大于当前开始时间的记录");
+    	}
+    	/**
+    	 * 获取操作人员信息
+    	 */
+    	UasUserVO userVO= getLoginUser();
+       //保存AE02
+    	Ae02 ae02= new Ae02();
+    	ae02.setAaa121("f3001010100");
+    	String aaz002=this.getSequence("SEQ_AAZ002", 8, "yyyymmdd", true);
+    	ae02.setAaz002(aaz002);
+        ae02.setAae011(userVO.getLoginname());
+        ae02.setBae121(userVO.getName());
+        ae02.setAae036(new Date());
+        ae02.setBae122(userVO.getName());
+        ae02.setAae015(new Date());
+        ae02.setAae014(userVO.getLoginname());
+        ae02.setAae016("3");
+        ae02.setAae012(userVO.getLoginname());
+        ae02.setBae123(userVO.getName());
+        ae02.setBae124(new Date());
+        ae02.setAae013("");
+        ae02.setAae148("1");
+        ae02.setAae215(Tools.dateToString(new Date(), "yyyyMMdd"));
+        ae02.setAae216(Tools.dateToString(new Date(), "yyyyMMdd"));
+        ae02.setAae217(Tools.dateToString(new Date(), "yyyyMMdd"));
+        ae02.setAae218(Tools.dateToString(new Date(), "yyyyMMdd"));
+    	ae02Dao.save(ae02);
+    	//保存AA01
+    	String aaz499=this.getSequence("SEQ_AAZ499", 8, "yyyymmdd", true);
+    	vo.setAaz499(aaz499);
+    	Aa01 aa01 =new Aa01();
+    	BeanUtils.copyProperties(vo, aa01);
+    	aa01Dao.save(aa01);
+    	//保存AE11
+    	String baz032=this.getSequence("SEQ_BAZ032", 8, "yyyymmdd", true);
+    	Ae11 ae11 =new Ae11();
+    	ae11.setBaz032(baz032);
+    	BeanUtils.copyProperties(aa01, ae11);
+    	BeanUtils.copyProperties(ae02, ae11);
+    	ae11Dao.save(ae11);
+	}
+
+    public void updateAa01( Map<String, Object> map){
+    	
+    	List<F30010101VO> list  = new ArrayList<F30010101VO>();
+	   try {
+			String	json = URLDecoder.decode(map.get("resultlist").toString(), "UTF-8");
+		    list  = JSONArray.parseArray(json, F30010101VO.class);
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	/**
+    	 * 获取操作人员信息
+    	 */
+    	UasUserVO userVO= getLoginUser();
+       //保存AE02
+    	Ae02 ae02= new Ae02();
+    	ae02.setAaa121("f3001010101");
+    	String aaz002=this.getSequence("SEQ_AAZ002", 8, "yyyymmdd", true);
+    	ae02.setAaz002(aaz002);
+        ae02.setAae011(userVO.getLoginname());
+        ae02.setBae121(userVO.getName());
+        ae02.setAae036(new Date());
+        ae02.setBae122(userVO.getName());
+        ae02.setAae015(new Date());
+        ae02.setAae014(userVO.getLoginname());
+        ae02.setAae016("3");
+        ae02.setAae012(userVO.getLoginname());
+        ae02.setBae123(userVO.getName());
+        ae02.setBae124(new Date());
+        ae02.setAae013("");
+        ae02.setAae148("1");
+        ae02.setAae215(Tools.dateToString(new Date(), "yyyyMMdd"));
+        ae02.setAae216(Tools.dateToString(new Date(), "yyyyMMdd"));
+        ae02.setAae217(Tools.dateToString(new Date(), "yyyyMMdd"));
+        ae02.setAae218(Tools.dateToString(new Date(), "yyyyMMdd"));
+    	ae02Dao.save(ae02);
+    	for (int i=0;i<list.size();i++) {
+    		F30010101VO vo= new F30010101VO();
+    		vo = list.get(i);
+    		vo.setAae031(Tools.dateToString(new Date(), "yyyyMMdd"));
+    		//更新AA01
+    		Aa01 aa01 =new Aa01();
+        	BeanUtils.copyProperties(vo, aa01);
+    		aa01Dao.update(aa01);
+    		//保存AE11
+        	String baz032=this.getSequence("SEQ_BAZ032", 8, "yyyymmdd", true);
+        	Ae11 ae11 =new Ae11();
+        	ae11.setBaz032(baz032);
+        	BeanUtils.copyProperties(aa01, ae11);
+        	BeanUtils.copyProperties(ae02, ae11);
+        	ae11Dao.save(ae11);
+    	}
+	 
+	}
+    
+    public void updateAa01(F30010101VO vo){
+    	/**
+    	 * 获取操作人员信息
+    	 */
+    	UasUserVO userVO= getLoginUser();
+       //保存AE02
+    	Ae02 ae02= new Ae02();
+    	ae02.setAaa121("f3001010102");
+    	String aaz002=this.getSequence("SEQ_AAZ002", 8, "yyyymmdd", true);
+    	ae02.setAaz002(aaz002);
+        ae02.setAae011(userVO.getLoginname());
+        ae02.setBae121(userVO.getName());
+        ae02.setAae036(new Date());
+        ae02.setBae122(userVO.getName());
+        ae02.setAae015(new Date());
+        ae02.setAae014(userVO.getLoginname());
+        ae02.setAae016("3");
+        ae02.setAae012(userVO.getLoginname());
+        ae02.setBae123(userVO.getName());
+        ae02.setBae124(new Date());
+        ae02.setAae013("");
+        ae02.setAae148("1");
+        ae02.setAae215(Tools.dateToString(new Date(), "yyyyMMdd"));
+        ae02.setAae216(Tools.dateToString(new Date(), "yyyyMMdd"));
+        ae02.setAae217(Tools.dateToString(new Date(), "yyyyMMdd"));
+        ae02.setAae218(Tools.dateToString(new Date(), "yyyyMMdd"));
+    	ae02Dao.save(ae02);
+    	//更新AA01
+		Aa01 aa01 =new Aa01();
+    	BeanUtils.copyProperties(vo, aa01);
+		aa01Dao.update(aa01);
+		//保存AE11
+    	String baz032=this.getSequence("SEQ_BAZ032", 8, "yyyymmdd", true);
+    	Ae11 ae11 =new Ae11();
+    	ae11.setBaz032(baz032);
+    	BeanUtils.copyProperties(aa01, ae11);
+    	BeanUtils.copyProperties(ae02, ae11);
+    	ae11Dao.save(ae11);
+	}
+}

@@ -1,0 +1,29 @@
+# Redis settings  
+#办公室IP
+#redis.host=10.81.1.56
+#dld家里地址
+redis.host=192.168.1.102
+redis.port=6379
+redis.password=123456
+redis.maxIdle=300
+redis.maxActive=600
+redis.maxWait=1000
+redis.timeout=10000
+redis.testOnBorrow=true
+
+
+#以下为namespace 的库编码定位
+com.wondersgroup.framework.dao.RedisDAO=1
+
+com.wondersgroup.kxx.f30000101.dao.Aa10DAO=2
+com.wondersgroup.kxx.f30000101.dao.Aa13DAO=2
+com.wondersgroup.kxx.f30000101.dao.Kb01DAO=3
+
+
+#以下为单点登录启用标志  
+#0:关闭 信息存入session	1:开启 信息存入redis 设置开启 下面的两个属性必须设置  注:分析权限管理系统已经存在缓存的，业务系统无需进行用户信息缓存
+redis.singlelogin =0
+#登录信息库编码定位 默认 0-15
+redis.slpage =3
+#键值对超时设置 单位s
+redis.sltimeout =600

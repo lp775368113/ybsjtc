@@ -1,0 +1,39 @@
+package com.wondersgroup.k00.f30010103.service;
+
+import java.util.List;
+import java.util.Map;
+import javax.annotation.Resource;
+import org.springframework.stereotype.Service;
+import com.wondersgroup.framework.comwork.dao.BaseDAO;
+import com.wondersgroup.framework.comwork.service.BaseService;
+import com.wondersgroup.framework.comwork.vo.BaseObject;
+import com.wondersgroup.k00.f30010103.dao.F30010103Dao;
+import com.wondersgroup.k00.f30010103.vo.F30010103VO;
+/**
+ * @author Yuanqiwen
+ * @date  2018年1月21日
+ */
+@Service
+public class F30010103Service extends BaseService<BaseObject>{
+
+	@Resource(name="f30010103Dao")
+	private F30010103Dao f30010103Dao;
+	
+	@Resource(name="f30010103Dao")
+	public void setDao(BaseDAO<BaseObject> dao){
+		super.dao = dao;
+	}
+	
+    /**
+	 * 
+	 * @description  查询AA13
+	 * @author Yuanqiwen
+	 * @date  2018年1月21日 
+	 * @param params()
+	 * @return
+	 */
+	public List<F30010103VO> queryAa13( Map<String, Object> map){
+		return f30010103Dao.queryAa13(map);
+	}
+	
+}

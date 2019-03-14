@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wondersgroup.application.basedic.dao.ComDAO">
+<cache eviction="LRU" type="com.wondersgroup.framework.redis.RedisCache"/>
+	<select id="getDic" resultType="com.wondersgroup.application.basedao.bo.Aa10"
+		parameterType="java.util.HashMap" useCache="true">
+		select aaa102,aaa103 from aa10 where 1=1
+		<if test="aaa100 !=null  and aaa100 !=''">
+			and aaa100 =  #{aaa100}
+		</if>
+		<if test="aae100 !=null  and aae100 !=''">
+			and nvl(aae100,'1') =  #{aae100}
+		</if>
+		<if test="bka142 !=null  and bka142.length >0"> 
+			and bka142 in 
+		    <foreach collection="bka142" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        	</foreach>
+		</if>
+		<if test="bka143 !=null and bka143.length >0 "> 
+			and bka143 in 
+		    <foreach collection="bka143" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        	</foreach>
+		</if>
+		<if test="bka144 !=null  and bka144.length >0"> 
+			and bka144 in 
+		    <foreach collection="bka144" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        	</foreach>
+		</if>
+		<if test="bka145 !=null  and bka145.length >0"> 
+			and bka145 in 
+		    <foreach collection="bka145" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        	</foreach>
+		</if>
+		<if test="bka146 !=null and bka146.length >0"> 
+			and bka146 in 
+		    <foreach collection="bka146" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        	</foreach>
+		</if>
+         order by  aaz093 asc
+	</select>
+	<select id="getAAA027" resultType="com.wondersgroup.application.basedao.bo.Aa13"
+		parameterType="java.util.HashMap" useCache="true">
+		select aaa129,aaa027 from aa13 where 1=1 
+	</select>
+</mapper>

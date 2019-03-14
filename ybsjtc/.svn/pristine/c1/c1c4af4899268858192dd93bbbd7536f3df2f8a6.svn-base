@@ -1,0 +1,71 @@
+<%@page import="com.wondersgroup.framework.comwork.controller.SessionConstants"%>
+<%@page import="com.wondersgroup.framework.upms.vo.UasUserVO"%>
+<%@page import="com.wondersgroup.framework.upms.vo.DeptVO"%>
+<%@page import="java.util.List"%>
+<link href="${pageContext.request.contextPath}/resource/miniui/themes/default/miniui.css" rel="stylesheet" type="text/css" />
+<link href="${pageContext.request.contextPath}/resource/miniui/themes/pure/skin.css" rel="stylesheet" type="text/css" />
+<link href="${pageContext.request.contextPath}/resource/miniui/themes/default/small-mode.css" rel="stylesheet" type="text/css" />
+<link href="${pageContext.request.contextPath}/resource/miniui/themes/icons.css" rel="stylesheet" type="text/css" />
+<link href="${pageContext.request.contextPath}/resource/assets/css/main.css" rel="stylesheet" type="text/css" /> 
+<script type="text/javascript" src="${pageContext.request.contextPath}/resource/miniui/jquery.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resource/miniui/miniui.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resource/miniui/LodopFuncs.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resource/scripts/date.js"></script>
+
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="cache-control" content="no-cache">
+<meta http-equiv="expires" content="0"> 
+<%
+	java.text.DateFormat ___df___ =new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	String	___dateStr___ = ___df___.format(new java.util.Date());
+	
+	request.setAttribute("now",___dateStr___);  
+	UasUserVO loginUser = ( UasUserVO)request.getSession().getAttribute(SessionConstants.CW_LOGINUSER);
+	String loginuser_area_id= "";
+	if(loginUser==null){
+		String path = request.getContextPath(); 
+		String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path ;
+        System.out.println("---basePath:"+basePath);
+        response.sendRedirect(basePath+"/login.jsp");
+	}else{
+		/*组织结构ID,可能会出现多个组织机构*/
+		List<DeptVO> deptList = loginUser.getDeptList();
+		loginuser_area_id = deptList.get(0).getGroupCode();
+	}	
+%>  
+	<script type="text/javascript">
+	/*iframe中的ctrl+s 截屏事件*/
+	document.onkeydown = function(e) {
+        var keyCode = e.keyCode || e.which || e.charCode;
+        var ctrlKey = e.ctrlKey || e.metaKey;
+        if(ctrlKey) {
+        	if(keyCode == 83){
+        		window.parent.capture(1);
+        		return false;
+        	}
+        	
+        }else {
+            	return true;
+        }
+    };
+	/**
+	*业务功能的ajax事件监听
+	*/
+	  $(document).ajaxComplete(function (evt, request, settings) {
+	      var text = request.responseText;
+	      if( text.substring(0,3) != '<<<' ){
+	      	return ;
+	      }else{
+	    	 text = text.substring(3,text.length-3);
+	      }
+	      var ret = mini.decode(text);
+	      if (ret.sessionstatus == "timeout") {
+	    	  top.location = '${pageContext.request.contextPath}/login.jsp';
+	      }
+	      if (ret.code == 500) {
+	          alert(ret.msg);
+	          request.responseText = "";
+	          return ;
+	      }
+	  });
+	  </script>

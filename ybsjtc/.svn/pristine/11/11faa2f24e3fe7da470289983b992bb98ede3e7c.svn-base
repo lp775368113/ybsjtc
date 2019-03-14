@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wondersgroup.k00.f30010000.dao.F30010000Dao">
+ 
+
+  <select id="listTcq" parameterType="java.util.HashMap" resultType="com.wondersgroup.k00.f30010000.vo.F30010000VO">
+  	SELECT aaa027,aaa129 FROM aa13
+  </select>
+  
+</mapper>

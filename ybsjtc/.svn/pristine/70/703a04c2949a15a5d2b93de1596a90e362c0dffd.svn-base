@@ -1,0 +1,10 @@
+package com.wondersgroup.k01.f30100108.vo;
+
+
+
+import com.wondersgroup.application.basedao.bo.Ka06;
+
+
+public class F30100108VO extends Ka06{
+	
+ }

@@ -1,0 +1,120 @@
+package com.wondersgroup.k01.f30100109.controller;
+
+import java.net.URLDecoder;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.alibaba.fastjson.JSONArray;
+import com.wondersgroup.framework.comwork.controller.BaseController;
+import com.wondersgroup.k00.f30010101.vo.F30010101VO;
+import com.wondersgroup.k01.f30100109.dto.F30100109DTO;
+import com.wondersgroup.k01.f30100109.service.F30100109Service;
+import com.wondersgroup.k01.f30100109.vo.F30100109VO;
+
+/**   ***********************************************
+ * Simple to Introduction  
+ * @ProjectName:  [ybsjtc]
+ * @Package:      [com.wondersgroup.k01.f30010109.controller]
+ * @ClassName:    [F30010109Controller]   
+ * @Description:  [一句话描述该类的功能]  
+ * @Author:       [wangxuegang]   	   
+ * @CreateDate:   [2018年1月25日 下午8:51:10]  
+ * @UpdateUser:   [wangxuegang]   	   
+ * @UpdateDate:   [2018年1月25日 下午8:51:10]  
+ * @UpdateRemark: [说明本次修改内容]     
+ * @Version:      [v1.0] 		   
+ ************************************************** **/
+@Controller
+@RequestMapping("f30100109")
+public class F30100109Controller extends BaseController {
+
+	@Autowired
+	public F30100109Service service;
+	
+	@ResponseBody
+	@RequestMapping("query")
+	public Map<String, Object> query(@RequestParam Map<String, Object> map) {
+		
+		Map<String, Object> result = new HashMap<String, Object>();
+		
+		try {
+			result = service.getPage(map);
+			
+		} catch (Exception e) {
+			logger.error("查询失败：" + e.getMessage(),e);
+			result.put("code", "-1");
+			result.put("msg", "查询失败：" + e.getMessage());
+		}
+		
+		return result;
+	}
+	
+	@ResponseBody
+	@RequestMapping("save")
+	public Map<String, Object> save(F30100109VO vo) {
+		
+		Map<String, Object> result = new HashMap<String, Object>();
+		
+		try {
+			service.save(vo);
+			
+			result.put("success", true);
+			result.put("msg", "保存成功");
+		}catch (Exception e) {
+			logger.error("查询失败：" + e.getMessage(),e);
+			result.put("success", false);
+			result.put("msg", "保存失败：" + e.getMessage());
+		}
+		
+		return result;
+	}
+	
+	@ResponseBody
+	@RequestMapping("edit")
+	public Map<String, Object> edit(F30100109VO vo) {
+		
+		Map<String, Object> result = new HashMap<String, Object>();
+		
+		try {
+			service.edit(vo);
+			
+			result.put("success", true);
+			result.put("msg", "保存成功");
+		} catch (Exception e) {
+			logger.error("查询失败：" + e.getMessage(),e);
+			result.put("success", false);
+			result.put("msg", "保存失败：" + e.getMessage());
+		}
+		return result;
+	}
+	
+	@ResponseBody
+	@RequestMapping("disannul")
+	public Map<String, Object> disannul(@RequestParam Map<String, Object> map) {
+		
+		Map<String, Object> result = new HashMap<String, Object>();
+		
+		try {
+			String json = URLDecoder.decode(map.get("dataList").toString(), "UTF-8");
+			List<F30100109VO> list  = JSONArray.parseArray(json, F30100109VO.class);
+			service.disannul(list);
+			
+			result.put("success", true);
+			result.put("msg", "作废成功");
+		}catch (Exception e) {
+			logger.error("查询失败：" + e.getMessage(),e);
+			result.put("success", false);
+			result.put("msg", "作废失败：" + e.getMessage());
+		}
+		
+		return result;
+	}
+}

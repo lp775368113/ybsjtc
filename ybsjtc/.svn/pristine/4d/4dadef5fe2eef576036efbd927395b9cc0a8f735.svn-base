@@ -1,0 +1,59 @@
+package com.wondersgroup.k00.f30100104.dao;
+
+import java.util.List;
+import java.util.Map;
+
+import org.mybatis.spring.annotation.MapperScan;
+
+import com.wondersgroup.framework.comwork.dao.BaseDAO;
+import com.wondersgroup.framework.comwork.vo.BaseObject;
+import com.wondersgroup.k00.f30100103.vo.F30100103VO;
+import com.wondersgroup.k00.f30100104.vo.F30100104VO;
+
+/**   ***********************************************
+ * Simple to Introduction  
+ * @ProjectName:  [ybsjtc]
+ * @Package:      [com.wondersgroup.k00.f30100104.dao]
+ * @ClassName:    [F30100104DAO]   
+ * @Description:  [一句话描述该类的功能]  
+ * @Author:       [wangr]   	   
+ * @CreateDate:   [2018年2月8日 下午3:30:47]  
+ * @UpdateUser:   [wangr]   	   
+ * @UpdateDate:   [2018年2月8日 下午3:30:47]  
+ * @UpdateRemark: [说明本次修改内容]     
+ * @Version:      [v1.0] 		   
+ ************************************************** **/
+@MapperScan
+public interface F30100104DAO extends BaseDAO<BaseObject> {
+
+	/**@Title: 		 getListPage   
+	 * @Description: TODO[用一句话描述这个方法的作用]   
+	 * @param map
+	 * @return      
+	 * @return_type: List<F30100103VO>      
+	 */
+	List<F30100103VO> getListPage(Map<String, Object> map);
+
+	/**@Title: 		 queryKa28ByTime   
+	 * @Description: TODO[用一句话描述这个方法的作用]   
+	 * @param map
+	 * @return      
+	 * @return_type: List<F30100104VO>      
+	 */
+	List<F30100104VO> queryKa28ByTime(Map<String, Object> map);
+
+	/**@Title: 		 saveKa28   
+	 * @Description: TODO[用一句话描述这个方法的作用]   
+	 * @param map      
+	 * @return_type: void      
+	 */
+	int saveKa28(Map<String, Object> map);
+
+	/**@Title: 		 updateKa28   
+	 * @Description: TODO[用一句话描述这个方法的作用]   
+	 * @param map      
+	 * @return_type: void      
+	 */
+	int updateKa28(Map<String, Object> map);
+
+}

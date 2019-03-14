@@ -1,0 +1,92 @@
+package com.wondersgroup.k01.f30100109.service;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+
+import javax.annotation.Resource;
+
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.BeanUtils;
+import org.springframework.stereotype.Service;
+
+import com.wondersgroup.framework.comwork.service.BaseService;
+import com.wondersgroup.framework.comwork.vo.BaseObject;
+import com.wondersgroup.framework.exception.BusinessException;
+import com.wondersgroup.k01.f30100109.dao.F30100109DAO;
+import com.wondersgroup.k01.f30100109.dto.F30100109DTO;
+import com.wondersgroup.k01.f30100109.vo.F30100109VO;
+
+/**   ***********************************************
+ * Simple to Introduction  
+ * @ProjectName:  [ybsjtc]
+ * @Package:      [com.wondersgroup.k01.f30100109.service]
+ * @ClassName:    [F30100109Service]   
+ * @Description:  [一句话描述该类的功能]  
+ * @Author:       [wangxuegang]   	   
+ * @CreateDate:   [2018年1月29日 下午3:34:52]  
+ * @UpdateUser:   [wangxuegang]   	   
+ * @UpdateDate:   [2018年1月29日 下午3:34:52]  
+ * @UpdateRemark: [说明本次修改内容]     
+ * @Version:      [v1.0] 		   
+ ************************************************** **/
+@Service
+public class F30100109Service extends BaseService<BaseObject>{
+	
+	@Resource(name="f30100109DAO")
+	private F30100109DAO f30100109DAO;
+	
+	@Resource(name="f30100109DAO")
+	public void setDao(F30100109DAO dao) {
+		super.dao = dao;
+	}
+	
+	public void save(F30100109VO vo) {
+		F30100109DTO dto = new F30100109DTO();
+		BeanUtils.copyProperties(vo, dto);
+		
+		List<F30100109DTO> list = f30100109DAO.queryTsb(dto);
+		
+		if (null != list && list.size() > 0) {
+			throw new BusinessException("该特殊病编码已存在，请更换特殊病编码或者修改该编码对应的记录");
+		}
+		
+		dto.setAka122("30");
+		dto.setAka035("3");
+		f30100109DAO.saveKa06(dto);
+		f30100109DAO.saveKa08(dto);
+	}
+	
+	public void edit(F30100109VO vo) {
+		F30100109DTO dto = new F30100109DTO();
+		BeanUtils.copyProperties(vo, dto);
+		
+		if (StringUtils.isEmpty(dto.getAaz149()) || StringUtils.isEmpty(dto.getAka120())) {
+			throw new BusinessException("修改特殊病时，请传入特殊病ID和疾病编码");
+		}
+		
+		f30100109DAO.updateKa06(dto);
+		f30100109DAO.updateKa08(dto);
+	}
+	
+	public void disannul(List<F30100109VO> list) {
+		if (null == list || list.size() <= 0 ) {
+			throw new BusinessException("作废特殊病时，请传入特殊病ID和疾病编码");
+		}
+		
+		for (F30100109VO vo : list) {
+			F30100109DTO dto = new F30100109DTO();
+			dto.setAaz149(vo.getAaz149());
+			dto.setAka120(vo.getAka120());
+			
+			dto.setAae100("0");
+			
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+			dto.setAae031(sdf.format(new Date()));
+			
+			f30100109DAO.updateKa06(dto);
+			f30100109DAO.updateKa08(dto);
+		}
+		
+	}
+}

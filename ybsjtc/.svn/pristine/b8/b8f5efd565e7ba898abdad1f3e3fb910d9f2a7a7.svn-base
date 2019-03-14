@@ -1,0 +1,9 @@
+eclipse.preferences.version=1
+encoding//WebContent/pages/include/header.jsp=UTF-8
+encoding//WebContent/resource/assets/css/main.css=UTF-8
+encoding//WebContent/resource/miniui/themes/default/medium-mode.css=UTF-8
+encoding//config/config.properties=UTF-8
+encoding//config/jdbc.properties=UTF-8
+encoding//config/redis.properties=UTF-8
+encoding//src/com/wondersgroup/framework/upms=UTF-8
+encoding/<project>=UTF-8

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wondersgroup.kxx.f30000101.dao.Aa10DAO_">
+<cache eviction="LRU" type="com.wondersgroup.framework.redis.RedisCache"/>
+	<select id="listAA10" resultType="com.wondersgroup.kxx.f30000101.vo.Aa10VO"
+		parameterType="java.util.HashMap" useCache="true">
+		select * from aa10 where 1=1
+		<if test="aaa100 !=null and aaa100 != ''"> and aaa100 = #{aaa100} </if>
+         order by  aaz093 asc
+	</select>
+</mapper>

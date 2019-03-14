@@ -1,0 +1,136 @@
+<%@ page contentType="text/html; charset=utf-8"%>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<%@ taglib prefix="cw" uri="/widget-tags"%>
+<%@ include file="/pages/include/header.jsp"%>
+<head>
+<title>字典新增</title>
+<style type="text/css">
+html, body {
+	font-size: 12px;
+	padding: 0;
+	margin: 0;
+	border: 0;
+	height: 100%;
+	overflow: hidden;
+}
+.mini-panel-header{
+	background-color:#E0EEEE;
+}
+.mini-panel-body{
+padding:0px;
+}
+
+
+
+#form2 table tr {
+	height:50px;
+}
+
+*{
+background-color:#FDFDFD;
+}
+</style>
+
+<object id="LODOP" classid="clsid:2105C259-1E0C-4534-8141-A753534CB4CA"
+	width=0 height=0></object>
+</head>
+<body>
+
+	  <div class="mini-fit">
+			<form id="form2" name="form2" style="padding-top:10px" action="#" method="post">
+				<table cellpadding="0" class="main-table" cellspacing="0" border="0"
+					width="97%">
+
+					<tr>
+					    <td class="mini_title"><span style="color: red">*</span>代码类别：</td>
+						<td><input id="aaa100" name="aaa100" class="mini-textbox"   required="true" />
+					    </td>
+					    <td class="mini_title"><span style="color: red">*</span>代码值：</td>
+						<td><input id="aaa102" name="aaa102" class="mini-textbox"   required="true" />
+					    </td>
+					    <td class="mini_title"><span style="color: red">*</span>代码名称：</td>
+						<td><input id="aaa103" name="aaa103" class="mini-textbox"   required="true" />
+					    </td>
+					</tr>
+					
+					<tr>
+						<td class="mini_title">开始日期：</td>
+						<td><input id="aae030" name="aae030"  
+							class="mini-datepicker" format="yyyyMMdd"  />
+						</td>
+
+						<td class="mini_title">终止日期：</td>
+						<td><input id="aae031" name="aae031"  
+							class="mini-datepicker" format="yyyyMMdd"  />
+						</td>
+						
+						<td class="mini_title"></span>备注：</td>
+						<td ><input id="aae013" name="aae013" class="mini-textbox"  />
+					    </td>
+					</tr>
+					
+					<tr>
+					    <td class="mini_title">代码类别名称：</td>
+						<td><input id="aaa101" name="aaa101" class="mini-textbox"  />
+					    </td>
+					</tr>
+					<tr>
+					    <td colspan="2"></td>
+					    <td colspan="2">
+							<div style="width: 200px" class="operate">
+								<button id="button_save" type="button" class="bc_color" onclick="save();" >
+									<span class="bc"></span>保存
+								</button>
+								<button type="button" class="cz_color" onclick="resetForm()">
+									<span class="cz"></span>重置
+								</button>
+							</div>
+						</td>
+						<td colspan="2"></td>
+					</tr>
+				</table>
+			</form>
+	  </div>
+	<script type="text/javascript">
+		mini.parse();
+		var form = new mini.Form("form2");
+		var saveBtn = document.getElementById("button_save");
+		
+		function save(){
+			 form.validate();
+			if (form.isValid() == false) {
+				return;
+			} 
+			var data = form.getData(true);
+			if(data.aae031<data.aae030){
+				mini.alert("终止日期小于开始日期");
+				return;
+			}
+			var msgid=mini.loading("保存中......","提示");
+		  	$.ajax({
+				url : "${pageContext.request.contextPath}/f30010104/add.do",
+				type : "post",
+				cache : false,
+				data : data,
+				success : function(result){
+					mini.alert("保存成功");
+					saveBtn.disabled = true;		
+				},
+				complete:function(msg){
+					mini.hideMessageBox(msgid);
+				}
+			});
+		}
+		
+		function resetForm() {
+			form.reset();
+			saveBtn.disabled = false;
+		}
+		
+	</script>
+
+</body>
+</html>

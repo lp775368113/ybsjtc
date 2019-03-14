@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wondersgroup.application.basedao.dao.Aa13Dao">
+
+ <insert id="save" parameterType="com.wondersgroup.application.basedao.bo.Aa13" >   
+        insert into aa13(
+                        baz030,<!-- 统筹区id -->
+						aaa027,<!-- 统筹区编码 -->
+						aaa129,<!-- 统筹区名称 -->
+						aab301,<!-- 参保地行政区划代码 -->
+						aaa096,<!-- 统筹层次 -->
+						bae149,<!-- 区域标识1所属地市 2所属省 3其他 -->
+						bka142,<!-- 参数1 -->
+						bka143,<!-- 参数2 -->
+						aae013<!-- 备注 -->
+                       )       
+                  values(
+                        #{baz030,jdbcType=CHAR},<!-- 统筹区id -->
+						#{aaa027,jdbcType=VARCHAR},<!-- 统筹区编码 -->
+						#{aaa129,jdbcType=VARCHAR},<!-- 统筹区名称 -->
+						#{aab301,jdbcType=VARCHAR},<!-- 参保地行政区划代码 -->
+						#{aaa096,jdbcType=VARCHAR},<!-- 统筹层次 -->
+						#{bae149,jdbcType=VARCHAR},<!-- 区域标识1所属地市 2所属省 3其他 -->
+						#{bka142,jdbcType=VARCHAR},<!-- 参数1 -->
+						#{bka143,jdbcType=VARCHAR},<!-- 参数2 -->
+						#{aae013,jdbcType=VARCHAR}<!-- 备注 -->       
+                   )	
+  </insert>
+  
+  
+  <update id="update" parameterType="com.wondersgroup.application.basedao.bo.Aa13">
+        update aa13 
+          <trim prefix="set" suffixOverrides=",">
+              <if test="aaa027 != null and aaa027 != ''">aaa027 = #{aaa027,jdbcType=VARCHAR}, </if>
+              <if test="aaa129 != null and aaa129 != ''">aaa129 = #{aaa129,jdbcType=VARCHAR}, </if>
+              <if test="aab301 != null and aab301 != ''">aab301 = #{aab301,jdbcType=VARCHAR}, </if>
+              <if test="aaa096 != null and aaa096 != ''">aaa096 = #{aaa096,jdbcType=VARCHAR}, </if>
+              <if test="bae149 != null and bae149 != ''">bae149 = #{bae149,jdbcType=VARCHAR}, </if>
+              <if test="bka142 != null and bka142 != ''">bka142 = #{bka142,jdbcType=VARCHAR}, </if>     
+              <if test="bka143 != null and bka143 != ''">bka143 = #{bka143,jdbcType=VARCHAR}, </if>
+              <if test="aae013 != null and aae013 != ''">aae013 = #{aae013,jdbcType=VARCHAR}, </if>
+          </trim>
+        where baz030 = #{baz030}
+          
+    </update>
+
+</mapper>

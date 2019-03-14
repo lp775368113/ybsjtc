@@ -1,0 +1,190 @@
+package com.wondersgroup.kxx.f30000101.controller;
+
+import java.net.URLDecoder;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.alibaba.fastjson.JSONArray;
+import com.sun.xml.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
+import com.wondersgroup.framework.comwork.service.BaseService;
+import com.wondersgroup.framework.comwork.vo.BaseObject;
+import com.wondersgroup.framework.comwork.controller.BaseController;
+import com.wondersgroup.framework.jxls.JxlsExcelView;
+import com.wondersgroup.framework.mpage.PageInfo;
+import com.wondersgroup.framework.util.JSONUtil;
+import com.wondersgroup.kxx.f30000101.service.Kb01Service;
+import com.wondersgroup.kxx.f30000101.vo.Aa10VO;
+import com.wondersgroup.kxx.f30000101.vo.Kb01VO;
+
+import net.sf.jasperreports.engine.JRDataSource;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.json.JSONObject;
+
+
+/**   ***********************************************
+ * Simple to Introduction  
+ * @ProjectName:  [ybsjtc]
+ * @Package:      [com.wondersgroup.kxx.f30000101.action]
+ * @ClassName:    [Aa13Action]   
+ * @Description:  [功能开发案例]  
+ * @Author:       [Administrator]   	   
+ * @CreateDate:   [2018年1月18日 上午11:28:06]  
+ * @UpdateUser:   [Administrator]   	   
+ * @UpdateDate:   [2018年1月18日 上午11:28:06]  
+ * @UpdateRemark: [说明本次修改内容]     
+ * @Version:      [v1.0] 		   
+ ************************************************** **/
+@Controller
+@RequestMapping("kb01")
+public class Kb01Controller extends BaseController{
+    @Autowired
+    private Kb01Service kb01Service;
+    
+    @ResponseBody
+    @RequestMapping("listkb01")
+    public List<Kb01VO> listKB01(@RequestParam Map<String, Object> paramMap){
+		String busilog_id = kb01Service.getSequence("seq_busilog", 12, "", true);
+		paramMap.put("busilog_id", busilog_id);
+		paramMap.put("iswritelog", BaseObject.WRITE_LOG_YES);
+		paramMap.put("logywlsh", "1111");
+		paramMap.put("memo", "用户ID:"+this.getLoginUser().getLoginname());
+    	List<Kb01VO> list = null;
+        try {
+            int pageSize = 2;
+        	int currentPage = 2;
+            if (currentPage <= 0) {
+                currentPage = 1;
+            }
+            int currentResult = (currentPage - 1) * pageSize;
+    		PageInfo page = new PageInfo();
+            page.setShowCount(pageSize);
+            page.setCurrentResult(currentResult);
+            paramMap.put("page", page);
+            list = kb01Service.listKB01(paramMap);
+            System.out.println(page.getTotalResult());
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error(e.getMessage(),e);
+		}
+        return list;
+    }
+    @ResponseBody
+    @RequestMapping("exportkb01")
+    public ModelAndView export(@RequestParam Map<String, Object> paramMap) {
+        Map<String, Object> model = new HashMap<>();
+        model.put("report_year", 2015);
+        model.put("report_month", 8);
+        //queryUser()为数据获取的方法
+        List<Kb01VO> list  = kb01Service.listKB01(paramMap);
+        model.put("users", list);
+        return new ModelAndView(new JxlsExcelView("xls/exportKb01.xls","exportkb01"), model);
+    }
+    
+	@RequestMapping("printkb01")
+	public String printTcmx(Model model,@RequestParam Map<String, Object> map){
+		try {
+			System.out.println(">>>>>>>>>>>>>"+getLoginUser().getLoginname());
+			/**
+			 * 案例：ajax上送form信息，java解析获取字段信息
+			 */
+			String json = URLDecoder.decode(map.get("data").toString(), "UTF-8");
+			ArrayList lst = (ArrayList) JSONUtil.Decode(json);
+			map = (Map<String, Object>) lst.get(0);
+			String AKB020 = (String) map.get("akb021_H"); //明细类别
+			
+			//获取数据信息
+			List<Kb01VO> list = kb01Service.listKB01(map);
+			// 报表数据源
+			JRDataSource jrDataSource = new JRBeanCollectionDataSource(list);
+
+			// 动态指定报表模板url
+			model.addAttribute("url", "/jasper/jasper.jasper");
+			model.addAttribute("format", "html"); // 报表格式
+			model.addAttribute("jrMainDataSource", jrDataSource);
+			model.addAttribute("p_ymd", "20180119");//明细类别
+			return "reportView"; // 对应jasper-views.xml中的bean id
+		} catch (Exception e) {
+			logger.error("打印失败："+e.getMessage(), e);
+			return "打印失败："+e.getMessage();
+		}
+	}
+	@ResponseBody
+	@RequestMapping("dorow")
+	public Map<String, Object>  doRow(Model model,@RequestParam Map<String, Object> map){
+		Map<String, Object> result = new HashMap<String, Object>();
+		List<Kb01VO> list = null;
+		try {
+			String json = URLDecoder.decode(map.get("data").toString(), "UTF-8");
+			 list  = JSONArray.parseArray(json, Kb01VO.class);
+			result.put("success", new Boolean(true));
+			} catch (Exception e) {
+				result.put("success", new Boolean(false));
+				result.put("msg", "保存失败："+e.getMessage());
+			}
+			list.get(0);
+		return result ;
+	}
+	@ResponseBody
+	@RequestMapping("getseq")
+	public Map<String, Object>  getSeq(Model model,@RequestParam Map<String, Object> map){
+		Map<String, Object> result = new HashMap<String, Object>();
+		try {
+			String AAZ002 = kb01Service.getSequence("SEQ_AAZ002", 8, "yyyymmdd", true);
+			//如果是在service层调用seq，请用this.getSequence("SEQ_AAZ002", 8, null, true);
+			result.put( "AAZ002",AAZ002);
+			result.put("success", new Boolean(true));
+			} catch (Exception e) {
+				result.put("success", new Boolean(false));
+				result.put("msg", "保存失败："+e.getMessage());
+			}
+		return result ;
+	}
+	@ResponseBody
+	@RequestMapping("getjson")
+	public String  getJson(Model model,@RequestParam Map<String, Object> map){
+		Map<String, Object> result = new HashMap<String, Object>();
+		result.put("A", 1);
+		result.put("B", 2);
+		result.put("C", 3);
+		ArrayList<Aa10VO> list = new ArrayList<>();
+		Aa10VO a1 = new Aa10VO();
+		a1.setAAA100("A100");
+		list.add(a1);
+		result.put("D", list);
+		return JSONUtil.Ajax(result);
+	}
+    @ResponseBody
+    @RequestMapping("listautokb01")
+    public List<Kb01VO> listautokb01(@RequestParam Map<String, Object> paramMap){
+    	List<Kb01VO> list = null;
+        try {
+            int pageSize = 2;
+        	int currentPage = 2;
+            if (currentPage <= 0) {
+                currentPage = 1;
+            }
+            int currentResult = (currentPage - 1) * pageSize;
+    		PageInfo page = new PageInfo();
+            page.setShowCount(pageSize);
+            page.setCurrentResult(currentResult);
+            paramMap.put("page", page);
+            list = kb01Service.listKB01(paramMap);
+            System.out.println(page.getTotalResult());
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error(e.getMessage(),e);
+		}
+        return list;
+    }
+	
+}

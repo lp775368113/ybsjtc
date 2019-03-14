@@ -1,0 +1,91 @@
+package com.wondersgroup.application.wj01;
+
+import java.lang.reflect.InvocationTargetException;
+import java.util.HashMap;
+
+import com.insigma.siis.local.business.wsservice.C2PServiceClient;
+import com.insigma.siis.local.business.wsservice.C2PServicePortType;
+import com.wondersgroup.application.wj01.j2105.ReqBody2105_;
+import com.wondersgroup.framework.exception.BusinessException;
+import com.wondersgroup.framework.fmtcheck.ValidateService;
+import com.wondersgroup.framework.wjxy.Xy01_ReqUtil;
+import com.wondersgroup.framework.wjxy.Xy01_ResUtil;
+
+/**   ***********************************************
+ * Simple to Introduction  
+ * @ProjectName:  [ybsjtc]
+ * @Package:      [com.wondersgroup.application.wj01]
+ * @ClassName:    [Wj01Proxy]   
+ * @Description:  [外接WebService省一卡通下载]  
+ * @Author:       [Administrator]   	   
+ * @CreateDate:   [2018年1月30日 下午12:27:47]  
+ * @UpdateUser:   [Administrator]   	   
+ * @UpdateDate:   [2018年1月30日 下午12:27:47]  
+ * @UpdateRemark: [说明本次修改内容]     
+ * @Version:      [v1.0] 		   
+ ************************************************** **/
+
+public class Wj01Proxy {
+	public static String _COM_PATH = "com.wondersgroup.application.wj01.j";
+	public static C2PServiceClient client;
+	public static HashMap<String, Object> wj01Proxy(String LSH,String AAB301,ComHead_ ReqHead,Object ReqBody) {
+		HashMap<String, Object> ret = new HashMap<>();
+		String _inmsg  = "";
+		String _outmsg = "";
+		ComHead_ ResHead = new ComHead_();
+		Object ResBody   = null;
+		try {
+			_inmsg = Xy01_ReqUtil.AssenbleMain(ReqHead, ReqBody);
+		} catch(Exception e) {
+			throw new BusinessException(1, e.getMessage());
+		}
+		
+		if(client == null)
+			client = new C2PServiceClient();
+		C2PServicePortType service = client.getC2PServiceHttpSoap11Endpoint();
+		_outmsg = service.yktareaws(AAB301, _inmsg);
+		
+		try {
+			Class<?> clazz = Class.forName(_COM_PATH+ReqHead.getCol01()+".ResBody"+ReqHead.getCol01()+"_");
+			ResBody =  clazz.newInstance();
+		} catch (Exception e) {
+			throw new BusinessException(1, e.getMessage());
+		}
+		try {
+			Xy01_ResUtil.AnalyticalMain(_outmsg, ResHead, ResBody);
+		} catch (Exception e) {
+			throw new BusinessException(1, e.getMessage());
+		}
+		ret.put("head", ResHead);
+		ret.put("body", ResBody);
+		return ret;
+	}
+	public static void main(String[] args) {
+		
+		//2105|        |                  |0000000000|330602201705311131270010009113|0000000040|330602|      |330699|  0400|$$330602~绍兴城乡居保~20~330602~346828$$
+		ComHead_ reqH = new ComHead_();
+		reqH.setCol01("2105");
+		reqH.setCol02("");
+		reqH.setCol03("");
+		reqH.setCol04(0000000000);
+		reqH.setCol05("330602201705311131270010009113");//每笔交易的唯一标识，统筹区（6位）+时间（14位,格式为yyyyMMddhh24miss）+顺序号（10）
+		reqH.setCol06(0);
+		reqH.setCol07("330602");
+		reqH.setCol08("");
+		reqH.setCol09("330699");
+		reqH.setCol10("0400");
+		try {
+		ValidateService.valid(reqH);
+		}catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
+		ReqBody2105_ reqb =  new ReqBody2105_();
+		reqb.setCol01("330602");
+		reqb.setCol02("绍兴城乡居保");
+		reqb.setCol03("20");
+		reqb.setCol04("330602");
+		reqb.setCol05("346828");
+		HashMap<String, Object> ret = wj01Proxy("123","330602",reqH,reqb);
+		System.out.println("123");
+	}
+}

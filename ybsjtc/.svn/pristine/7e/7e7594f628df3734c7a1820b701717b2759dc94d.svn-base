@@ -1,0 +1,33 @@
+package com.wondersgroup.k00.f30010000.service;
+
+import java.util.List;
+import javax.annotation.Resource;
+import org.springframework.stereotype.Service;
+import com.wondersgroup.framework.comwork.dao.BaseDAO;
+import com.wondersgroup.framework.comwork.service.BaseService;
+import com.wondersgroup.framework.comwork.vo.BaseObject;
+import com.wondersgroup.k00.f30010000.dao.F30010000Dao;
+import com.wondersgroup.k00.f30010000.vo.F30010000VO;
+/**
+ * @author Yuanqiwen
+ * @date  2018年1月17日
+ */
+@Service
+public class F30010000Service extends BaseService<BaseObject>{
+
+	@Resource(name="f30010000Dao")
+	private F30010000Dao f30010000Dao;		
+    /**
+	 * 
+	 * @description  查询统筹区
+	 * @author Yuanqiwen
+	 * @date  2018年1月17日 
+	 * @param params()
+	 * @return
+	 */
+	public List<F30010000VO> listTcq(){
+		return f30010000Dao.listTcq();
+	}
+   
+
+}

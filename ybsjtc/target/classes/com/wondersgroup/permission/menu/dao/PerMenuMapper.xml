@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wondersgroup.permission.menu.dao.PerMenuMapper" >
+  
+  <select id="listUserMenu" resultType="com.wondersgroup.permission.menu.vo.PerMenu" parameterType="java.util.Map" >
+    select distinct a.* from menu a,role_menu_permission b,user_role_permission c
+	where c.roleid=b.roleid and b.menuid=a.id
+	and c.userid=#{userid}
+	and b.removed=0 
+	and c.removed=0
+	and a.removed=0
+    order by a.PRIORITY
+  </select>
+   <select id="listMenu" resultType="com.wondersgroup.permission.menu.vo.PerMenu" >
+    select 
+    *
+    from menu
+    where removed = '0'
+    order by PRIORITY
+  </select>
+  <select id="getMenu" resultType="com.wondersgroup.permission.menu.vo.PerMenu" parameterType="java.lang.Integer">
+    select 
+    *
+    from menu
+    where ID = #{id}
+  </select>
+  <update id="updateUaasMenu" parameterType="com.wondersgroup.permission.menu.vo.PerMenu" >
+    update menu
+    <set >
+      <if test="parentid != null" >
+        parentid = #{parentid,jdbcType=INTEGER},
+      </if>
+      <if test="code != null" >
+        code = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="icon1 != null" >
+        icon1 = #{icon1,jdbcType=VARCHAR},
+      </if>
+      <if test="icon2 != null" >
+        icon2 = #{icon2,jdbcType=VARCHAR},
+      </if>
+      <if test="icon3 != null" >
+        icon3 = #{icon3,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="priority != null" >
+        PRIORITY = #{priority,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <insert id="saveUaasMenu" useGeneratedKeys="true" keyProperty="id" parameterType="com.wondersgroup.permission.menu.vo.PerMenu" >
+    insert into menu
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="parentid != null" >
+        parentid,
+      </if>
+      <if test="code != null" >
+        code,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="url != null" >
+        url,
+      </if>
+      <if test="icon1 != null" >
+        icon1,
+      </if>
+      <if test="icon2 != null" >
+        icon2,
+      </if>
+      <if test="icon3 != null" >
+        icon3,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="priority != null" >
+        priority,
+      </if>
+      <if test="removed != null" >
+        removed,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="parentid != null" >
+        #{parentid,jdbcType=INTEGER},
+      </if>
+      <if test="code != null" >
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="icon1 != null" >
+        #{icon1,jdbcType=VARCHAR},
+      </if>
+      <if test="icon2 != null" >
+        #{icon2,jdbcType=VARCHAR},
+      </if>
+      <if test="icon3 != null" >
+        #{icon3,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="priority != null" >
+        #{priority,jdbcType=INTEGER},
+      </if>
+      <if test="removed != null" >
+        #{removed,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="removeUaasMenu"  parameterType="java.util.Map">
+            UPDATE menu
+                SET removed = #{removed}
+            WHERE ID = #{id}
+   </update>
+</mapper>

@@ -1,0 +1,196 @@
+package com.wondersgroup.framework.wjxy;
+
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.regex.Pattern;
+
+import com.wondersgroup.application.wj01.ComHead_;
+import com.wondersgroup.application.wj01.j2105.ResBody2105_;
+
+/**   ***********************************************
+ * Simple to Introduction  
+ * @ProjectName:  [ybsjtc]
+ * @Package:      [com.wondersgroup.framework.wjxy]
+ * @ClassName:    [Xy01_ResUtil]   
+ * @Description:  [一句话描述该类的功能]  
+ * @Author:       [Administrator]   	   
+ * @CreateDate:   [2018年1月30日 下午9:02:54]  
+ * @UpdateUser:   [Administrator]   	   
+ * @UpdateDate:   [2018年1月30日 下午9:02:54]  
+ * @UpdateRemark: [说明本次修改内容]     
+ * @Version:      [v1.0] 		   
+ ************************************************** **/
+public class Xy01_ResUtil extends Xy_Extend{
+	/**@Title: 		 main   
+	 * @Description: TODO[用一句话描述这个方法的作用]   
+	 * @param args
+	 * @throws Exception      
+	 * @return_type: void      
+	 */
+	public static void main(String[] args) throws Exception {
+	String str = "2105|        |                  |0000000000|330602201705311131270010009113|0000004806|330602|      |330699|  0400|$$0~~1~30~330000101003|3300001101003|浙江大学医学院附属邵逸夫医院|02|11||339900|浙江省省本级|2011-01-01||浙江省杭州市江干区采荷街道庆春东路3号|金益美 |0571-86006631||||||||||||1|1|1|1|500040146436^330199103060|3301991103060|浙江中医药大学第二门诊部|11|41||339900|浙江省省本级|2015-12-07||浙江省杭州市上城区小营街道大学路89号102号||||||||||||||0|1|1|1|500040146437^330199103049|3301991103049|浙江省医疗健康集团杭州医院|05|11||339900|浙江省省本级|2015-12-16||浙江省杭州市拱墅区半山街道康健弄1号	|叶贞|0571-85033051||||||||||||1|1|1|1|500040146438^330199103111|3301991103111|杭州市下城区中西医结合医院|11|13||339900|浙江省省本级|2015-12-07||浙江省杭州市东新街道东新路沈家路25号	|朱月琴 |0571-28823538||||||||||||1|1|1|1|500040146439^330199104011|3301991104011|浙江大学校医院|05|11||339900|浙江省省本级|2016-01-13||浙江省杭州市西湖区灵隐街道玉古路20号	|陆建文|0571-88981591||||||||||||1|1|1|1|500040146440^330521100004|3305211100004|德清县中医院|05|12||330521|德清县|2016-04-19||德清县武康镇群益街383号	|许慧芬 |0572—8283925||||||||||||1|1|1|1|500040146442^330521100001|3305211100001|浙江省皮肤病防治研究所|03|15||330521|德清县|2016-04-19||德清县武康镇武源街61号	|沈云章 |0572—8076150||||||||||||1|1|1|1|500040146443^330899100057|3308991100057|衢州康复医院|07|15||330899|衢州市市本级|2016-06-20||衢州市柯城区新新街道世纪大道672号	|柴幸平|18969493900||||||||||||1|1|1|1|500040146444^330899100011|3308991100011|衢州太真医院|08|11||330899|衢州市市本级|2016-06-20||衢州市柯城区信安街道太真路9号	|嵇丽红|0570-3021488||||||||||||1|1|1|1|500040146445^330200101461|3302001101461|宁波市医疗中心李惠利东部医院|02|11||330299|宁波市市本级|2016-07-11||宁波市鄞州区梅墟街道江南路1111号	|戴静娟|0574-55835868||||||||||||1|1|1|1|500040146446^330782100032|3307821100032|义乌天祥医疗东方医院|06|11||330782|义乌市|2016-08-01||义乌市环城南路188号	|鲍小波|13958498889||||||||||||1|1|1|1|500040146447^330782101004|3307821101004|义乌市妇幼保健计划生育服务中心|03|71||330782|义乌市|2016-08-01||义乌市南门街320号	|方利萍|0579-89055659||||||||||||1|1|1|1|500040146448^330499100003|3304991100003|嘉兴市妇幼保健院|02|71||330499|嘉兴市市本级|2016-09-19||嘉兴市中环东路2468号|潘浩|0573-82098123||||||||||||1|1|1|1|500040146449^330700100005|3307001100005|浙江金华广福医院|03|15||330799|金华市市本级|2012-09-19||金华市环城北路1296号	|傅坚红|0579-82287889||||||||||||1|1|1|1|500040146450^330700100007|3307001100007|武义县第一人民医院|05|11||330723|武义县|2012-09-19||武义县城东路18号	|崔宪胜|0579-89082324||||||||||||1|1|1|1|500040146451^330700100008|3307001100008|浦江县人民医院|05|11||330726|浦江县|2012-09-19||浦江县恒昌大道158号	|黄  菁|0579-84333870||||||||||||1|1|1|1|500040146452^330700100009|3307001100009|磐安县人民医院|05|11||330727|磐安县|2012-09-19||磐安县安文镇螺山路1号	|李盛华|0579-84652213||||||||||||1|1|1|1|500040146453^330700100010|3307001100010|永康市第一人民医院|03|11||330784|永康市|2012-09-19||永康市金山西路599号	|应逸雯|0579-89279030||||||||||||1|1|1|1|500040146454^330900100005|3309001100005|岱山县第一人民医院|05|11||330921|岱山县|2012-09-19||舟山市岱山县高亭镇嘉禾社区康健路88号|金亚君| 0580-7339646||||||||||||1|1|1|1|500040146455^331100100004|3311001100004|龙泉市人民医院|05|11||331100|丽水市|2012-09-19||龙泉市东茶路699号	|吴进| 0578-7220013||||||||||||1|1|1|1|500040146456^331100100005|3311001100005|青田县人民医院|05|11||331100|丽水市|2012-09-19||青田县鹤城镇江南大道288号	|夏文丽| 0578-6807040||||||||||||1|1|1|1|500040146457^331100100006|3311001100006|云和县人民医院|05|11||331100|丽水市|2012-09-19||云和县城东路309号	|	陈祖峰 | 0578-5123013||||||||||||1|1|1|1|500040146458^331100100007|3311001100007|庆元县人民医院|05|11||331100|丽水市|2012-09-19||庆元县学后路34号	|朱晓萍| 0578-6218018||||||||||||1|1|1|1|500040146459^331100100008|3311001100008|缙云县人民医院|05|11||331100|丽水市|2012-09-19||缙云县五云镇溪滨南路33号	|潜雯 | 0578-3147047||||||||||||1|1|1|1|500040146460^331100100009|3311001100009|遂昌县人民医院|05|11||331100|丽水市|2012-09-19||遂昌县妙高镇北街143号	|翁玉英| 0578-8122085||||||||||||1|1|1|1|500040146461^331100100010|3311001100010|松阳县人民医院|05|11||331100|丽水市|2012-09-19||松阳县西屏街道长松东路21号	|麻学娇 |0578-8056147||||||||||||1|1|1|1|500040146462^330200100003|3302001100003|宁波市北仑区人民医院|03|11||330299|宁波市市本级|2012-09-19||宁波市北仑区新碶街道庐山东路1288号	|戴炎风|0574-86776065||||||||||||1|1|1|1|500040146463^331100100011|3311001100011|景宁县人民医院|05|11||331100|丽水市|2012-09-19||景宁县鹤溪中路1号	|刘承昆| 0578-5082351||||||||||||1|1|1|1|500040146464^331000100006|3310001100006|玉环市人民医院|05|11||331021|玉环县|2012-09-19||玉环县玉城街道长乐路18号	|林艳| 0576-87236535||||||||||||1|1|1|1|500040146465^331000100008|3310001100008|天台县人民医院|03|11||331023|天台县|2012-09-19||天台县劳动路335号	|张卫飞| 0576-83987073||||||||||||1|1|1|1|500040146466^$$";
+	ComHead_ head = new ComHead_();
+	ResBody2105_ body = new ResBody2105_();
+	AnalyticalMain(str,head,body);
+	System.out.println(123);
+		
+	}
+	/**
+	 * @Title: AnalyticalMain
+	 * @Description: 封装整合解析功能，调用入口（解析反馈报文）
+	 * @param: String str,Object HeadDTO,Object BodyDTO
+	 * @return: BeanInfo
+	 * @throws Exception
+	 * @throws
+	 * @author dld
+	 * @Date 20151104
+	 */
+	public static void AnalyticalMain(String str, Object HeadDTO, Object BodyDTO)
+			throws Exception {
+		Map<String, Object> map = StrTOMap(str);
+		CpDTO(map, HeadDTO, BodyDTO);
+	}
+
+
+	/**
+	 * @Title: StrTOMap
+	 * @Description: 接收到的反馈报文进行解析和结构体转化
+	 * @param: String ReceStr
+	 * @return: Map<String, Object>
+	 * @throws
+	 * @author dld
+	 * @Date 20151104
+	 */
+	public static Map<String, Object> StrTOMap(String ReceStr) {
+		// 1. 拆解报文头 "
+		String _BwHeadStr = SubStr("([^\\|~]*[\\|]{1}){10}",ReceStr);
+		if (_BwHeadStr == "" || _BwHeadStr == null) {
+			throw new NumberFormatException("<XY01>head is bad!（报文头异常，无法解析）");
+		}
+		String[] _BwHeadList = _BwHeadStr.split("\\|", -1);
+		String BwBody = ReceStr.replace(_BwHeadStr, "").replace("$$", "");
+		if (BwBody == "" || BwBody == null ) { 
+			throw new NumberFormatException("<XY01>body is bad!（报文体异常，无法解析）");
+		}
+		String[] BwBodyList = BwBody.split("\\~", -1);//[0, 交易成功,  ]
+		Map<String, Object> Bwmap = new HashMap<String, Object>();
+		for (int i = 0; i < _BwHeadList.length; i++) {
+			Bwmap.put("head" + (i + 1), StrFZy(_BwHeadList[i]));
+		}
+		for (int i = 0; i < BwBodyList.length; i++) {
+			Bwmap.put("body" + (i + 1), BwBodyList[i]);
+		}
+		for (String key : Bwmap.keySet()) {
+			if (Pattern.matches("body\\d*", key)) {
+				if (Pattern.matches("[\\s\\S]+[\\|]+[\\s\\S]+", Bwmap.get(key).toString())
+				 || Pattern.matches("[\\s\\S]+[\\^]+[\\s\\S]+", Bwmap.get(key).toString())) {// 第一层面 定义bean name
+					String[] childBeanList = Bwmap.get(key).toString().split("\\^");
+					Map<String, Object> childBeanListMap = new HashMap<String, Object>();
+					for (int i = 0; i < childBeanList.length; i++) {
+						String[] childBeanCols = childBeanList[i].split("\\|",-1);
+						Map<String, Object> childBeanColsMap = new HashMap<String, Object>();
+						for (int j = 0; j < childBeanCols.length; j++) {
+							childBeanColsMap.put("childbeancol" + (j + 1),StrFZy((String) childBeanCols[j]));
+						}
+						childBeanListMap.put("childbeanList" + (i + 1),childBeanColsMap);
+					}
+					Bwmap.put(key, childBeanListMap);
+				} else {
+					Bwmap.put(key, StrFZy((String) Bwmap.get(key)));
+				}
+			}
+		}
+		return Bwmap;
+	}
+
+	/**
+	 * @Title: StrFZy
+	 * @Description: 按照接口要求，对转义的标识进行反解 与 StrFZ是一对
+	 * @param: String str
+	 * @return: String
+	 * @throws
+	 * @author dld
+	 * @Date 20151104
+	 */
+	public static String StrFZy(String str) {
+		str = str.replace("&sl", "####");
+		str = str.replace("&dl", "$$$$");
+		str = str.replace("&tl", "~");
+		str = str.replace("&vl", "|");
+		str = str.replace("&cl", "^");
+		str = str.replace("&amp", "&");
+		return str;
+	}
+
+
+	public static Object CpDTO(Map<String, Object> map, Object HeadDTO, Object BodyDTO) throws SecurityException, NoSuchMethodException, IllegalArgumentException, IllegalAccessException, InvocationTargetException, ClassNotFoundException, InstantiationException{
+		int HeadNum = 1;
+		int BodyNum = 1;
+		Type type = null;
+		Field[] Headfields = HeadDTO.getClass().getDeclaredFields();// 获取这个类所有的成员变量
+		for (Field field : Headfields) {
+			field.setAccessible(true);
+			Class<?> clazz = field.getType();
+			type = field.getGenericType(); // 获取属性的类型
+			if (!isJavaClass(clazz)|| Pattern.matches("java.util.ArrayList[A-Za-z0-9.<>]*",clazz.toString()) || clazz.equals(ArrayList.class)) {
+				new Exception("报文错误，在报文头中不可能出现结构体或者自定义类！");
+			} else {
+				String name = field.getName(); // 获取属性的名字
+				name = name.substring(0, 1).toUpperCase() + name.substring(1);
+				Method method = HeadDTO.getClass().getMethod("set" + name,clazz);
+				
+				if(type.equals(Integer.class) || type.equals(int.class))
+					method.invoke(HeadDTO, Integer.valueOf((String)map.get("head" + HeadNum)));
+				else
+					method.invoke(HeadDTO, map.get("head" + HeadNum));
+			}
+			HeadNum += 1;
+		}
+		
+		Field[] Bodyfields = BodyDTO.getClass().getDeclaredFields();// 获取这个类所有的成员变量
+		for (Field field : Bodyfields) {
+			field.setAccessible(true);
+			Class<?> clazz = field.getType(); // 获取属性的类型
+			
+			if(!isJavaClass(clazz)|| Pattern.matches("java.util.ArrayList[A-Za-z0-9.<>]*",clazz.toString()) || clazz.equals(ArrayList.class)){//结构体
+				String ArrayChildType = SubStr("[\\<]{1}([A-Za-z0-9.<>_]*)[\\>]{1}", field.getGenericType().toString());
+				ArrayChildType = ArrayChildType.substring(1, ArrayChildType.length() - 1);
+				ArrayList<Object> list = new ArrayList<Object>();
+				Class clazzNext = Class.forName(ArrayChildType);
+				Field[] BodyChildfields = clazzNext.getDeclaredFields();// 获取这个类所有的成员变量
+				int childMapSize=1;
+				while(map.get("body" + BodyNum)!=null && !"".equals(map.get("body" + BodyNum)) &&((Map<String, Object> ) map.get("body" + BodyNum)).get("childbeanList"+childMapSize)!=null){
+					Object obj = clazzNext.newInstance();// 通过反射创建对象
+					int childFieldSize=1;
+					for (Field Childfield : BodyChildfields) {
+						String name = Childfield.getName(); // 获取属性的名字
+						name = name.substring(0, 1).toUpperCase() + name.substring(1);
+						Method method = clazzNext.getMethod("set" + name,String.class);
+						method.invoke(obj, ((Map<String, Object>) ((Map<String, Object>) map.get("body" + BodyNum)).get("childbeanList"+childMapSize)).get("childbeancol"+childFieldSize));
+						childFieldSize+=1;
+					}
+					list.add(obj);
+					childMapSize+=1;
+				}
+				String name = field.getName(); // 获取属性的名字
+				name = name.substring(0, 1).toUpperCase() + name.substring(1);
+				Method method = BodyDTO.getClass().getMethod("set" + name,ArrayList.class);
+				method.invoke(BodyDTO, list);
+				
+			}else{//非结构体
+				String name = field.getName(); // 获取属性的名字
+				name = name.substring(0, 1).toUpperCase() + name.substring(1);
+				Method method = BodyDTO.getClass().getMethod("set" + name,clazz);
+				method.invoke(BodyDTO, map.get("body" + BodyNum));
+			}
+			
+			BodyNum += 1;
+		}
+		return null;
+	}
+}

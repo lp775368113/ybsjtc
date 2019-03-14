@@ -1,0 +1,200 @@
+package com.wondersgroup.framework.wjxy;
+
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.lang.reflect.Type;
+import java.util.Date;
+
+import com.wondersgroup.application.wj01.ComHead_;
+import com.wondersgroup.application.wj01.j2105.ReqBody2105_;
+import com.wondersgroup.framework.fmtcheck.Fmtdescribe;
+import com.wondersgroup.framework.fmtcheck.ValidateService;
+
+/**   ***********************************************
+ * Simple to Introduction  
+ * @ProjectName:  [ybsjtc]
+ * @Package:      [com.wondersgroup.framework.wjxy]
+ * @ClassName:    [Xy01_ReqUtil]   
+ * @Description:  [协议01 请求工具]  
+ * @Author:       [Administrator]   	   
+ * @CreateDate:   [2018年1月30日 下午8:53:36]  
+ * @UpdateUser:   [Administrator]   	   
+ * @UpdateDate:   [2018年1月30日 下午8:53:36]  
+ * @UpdateRemark: [说明本次修改内容]     
+ * @Version:      [v1.0] 		   
+ ************************************************** **/
+public class Xy01_ReqUtil extends Xy_Extend{
+	/**@Title: 		 main   
+	 * @Description: TODO[组装案例]   
+	 * @param args
+	 * @throws IllegalAccessException
+	 * @throws IllegalArgumentException
+	 * @throws InvocationTargetException
+	 * @throws NoSuchMethodException
+	 * @throws SecurityException      
+	 * @return_type: void      
+	 */
+	public static void main(String[] args) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
+		//2105|        |                  |0000000000|330602201705311131270010009113|0000000040|330602|      |330699|  0400|$$330602~绍兴城乡居保~20~330602~346828$$
+		ComHead_ reqH = new ComHead_();
+		reqH.setCol01("2105");
+		reqH.setCol02("2106");
+		reqH.setCol03("2107");
+		reqH.setCol04(2018);
+		reqH.setCol05("330699201801301111110000000001");//每笔交易的唯一标识，统筹区（6位）+时间（14位,格式为yyyyMMddhh24miss）+顺序号（10）
+		reqH.setCol06(0);
+		reqH.setCol07("330602");
+		reqH.setCol08("2112");
+		reqH.setCol09("330699");
+		reqH.setCol10("0400");
+		try {
+		ValidateService.valid(reqH);
+		}catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
+		ReqBody2105_ reqb =  new ReqBody2105_();
+		reqb.setCol01("330602");
+		reqb.setCol02("绍兴城乡居保");
+		reqb.setCol03("20");
+		reqb.setCol04("330602");
+		reqb.setCol05("346828");
+		
+		System.out.println(AssenbleMain(reqH,reqb));
+	}
+	/**@Title: 		 AssenbleMain   
+	 * @Description: TODO[传入报文头、体 组装请求报文]   
+	 * @param headDTO
+	 * @param BodyDTO
+	 * @return
+	 * @throws IllegalAccessException
+	 * @throws IllegalArgumentException
+	 * @throws InvocationTargetException
+	 * @throws NoSuchMethodException
+	 * @throws SecurityException      
+	 * @return_type: String      
+	 */
+	public static String AssenbleMain(Object headDTO, Object BodyDTO)
+			throws IllegalAccessException, IllegalArgumentException,
+			InvocationTargetException, NoSuchMethodException, SecurityException {
+		String showval_head_ = "";
+		String showval_body_ = "";
+		Class<?> clazz = null;
+		Field[] fields = null;
+		
+		showval_body_ = showval_body_ + "$$";
+		clazz = BodyDTO.getClass();
+		fields = clazz.getDeclaredFields();// 获取这个类所有的成员变量
+		for (Field field : fields) {
+			field.setAccessible(true);
+			showval_body_ += (field.get(BodyDTO) + "~");
+			field.setAccessible(false);
+		}
+		showval_body_ = showval_body_.subSequence(0, showval_body_.length() - 1) + "$$";
+		
+		Fmtdescribe fmt;
+		clazz = headDTO.getClass();
+		fields = clazz.getDeclaredFields();// 获取这个类所有的成员变量
+		for (Field field : fields) {
+			field.setAccessible(true);
+			fmt = field.getAnnotation(Fmtdescribe.class);
+			Type type = field.getGenericType(); // 获取属性的类型
+			if("col06".equals(field.getName())) 
+				showval_head_ +=	String.format("%0"+fmt.fdLength()+"d", length(showval_body_))+ "|"; 
+			else {
+				if(fmt.fdLength() >0) {
+					if(type.equals(Integer.class) || type.equals(int.class))
+						showval_head_ +=	String.format("%0"+fmt.fdLength()+"d", field.get(headDTO))+ "|"; 
+					if(type.equals(String.class))
+						showval_head_ +=	String.format("%"+fmt.fdLength()+"s", field.get(headDTO).toString().trim())+ "|"; 
+				}else {
+					showval_head_ +=	field.get(headDTO).toString().trim()+"|";
+				}
+			}
+			field.setAccessible(false);  
+		}
+		
+
+
+		return showval_head_+showval_body_;
+	}
+	/**
+	 * @Title: AssenbleBase1
+	 * @Description: 实现类成员调用函数 实现类中存在的基础类型尽数返回出值
+	 * @param: Type type,String name, T t
+	 * @return: colvarlue
+	 * @throws
+	 * @author dld
+	 * @Date 20151104
+	 */
+	public static <T> String AssenbleBase1(Type type, String name, T t)
+			throws NoSuchMethodException, SecurityException,
+			IllegalAccessException, IllegalArgumentException,
+			InvocationTargetException {
+		name = name.substring(0, 1).toUpperCase() + name.substring(1); // 将属性的首字符大写，方便构造get，set方法
+		Object value = null;
+		if (type.equals(String.class)) { // 如果type是类类型，则前面包含"class "，后面跟类名
+			Method m = t.getClass().getMethod("get" + name);
+			value = (String) m.invoke(t); // 调用getter方法获取属性值
+			if (value == null) {
+				m = t.getClass().getMethod("set" + name, String.class);
+				m.invoke(t, "");
+			}
+		}
+		if (type.equals(Integer.class) || type.equals(int.class)) {
+			Method m = t.getClass().getMethod("get" + name);
+			value = (Integer) m.invoke(t);
+			if (value == null) {
+				m = t.getClass().getMethod("set" + name, Integer.class);
+				m.invoke(t, 0);
+			}
+		}
+		if (type.equals(Double.class) || type.equals(double.class)) {
+			Method m = t.getClass().getMethod("get" + name);
+			value = (Double) m.invoke(t);
+			if (value == null) {
+				m = t.getClass().getMethod("set" + name, Double.class);
+				m.invoke(t, 0);
+			}
+		}
+
+		if (type.equals(Boolean.class) || type.equals(boolean.class)) {
+			Method m = t.getClass().getMethod("get" + name);
+			value = (Boolean) m.invoke(t);
+			if (value == null) {
+				m = t.getClass().getMethod("set" + name, Boolean.class);
+				m.invoke(t, false);
+			}
+		}
+		if (type.equals(Date.class)) {
+			Method m = t.getClass().getMethod("get" + name);
+			value = (Date) m.invoke(t);
+			if (value == null) {
+				m = t.getClass().getMethod("set" + name, Date.class);
+				m.invoke(t, new Date());
+			}
+		}
+		return value == null ? "" : StrZy(value.toString());
+	}
+	/**
+	 * @Title: StrZy
+	 * @Description: 按照接口要求，对特殊字符串(0-n)进行转义
+	 * @param: String str
+	 * @return: String
+	 * @throws
+	 * @author dld
+	 * @Date 20151104
+	 */
+	public static String StrZy(String str) {
+		str = str.replace("&", "&amp");
+		str = str.replace("####", "&sl");
+		str = str.replace("$$$$", "&dl");
+		str = str.replace("~", "&tl");
+		str = str.replace("|", "&vl");
+		str = str.replace("^", "&cl");
+		return str;
+	}
+	
+
+
+}

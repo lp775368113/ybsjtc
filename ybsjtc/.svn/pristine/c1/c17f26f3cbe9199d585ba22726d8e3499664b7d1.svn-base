@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wondersgroup.k00.f30100102.dao.F30100102DAO">
+  
+  <select id="getListPage" parameterType="java.util.Map" resultType="com.wondersgroup.k00.f30100102.vo.F30100102VO">
+  	SELECT a.* FROM ka12 a where 1=1
+  	         <if test="aaz131!=null and aaz131!=''">
+		   	 and  a.aaz131 = #{aaz131} <!--基金分段标准ID -->		   
+	         </if>
+	         <if test="aaa157!=null and aaa157!=''">
+		   	 and  a.aaa157 = #{aaa157} <!--基金款项代码 -->		   
+	         </if>
+	         <if test="aka046!=null and aka046!=''">
+		   	 and  a.aka046 = #{aka046} <!--分段类型-->		   
+	         </if>
+	         <if test="aka047!=null and aka047!=''">
+		   	 and  a.aka047 = #{aka047} <!--基金支付比例 -->		   
+	         </if>
+	         <if test="aka048!=null and aka048!=''">
+		   	 and  a.aka048 = #{aka048} <!--上限金额 -->		   
+	         </if>
+	         <if test="aka049!=null and aka049!=''">
+		   	 and  a.aka049 = #{aka049} <!--下限金额-->		   
+	         </if>
+	         <if test="bka133!=null and bka133!=''">
+		   	 and  a.bka133 = #{bka133} <!--基金支付上限金额-->		   
+	         </if>
+	         <if test="bka134!=null and bka134!=''">
+		   	 and  a.bka134 = #{bka134} <!--分段顺序-->		   
+	         </if>
+	         <if test="bka135!=null and bka135!=''">
+		   	 and  a.bka135 = #{bka135} <!--签约上限金额-->		   
+	         </if>
+	         <if test="bka136!=null and bka136!=''">
+		   	 and  a.bka136 = #{bka136} <!--转诊基金支付比例-->		   
+	         </if>
+	         <if test="aka101!=null and aka101!=''">
+		   	 and  a.aka101 = #{aka101} <!-- 医院等级 -->		   
+	         </if>
+	         <if test="akc021!=null and akc021!=''">
+		   	 and  a.akc021 = #{akc021} <!-- 医疗待遇人员类别 -->		   
+	         </if>
+	         <if test="aaa027!=null and aaa027!=''">
+		   	 and  a.aaa027 = #{aaa027} <!--统筹区-->		   
+	         </if>
+	         <if test="aae013!=null and aae013!=''">
+		   	 and  a.aae013 = #{aae013} <!--备注-->		   
+	         </if>
+	         <if test="akb022!=null and akb022!=''">
+		   	 and  a.akb022 = #{akb022} <!--医疗服务机构类型-->		   
+	         </if>
+	         <if test="aka078!=null and aka078!=''">
+		   	 and  a.aka078 = #{aka078} <!--就诊方式-->		   
+	         </if>
+	         <if test="aae030!=null and aae030!=''">
+		   	 and  a.aae030 <![CDATA[>=]]> #{aae030} <!-- 开始日期-->		   
+	         </if>
+	         <if test="aae031!=null and aae031!=''">
+		   	 and  a.aae031 <![CDATA[<=]]>  #{aae031} <!-- 终止日期-->		   
+	         </if>
+  </select>
+  
+  <select id="queryKa12ByTime" parameterType="java.util.Map" resultType="com.wondersgroup.k00.f30100102.vo.F30100102VO">
+  	SELECT a.* FROM ka12 a where 1=1
+  	         <if test="aaz131!=null and aaz131!=''">
+		   	 and  a.aaz131 <![CDATA[<>]]> #{aaz131} <!--基金分段标准ID -->	   
+	         </if>
+	         <if test="aka046!=null and aka046!=''">
+		   	 and  a.aka046 = #{aka046} <!--分段类型-->
+	         </if>
+	         <if test="aka101!=null and aka101!=''">
+		   	 and  a.aka101 = #{aka101} <!-- 医院等级 -->
+	         </if>
+	         <if test="akc021!=null and akc021!=''">
+		   	 and  a.akc021 = #{akc021} <!-- 医疗待遇人员类别 -->   
+	         </if>
+	         <if test="aaa027!=null and aaa027!=''">
+		   	 and  a.aaa027 = #{aaa027} <!--统筹区-->
+	         </if>
+	         <if test="akb022!=null and akb022!=''">
+		   	 and  a.akb022 = #{akb022} <!--医疗服务机构类型-->
+	         </if>
+	         <if test="aka078!=null and aka078!=''">
+		   	 and  a.aka078 = #{aka078} <!--就诊方式-->
+	         </if>
+	         <if test="aae030!=null and aae030!=''">
+		   	 and  #{aae030} <![CDATA[<=]]> a.aae031 <!-- 开始日期-->		   
+	         </if>
+	         <if test="aae031!=null and aae031!=''">
+		   	 and  a.aae030 <![CDATA[<=]]>  #{aae031} <!-- 终止日期-->		   
+	         </if>
+  </select>
+  
+  <insert id="saveKa12" parameterType="java.util.Map">
+    <!--
+    	基金分段标准ID,开始日期,终止日期,基金款项代码,分段类型,基金支付比例,上限金额,下限金额,基金支付上限金额,
+    	医疗待遇人员类别,统筹区编码,就诊方式,医疗服务机构类型,分段顺序,医院等级,签约上限金额,转诊基金支付比例,备注
+    -->
+    <selectKey resultType="java.lang.String" keyProperty="aaz131" order="BEFORE">
+			select to_char(sysdate,'yyyymmdd')||lpad(seq_aaz131.nextval,8,'0') as aaz131 from dual
+     </selectKey>
+    insert into KA12 (AAZ131, AAE030, AAE031, AAA157, AKA046, AKA047, AKA048, AKA049, BKA133, AKC021, AAA027, AKA078, 
+      AKB022, BKA134, AKA101, BKA135, BKA136, AAE013)
+    values (#{aaz131,jdbcType=CHAR}, #{aae030,jdbcType=DECIMAL}, #{aae031,jdbcType=DECIMAL}, 
+      #{aaa157,jdbcType=VARCHAR}, #{aka046,jdbcType=VARCHAR}, #{aka047,jdbcType=DECIMAL}, 
+      #{aka048,jdbcType=DECIMAL}, #{aka049,jdbcType=DECIMAL}, #{bka133,jdbcType=DECIMAL}, 
+      #{akc021,jdbcType=VARCHAR}, #{aaa027,jdbcType=VARCHAR}, #{aka078,jdbcType=VARCHAR}, 
+      #{akb022,jdbcType=VARCHAR}, #{bka134,jdbcType=DECIMAL}, #{aka101,jdbcType=VARCHAR}, 
+      #{bka135,jdbcType=DECIMAL}, #{bka136,jdbcType=DECIMAL}, #{aae013,jdbcType=VARCHAR}
+      )
+  </insert>
+  
+  <update id="updateKa12" parameterType="java.util.Map">
+    update KA12
+    <set>
+      <if test="aae030 != null">
+        AAE030 = #{aae030,jdbcType=DECIMAL},
+      </if>
+      <if test="aae031 != null">
+        AAE031 = #{aae031,jdbcType=DECIMAL},
+      </if>
+      <if test="aaa157 != null">
+        AAA157 = #{aaa157,jdbcType=VARCHAR},
+      </if>
+      <if test="aka046 != null">
+        AKA046 = #{aka046,jdbcType=VARCHAR},
+      </if>
+      <if test="aka047 != null">
+        AKA047 = #{aka047,jdbcType=DECIMAL},
+      </if>
+      <if test="aka048 != null">
+        AKA048 = #{aka048,jdbcType=DECIMAL},
+      </if>
+      <if test="aka049 != null">
+        AKA049 = #{aka049,jdbcType=DECIMAL},
+      </if>
+      <if test="bka133 != null">
+        BKA133 = #{bka133,jdbcType=DECIMAL},
+      </if>
+      <if test="akc021 != null">
+        AKC021 = #{akc021,jdbcType=VARCHAR},
+      </if>
+      <if test="aaa027 != null">
+        AAA027 = #{aaa027,jdbcType=VARCHAR},
+      </if>
+      <if test="aka078 != null">
+        AKA078 = #{aka078,jdbcType=VARCHAR},
+      </if>
+      <if test="akb022 != null">
+        AKB022 = #{akb022,jdbcType=VARCHAR},
+      </if>
+      <if test="bka134 != null">
+        BKA134 = #{bka134,jdbcType=DECIMAL},
+      </if>
+      <if test="aka101 != null">
+        AKA101 = #{aka101,jdbcType=VARCHAR},
+      </if>
+      <if test="bka135 != null">
+        BKA135 = #{bka135,jdbcType=DECIMAL},
+      </if>
+      <if test="bka136 != null">
+        BKA136 = #{bka136,jdbcType=DECIMAL},
+      </if>
+      <if test="aae013 != null">
+        AAE013 = #{aae013,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where AAZ131 = #{aaz131,jdbcType=CHAR}
+  </update>
+  
+</mapper>

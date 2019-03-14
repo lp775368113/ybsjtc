@@ -1,0 +1,64 @@
+package com.wondersgroup.application.wj01.j2105;
+
+/**   ***********************************************
+ * Simple to Introduction  
+ * @ProjectName:  [ybsjtc]
+ * @Package:      [com.wondersgroup.application.wj01]
+ * @ClassName:    [Req2015]   
+ * @Description:  [一句话描述该类的功能]  
+ * @Author:       [Administrator]   	   
+ * @CreateDate:   [2018年1月30日 下午2:23:15]  
+ * @UpdateUser:   [Administrator]   	   
+ * @UpdateDate:   [2018年1月30日 下午2:23:15]  
+ * @UpdateRemark: [说明本次修改内容]     
+ * @Version:      [v1.0] 		   
+ ************************************************** **/
+public class ReqBody2105_ {
+	//交易发起机构代码	string	16	是			
+	//交易发起机构名称	string	200	是			长度由100调整为200
+	//交易发起机构类型	string	3	是			
+	//交易发起机构统筹区	string	20	是			
+	//已下载最大平台流水号	integer	20	是		本地库中目录最大的流水号，系统从该开始流水号的下一条目录开始下载，第一次传0。	
+	/**@Fields fqjgdm: TODO[交易发起机构代码]   */
+	private String col01;
+	/**@Fields fqjgmc: TODO[交易发起机构名称]   */
+	private String col02;
+	/**@Fields fqjglx: TODO[交易发起机构类型]   */
+	private String col03;
+	/**@Fields fqjgqh: TODO[交易发起机构统筹区]   */
+	private String col04;
+	/**@Fields maxlsh: TODO[已下载最大平台流水号]   */
+	private String col05;
+	public String getCol01() {
+		return col01;
+	}
+	public void setCol01(String col01) {
+		this.col01 = col01;
+	}
+	public String getCol02() {
+		return col02;
+	}
+	public void setCol02(String col02) {
+		this.col02 = col02;
+	}
+	public String getCol03() {
+		return col03;
+	}
+	public void setCol03(String col03) {
+		this.col03 = col03;
+	}
+	public String getCol04() {
+		return col04;
+	}
+	public void setCol04(String col04) {
+		this.col04 = col04;
+	}
+	public String getCol05() {
+		return col05;
+	}
+	public void setCol05(String col05) {
+		this.col05 = col05;
+	}
+
+}
+

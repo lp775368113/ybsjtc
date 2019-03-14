@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	<mapper namespace="com.wondersgroup.k01.f30100109.dao.F30100109DAO">
+	
+	<select id="queryTsb" resultType="com.wondersgroup.k01.f30100109.dto.F30100109DTO" parameterType="com.wondersgroup.k01.f30100109.dto.F30100109DTO">
+	   select a.aaz149, a.aaa027, a.aka035, a.aka122, a.aka120, a.aae140, a.aae030, a.aae031, a.aae100, a.aae013,
+              b.aka121,
+              rownum rn 
+         from ka08 a, ka06 b 
+        where a.aka120 = b.aka120
+     
+            <!-- 查询条件：疾病编码 -->
+	        <if test="aka120 != null and aka120 != ''">
+	            and a.aka120 = #{aka120}       
+	        </if>
+	</select>
+	
+	<insert id="saveKa06" parameterType="com.wondersgroup.k01.f30100109.dto.F30100109DTO">
+	   <selectKey resultType="java.lang.String" keyProperty="aaz164" order="BEFORE">
+            select to_char(sysdate,'yyyymmdd')||lpad(seq_aaz164.nextval,8,'0') as aaz164 from dual
+       </selectKey>
+	   insert into ka06(
+	               aaz164, aka120, aka121, aka122, 
+	               <if test="aka020 != null and aka020 != '' ">
+	                   aka020,
+	               </if>
+	               <if test="aka021 != null and aka021 != '' ">
+                       aka021,
+                   </if>
+	                aae030, aae031, 
+	               <if test="aae013 != null and aae013 != '' ">
+                       aae013,
+                   </if>
+	                aae100
+	             )
+	             values(
+	               #{aaz164}, #{aka120}, #{aka121}, #{aka122}, 
+	               <if test="aka020 != null and aka020 != '' ">
+                       #{aka020},
+                   </if>
+                   <if test="aka021 != null and aka021 != '' ">
+                       #{aka021},
+                   </if>
+	               #{aae030}, #{aae031}, 
+	               <if test="aae013 != null and aae013 != '' ">
+                       #{aae013},
+                   </if>
+                   #{aae100}
+	             )
+	</insert>
+	
+	<update id="updateKa06" parameterType="com.wondersgroup.k01.f30100109.dto.F30100109DTO">
+       update ka06 t
+          <trim prefix="set" suffixOverrides=",">
+              <if test="aka121 != null and aka121 != ''">aka121 = #{aka121}, </if>
+              <if test="aae030 != null and aae030 != ''">aae030 = #{aae030}, </if>
+              <if test="aae031 != null and aae031 != ''">aae031 = #{aae031}, </if>
+              <if test="aae100 != null and aae100 != ''">aae100 = #{aae100}, </if>
+              <if test="aae013 != null and aae013 != ''">aae013 = #{aae013}, </if>
+          </trim>
+        where t.aka120 = #{aka120}
+          and t.aka122 = '30'
+    </update>
+    
+	<insert id="saveKa08" parameterType="com.wondersgroup.k01.f30100109.dto.F30100109DTO">
+        <selectKey resultType="java.lang.String" keyProperty="aaz149" order="BEFORE">
+            select to_char(sysdate,'yyyymmdd')||lpad(seq_aaz149.nextval,8,'0') as aaz149 from dual
+        </selectKey>
+	   insert into ka08(
+                    aaz149, aaa027, aka035, aka122, aka120,
+                    aae140, aae030, aae031,
+                    <if test="aae013 != null and aae013 != '' ">
+                       aae013,
+                    </if>
+                    aae100
+                 )
+                 values(
+                    #{aaz149}, #{aaa027}, #{aka035}, #{aka122}, #{aka120},
+                    #{aae140}, #{aae030}, #{aae031}, 
+                   <if test="aae013 != null and aae013 != '' ">
+                       #{aae013},
+                   </if>
+                   #{aae100}
+                 )
+	</insert>
+	
+	<update id="updateKa08" parameterType="com.wondersgroup.k01.f30100109.dto.F30100109DTO">
+        update ka08 t
+          <trim prefix="set" suffixOverrides=",">
+              <if test="aae140 != null and aae140 != ''">aae140 = #{aae140}, </if>
+              <if test="aae030 != null and aae030 != ''">aae030 = #{aae030}, </if>
+              <if test="aae031 != null and aae031 != ''">aae031 = #{aae031}, </if>
+              <if test="aae100 != null and aae100 != ''">aae100 = #{aae100}, </if>
+              <if test="aae013 != null and aae013 != ''">aae013 = #{aae013}, </if>
+          </trim>
+        where trim(t.aaz149) = trim(#{aaz149})
+          and t.aka122 = '30'
+    </update>
+    
+	<select id="getPage" parameterType="java.util.Map" resultType="com.wondersgroup.k01.f30100109.dto.F30100109DTO">
+  		select * from(
+  	         select a.aaz149, a.aaa027, a.aka035, a.aka122, a.aka120, a.aae140, a.aae030, a.aae031, a.aae100, a.aae013,
+  	                b.aka121,
+  	                rownum rn 
+  	         	from ka08 a, ka06 b 
+  	 			where a.aka120 = b.aka120
+  	 
+	  	 	<!-- 查询条件：特殊病编码  -->
+			<if test="aaz149 != null and aaz149 != ''">
+				and trim(a.aaz149) = #{aaz149}	   
+	        </if>
+	        
+	        <!-- 查询条件：特殊病名称 -->
+	        <if test="aka121 != null and aka121 != ''">
+	            <bind name="aka121Pattern" value="'%' + _parameter.aka121 + '%'" />
+	        	and b.aka121 like #{aka121Pattern}
+	        </if>
+	        
+	        <!-- 查询条件：疾病编码 -->
+	        <if test="aka120 != null and aka120 != ''">
+				and a.aka120 = #{aka120}	   
+	        </if>
+	        
+	        <!-- 查询条件：险种类型 -->
+	        <if test="aae140 != null and aae140 != ''">
+				and a.aae140 = #{aae140}	   
+	        </if>
+	        
+	        <!-- 查询条件：起始开始日期-->
+	        <if test="aae030qs != null and aae030qs != ''">
+				and a.aae030 <![CDATA[>=]]> #{aae030qs}	   
+	        </if>
+	        
+	        <!-- 查询条件：截止开始日期-->
+	        <if test="aae030jz != null and aae030jz != ''">
+				and a.aae030 <![CDATA[<=]]> #{aae030jz}	   
+	        </if>
+	        
+	        <!-- 查询条件：起始结束日期-->
+	        <if test="aae031qs !=null and aae031qs != ''">
+				and a.aae031 <![CDATA[>=]]> #{aae031qs}	   
+	        </if>
+	        
+	        <!-- 查询条件：截止结束日期-->
+	        <if test="aae031jz != null and aae031jz != ''">
+				and a.aae031 <![CDATA[<=]]> #{aae031jz}	   
+	        </if>
+  	         
+  	     ) t 
+		where t.rn <![CDATA[>=]]> #{start} and t.rn <![CDATA[<=]]> #{end}
+	
+  	</select>
+  
+  	<select id="getPageCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+	  	select count(1) 
+	  	  from ka08 a, ka06 b 
+	  	 where a.aka120 = b.aka120
+	  	 
+  	 	<!-- 查询条件：特殊病编码  -->
+		<if test="aaz149 != null and aaz149 != ''">
+			and trim(a.aaz149) = #{aaz149}	   
+        </if>
+        
+        <!-- 查询条件：特殊病名称 -->
+        <if test="aka121 != null and aka121 != ''">
+            <bind name="aka121Pattern" value="'%' + _parameter.aka121 + '%'" />
+        	and b.aka121 like #{aka121Pattern}
+        </if>
+        
+        <!-- 查询条件：疾病编码 -->
+        <if test="aka120 != null and aka120 != ''">
+			and a.aka120 = #{aka120}	   
+        </if>
+        
+        <!-- 查询条件：险种类型 -->
+        <if test="aae140 != null and aae140 != ''">
+			and a.aae140 = #{aae140}	   
+        </if>
+        
+        <!-- 查询条件：起始开始日期-->
+        <if test="aae030qs != null and aae030qs != ''">
+			and a.aae030 <![CDATA[>=]]> #{aae030qs}
+        </if>
+        
+        <!-- 查询条件：截止开始日期-->
+        <if test="aae030jz != null and aae030jz != ''">
+			and a.aae030 <![CDATA[<=]]> #{aae030jz}
+        </if>
+        
+        <!-- 查询条件：起始结束日期-->
+        <if test="aae031qs != null and aae031qs != ''">
+			and a.aae031 <![CDATA[>=]]> #{aae031qs}	   
+        </if>
+        
+        <!-- 查询条件：截止结束日期-->
+        <if test="aae031jz != null and aae031jz != ''">
+			and a.aae031 <![CDATA[<=]]> #{aae031jz}	   
+        </if>
+  	</select>
+</mapper>

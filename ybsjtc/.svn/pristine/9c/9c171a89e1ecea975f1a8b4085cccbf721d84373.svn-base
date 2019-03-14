@@ -1,0 +1,10 @@
+package com.wondersgroup.k00.f30010104.vo;
+
+
+
+import com.wondersgroup.application.basedao.bo.Aa10;
+
+
+public class F30010104VO extends Aa10{
+	
+ }

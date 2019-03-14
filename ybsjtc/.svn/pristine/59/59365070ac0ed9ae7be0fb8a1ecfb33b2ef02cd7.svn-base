@@ -1,0 +1,39 @@
+package com.wondersgroup.kxx.f30000101.service;
+
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
+
+import com.wondersgroup.framework.comwork.service.BaseService;
+import com.wondersgroup.framework.comwork.vo.BaseObject;
+import com.wondersgroup.framework.upms.vo.UasUserVO;
+import com.wondersgroup.kxx.f30000101.dao.Aa10DAO_;
+import com.wondersgroup.kxx.f30000101.vo.Aa10VO;
+
+/**   ***********************************************
+ * Simple to Introduction  
+ * @ProjectName:  [ybsjtc]
+ * @Package:      [com.wondersgroup.kxx.f30000101.service]
+ * @ClassName:    [Aa10Service]   
+ * @Description:  [一句话描述该类的功能]  
+ * @Author:       [Administrator]   	   
+ * @CreateDate:   [2018年1月18日 上午10:02:45]  
+ * @UpdateUser:   [Administrator]   	   
+ * @UpdateDate:   [2018年1月18日 上午10:02:45]  
+ * @UpdateRemark: [说明本次修改内容]     
+ * @Version:      [v1.0] 		   
+ ************************************************** **/
+@Service
+public class Aa10Service extends BaseService<BaseObject>{
+	@Resource
+	private Aa10DAO_ aa10DAO_;
+	
+	public List<Aa10VO> listAA10(Map<String, Object> map){
+		UasUserVO vo = this.getLoginUser();
+		System.out.println(">>>>>>>>>>"+vo.getName()+"<<<<<<<<<<<<<");
+		return aa10DAO_.listAA10(map);
+	}
+}

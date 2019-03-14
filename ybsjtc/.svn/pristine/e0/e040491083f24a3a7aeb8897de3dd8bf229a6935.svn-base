@@ -1,0 +1,35 @@
+package com.wondersgroup.k00.f30010000.vo;
+
+
+
+import com.wondersgroup.framework.comwork.vo.BaseObject;
+
+public class F30010000VO extends BaseObject{
+    private String aaa027;//统筹区编码
+
+    private String aaa129;//统筹区名称
+
+	public String getAaa027() {
+		return aaa027;
+	}
+
+	public void setAaa027(String aaa027) {
+		this.aaa027 = aaa027;
+	}
+
+	public String getAaa129() {
+		return aaa129;
+	}
+
+	public void setAaa129(String aaa129) {
+		this.aaa129 = aaa129;
+	}
+    
+   
+
+	
+    
+	
+    
+
+    }

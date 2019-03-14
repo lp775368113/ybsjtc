@@ -1,0 +1,36 @@
+package com.wondersgroup.k01.f30100109.dao;
+
+import java.util.List;
+
+import org.mybatis.spring.annotation.MapperScan;
+
+import com.wondersgroup.framework.comwork.dao.BaseDAO;
+import com.wondersgroup.framework.comwork.vo.BaseObject;
+import com.wondersgroup.k01.f30100109.dto.F30100109DTO;
+
+/**   ***********************************************
+ * Simple to Introduction  
+ * @ProjectName:  [ybsjtc]
+ * @Package:      [com.wondersgroup.k01.f30100109.dao]
+ * @ClassName:    [F30100109DAO]   
+ * @Description:  [一句话描述该类的功能]  
+ * @Author:       [wangxuegang]   	   
+ * @CreateDate:   [2018年1月29日 下午4:30:26]  
+ * @UpdateUser:   [wangxuegang]   	   
+ * @UpdateDate:   [2018年1月29日 下午4:30:26]  
+ * @UpdateRemark: [说明本次修改内容]     
+ * @Version:      [v1.0] 		   
+ ************************************************** **/
+@MapperScan
+public interface F30100109DAO extends BaseDAO<BaseObject>{
+	
+	public List<F30100109DTO> queryTsb(F30100109DTO dto);
+	
+	public void saveKa06(F30100109DTO dto);
+	
+	public void saveKa08(F30100109DTO dto);
+	
+	public void updateKa06(F30100109DTO dto);
+	
+	public void updateKa08(F30100109DTO dto);
+}

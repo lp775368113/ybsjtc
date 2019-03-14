@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wondersgroup.k00.f30010101.dao.F30010101Dao">
+
+<sql id="where1">
+	<where>
+	         <if test="aaa001!=null and aaa001!=''">
+		   	 and  a.aaa001 = #{aaa001} <!-- 参数代码类别-->		   
+	         </if>
+  	         
+  	         <if test="aaa027!=null and aaa027!=''">
+		   	 and  a.aaa027 = #{aaa027} <!-- 统筹区 -->		   
+	         </if>
+	         
+	         <if test="aae030!=null and aae030!=''">
+		   	 and  a.aae030 <![CDATA[>=]]> #{aae030} <!-- 开始日期-->		   
+	         </if>
+	         
+	         <if test="aae031!=null and aae031!=''">
+		   	 and  a.aae031 <![CDATA[<=]]>  #{aae031} <!-- 终止日期-->		   
+	         </if>
+	</where>
+	
+	
+</sql>
+ 
+
+  <select id="getPage" parameterType="java.util.Map" resultType="com.wondersgroup.k00.f30010101.vo.F30010101VO">
+  	SELECT * FROM(
+  	
+  	         SELECT a.*,rownum rn FROM aa01 a
+  	         
+  	         <include refid="where1"></include>
+  	         
+  	     )b WHERE b.rn <![CDATA[>=]]> #{start} and b.rn <![CDATA[<=]]> #{end}
+	
+  </select>
+  
+  
+  
+  <select id="getPageCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+  		
+  	 SELECT count(1) FROM aa01 a 
+  	
+  	  <include refid="where1"></include>
+  </select>
+  
+  
+    <select id="queryAae031" parameterType="com.wondersgroup.k00.f30010101.vo.F30010101VO" resultType="com.wondersgroup.k00.f30010101.vo.F30010101VO">
+  		
+  	  SELECT * FROM aa01 a where 
+  	 	          
+		     a.aaa001 = #{aaa001} <!-- 参数代码类别-->		   
+  	         
+		   	 and  a.aaa027 = #{aaa027} <!-- 统筹区 -->		   
+		   	 	         
+	         <if test="aae030!=null and aae030!=''">
+		   	 and  a.aae031 <![CDATA[>=]]>  #{aae030} <!-- 终止日期大于传进来的开始日期-->		   
+	         </if>
+	         
+  </select>
+  
+</mapper>

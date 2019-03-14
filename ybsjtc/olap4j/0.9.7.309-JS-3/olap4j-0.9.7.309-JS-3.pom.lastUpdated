@@ -1,0 +1,9 @@
+#NOTE: This is an Aether internal implementation file, its format can be changed without prior notice.
+#Fri Jan 20 14:03:43 CST 2017
+@default-http\://192.168.100.14\:8888/nexus/content/groups/public/.lastUpdated=1484892221051
+http\://jaspersoft.artifactoryonline.com/jaspersoft/third-party-ce-artifacts/.lastUpdated=1484892223825
+http\://repo.maven.apache.org/maven2/.lastUpdated=1484892221357
+http\://jasperreports.sourceforge.net/maven2/.error=
+http\://jasperreports.sourceforge.net/maven2/.lastUpdated=1484892222071
+http\://repo.maven.apache.org/maven2/.error=
+http\://192.168.100.14\:8888/nexus/content/groups/public/.error=Could not transfer artifact org.olap4j\:olap4j\:pom\:0.9.7.309-JS-3 from/to nexus (http\://192.168.100.14\:8888/nexus/content/groups/public)\: connect timed out

@@ -1,0 +1,78 @@
+package com.wondersgroup.application.wj01.j2105;
+
+import java.util.ArrayList;
+
+/**   ***********************************************
+ * Simple to Introduction  
+ * @ProjectName:  [ybsjtc]
+ * @Package:      [com.wondersgroup.application.wj01]
+ * @ClassName:    [Res2015]   
+ * @Description:  [一句话描述该类的功能]  
+ * @Author:       [Administrator]   	   
+ * @CreateDate:   [2018年1月30日 下午2:23:25]  
+ * @UpdateUser:   [Administrator]   	   
+ * @UpdateDate:   [2018年1月30日 下午2:23:25]  
+ * @UpdateRemark: [说明本次修改内容]     
+ * @Version:      [v1.0] 		   
+ ************************************************** **/
+public class ResBody2105_ {
+//	1	交易处理结果	integer	4	是		参见3.4.3传出报文体说明
+//
+//	2	错误信息	string	200	否		 	
+//	3	是否还有需下载的记录	string	1	是		0：下载完毕
+//	1：还需下载	
+//	4	本次下载记录条数	integer	5	是			
+//	5	医疗机构列表	composite		否			
+	
+	/**@Fields col01: TODO[交易处理结果]   */
+	private String col01;
+	/**@Fields col01: TODO[错误信息]   */
+	private String col02;
+	/**@Fields col01: TODO[是否还有需下载的记录]   */
+	private String col03;
+	/**@Fields col01: TODO[本次下载记录条数]   */
+	private String col04;
+	/**@Fields col01: TODO[医疗机构列表]   */
+	private ArrayList<ResBody2105_C> col05;
+	
+	/**@Title:  	ResBody2105_   
+	 * @Description:TODO[ResBody2105_ 构造器]     
+	 */
+	public ResBody2105_() {
+		super();
+	}
+	
+	public String getCol01() {
+		return col01;
+	}
+	public void setCol01(String col01) {
+		this.col01 = col01;
+	}
+	public String getCol02() {
+		return col02;
+	}
+	public void setCol02(String col02) {
+		this.col02 = col02;
+	}
+	public String getCol03() {
+		return col03;
+	}
+	public void setCol03(String col03) {
+		this.col03 = col03;
+	}
+	public String getCol04() {
+		return col04;
+	}
+	public void setCol04(String col04) {
+		this.col04 = col04;
+	}
+	public ArrayList<ResBody2105_C> getCol05() {
+		return col05;
+	}
+	public void setCol05(ArrayList<ResBody2105_C> col05) {
+		this.col05 = col05;
+	}
+	
+	
+
+}

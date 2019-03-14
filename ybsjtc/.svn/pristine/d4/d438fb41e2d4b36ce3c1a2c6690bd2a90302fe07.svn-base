@@ -1,0 +1,138 @@
+package com.wondersgroup.k01.f30100109.vo;
+
+import com.wondersgroup.framework.comwork.vo.BaseObject;
+
+/**
+ * *********************************************** Simple to Introduction
+ * 
+ * @ProjectName: [ybsjtc]
+ * @Package: [com.wondersgroup.k01.f30100109.vo]
+ * @ClassName: [F30100109VO]
+ * @Description: [一句话描述该类的功能]
+ * @Author: [wangxuegang]
+ * @CreateDate: [2018年1月29日 下午3:29:07]
+ * @UpdateUser: [wangxuegang]
+ * @UpdateDate: [2018年1月29日 下午3:29:07]
+ * @UpdateRemark: [说明本次修改内容]
+ * @Version: [v1.0]
+ **/
+public class F30100109VO extends BaseObject {
+	private String aaz149; // 特殊病种ID
+	private String aaa027; // 统筹区编码
+	private String aka121; // 疾病名称，即特殊病名称
+	private String aka120; // 疾病编码
+	private String aae140; // 险种类型
+	private String aae100; // 有效装填
+	private String aae030;
+	private String aae031;
+	private String aae013;
+	private String aae030qs; // 起始开始日期
+	private String aae030jz; // 截止开始日期
+	private String aae031qs; // 起始终止日期
+	private String aae031jz; // 截止终止日期
+
+	public String getAaz149() {
+		return aaz149;
+	}
+
+	public void setAaz149(String aaz149) {
+		this.aaz149 = aaz149;
+	}
+
+	public String getAaa027() {
+		return aaa027;
+	}
+
+	public void setAaa027(String aaa027) {
+		this.aaa027 = aaa027;
+	}
+
+	public String getAka121() {
+		return aka121;
+	}
+
+	public void setAka121(String aka121) {
+		this.aka121 = aka121;
+	}
+
+	public String getAka120() {
+		return aka120;
+	}
+
+	public void setAka120(String aka120) {
+		this.aka120 = aka120;
+	}
+
+	public String getAae140() {
+		return aae140;
+	}
+
+	public void setAae140(String aae140) {
+		this.aae140 = aae140;
+	}
+
+	public String getAae100() {
+		return aae100;
+	}
+
+	public void setAae100(String aae100) {
+		this.aae100 = aae100;
+	}
+
+	public String getAae030() {
+		return aae030;
+	}
+
+	public void setAae030(String aae030) {
+		this.aae030 = aae030;
+	}
+
+	public String getAae031() {
+		return aae031;
+	}
+
+	public void setAae031(String aae031) {
+		this.aae031 = aae031;
+	}
+
+	public String getAae013() {
+		return aae013;
+	}
+
+	public void setAae013(String aae013) {
+		this.aae013 = aae013;
+	}
+
+	public String getAae030qs() {
+		return aae030qs;
+	}
+
+	public void setAae030qs(String aae030qs) {
+		this.aae030qs = aae030qs;
+	}
+
+	public String getAae030jz() {
+		return aae030jz;
+	}
+
+	public void setAae030jz(String aae030jz) {
+		this.aae030jz = aae030jz;
+	}
+
+	public String getAae031qs() {
+		return aae031qs;
+	}
+
+	public void setAae031qs(String aae031qs) {
+		this.aae031qs = aae031qs;
+	}
+
+	public String getAae031jz() {
+		return aae031jz;
+	}
+
+	public void setAae031jz(String aae031jz) {
+		this.aae031jz = aae031jz;
+	}
+
+}

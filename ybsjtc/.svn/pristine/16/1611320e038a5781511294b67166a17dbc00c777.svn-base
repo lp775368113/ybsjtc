@@ -1,0 +1,8 @@
+package com.wondersgroup.k00.f30010101.vo;
+
+
+
+import com.wondersgroup.application.basedao.bo.Aa01;
+
+public class F30010101VO extends Aa01{
+    }

@@ -1,0 +1,7 @@
+package com.wondersgroup.k00.f30010105.vo;
+
+import com.wondersgroup.application.basedao.bo.Aa24;
+
+public class F30010105VO extends Aa24{
+
+ }

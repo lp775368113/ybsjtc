@@ -1,0 +1,147 @@
+<%@ page contentType="text/html; charset=utf-8"%>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<%@ taglib prefix="cw" uri="/widget-tags"%>
+<%@ include file="/pages/include/header.jsp"%>
+<head>
+<title>新增特殊病</title>
+<style type="text/css">
+html, body {
+	font-size: 12px;
+	padding: 0;
+	margin: 0;
+	border: 0;
+	height: 100%;
+	overflow: hidden;
+}
+.mini-fit {
+    padding: 10px 20px;
+}
+table {
+    width: 100%;
+}
+
+table td {
+    width:32%;
+    padding:0px 0px 10px;
+}
+
+table td.mini_title {
+    width:18%;
+    color:#000;
+}
+
+*{
+    background-color:#FDFDFD;
+}
+</style>
+</head>
+<body>
+	<div class="mini-fit">
+		<form id="addForm" name="addForm"  action="#" method="post" >
+		    <input id="aaa027" name="aaa027" class="mini-hidden" value="<%=loginuser_area_id%>"/>
+			<table>
+				<tr>
+				    <td class="mini_title"><label>特殊病种编码：</label></td>
+				    <td>
+				        <input id="aka120" name="aka120" class="mini-textbox" required="true" style="width:100%" 
+				          vtype="rangeChar:6,20" emptyText="请输入6-20位编码，必填" value="" />
+				    </td>
+				    
+				    <td class="mini_title"><label>特殊病种名称：</label></td>
+                    <td><input id="aka121" name="aka121" class="mini-textbox" required="true" style="width:100%" 
+                          emptyText="请输入特殊病编码，必填" value="" /></td>
+				</tr>
+				<tr>
+				    <td class="mini_title"><label>适用险种：</label></td>
+                    <td>
+                        <input id="aae140" name="aae140" class="mini-combobox" required="true" style="width:100%"
+                           textField="aaa103" valueField="aaa102" value="" emptyText="请选择适用险种，必填"
+                           url="${pageContext.request.contextPath}/aa10/listaa10.do?aaa100=AAE140"/>
+                    </td>
+                    
+                    <td class="mini_title"><label>是否有效：</label></td>
+                    <td><input id="aae100" name="aae100" class="mini-combobox" required="true" style="width:100%"
+                           data="[{text:'无效', id:'0'}, {text:'有效', id:'1'}]" emptyText="请选择有效状态，必选"/></td>
+                </tr>
+                <tr>
+                    <td class="mini_title"><label>开始日期：</label></td>
+                    <td><input id="aae030" name="aae030" class="mini-datepicker" required="true" style="width:100%" 
+                           format="yyyyMMdd" emptyText="请选择开始日期，必选"/> </td>
+                    
+                    <td class="mini_title"><label>终止日期：</label></td>
+                    <td><input id="aae031" name="aae031" class="mini-datepicker" required="true" style="width:100%" 
+                           format="yyyyMMdd" emptyText="请选择终止日期，必选"/> </td>
+                </tr>
+                <tr>
+                    <td class="mini_title"><label>备注：</label></td>
+                    <td colspan="3"><input id="aae013" name="aae013" class="mini-textbox" required="false" style="width:100%"
+                                        emptyText="请输入备注，选填"/></td>
+                </tr>
+                <tr>
+                    <td colspan="6">
+                        <div  class="operate">
+                            <button id="saveBtn" type="button" class="bc_color" onclick="save(this);" >
+                                <span class="bc"></span>保存
+                            </button>
+                            <button type="button" class="cz_color" onclick="reset()">
+                                <span class="cz"></span>重置
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+			</table>
+		</form>
+	</div>
+	<script type="text/javascript">
+		mini.parse();
+		var form = new mini.Form("addForm");
+		var saveBtn = document.getElementById("button_save");
+		
+		function save(btn) {
+			form.validate();
+			
+			if (!form.isValid()) {
+				return;
+			}
+			
+			var data = form.getData(true);
+			
+			if (data.aae031 < data.aae030) {
+				mini.alert("截止日期不能小于开始日期");
+				return;
+			}
+			
+			var msgid = mini.loading("正在保存......", "提示");
+			
+			$.ajax({
+				url : "${pageContext.request.contextPath}/f30100109/save.do",
+                type : "post",
+                cache : false,
+                data : data,
+                success : function(result){
+                    if(result.success){
+                        mini.alert("保存成功");
+                        btn.disabled = true;
+                    }else{
+                        mini.alert(result.msg);
+                    }
+                    
+                },
+                error:function(msg){                    
+
+                },
+                complete:function(msg){
+                    mini.hideMessageBox(msgid);
+                }
+			});
+		}
+		
+		function reset() {
+			addForm.reset();
+		}
+	</script>
+</body>
+</html>

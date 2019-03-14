@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wondersgroup.application.basedao.dao.Aa03Dao">
+
+ <insert id="save" parameterType="com.wondersgroup.application.basedao.bo.Aa03" >   
+        insert into aa03(
+                        aaz153,<!-- 利率参数id -->
+						aaa027,<!-- 统筹区编码 -->
+						aaa030,<!-- 利率类型 -->
+						aaa032,<!-- 利率名称 -->
+						aaa031,<!-- 利率 -->
+						aae041,<!-- 开始年月 -->
+						aae042<!-- 终止年月 -->
+                       )       
+                  values(
+                        #{aaz153,jdbcType=CHAR},<!-- 利率参数id -->
+						#{aaa027,jdbcType=VARCHAR},<!-- 统筹区编码 -->
+						#{aaa030,jdbcType=VARCHAR},<!-- 利率类型 -->
+						#{aaa032,jdbcType=VARCHAR},<!-- 利率名称 -->
+						#{aaa031,jdbcType=VARCHAR},<!-- 利率 -->
+						#{aae041,jdbcType=DECIMAL},<!-- 开始年月 -->
+						#{aae042,jdbcType=DECIMAL}<!-- 终止年月 -->         
+                   )	
+  </insert>
+  
+  
+  <update id="update" parameterType="com.wondersgroup.application.basedao.bo.Aa03">
+        update aa03 
+          <trim prefix="set" suffixOverrides=",">
+              <if test="aaa027 != null and aaa027 != ''">aaa027 = #{aaa027,jdbcType=VARCHAR}, </if>
+              <if test="aaa030 != null and aaa030 != ''">aaa030 = #{aaa030,jdbcType=VARCHAR}, </if>
+              <if test="aaa032 != null and aaa032 != ''">aaa032 = #{aaa032,jdbcType=VARCHAR}, </if>
+              <if test="aaa031 != null and aaa031 != ''">aaa031 = #{aaa031,jdbcType=VARCHAR}, </if>
+              <if test="aae041 != null and aae041 != ''">aae041 = #{aae041,jdbcType=DECIMAL}, </if>
+              <if test="aae042 != null and aae042 != ''">aae042 = #{aae042,jdbcType=DECIMAL}, </if>
+          </trim>
+        where aaz153 = #{aaz153}
+          
+    </update>
+
+</mapper>

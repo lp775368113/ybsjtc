@@ -1,0 +1,264 @@
+<%@ page contentType="text/html; charset=utf-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<%@ taglib prefix="m" uri="/widget-tags"%>
+<%@ include file="/pages/include/header.jsp"%>
+<head>
+<title>系统字典维护</title>
+<object id="LODOP" classid="clsid:2105C259-1E0C-4534-8141-A753534CB4CA" style="width:0;height:0"></object>
+</head>
+<body>
+	<form id="form1" name="form1" style="padding-top:12px" action="#" method="post">
+		<table cellpadding="1" class="main-table" cellspacing="5" border="0" width="100%">
+			<tr>
+				<m:list_dic_s property="hjxz" laber="性质" dic="AAC009"  sval="{'1':'1,2,3','2':'1'}" allowInput="true" style=""/>
+				<m:date property="time" laber="选择时间" format="yyyyMM" required="true"/>
+				<m:text property="aaa001" laber="代码类别" required="true" value="123"/>
+				<m:list_dic_s property="aaa027" laber="统筹区划" dic="AAA027"  allowInput="true"/>
+			</tr>
+			<tr>
+				<m:openWin textField="akb021" valueField="akb020" onbuttonclick="onButtonEdit" property="akb020" laber="医院名称" allowInput="false">
+					<m:hidden property="akb020_H" />
+					<m:hidden property="akb021_H" />
+				</m:openWin>
+				<m:list_auto show="{'编码':'aaa100','键值':'aaa102','名称':'aaa103'}" textField="aaa103" valueField="aaa102" url="/aa10/listautoaa10.do" property="csauto" laber="智能补全" />
+				<td colspan="2" />
+			</tr>
+			<tr>
+				<td colspan="8">
+					<div style="width: 800px" class="operate">
+						<button type="button" class="cx_color" onclick="search()">
+							<span class="cx"></span>查询
+						</button>
+						<button type="button" class="cz_color" onclick="resetForm()">
+							<span class="cz"></span>重置
+						</button>
+						<button type="button" class="cz_color" onclick="doRow()">
+							<span class="cz"></span>行传递
+						</button>
+						<button type="button" class="cz_color" onclick="getSeq()">
+							<span class="cz"></span>获取seq
+						</button>
+						<button type="button" class="cz_color" onclick="getdate()">
+							<span class="cz"></span>js时间
+						</button>
+						<button type="button" class="cz_color" onclick="getjson()">
+							<span class="cz"></span>反馈json
+						</button>
+						<button type="button" class="cz_color" onclick="getlist_auto()">
+							<span class="cz"></span>get:list_auto
+						</button>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</form>
+	<div class="mini-toolbar" style="border-bottom:0;padding:0px;">
+		<table style="width: 100%;">
+			<tr>
+				<td style="width: 100%;">
+					<a class="mini-button" iconCls="icon-add" onclick="add()" plain="true">增加</a>
+                    <a class="mini-button" iconCls="icon-remove" onclick="destroy()" plain="true">作废</a>   
+                    <a class="mini-button" iconCls="icon-edit" onclick="edit()" plain="true">修改</a>   
+				</td>
+				<!-- 
+				<td style="width: 100%;">
+					<a class="mini-button" iconCls="icon-add" onclick="add()" plain="true">增加</a>
+                    <a class="mini-button" iconCls="icon-remove" onclick="destroy()" plain="true">删除</a>   
+                    <span class="separator"></span>
+                    <a class="mini-button" iconCls="icon-save" onclick="saveData()" plain="true">保存</a>
+				</td>
+				 -->
+				<td style="white-space:nowrap;">
+                   	<a class="mini-button" iconCls="icon-download" onclick="doExport()" plain="true">导出</a> 
+					<a class="mini-button" iconCls="icon-print" onclick="doPrint()" plain="true">打印</a>
+                </td>
+			</tr>
+		</table>
+	</div>
+	<div class="mini-fit" >
+		<div id="grid1" class="mini-datagrid" idField="id" multiSelect="true" style="width:100%;height:100%;" 
+				sizeList="[20,30,50,100]" 
+				allowCellEdit="true" allowCellSelect="true"  editNextOnEnterKey="true"  editNextRowCell="true"
+				allowResize="true" pageSize="20" onload="onload" url="${pageContext.request.contextPath}/kb01/listkb01.do">
+				<div property="columns">
+					<div type="indexcolumn">序号</div>
+					<div type="checkcolumn">选择</div>
+					<div header="行政区划代码" field="aaa027" type="comboboxcolumn"	headerAlign="center" align="center">
+						<m:list_dic_c dic="AAA027" />
+					</div>
+					<div header="医疗机构代码" field="akb020"  headerAlign="center" align="center">
+						<input property="editor" class="mini-textbox" style="width:100%;" minWidth="200" />
+					</div>
+					<div header="医疗机构名称" field="akb021" class="mini-textarea"  headerAlign="center" align="center">
+						<input property="editor" class="mini-textarea" style="width:100%;" minWidth="200" />
+					</div>
+					<div header="等级" field="aka101" type="comboboxcolumn"   headerAlign="center" align="center">
+						<m:list_dic_c dic="AKA101" />
+	                </div>
+				    <div header="性质" field="akb022" type="comboboxcolumn"  headerAlign="center" align="center">
+				    	<m:list_dic_c dic="AKB022" />
+	                </div>
+	                <div header="类别" field="akb023" type="comboboxcolumn"  headerAlign="center" align="center">
+	                   	<m:list_dic_c dic="AKB023" />
+	                </div>
+				</div>
+			</div>
+		
+	</div>
+	<script type="text/javascript">
+		mini.parse();
+		var dataready=false;
+		var form = new mini.Form("form1");
+		var grid = mini.get("grid1");
+		//excel导出案例
+		function doExport(){
+			if(!dataready){
+				mini.alert("请先执行查询");
+				return;
+			}
+            document.form1.action ="${pageContext.request.contextPath}/kb01/exportkb01.do";
+            document.form1.submit();
+		}
+		//弹窗案例
+		function onButtonEdit(e) {
+			var bnEdit = this;
+			mini.open({
+						url : "${pageContext.request.contextPath}/pages/pub/selectmedHosID.jsp",
+						title : "查询医疗机构信息",
+						width : 750,
+						height : 440,
+						onload: function () {
+					        var iframe = this.getIFrameEl();
+					        var data = new Object();
+					        data.akb020= mini.get("akb020_H").getValue();
+					        data.akb021= mini.get("akb021_H").getValue();
+					        iframe.contentWindow.setData(data);
+					    },
+						ondestroy : function(action) {
+							if (action == "ok") {
+								var iframe = this.getIFrameEl();
+								var data = iframe.contentWindow.GetData();
+								data = mini.clone(data);
+								bnEdit.setValue(data.akb021);
+								bnEdit.setText(data.akb021);
+								mini.get("akb020_H").setValue(data.akb020);
+								mini.get("akb021_H").setValue(data.akb021);
+							}
+						}
+					});
+		}
+
+		//打印案例
+        function doPrint(){
+        	if(dataready){  
+        		var data = form.getData(true);
+        		var json = mini.encode([data]);
+	        	$.ajax({
+					url : "${pageContext.request.contextPath}/kb01/printkb01.do",
+					type : "post",
+					cache : false,
+					data : {
+						data:json
+					},
+					success : function(htmlText){
+						alert(htmlText);
+						var LODOP=getLodop();
+				    	LODOP.PRINT_INIT("打印任务名");    
+			        	LODOP.SET_PRINT_PAGESIZE(1,0,0,'A4');
+				    	LODOP.ADD_PRINT_HTM(0,0,"210mm","290mm", htmlText) ;
+			    		LODOP.SET_PRINT_STYLEA(0,"Horient",2);       
+			        	LODOP.PREVIEW();
+					}
+				});
+        	}else{
+        		mini.alert("请先执行查询");
+        	}
+		}
+ 		//提交grid行数据案例 反馈类型为String
+        function doRow(){
+        	if(dataready){  
+        		var rows = grid.getSelecteds();
+        		var json = mini.encode(rows);
+	        	$.ajax({
+					url : "${pageContext.request.contextPath}/kb01/dorow.do",
+					type : "post",
+					cache : false,
+					data : {
+						data:json
+					},
+					success : function(result){
+						mini.alert("提交成功");
+					}
+				});
+        	}else{
+        		mini.alert("请先执行查询");
+        	}
+        }
+ 		//测试通用SEQ生成案例
+ 		function getSeq(){
+        	$.ajax({
+				url : "${pageContext.request.contextPath}/kb01/getseq.do",
+				type : "post",
+				cache : false,
+				data : {
+					data:''
+				},
+				success : function(result){
+					if(result.success){
+						mini.alert(result.AAZ002);
+					}else{
+						mini.alert(result.msg);
+					}
+				}
+			});
+ 		}
+ 		function getdate(){
+ 			//字母定义 yMdhms
+ 			//yyyy-MM-dd	hh:mm:ss
+			//yyyy/MM/dd
+			
+ 			alert(DateUtil.Format('yyyy-MM-dd hh:mm:ss',new Date()));
+ 		}
+        //自定义grid提示案例
+	    function onload(e){
+	    	if(grid.data==''){
+	    		mini.alert("没有任何记录!");
+	    		return;
+	    	}
+	    }
+		//查询案例
+		function search(){
+			var data = form.getData(true);
+			grid.load(data);
+			dataready = true;//查询之后变成true
+		}
+		//form重置案例
+		function resetForm() {
+			form.reset();
+		}
+		//反馈数据为json对象
+		function getjson(){
+        	$.ajax({
+				url : "${pageContext.request.contextPath}/kb01/getjson.do",
+				type : "post",
+				cache : false,
+				data : {
+					data:''
+				},
+				success : function(result){
+					 	var ret = mini.decode(result);
+						var ssss = ret.A;
+						alert(ssss);
+						//mini.alert('111--'+result.A);
+						//mini.alert('222--'+result.D[0].AAA100);
+				}
+			});
+		}
+		function getlist_auto(){
+			alert(mini.get("csauto").getValue());
+		}
+	</script>
+</body>
+</html>

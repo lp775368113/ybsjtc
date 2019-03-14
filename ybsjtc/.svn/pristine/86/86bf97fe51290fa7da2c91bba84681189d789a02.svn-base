@@ -1,0 +1,129 @@
+package com.wondersgroup.k00.f30100104.vo;
+
+import com.wondersgroup.framework.comwork.vo.BaseObject;
+
+/**   ***********************************************
+ * Simple to Introduction  
+ * @ProjectName:  [ybsjtc]
+ * @Package:      [com.wondersgroup.k00.f30100104.vo]
+ * @ClassName:    [F30100104VO]   
+ * @Description:  [一句话描述该类的功能]  
+ * @Author:       [wangr]   	   
+ * @CreateDate:   [2018年2月8日 下午3:28:29]  
+ * @UpdateUser:   [wangr]   	   
+ * @UpdateDate:   [2018年2月8日 下午3:28:29]  
+ * @UpdateRemark: [说明本次修改内容]     
+ * @Version:      [v1.0] 		   
+ ************************************************** **/
+public class F30100104VO extends BaseObject {
+	/**@Fields serialVersionUID: TODO[用一句话描述这个变量表示什么]   */
+	private static final long serialVersionUID = 1L;
+	
+	private String aae030;//开始日期
+	private String aae031;//终止日期
+	private String aaz092;//床位费标准参数ID
+	private String aka068;//定价上限金额
+	private String aka101;//医院等级
+	private String bka152;//医疗待遇人员大类
+	private String aaa027;//统筹区编码
+	
+	/**@Title:  	getAae030
+	 * @Description:[please write your description]
+	 * @return: 	String
+	 */
+	public String getAae030() {
+		return aae030;
+	}
+	/**@Title:  	setAae030
+	 * @Description:[please write your description]
+	 * @return: 	String
+	 */
+	public void setAae030(String aae030) {
+		this.aae030 = aae030;
+	}
+	/**@Title:  	getAae031
+	 * @Description:[please write your description]
+	 * @return: 	String
+	 */
+	public String getAae031() {
+		return aae031;
+	}
+	/**@Title:  	setAae031
+	 * @Description:[please write your description]
+	 * @return: 	String
+	 */
+	public void setAae031(String aae031) {
+		this.aae031 = aae031;
+	}
+	/**@Title:  	getAaz092
+	 * @Description:[please write your description]
+	 * @return: 	String
+	 */
+	public String getAaz092() {
+		return aaz092;
+	}
+	/**@Title:  	setAaz092
+	 * @Description:[please write your description]
+	 * @return: 	String
+	 */
+	public void setAaz092(String aaz092) {
+		this.aaz092 = aaz092;
+	}
+	/**@Title:  	getAka068
+	 * @Description:[please write your description]
+	 * @return: 	String
+	 */
+	public String getAka068() {
+		return aka068;
+	}
+	/**@Title:  	setAka068
+	 * @Description:[please write your description]
+	 * @return: 	String
+	 */
+	public void setAka068(String aka068) {
+		this.aka068 = aka068;
+	}
+	/**@Title:  	getAka101
+	 * @Description:[please write your description]
+	 * @return: 	String
+	 */
+	public String getAka101() {
+		return aka101;
+	}
+	/**@Title:  	setAka101
+	 * @Description:[please write your description]
+	 * @return: 	String
+	 */
+	public void setAka101(String aka101) {
+		this.aka101 = aka101;
+	}
+	/**@Title:  	getBka152
+	 * @Description:[please write your description]
+	 * @return: 	String
+	 */
+	public String getBka152() {
+		return bka152;
+	}
+	/**@Title:  	setBka152
+	 * @Description:[please write your description]
+	 * @return: 	String
+	 */
+	public void setBka152(String bka152) {
+		this.bka152 = bka152;
+	}
+	/**@Title:  	getAaa027
+	 * @Description:[please write your description]
+	 * @return: 	String
+	 */
+	public String getAaa027() {
+		return aaa027;
+	}
+	/**@Title:  	setAaa027
+	 * @Description:[please write your description]
+	 * @return: 	String
+	 */
+	public void setAaa027(String aaa027) {
+		this.aaa027 = aaa027;
+	}
+	
+}

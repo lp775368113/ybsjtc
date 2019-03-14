@@ -1,0 +1,160 @@
+package com.wondersgroup.k00.f30100103.vo;
+
+import com.wondersgroup.framework.comwork.vo.BaseObject;
+
+/**   ***********************************************
+ * Simple to Introduction  
+ * @ProjectName:  [ybsjtc]
+ * @Package:      [com.wondersgroup.k00.f30100103.vo]
+ * @ClassName:    [F30100103VO]   
+ * @Description:  [一句话描述该类的功能]  
+ * @Author:       [wangr]   	   
+ * @CreateDate:   [2018年2月7日 下午4:34:18]  
+ * @UpdateUser:   [wangr]   	   
+ * @UpdateDate:   [2018年2月7日 下午4:34:18]  
+ * @UpdateRemark: [说明本次修改内容]     
+ * @Version:      [v1.0] 		   
+ ************************************************** **/
+public class F30100103VO extends BaseObject {
+	
+	/**@Fields serialVersionUID: TODO[用一句话描述这个变量表示什么]   */
+	private static final long serialVersionUID = 1L;
+	
+	private String bkz107;//转外自理比例ID
+	private String bka147;//转诊标志
+	private String bka148;//转诊类型
+	private String bka149;//特约标志
+	private String bka150;//转外自理比例
+	private String aae030;//开始日期
+	private String aae031;//终止日期
+	private String aaa027;//统筹区编码
+	private String aae013;//备注
+	
+	/**@Title:  	getBkz107
+	 * @Description:[please write your description]
+	 * @return: 	String
+	 */
+	public String getBkz107() {
+		return bkz107;
+	}
+	/**@Title:  	setBkz107
+	 * @Description:[please write your description]
+	 * @return: 	String
+	 */
+	public void setBkz107(String bkz107) {
+		this.bkz107 = bkz107;
+	}
+	/**@Title:  	getBka147
+	 * @Description:[please write your description]
+	 * @return: 	String
+	 */
+	public String getBka147() {
+		return bka147;
+	}
+	/**@Title:  	setBka147
+	 * @Description:[please write your description]
+	 * @return: 	String
+	 */
+	public void setBka147(String bka147) {
+		this.bka147 = bka147;
+	}
+	/**@Title:  	getBka148
+	 * @Description:[please write your description]
+	 * @return: 	String
+	 */
+	public String getBka148() {
+		return bka148;
+	}
+	/**@Title:  	setBka148
+	 * @Description:[please write your description]
+	 * @return: 	String
+	 */
+	public void setBka148(String bka148) {
+		this.bka148 = bka148;
+	}
+	/**@Title:  	getBka149
+	 * @Description:[please write your description]
+	 * @return: 	String
+	 */
+	public String getBka149() {
+		return bka149;
+	}
+	/**@Title:  	setBka149
+	 * @Description:[please write your description]
+	 * @return: 	String
+	 */
+	public void setBka149(String bka149) {
+		this.bka149 = bka149;
+	}
+	/**@Title:  	getBka150
+	 * @Description:[please write your description]
+	 * @return: 	String
+	 */
+	public String getBka150() {
+		return bka150;
+	}
+	/**@Title:  	setBka150
+	 * @Description:[please write your description]
+	 * @return: 	String
+	 */
+	public void setBka150(String bka150) {
+		this.bka150 = bka150;
+	}
+	/**@Title:  	getAae030
+	 * @Description:[please write your description]
+	 * @return: 	String
+	 */
+	public String getAae030() {
+		return aae030;
+	}
+	/**@Title:  	setAae030
+	 * @Description:[please write your description]
+	 * @return: 	String
+	 */
+	public void setAae030(String aae030) {
+		this.aae030 = aae030;
+	}
+	/**@Title:  	getAae031
+	 * @Description:[please write your description]
+	 * @return: 	String
+	 */
+	public String getAae031() {
+		return aae031;
+	}
+	/**@Title:  	setAae031
+	 * @Description:[please write your description]
+	 * @return: 	String
+	 */
+	public void setAae031(String aae031) {
+		this.aae031 = aae031;
+	}
+	/**@Title:  	getAaa027
+	 * @Description:[please write your description]
+	 * @return: 	String
+	 */
+	public String getAaa027() {
+		return aaa027;
+	}
+	/**@Title:  	setAaa027
+	 * @Description:[please write your description]
+	 * @return: 	String
+	 */
+	public void setAaa027(String aaa027) {
+		this.aaa027 = aaa027;
+	}
+	/**@Title:  	getAae013
+	 * @Description:[please write your description]
+	 * @return: 	String
+	 */
+	public String getAae013() {
+		return aae013;
+	}
+	/**@Title:  	setAae013
+	 * @Description:[please write your description]
+	 * @return: 	String
+	 */
+	public void setAae013(String aae013) {
+		this.aae013 = aae013;
+	}
+	
+}

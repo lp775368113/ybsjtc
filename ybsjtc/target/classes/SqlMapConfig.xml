@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://www.mybatis.org/dtd/mybatis-3-config.dtd">
+ 
+<configuration>
+    <settings>
+       <setting name="logImpl" value="STDOUT_LOGGING" />
+       <!--     <setting name="logImpl" value="log4j" />  -->
+    </settings> 
+    <typeAliases>
+        <typeAlias alias="PageInfo" type="com.wondersgroup.framework.mpage.PageInfo" />
+    </typeAliases>
+    <plugins>
+        <plugin interceptor="com.wondersgroup.framework.mpage.PagePlugin">
+            <property name="dialect" value="oracle" />
+            <property name="pageSqlId" value=".*ListPage.*" />
+        </plugin>
+    </plugins>
+</configuration>   

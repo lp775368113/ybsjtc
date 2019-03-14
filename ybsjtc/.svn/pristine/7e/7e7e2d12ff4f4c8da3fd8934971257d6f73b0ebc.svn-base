@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wondersgroup.k00.f30010102.dao.F30010102Dao">
+
+
+ 
+
+  <select id="getPage" parameterType="java.util.Map" resultType="com.wondersgroup.k00.f30010102.vo.F30010102VO">
+  	SELECT * FROM(
+  	
+  	         SELECT a.*,rownum rn FROM aa03 a where 1=1
+  	         
+  	         <if test="aaa030!=null and aaa030!=''">
+		   	 and  a.aaa030 = #{aaa030} <!-- 利率类型-->		   
+	         </if>
+  	         
+  	         <if test="aaa027!=null and aaa027!=''">
+		   	 and  a.aaa027 = #{aaa027} <!-- 统筹区 -->		   
+	         </if>
+	         
+	         <if test="aae041!=null and aae041!=''">
+		   	 and  a.aae041 <![CDATA[>=]]> #{aae041} <!-- 开始年月-->		   
+	         </if>
+	         
+	         <if test="aae042!=null and aae042!=''">
+		   	 and  a.aae042 <![CDATA[<=]]>  #{aae042} <!-- 终止年月-->		   
+	         </if>
+  	         
+  	     )b WHERE b.rn <![CDATA[>=]]> #{start} and b.rn <![CDATA[<=]]> #{end}
+	
+  </select>
+  
+  
+  
+  <select id="getPageCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+  		
+  	SELECT count(1) FROM aa03 a where 1=1
+  	
+  	         <if test="aaa030!=null and aaa030!=''">
+		   	 and  a.aaa030 = #{aaa030} <!-- 利率类型-->		   
+	         </if>
+  	         
+  	         <if test="aaa027!=null and aaa027!=''">
+		   	 and  a.aaa027 = #{aaa027} <!-- 统筹区 -->		   
+	         </if>
+	         
+	         <if test="aae041!=null and aae041!=''">
+		   	 and  a.aae041 <![CDATA[>=]]> #{aae041} <!-- 开始年月-->		   
+	         </if>
+	         
+	         <if test="aae042!=null and aae042!=''">
+		   	 and  a.aae042 <![CDATA[<=]]>  #{aae042} <!-- 终止年月-->		   
+	         </if>
+  </select>
+  
+  
+    
+    <select id="queryAae042" parameterType="com.wondersgroup.k00.f30010102.vo.F30010102VO" resultType="com.wondersgroup.k00.f30010102.vo.F30010102VO">
+  		
+  	  SELECT * FROM aa03 a where 
+  	 	          
+		     a.aaa030 = #{aaa030} <!-- 利率类型-->		   
+  	         
+		   	 and  a.aaa027 = #{aaa027} <!-- 统筹区 -->		   
+		   	 	         
+	         <if test="aae041!=null and aae041!=''">
+		   	 and  a.aae042 <![CDATA[>=]]>  #{aae041} <!-- 终止年月大于传进来的开始年月 -->			   
+	         </if>
+	         
+  </select>
+ 
+</mapper>

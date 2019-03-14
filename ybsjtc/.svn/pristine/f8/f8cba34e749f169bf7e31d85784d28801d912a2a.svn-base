@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.5.1.final using JasperReports Library version 6.5.1  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="jasper" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="299ead29-a7c2-4b4d-9409-0b0795a6f082">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<parameter name="p_ymd" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="AKA101" class="java.lang.String"/>
+	<field name="AKB020" class="java.lang.String"/>
+	<field name="AKB021" class="java.lang.String"/>
+	<variable name="v_yydj" class="java.lang.String" resetType="Group" resetGroup="G_AKA101">
+		<variableExpression><![CDATA[$F{AKA101}]]></variableExpression>
+	</variable>
+	<group name="G_AKA101">
+		<groupExpression><![CDATA[$F{AKA101}]]></groupExpression>
+		<groupHeader>
+			<band height="60">
+				<staticText>
+					<reportElement x="70" y="15" width="210" height="30" uuid="b66e5da9-9e0d-4f0f-9050-eb7679715a58"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="14" isBold="true"/>
+					</textElement>
+					<text><![CDATA[医院等级(group开发)：]]></text>
+				</staticText>
+				<textField evaluationTime="Auto">
+					<reportElement x="280" y="15" width="173" height="30" uuid="20e038fb-2ea4-4af1-a74b-012df0717382"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="14" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{v_yydj}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="80" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="90" y="20" width="363" height="22" uuid="12aeb325-b2c6-4176-8c9c-12e5170256ea"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="微软雅黑" size="16"/>
+				</textElement>
+				<text><![CDATA[jasper报表开发案例]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="80" y="51" width="175" height="29" uuid="823b0ebe-f830-4285-ba3d-f292c59c1bdd"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[报表日期（参数传入开发）：]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="255" y="50" width="225" height="30" uuid="c1a268cd-6cec-48ee-abd5-acce573ed0b7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{p_ymd}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<detail>
+		<band height="136" splitType="Stretch">
+			<textField>
+				<reportElement x="80" y="40" width="100" height="30" uuid="d12ca2be-eff5-4948-9f1c-1e214ef6bf84"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{AKB020}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="180" y="40" width="100" height="30" uuid="a9933d63-820f-484f-886f-1be7e7495d68"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{AKB021}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="280" y="40" width="100" height="30" uuid="d0a3403d-3372-4282-a7c6-a561d95105d8"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{AKA101}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="80" y="10" width="100" height="28" uuid="0a615f88-5ee5-4137-8b30-738afc41925c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[医院编号]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="180" y="8" width="100" height="30" uuid="4946bec3-02c9-4a19-8e09-84f4803255fa"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[医院名称]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="280" y="9" width="100" height="30" uuid="447eff3d-ab3a-40b4-a9f6-d872f54fb7d3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[医院等级]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -1,0 +1,36 @@
+package com.wondersgroup.k00.f30010102.dao;
+
+import java.util.List;
+import java.util.Map;
+
+import org.mybatis.spring.annotation.MapperScan;
+import com.wondersgroup.framework.comwork.dao.BaseDAO;
+import com.wondersgroup.framework.comwork.vo.BaseObject;
+import com.wondersgroup.k00.f30010102.vo.F30010102VO;
+/**
+ * @author Yuanqiwen
+ * @date  2018年1月20日
+ */
+@MapperScan
+public interface F30010102Dao extends BaseDAO<BaseObject>{
+    /**
+	 * @description  查询AA03
+	 * @author Yuanqiwen
+	 * @date  2018年1月20日 
+	 * @param params()
+	 * @return
+	 */
+	public List<F30010102VO> queryAa03( Map<String, Object> map);
+	
+	
+	/**
+	 * @description  根据终止年月查询AA03
+	 * @author Yuanqiwen
+	 * @date  2018年1月21日 
+	 * @param params()
+	 * @return
+	 */
+	public List<F30010102VO> queryAae042(F30010102VO vo);
+	
+
+}

@@ -1,0 +1,159 @@
+<%@ page contentType="text/html; charset=utf-8"%>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<%@ taglib prefix="cw" uri="/widget-tags"%>
+<%@ include file="/pages/include/header.jsp"%>
+<head>
+<title>疾病目录维护</title>
+
+<style type="text/css">
+html, body {
+	font-size: 12px;
+	padding: 0;
+	margin: 0;
+	border: 0;
+	height: 100%;
+	overflow: hidden;
+}
+.mini-panel-header{
+	background-color:#E0EEEE;
+}
+.mini-panel-body{
+padding:0px;
+}
+
+</style>
+
+<object id="LODOP" classid="clsid:2105C259-1E0C-4534-8141-A753534CB4CA"
+	width=0 height=0></object>
+</head>
+<body>
+
+	<div class="mini-fit">
+		<div class="mini-panel" title="查询条件" showCollapseButton="true"
+			style="width: 100%; height: 22%;" iconCls="icon-search">
+			<form id="form1" name="form1" style="padding-top:12px" action="#" method="post">
+				<table cellpadding="0" class="main-table" cellspacing="0" border="0"
+					width="100%">
+
+					<tr>
+						<td class="mini_title">疾病编码：</td>
+						<td ><input id="aka120" name="aka120" class="mini-textbox"  />
+					    </td>
+						<td class="mini_title">疾病名称：</td>
+						<td ><input id="aka121" name="aka121" class="mini-textbox"  />
+					    <td class="mini_title">疾病分类：</td>
+						<td ><input id="aka122" name="aka122" class="mini-combobox" textField="aaa103" valueField="aaa102" 
+							showNullItem="true"	emptyText="全部"    url="${pageContext.request.contextPath}/aa10/listaa10.do?aaa100=AKA122"  />
+					    </td>
+					  
+					</tr>
+					
+					<tr>
+					    <td class="mini_title">有效标志：</td>
+						<td ><input id="aae100" name="aae100" class="mini-combobox" textField="aaa103" valueField="aaa102" 
+							showNullItem="true"	emptyText="全部"    url="${pageContext.request.contextPath}/aa10/listaa10.do?aaa100=AAE100"  />
+					    </td>
+						<td class="mini_title">开始日期：</td>
+						<td ><input id="aae030" name="aae030"
+							class="mini-datepicker" format="yyyyMMdd"  />
+						</td>
+
+						<td class="mini_title">终止日期:</td>
+						<td ><input id="aae031" name="aae031"
+							class="mini-datepicker" format="yyyyMMdd"  />
+						</td>
+
+						<td>
+							<div style="width: 200px" class="operate">
+								<button type="button" class="cx_color" onclick="search()">
+									<span class="cx"></span>查询
+								</button>
+								<button type="button" class="cz_color" onclick="resetForm()">
+									<span class="cz"></span>重置
+								</button>
+							</div>
+						</td>
+					</tr>
+					
+				</table>
+			</form>
+		</div>
+
+
+		<!-- center begin -->
+		<div class="mini-panel" title="查询结果" showCollapseButton="true"
+			style="width: 100%; height: 78%;" iconCls="icon-find">
+			<div class="mini-toolbar" style="border-bottom:0;padding:0px;">
+	            <table style="width:100%;">
+	                <tr>
+	                    <td style="width:100%;">
+	                        <a class="mini-button" iconCls="icon-download" onclick="download()">省疾病目录下载</a>
+	                    </td>
+	                </tr>
+	            </table>           
+        	</div>
+			<div id="grid1" class="mini-datagrid" idField="id" multiSelect="true"
+				style="width: 100%; height: 90%;" allowResize="true" pageSize="10"
+				onload="onload"
+				url="${pageContext.request.contextPath}/f30100108/queryKa06.do">
+				<div property="columns">
+					<div type="indexcolumn">序号</div>
+					<div field="aka120" width="80" headerAlign="center" align="center">疾病编码</div>
+					<div field="aka121" width="120" headerAlign="center" align="center">疾病名称</div>
+					<div field="aka122" type="comboboxcolumn" width="100"   headerAlign="center" align="center">疾病分类
+                       <input property="editor" class="mini-combobox" style="width: 100%"  url="${pageContext.request.contextPath}/aa10/getDic.do?aaa100=AKA122" />
+                    </div>
+                    <div field="aka020" width="100" headerAlign="center" align="center">拼音助记码</div>
+                    <div field="aka021" width="100" headerAlign="center" align="center">五笔助记码</div>
+					<div field="aae030" width="100" headerAlign="center" align="center">开始日期</div>
+					<div field="aae031" width="100" headerAlign="center" align="center">终止日期</div>
+					<div field="aae100" type="comboboxcolumn" width="100"   headerAlign="center" align="center">有效标志
+                       <input property="editor" class="mini-combobox" style="width: 100%"  url="${pageContext.request.contextPath}/aa10/getDic.do?aaa100=AAE100" />
+                    </div>			
+				</div>
+			</div>
+			<!-- center end -->
+		</div>
+	</div>
+	<script type="text/javascript">
+		mini.parse();
+		var form = new mini.Form("form1");
+		var grid = mini.get("grid1");
+		
+		function search(){
+			 form.validate();
+			if (form.isValid() == false) {
+				return;
+			} 
+			var data = form.getData(true);
+			grid.load(data);			
+			}
+		
+		function resetForm() {
+			form.reset();
+		}
+		
+		
+		function download(){
+			var msgid=mini.loading("下载中......","提示");
+		  	$.ajax({
+				url : "${pageContext.request.contextPath}/f30100108/download.do",
+				type : "post",
+				cache : false,
+				data : {},
+				success : function(result){
+					mini.alert("下载成功");					
+				},
+				complete:function(msg){
+					mini.hideMessageBox(msgid);
+				}
+			});
+		}
+
+	</script>
+
+</body>
+</html>

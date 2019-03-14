@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wondersgroup.k00.f30010104.dao.F30010104Dao">
+
+
+ 
+
+  <select id="getPage" parameterType="java.util.Map" resultType="com.wondersgroup.k00.f30010104.vo.F30010104VO">
+     <bind name="aaa103Pattern" value="'%' + _parameter.aaa103 + '%'" />
+  	SELECT * FROM(
+  	
+  	         SELECT a.*,rownum rn FROM aa10 a where 1=1
+  	         
+  	         <if test="aaa100!=null and aaa100!=''">
+		   	 and  a.aaa100 = #{aaa100} <!-- 代码类别 -->		   
+	         </if>
+	         
+	         <if test="aaa103!=null and aaa103!=''">
+		   	 and  a.aaa103 like #{aaa103Pattern} <!-- 代码名称 -->		   
+	         </if>
+	         
+  	         
+  	     )b WHERE b.rn <![CDATA[>=]]> #{start} and b.rn <![CDATA[<=]]> #{end}
+	
+  </select>
+  
+  
+  
+  <select id="getPageCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+       <bind name="aaa103Pattern" value="'%' + _parameter.aaa103 + '%'" />
+  		
+  	SELECT count(1) FROM aa10 a where 1=1
+  	
+  	          <if test="aaa100!=null and aaa100!=''">
+		   	 and  a.aaa100 = #{aaa100} <!-- 代码类别 -->		   
+	         </if>
+	         
+	         <if test="aaa103!=null and aaa103!=''">
+		   	 and  a.aaa103 like #{aaa103Pattern} <!-- 代码名称 -->		     
+	         </if>
+  	         
+  </select>
+  
+      
+    <select id="queryAae031" parameterType="com.wondersgroup.k00.f30010104.vo.F30010104VO" resultType="com.wondersgroup.k00.f30010104.vo.F30010104VO">
+  		
+  	  SELECT * FROM aa10 a where  	 	          
+		     a.aaa100 = #{aaa100} <!-- 代码类别-->	
+		     and  a.aaa102 = #{aaa102} <!-- 代码值-->	    	         	   		   	 	         
+	         <if test="aae030!=null and aae030!=''">
+		   	 and  a.aae031 <![CDATA[>=]]>  #{aae030} <!-- 终止日期大于传进来的开始日期 -->			   
+	         </if>
+	         
+  </select>
+  
+  
+  
+    
+</mapper>

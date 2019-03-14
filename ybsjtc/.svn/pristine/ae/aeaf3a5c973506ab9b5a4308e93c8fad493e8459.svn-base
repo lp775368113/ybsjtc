@@ -1,0 +1,93 @@
+package com.wondersgroup.application.wj01.j2108;
+
+import com.wondersgroup.framework.fmtcheck.Fmtdescribe;
+
+/**   ***********************************************
+ * Simple to Introduction  
+ * @ProjectName:  [ybsjtc]
+ * @Package:      [com.wondersgroup.application.wj01]
+ * @ClassName:    [Res2015_C]   
+ * @Description:  [一句话描述该类的功能]  
+ * @Author:       [Administrator]   	   
+ * @CreateString:   [2018年1月30日 下午2:24:18]  
+ * @UpStringUser:   [Administrator]   	   
+ * @UpStringString:   [2018年1月30日 下午2:24:18]  
+ * @UpStringRemark: [说明本次修改内容]     
+ * @Version:      [v1.0] 		   
+ ************************************************** **/
+public class ResBody2108_C {
+	
+	@Fmtdescribe(description = "记录流水", minLength = 1, maxLength = 20, nullable = false)
+	private String jlls;//记录流水
+	@Fmtdescribe(description = "疾病编码", minLength = 1, maxLength = 20, nullable = false)
+	private String jbbm;//疾病编码
+	@Fmtdescribe(description = "疾病名称", minLength = 1, maxLength = 128, nullable = false)
+	private String jbmc;//疾病名称
+	@Fmtdescribe(description = "拼音简码", minLength = 1, maxLength = 50, nullable = true)
+	private String pyjm;//拼音简码
+	@Fmtdescribe(description = "疾病类别", minLength = 1, maxLength = 100, nullable = true)
+	private String jblb;//疾病类别
+	@Fmtdescribe(description = "规定病种分类", minLength = 1, maxLength = 3, nullable = false)
+	private String gdbzfl;//规定病种分类
+	@Fmtdescribe(description = "更新标志", minLength = 1, maxLength = 3, nullable = true)
+	private String gxbz;//更新标志
+	@Fmtdescribe(description = "开始时间", minLength = 1, maxLength = 10, nullable = false)
+	private String kssj;//开始时间
+	@Fmtdescribe(description = "结束时间", minLength = 1, maxLength = 10, nullable = true)
+	private String jssj;//结束时间
+	public String getJlls() {
+		return jlls;
+	}
+	public void setJlls(String jlls) {
+		this.jlls = jlls;
+	}
+	public String getJbbm() {
+		return jbbm;
+	}
+	public void setJbbm(String jbbm) {
+		this.jbbm = jbbm;
+	}
+	public String getJbmc() {
+		return jbmc;
+	}
+	public void setJbmc(String jbmc) {
+		this.jbmc = jbmc;
+	}
+	public String getPyjm() {
+		return pyjm;
+	}
+	public void setPyjm(String pyjm) {
+		this.pyjm = pyjm;
+	}
+	public String getJblb() {
+		return jblb;
+	}
+	public void setJblb(String jblb) {
+		this.jblb = jblb;
+	}
+	public String getGdbzfl() {
+		return gdbzfl;
+	}
+	public void setGdbzfl(String gdbzfl) {
+		this.gdbzfl = gdbzfl;
+	}
+	public String getGxbz() {
+		return gxbz;
+	}
+	public void setGxbz(String gxbz) {
+		this.gxbz = gxbz;
+	}
+	public String getKssj() {
+		return kssj;
+	}
+	public void setKssj(String kssj) {
+		this.kssj = kssj;
+	}
+	public String getJssj() {
+		return jssj;
+	}
+	public void setJssj(String jssj) {
+		this.jssj = jssj;
+	}
+	
+}

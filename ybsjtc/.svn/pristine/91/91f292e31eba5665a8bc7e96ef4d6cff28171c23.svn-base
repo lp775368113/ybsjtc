@@ -1,0 +1,67 @@
+package com.wondersgroup.k00.f30010102.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import java.util.HashMap;
+import java.util.Map;
+import com.wondersgroup.framework.comwork.controller.BaseController;
+import com.wondersgroup.framework.upms.vo.UasUserVO;
+import com.wondersgroup.k00.f30010102.service.F30010102Service;
+import com.wondersgroup.k00.f30010102.vo.F30010102VO;
+
+
+/**
+ * ***********************************************
+ * Simple to Introduction  
+ * @ProjectName:  [ybsjtc]
+ * @Package:      [com.wondersgroup.k00.f30010102.action]
+ * @ClassName:    [F30010102Controller]   
+ * @Description:  [利率参数AA03公共类] 
+ * @Author:       [Yuanqiwen]   	   
+ * @CreateDate:   [2018年1月20日 下午11:57:21]  
+ * @UpdateUser:   [Yuanqiwen]   	   
+ * @UpdateDate:   [2018年1月20日 下午11:57:21]  
+ * @UpdateRemark:      
+ * @Version:      [v1.0] 		   
+ ************************************************** *
+ */
+@Controller
+@RequestMapping("f30010102")
+public class F30010102Controller extends BaseController {
+	
+	   @Autowired
+	    private F30010102Service f30010102Service;
+
+	    @ResponseBody
+	    @RequestMapping("queryAa03")
+	    public Map<String, Object> queryAa03(@RequestParam Map<String, Object> map) {
+	    	
+	    	Map<String, Object> result = new HashMap<String, Object>();
+			result = f30010102Service.getPage(map);
+			return result ;
+		}
+	    
+	    
+	    @ResponseBody
+	    @RequestMapping("add")
+	    public Map<String, Object> add(F30010102VO vo) {
+	    	
+	    	Map<String, Object> result = new HashMap<String, Object>();
+			f30010102Service.save(vo);
+			return result ;
+		}
+	    
+	    
+	    @ResponseBody
+	    @RequestMapping("update")
+	    public Map<String, Object> update(F30010102VO vo) {
+	    	
+	    	Map<String, Object> result = new HashMap<String, Object>();
+			f30010102Service.updateAa03(vo);			
+			return result ;
+		}
+
+}

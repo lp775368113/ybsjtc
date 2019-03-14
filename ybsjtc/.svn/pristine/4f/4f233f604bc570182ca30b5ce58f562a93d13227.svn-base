@@ -1,0 +1,231 @@
+<%@ page contentType="text/html;charset=utf-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<%@ taglib prefix="cw" uri="/widget-tags"%>
+
+<head>
+<title>读取市民卡信息(卡内数据41)，输入个人编号10，或者身份证号18,返回zhid,调用存储过程YB_CARD.GetGrjbxxByZhid</title>
+<%@ include file="/pages/include/header.jsp"%>
+<OBJECT CLASSID="CLSID:86284594-5062-4380-8A3D-895631F01D4C" CODEBASE="ICCReader_ax.dll" ID="Device" width=0 height=0
+	align="center" hspace=0 vspace=0></OBJECT>
+<style type="text/css">
+html, body {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+}
+</style>
+</head>
+<body>
+	<div id="layout1" class="mini-layout" style="width: 100%; height: 100%;">
+		<div title="center" region="center" bodyStyle="overflow:hidden;" style="border: 0;">
+			<div>
+				<div id="editForm1" class="cxTabbox">
+					<table cellpadding="0" class="cxTab" cellspacing="0" border="0" width="100%">
+
+						<tr>
+							<td class="mini_title" >查询条件：</td>
+							<td>
+								
+								 <input id="sk" name="sk" class="mini-password" />
+							</td>
+						    
+                          <td class="mini_title" >辖区：</td> 
+							<td>
+							      <cw:multicombobox paramField="area_id" level="2" editable="true" ></cw:multicombobox>
+							  	  <input id="area_id" name="area_id"  value="<%=loginuser_area_id.substring(0,6)  %>"  class="mini-textbox" visible="false"/>
+					
+							</td>
+ 
+						</tr>
+					</table>
+				</div>
+				<div style="text-align: center; padding: 10px;" class="cxTabbox">
+					<a class="mini-button" onclick="onReadCard" iconCls="icon-ok" style="margin-right: 20px;">读市民卡</a>
+					<a class="mini-button" onclick="search" iconCls="icon-ok" style="margin-right: 20px;" id="search">查询</a>
+					<a class="mini-button" onclick="onCancel" iconCls="icon-no">取消</a>
+
+				</div>
+
+				<div id="grid1" class="mini-datagrid" idField="id" multiSelect="false" style="width: 100%; height: 250px;"
+					onrowdblclick="onRowDblclick" showPager="false" url="${pageContext.request.contextPath}/common/listCbrxx.do">
+					<div property="columns">
+						<div type="indexcolumn"></div>
+						<div field="zhid" width="60" headerAlign="center">个人编号</div>
+						<div field="xm" width="50" headerAlign="center">姓名</div>
+						<div field="sfzh" width="100" headerAlign="center">身份证号</div>
+						<div field="rylb" width="0" headerAlign="center" visible="false"></div>
+						<div field="rylbmc" width="60" headerAlign="center">人员类别</div>
+						<div field="zhzt" width="0" headerAlign="center" visible="false"></div>
+						<div field="zhztmc" width="50" headerAlign="center">账户状态</div>
+						<div field="dwmc" width="120" headerAlign="center">单位名称</div>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	 
+	<script type="text/javascript">
+		mini.parse();
+		
+		var form = new mini.Form("editForm1");
+		var grid = mini.get("grid1");
+		mini.get("sk").focus();
+		function onRowDblclick(e) {
+			var row = grid.getSelected();
+			window.Owner.SetCbr_Data(row);
+			CloseWindow("ok");
+		}
+
+		//监听grid的load事件，回调里再
+		
+		grid.on("load", function() {
+			var rows = grid.getData();
+			if (rows.length == 1) {
+				var row = rows[0];
+				// window.Owner.SetCbr_Data(row);
+				window.Owner.SetCbr(row);
+				
+				CloseWindow("ok");
+			} else if (rows.length > 1) {
+				top["win"].readcard.setHeight(200);
+			}
+		})
+		
+
+		function search() {
+			var sk = mini.get("sk").getValue();
+			if (sk == '') {
+				mini.alert("请输入个人编号或输入身份证号");
+				return false;
+			}
+			var data = form.getData(true, false);
+			/*params：Object。参数对象。
+			success：Function。成功回调函数。
+			fail：Function。失败回调函数
+			 */
+			grid.load(data, function(text) {
+				text = mini.decode(text.text);
+				if (text.success) {
+                   // mini.alert("保存成功！");
+                } else {
+                    mini.alert(text.msg);
+                }
+			} );
+
+		}
+
+		function GetData() {
+			var rows = grid.getData();
+			if (rows.length == 1) {
+				var row = grid.getRow(0);
+				return row;
+			} else {
+				return grid.getSelected();
+			}
+
+		}
+
+		//返回
+		function onCancel() {
+			CloseWindow();
+		}
+
+		function CloseWindow(action) {
+			if (window.CloseOwnerWindow) {
+				window.CloseOwnerWindow(action);
+			} else {
+				window.close();
+			}
+		}
+		//读卡    
+		function onReadCard() {
+			try {
+				if (Device.object == null) {
+					mini.alert("对不起，系统没有检测社保卡读写控件");
+					resultFlag = -99;
+				} else {
+					if (fun_SIReadCardIDAIO() == false) {
+						return false;
+					}
+					fun_SIReadCardIDAIO();
+					var kh = Device.StrVal1;
+					var ksbm = Device.StrVal2;
+					var knsj = ksbm + kh;
+					mini.get("sk").setValue(knsj);
+					search();
+				}
+			} catch (e) {
+				alert("其他未知社保卡读写错误，请联系系统管理人员！");
+				resultFlag = -99;
+			}
+		}
+
+		//读卡函数
+		function fun_SIReadCardIDAIO() {
+			result = Device.SIReadCardIDAIO();
+			if (result != 0) {
+				if (result == '-1') {
+					alert("未知错误！");
+					return false;
+				} else if (result == '-2') {
+					alert("打开读写器端口错误！");
+					return false;
+				} else if (result == '-3') {
+					alert("读写器版本错误！");
+					return false;
+				} else if (result == '-4') {
+					alert("通讯错误");
+					return false;
+				} else if (result == '-5') {
+					alert("SAM卡上电错误");
+					return false;
+				} else if (result == '-6') {
+					alert('读卡失败！错误代码：' + result + '\n未插入用户卡！');
+					return false;
+				} else if (result == '-7') {
+					alert('读卡失败！错误代码：' + result + '\n用户卡上电错误！');
+					return false;
+				} else if (result == '-8') {
+					alert('读卡失败！错误代码：' + result + '\n用户卡下电错误！');
+					return false;
+				} else if (result == '-9') {
+					alert('读卡失败！错误代码：' + result + '\n用户卡命令无响应！');
+					return false;
+				} else if (result == '-10') {
+					alert('读卡失败！错误代码：' + result + '\nSAM卡命令无响应！');
+					return false;
+				} else if (result == '-11') {
+					alert('读卡失败！错误代码：' + result + '\n验证错误！');
+					return false;
+				} else if (result == '-12') {
+					alert('读卡失败！错误代码：' + result + '\n输入参数不匹配！');
+					return false;
+				} else if (result == '-13') {
+					alert('读卡失败！错误代码：' + result + '\n功能不支持！');
+					return false;
+				} else if (result == '-14') {
+					alert('读卡失败！错误代码：' + result + '\n关闭读写器错误！');
+					return false;
+				} else if (result == '-15') {
+					alert('读卡失败！错误代码：' + result + '\n密码长度错误！');
+					return false;
+				} else {
+					alert('读卡失败！错误代码：' + result);
+					return false;
+				}
+			} else {
+				return true;
+			}
+		}
+
+	
+	</script>
+	
+	<script type="text/javascript" src="${pageContext.request.contextPath}/resource/scripts/boot.js"></script>
+</body>
+</html>

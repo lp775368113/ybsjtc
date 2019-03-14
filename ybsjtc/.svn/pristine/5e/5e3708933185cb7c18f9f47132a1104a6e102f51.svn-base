@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wondersgroup.k00.f30100104.dao.F30100104DAO">
+
+	<sql id="Base_Column_List">
+		AAZ092, AAE030, AAE031, AKA068, AKA101, BKA152, AAA027
+	</sql>
+
+	<select id="getListPage" parameterType="java.util.Map" resultType="com.wondersgroup.k00.f30100104.vo.F30100104VO">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM ka28 a where 1=1
+		<if test="aaz092!=null and aaz092!=''">
+			and a.aaz092 = #{aaz092} <!--床位费标准参数ID -->
+		</if>
+		<if test="aka068!=null and aka068!=''">
+			and a.aka068 = #{aka068} <!--定价上限金额 -->
+		</if>
+		<if test="aka101!=null and aka101!=''">
+			and a.aka101 = #{aka101} <!--医院等级 -->
+		</if>
+		<if test="bka152!=null and bka152!=''">
+			and a.bka152 = #{bka152} <!--医疗待遇人员大类 -->
+		</if>
+		<if test="aaa027!=null and aaa027!=''">
+			and a.aaa027 = #{aaa027} <!--统筹区编码 -->
+		</if>
+		<if test="aae030!=null and aae030!=''">
+			and a.aae030 <![CDATA[>=]]> #{aae030} <!-- 开始日期 -->
+		</if>
+		<if test="aae031!=null and aae031!=''">
+			and a.aae031 <![CDATA[<=]]> #{aae031} <!-- 终止日期 -->
+		</if>
+	</select>
+
+	<select id="queryKa28ByTime" parameterType="java.util.Map" resultType="com.wondersgroup.k00.f30100104.vo.F30100104VO">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM ka28 a where 1=1
+		<if test="aaz092!=null and aaz092!=''">
+			and a.aaz092 <![CDATA[<>]]> #{aaz092} <!--床位费标准参数ID -->
+		</if>
+		<if test="aka101!=null and aka101!=''">
+			and a.aka101 = #{aka101} <!--医院等级 -->
+		</if>
+		<if test="bka152!=null and bka152!=''">
+			and a.bka152 = #{bka152} <!--医疗待遇人员大类 -->
+		</if>
+		<if test="aaa027!=null and aaa027!=''">
+			and a.aaa027 = #{aaa027} <!--统筹区编码 -->
+		</if>
+		<if test="aae030!=null and aae030!=''">
+			and #{aae030} <![CDATA[<=]]> a.aae031 <!-- 开始日期 -->
+		</if>
+		<if test="aae031!=null and aae031!=''">
+			and a.aae030 <![CDATA[<=]]> #{aae031} <!-- 终止日期 -->
+		</if>
+	</select>
+
+	<insert id="saveKa28" parameterType="java.util.Map">
+		<!-- 床位费标准参数ID,开始日期,终止日期,定价上限金额,医院等级,医疗待遇人员大类,统筹区编码 -->
+		<selectKey resultType="java.lang.String" keyProperty="aaz092" order="BEFORE">
+			select to_char(sysdate,'yyyymmdd')||lpad(seq_aaz092.nextval,8,'0') as aaz092 from dual
+		</selectKey>
+		insert into KA28 (AAZ092, AAE030, AAE031, AKA068, AKA101, BKA152, AAA027)
+    	values (#{aaz092,jdbcType=CHAR}, #{aae030,jdbcType=DECIMAL}, #{aae031,jdbcType=DECIMAL}, 
+      	#{aka068,jdbcType=DECIMAL}, #{aka101,jdbcType=VARCHAR}, #{bka152,jdbcType=VARCHAR}, 
+      	#{aaa027,jdbcType=VARCHAR})
+	</insert>
+
+	<update id="updateKa28" parameterType="java.util.Map">
+		update KA28
+	    <set>
+	      <if test="aae030 != null">
+	        AAE030 = #{aae030,jdbcType=DECIMAL},
+	      </if>
+	      <if test="aae031 != null">
+	        AAE031 = #{aae031,jdbcType=DECIMAL},
+	      </if>
+	      <if test="aka068 != null">
+	        AKA068 = #{aka068,jdbcType=DECIMAL},
+	      </if>
+	      <if test="aka101 != null">
+	        AKA101 = #{aka101,jdbcType=VARCHAR},
+	      </if>
+	      <if test="bka152 != null">
+	        BKA152 = #{bka152,jdbcType=VARCHAR},
+	      </if>
+	      <if test="aaa027 != null">
+	        AAA027 = #{aaa027,jdbcType=VARCHAR},
+	      </if>
+	    </set>
+	    where AAZ092 = #{aaz092,jdbcType=CHAR}
+	</update>
+
+</mapper>

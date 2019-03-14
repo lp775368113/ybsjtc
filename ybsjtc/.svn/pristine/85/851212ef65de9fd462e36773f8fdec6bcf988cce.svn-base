@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wondersgroup.kxx.f30000101.dao.Aa13DAO_">
+
+	<select id="listAA13" resultType="com.wondersgroup.kxx.f30000101.vo.Aa13VO"	parameterType="java.util.HashMap"  >
+		select * from aa13 where 1=1
+		<if test="aaa027 !=null and aaa027 != ''"> and aaa027 = #{aaa027} </if> 
+         order by  baz030 asc
+	</select>
+</mapper>

@@ -1,0 +1,213 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>特殊病种维护</title>
+<%@ include file="/pages/include/header.jsp"%>
+<style type="text/css">
+html, body {
+	font-size: 12px;
+	padding: 0;
+	margin: 0;
+	border: 0;
+	height: 100%;
+	overflow: hidden;
+}
+
+.query-form table tr td {
+	padding:2px 0px 2px 6px;
+}
+
+.operate {
+	width:100%;
+	margin:0 auto;
+}
+.operate button {
+	margin:5px 20px;
+}
+</style>
+</head>
+<body>
+	<div class="mini-fit" style="width:100%">
+		<div class="mini-panel" title="查询条件" style="width:100%" showCollapseButton="true" iconCls="icon-search">
+			<form id="queryForm" class="query-form" name="queryForm" style="padding-top:12px" action="#" method="post">
+				<table cellpadding="0" class="main-table" cellspacing="0" border="0" width="100%">
+					<tr>
+						<td class="mini_title">特殊病种代码：</td>
+						<td><input id="aaz149" name="aaz149" class="mini-textbox" value="" style="width:80%" /></td>
+						<td class="mini_title">特殊病种名称：</td>
+						<td><input id="aka121" name="aka121" class="mini-textbox" value="" style="width:80%" /></td>
+						<td class="mini_title">疾病编码：</td>
+						<td><input id="aka120" name="aka120" class="mini-textbox" value="" style="width:80%" /></td>
+						<td class="mini_title">险种类型：</td>
+						<td><input id="aae140" name="aae140" class="mini-textbox" value="" style="width:80%" /></td>
+					</tr>
+					<tr>
+						<td class="mini_title">起始开始日期：</td>
+						<td><input id="aae030qs" name="aae030qs" class="mini-datepicker" value="" style="width:80%" format="yyyyMMdd" /></td>
+						<td class="mini_title">截止开始日期：</td>
+						<td><input id="aae030jz" name="aae030jz" class="mini-datepicker" value="" style="width:80%" format="yyyyMMdd" /></td>
+						<td class="mini_title">起始终止日期：</td>
+						<td><input id="aae031qs" name="aae031qs" class="mini-datepicker" value="" style="width:80%" format="yyyyMMdd" /></td>
+						<td class="mini_title">截止终止日期：</td>
+						<td><input id="aae031jz" name="aae031jz" class="mini-datepicker" value="" style="width:80%" format="yyyyMMdd" /></td>
+					</tr>
+					<tr>
+						<td colspan="8">
+							<div  class="operate">
+								<button type="button" class="cx_color" onclick="doQuery()">
+									<span class="cx"></span>查询
+								</button>
+								<button type="button" class="cz_color" onclick="doReset()">
+									<span class="cz"></span>重置
+								</button>
+							</div>
+						</td>
+						
+					</tr>
+						
+				</table>
+			</form>
+		</div>
+		<div class="mini-panel" title="查询结果" style="width:100%" showCollapseButton="true" iconCls="icon-find">
+			<div class="mini-toolbar" style="border:none;padding:0;">
+				<table style="width:100%;">
+	                <tr>
+	                    <td style="width:100%;">
+	                        <a class="mini-button" iconCls="icon-add" onclick="add()">增加</a>
+	                        <a class="mini-button" iconCls="icon-edit" onclick="edit()">修改</a>
+	                        <a class="mini-button" iconCls="icon-remove" onclick="del()">作废</a>
+	                    </td>
+	                </tr>
+	            </table>    
+			</div>
+			<div id="dataGrid" class="mini-datagrid" idField="aaz149" multiSelect="false" style="width:100%;"
+				onload="onload" url="${pageContext.request.contextPath}/f30100109/query.do"
+				pageSize="10" frozenStartColumn="1" frozenStartColumn="3">
+				<div property="columns">
+					<div type="checkcolumn"></div>
+					<div type="indexcolumn">序号</div>
+					<div field="aaz149" width="100" headerAlign="center" align="center" visible="true">特殊病种ID</div>
+					<div field="aaa027" width="100" headerAlign="center" align="center" visible="false">统筹区编码</div>
+					<div field="aka121" width="100" headerAlign="center" align="center">特殊病名称</div>
+					<div field="aka122" width="100" headerAlign="center" align="center">疾病分类</div>
+					<div field="aka120" width="100" headerAlign="center" align="center">疾病编码</div>
+					<div field="aae140" width="100" headerAlign="center" align="center">险种类型</div>
+					<div field="aae030" width="100" headerAlign="center" align="center" >开始日期</div>
+					<div field="aae031" width="100" headerAlign="center" align="center">终止日期</div>
+					<div field="aae100" width="100" headerAlign="center" align="center">当前有效状态</div>
+					<div field="aae013" width="100" headerAlign="center" align="center">备注</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		mini.parse();
+		
+		var queryForm = new mini.Form("#queryForm");
+		var datagrid = mini.get("dataGrid");
+		
+		function doQuery() {
+			queryForm.validate();
+			
+			if (!queryForm.isValid()) {
+				return;
+			}
+			
+			var data = queryForm.getData(true);
+			datagrid.load(data);
+		}
+		
+		function doReset() {
+			queryForm.reset();
+		}
+		
+		function add() {
+			mini.open({
+				url:"f30100109_add.jsp",
+				title: "新增特殊病种",
+				width: 680,
+                height: 470,
+                showMaxButton: true,
+                iconCls:"icon-add",
+                onload: function () {               	 
+                },
+                ondestroy: function (action) {
+                    datagrid.reload();
+                }
+			});
+		}
+		
+		function edit() {
+			var rows = datagrid.getSelecteds();
+            if(rows.length<=0){
+                mini.alert("请选择需要修改的记录");
+                return ;
+            }else if (rows.length>1){
+                mini.alert("最多选择一条记录");
+                return ;
+            }
+            
+			mini.open({
+                url:"f30100109_edit.jsp",
+                title: "修改特殊病种",
+                width: 680,
+                height: 470,
+                showMaxButton: true,
+                iconCls:"icon-add",
+                onload: function () {   
+                	var iframe = this.getIFrameEl();
+                    var data = {}; 
+                    data = rows[0];   
+                    //调用弹出页面方法进行初始化
+                    iframe.contentWindow.setData(data); 
+                },
+                ondestroy: function (action) {
+                    datagrid.reload();
+                }
+            });
+		}
+		
+		function del() {
+			var rows = datagrid.getSelecteds();
+            if(rows.length<=0){
+                mini.alert("请选择需要作废的记录");
+                return ;
+            }
+            var data={};
+            data.dataList = mini.encode(rows);
+            
+            for (var temp in data.dataList) {
+            	if (temp.aae100 == '2') {
+            		mini.alert("选择了当前已无效的记录，无法再次作废。请重新选择");
+            		return;
+            	}
+            }
+            var msgid=mini.loading("正在作废，请稍等...","提示");
+            $.ajax({
+                url : "${pageContext.request.contextPath}/f30100109/disannul.do",
+                type : "post",
+                cache : false,
+                data : data,
+                success : function(result){
+                    if(result.success){
+                        mini.alert("作废成功");
+                        datagrid.reload();
+                    }else{
+                        mini.alert(result.msg);
+                    }
+                    
+                },
+                error:function(msg){                    
+
+                },
+                complete:function(msg){
+                    mini.hideMessageBox(msgid);
+                }
+            });
+		}
+	</script>
+</body>
+</html>

@@ -1,0 +1,125 @@
+package com.wondersgroup.application.wj01;
+
+import com.wondersgroup.framework.fmtcheck.Fmtdescribe;
+
+/**   ***********************************************
+ * Simple to Introduction  
+ * @ProjectName:  [ybsjtc]
+ * @Package:      [com.wondersgroup.application.wj01]
+ * @ClassName:    [Head_]   
+ * @Description:  [一句话描述该类的功能]  
+ * @Author:       [Administrator]   	   
+ * @CreateDate:   [2018年1月30日 下午2:32:36]  
+ * @UpdateUser:   [Administrator]   	   
+ * @UpdateDate:   [2018年1月30日 下午2:32:36]  
+ * @UpdateRemark: [说明本次修改内容]     
+ * @Version:      [v1.0] 		   
+ ************************************************** **/
+public class ComHead_ {
+	//	序号	名称	类型	长度	发起方需填入	说明	调整说明
+	//	1	交易代码	字符	4	是	交易的唯一标识码	
+	//	2	交易结果	字符	8	否	交易执行结果（节点代码+XX）
+	//	初值：节点代码+00
+	//	包体长度不对：节点代码+EE
+	//	网络错误：节点代码+99
+	//	包体长度与包头定义不符：节点代码+98	
+	//	3	预留	字符	18	否	预留	
+	//	4	文件长度	数字	10	否	以文件方式传输时的文件长度	
+	//	5	交易流水号	字符	30	是	每笔交易的唯一标识，统筹区（6位）+时间（14位,格式为yyyyMMddhh24miss）+顺序号（10）	
+	//	6	报文体数据长度	数字	10	是	报文体的数据长度	
+	//	7	发送方节点代码	字符	6	是	各地区医保系统节点代码采用各地行政区域代码，代码参考人社部函〔2008〕118号附件2中的规定；其他系统节点代码由“一卡通”平台编制和分配。	
+	//	8	预留	字符	6	否		
+	//	9	接收方节点代码	字符	6	是	各地区医保系统节点代码采用各地行政区域代码，代码参考人社部函〔2008〕118号附件2中的规定；其他系统节点代码由“一卡通”平台编制和分配。	
+	//	10	发起方交易版本号	字符	6	是	新版本为四位字符 “0400”。
+	/**@Fields jydm: TODO[交易代码]   */
+	@Fmtdescribe(description = "交易代码", minLength = 4, maxLength = 4, fdLength = 4, nullable = false)
+	private String col01;
+	/**@Fields jyjg: TODO[交易结果]   */
+	@Fmtdescribe(description = "交易结果", minLength = 0, maxLength = 8, fdLength = 8, nullable = true)
+	private String col02;
+	/**@Fields yl1: TODO[预留]   */
+	@Fmtdescribe(description = "预留", minLength = 0, maxLength = 18,   fdLength = 18, nullable = true)
+	private String col03;
+	/**@Fields wjcd: TODO[文件长度]   */
+	@Fmtdescribe(description = "文件长度", minLength = 0, maxLength = 10, fdLength = 10, nullable = true)
+	private int col04;
+	/**@Fields jylsh: TODO[交易流水号]   */
+	@Fmtdescribe(description = "交易流水号", minLength = 30, maxLength = 30, fdLength = 30, nullable = false)
+	private String col05;
+	/**@Fields bwtcd: TODO[报文体数据长度]   */
+	@Fmtdescribe(description = "报文体数据长度", minLength = 1, maxLength = 10, fdLength = 10, nullable = false)
+	private int col06;
+	/**@Fields fsfsdm: TODO[发送方节点代码]   */
+	@Fmtdescribe(description = "发送方节点代码", minLength = 6, maxLength = 6, fdLength = 6, nullable = false)
+	private String col07;
+	/**@Fields yl2: TODO[预留]   */
+	@Fmtdescribe(description = "预留", minLength = 0, maxLength = 6,   fdLength = 6, nullable = true)
+	private String col08;
+	/**@Fields jsfjddm: TODO[接收方节点代码]   */
+	@Fmtdescribe(description = "接收方节点代码", minLength = 6, maxLength = 6, fdLength = 6, nullable = false)
+	private String col09;
+	/**@Fields fqfjybbh: TODO[发起方交易版本号]   */
+	@Fmtdescribe(description = "发起方交易版本号", minLength = 1, maxLength = 6, fdLength = 6, nullable = false)
+	private String col10;
+	public String getCol01() {
+		return col01;
+	}
+	public void setCol01(String col01) {
+		this.col01 = col01;
+	}
+	public String getCol02() {
+		return col02;
+	}
+	public void setCol02(String col02) {
+		this.col02 = col02;
+	}
+	public String getCol03() {
+		return col03;
+	}
+	public void setCol03(String col03) {
+		this.col03 = col03;
+	}
+	public int getCol04() {
+		return col04;
+	}
+	public void setCol04(int col04) {
+		this.col04 = col04;
+	}
+	public String getCol05() {
+		return col05;
+	}
+	public void setCol05(String col05) {
+		this.col05 = col05;
+	}
+	public int getCol06() {
+		return col06;
+	}
+	public void setCol06(int col06) {
+		this.col06 = col06;
+	}
+	public String getCol07() {
+		return col07;
+	}
+	public void setCol07(String col07) {
+		this.col07 = col07;
+	}
+	public String getCol08() {
+		return col08;
+	}
+	public void setCol08(String col08) {
+		this.col08 = col08;
+	}
+	public String getCol09() {
+		return col09;
+	}
+	public void setCol09(String col09) {
+		this.col09 = col09;
+	}
+	public String getCol10() {
+		return col10;
+	}
+	public void setCol10(String col10) {
+		this.col10 = col10;
+	}
+
+}

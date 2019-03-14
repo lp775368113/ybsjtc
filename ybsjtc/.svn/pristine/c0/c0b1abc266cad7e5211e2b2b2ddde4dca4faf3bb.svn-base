@@ -1,0 +1,145 @@
+package com.wondersgroup.kxx.f30000101.vo;
+
+import com.wondersgroup.framework.comwork.vo.BaseObject;
+
+/**   ***********************************************
+ * Simple to Introduction  
+ * @ProjectName:  [ybsjtc]
+ * @Package:      [com.wondersgroup.kxx.f30000101.vo]
+ * @ClassName:    [Aa10VO]   
+ * @Description:  [一句话描述该类的功能]  
+ * @Author:       [Administrator]   	   
+ * @CreateDate:   [2018年1月18日 上午10:03:12]  
+ * @UpdateUser:   [Administrator]   	   
+ * @UpdateDate:   [2018年1月18日 上午10:03:12]  
+ * @UpdateRemark: [说明本次修改内容]     
+ * @Version:      [v1.0] 		   
+ ************************************************** **/
+public class Aa10VO extends BaseObject{
+	
+	
+	/**@Fields serialVersionUID: TODO[用一句话描述这个变量表示什么]   */
+	private static final long serialVersionUID = 1L;
+	
+	private String AAZ093;//	CHAR(16)			代码ID
+	private String AAZ094;//	CHAR(16)	Y		代码类别ID
+	private String AAA100;//	VARCHAR2(20)	Y		代码类别
+	private String AAA102;//	VARCHAR2(6)	Y		代码值
+	private String AAA103;//	VARCHAR2(100)	Y		代码名称
+	private String AAE030;//	NUMBER(8)	Y		开始日期
+	private String AAE031;//	NUMBER(8)	Y		终止日期
+	private   int  BKA140;//	NUMBER(4)	Y		排序号
+	private String AAE013;//	VARCHAR2(100)	Y		备注
+	private String AAE100;//	VARCHAR2(1)	Y		当前有效标志
+	private String BKA141;//	CHAR(16)	Y		父代码ID
+	private String BKA142;//	VARCHAR2(10)	Y		参数1
+	private String BKA143;//	VARCHAR2(10)	Y		参数2
+	private String BKA144;//	VARCHAR2(10)	Y		参数3
+	private String BKA145;//	VARCHAR2(10)	Y		参数4
+	private String BKA146;//	VARCHAR2(10)	Y		参数5
+	private String AAA101;//	VARCHAR2(50)	Y		代码名称
+	public String getAAZ093() {
+		return AAZ093;
+	}
+	public void setAAZ093(String aAZ093) {
+		AAZ093 = aAZ093;
+	}
+	public String getAAZ094() {
+		return AAZ094;
+	}
+	public void setAAZ094(String aAZ094) {
+		AAZ094 = aAZ094;
+	}
+	public String getAAA100() {
+		return AAA100;
+	}
+	public void setAAA100(String aAA100) {
+		AAA100 = aAA100;
+	}
+	public String getAAA102() {
+		return AAA102;
+	}
+	public void setAAA102(String aAA102) {
+		AAA102 = aAA102;
+	}
+	public String getAAA103() {
+		return AAA103;
+	}
+	public void setAAA103(String aAA103) {
+		AAA103 = aAA103;
+	}
+	public String getAAE030() {
+		return AAE030;
+	}
+	public void setAAE030(String aAE030) {
+		AAE030 = aAE030;
+	}
+	public String getAAE031() {
+		return AAE031;
+	}
+	public void setAAE031(String aAE031) {
+		AAE031 = aAE031;
+	}
+	public int getBKA140() {
+		return BKA140;
+	}
+	public void setBKA140(int bKA140) {
+		BKA140 = bKA140;
+	}
+	public String getAAE013() {
+		return AAE013;
+	}
+	public void setAAE013(String aAE013) {
+		AAE013 = aAE013;
+	}
+	public String getAAE100() {
+		return AAE100;
+	}
+	public void setAAE100(String aAE100) {
+		AAE100 = aAE100;
+	}
+	public String getBKA141() {
+		return BKA141;
+	}
+	public void setBKA141(String bKA141) {
+		BKA141 = bKA141;
+	}
+	public String getBKA142() {
+		return BKA142;
+	}
+	public void setBKA142(String bKA142) {
+		BKA142 = bKA142;
+	}
+	public String getBKA143() {
+		return BKA143;
+	}
+	public void setBKA143(String bKA143) {
+		BKA143 = bKA143;
+	}
+	public String getBKA144() {
+		return BKA144;
+	}
+	public void setBKA144(String bKA144) {
+		BKA144 = bKA144;
+	}
+	public String getBKA145() {
+		return BKA145;
+	}
+	public void setBKA145(String bKA145) {
+		BKA145 = bKA145;
+	}
+	public String getBKA146() {
+		return BKA146;
+	}
+	public void setBKA146(String bKA146) {
+		BKA146 = bKA146;
+	}
+	public String getAAA101() {
+		return AAA101;
+	}
+	public void setAAA101(String aAA101) {
+		AAA101 = aAA101;
+	}
+
+
+}

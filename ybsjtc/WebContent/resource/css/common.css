@@ -1,0 +1,19 @@
+/* ----------    公共样式  -----------------    */
+*{ margin:0px; padding:0px; border:none; line-height:22px;}
+body{width:100%;font-size:12px;color:#464646; font-family:Arial, Helvetica, sans-serif}
+.clear{ clear:both;font-size:0px;overflow:hidden;margin:0px;padding:0px;}
+ul,dl{list-style-type:none;}
+h1,h2,h3,h4,h5,h6{font-size:12px;font-weight:normal;}
+i,em,b { font-style:normal;}
+
+
+/*  Link 链接 */
+a{color:#464646;text-decoration:none;}
+a:visited{text-decoration:none;}
+a:hover{color:#f60; text-decoration:underline;}
+a:active{color:#f60;}
+
+/* Color */
+/*常用文字超链接的设定*/
+.cRed,a.cRed:link,a.cRed:visited{color:#F26521; font-family:"宋体"; text-decoration:none;}
+.cBlue,a.cBlue:link,a.cBlue:visited,a.cBlue:active{color:#1f3a87;}

@@ -1,0 +1,215 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"%>
+<%@ include file="/pages/include/header.jsp"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>起付线标准维护</title>
+<style type="text/css">
+html, body {
+	font-size: 12px;
+	padding: 0;
+	margin: 0;
+	border: 0;
+	height: 100%;
+	overflow: hidden;
+}
+.mini-panel-header{
+	background-color:#E0EEEE;
+}
+.mini-panel-body{
+padding:0px;
+}
+
+</style>
+<object id="LODOP" classid="clsid:2105C259-1E0C-4534-8141-A753534CB4CA" height="0" width="0" ></object>
+</head>
+<body>
+
+	<div class="mini-fit">
+		<div class="mini-panel" title="查询条件" showCollapseButton="true" style="width: 100%; height: 22%;" iconCls="icon-search">
+			<form id="form1" name="form1" style="padding-top:12px" action="#" method="post">
+				<table cellpadding="0" class="main-table" cellspacing="0" border="0" width="100%">
+					<tr height="30">
+						<td class="mini_title">统筹区：</td>
+						<td><input id="aaa027" name="aaa027"
+							class="mini-combobox" textField="aaa129" valueField="aaa027" emptyText="全部" showNullItem="true" ajaxOptions="{async: true}"
+							url="${pageContext.request.contextPath}/f30010000/listTcq.do" style="width:80%" /> 
+						</td>
+						<td class="mini_title">医疗服务机构类型：</td>
+						<td ><input id="akb022" name="akb022" class="mini-combobox" textField="aaa103" valueField="aaa102" style="width:80%"  ajaxOptions="{async: true}"
+							showNullItem="true"	emptyText="全部"    url="${pageContext.request.contextPath}/aa10/listaa10.do?aaa100=AKB022"  />
+					    </td>
+					     <td class="mini_title">医院等级：</td>
+						<td ><input id="aka101" name="aka101" class="mini-combobox" textField="aaa103" valueField="aaa102" style="width:80%" ajaxOptions="{async: true}"
+							showNullItem="true"	emptyText="全部"    url="${pageContext.request.contextPath}/aa10/listaa10.do?aaa100=AKA101"  />
+					    </td>
+						<td class="mini_title">医疗待遇人员类别：</td>
+						<td ><input id="akc021" name="akc021" class="mini-combobox" textField="aaa103" valueField="aaa102" style="width:80%" ajaxOptions="{async: true}"
+							showNullItem="true"	emptyText="全部"    url="${pageContext.request.contextPath}/aa10/listaa10.do?aaa100=AKC021"  />
+					    </td>
+					</tr>
+					
+					<tr height="30">
+					    <td class="mini_title">就诊方式：</td>
+						<td ><input id="aka078" name="aka078" class="mini-combobox" textField="aaa103" valueField="aaa102" style="width:80%" ajaxOptions="{async: true}"
+							showNullItem="true"	emptyText="全部"    url="${pageContext.request.contextPath}/aa10/listaa10.do?aaa100=AKA078"  />
+					    </td>
+						<td class="mini_title">开始日期：</td>
+						<td ><input id="aae030" name="aae030"
+							class="mini-datepicker" format="yyyyMMdd"  style="width:80%"/>
+						</td>
+						<td class="mini_title">终止日期:</td>
+						<td ><input id="aae031" name="aae031"
+							class="mini-datepicker" format="yyyyMMdd"  style="width:80%"/>
+						</td>
+					</tr>
+				</table>
+				<div align="center" class="operate">
+					<button type="button" class="cx_color" onclick="search()">
+						<span class="cx"></span>查询
+					</button>
+					<button type="button" class="cz_color" onclick="resetForm()">
+						<span class="cz"></span>重置
+					</button>
+				</div>
+				
+			</form>
+		</div>
+
+
+		<!-- center begin -->
+		<div class="mini-panel" title="查询结果" showCollapseButton="true"
+			style="width: 100%; height: 80%;" iconCls="icon-find">
+        <div class="mini-toolbar" style="border-bottom:0;padding:0px;">
+            <table style="width:100%;">
+                <tr>
+                    <td style="width:100%;">
+                        <a class="mini-button" iconCls="icon-add" onclick="add()">增加</a>
+                        <!-- <a class="mini-button" iconCls="icon-remove" onclick="destroy()">作废</a> -->   
+                        <a class="mini-button" iconCls="icon-edit" onclick="edit()">修改</a>    
+                    </td>
+                </tr>
+            </table>           
+        </div>
+        
+			<div id="grid1" class="mini-datagrid" idField="id" multiSelect="true"
+				style="width: 100%; height: 90%;" allowResize="true" pageSize="10" onload="onload"
+				url="${pageContext.request.contextPath}/f30100101/queryKa11.do">
+				<div property="columns">
+					<div type="indexcolumn">序号</div>
+					<div field="aaz156" width="100" headerAlign="center" align="center" visible="false">起付线标准ID</div>
+					<div field="aaa027" type="comboboxcolumn" width="100"   headerAlign="center" align="center">统筹区
+                       <input property="editor" class="mini-combobox" style="width: 100%" textField="aaa129" valueField="aaa027"  url="${pageContext.request.contextPath}/f30010000/listTcq.do" />
+                    </div>
+                    <div field="akb022" type="comboboxcolumn" width="100"   headerAlign="center" align="center">医疗服务机构类型
+                       <input property="editor" class="mini-combobox" style="width: 100%"  url="${pageContext.request.contextPath}/aa10/getDic.do?aaa100=AKB022" />
+                    </div>
+                    <div field="aka101" type="comboboxcolumn" width="100"   headerAlign="center" align="center">医院等级
+                       <input property="editor" class="mini-combobox" style="width: 100%"  url="${pageContext.request.contextPath}/aa10/getDic.do?aaa100=AKA101" />
+                    </div>
+                    <div field="akc021" type="comboboxcolumn" width="100"   headerAlign="center" align="center">医疗待遇人员类别
+                       <input property="editor" class="mini-combobox" style="width: 100%"  url="${pageContext.request.contextPath}/aa10/getDic.do?aaa100=AKC021" />
+                    </div>
+                    <div field="aka078" type="comboboxcolumn" width="100"   headerAlign="center" align="center">就诊方式
+                       <input property="editor" class="mini-combobox" style="width: 100%"  url="${pageContext.request.contextPath}/aa10/getDic.do?aaa100=AKA078" />
+                    </div>
+                    <div field="aka043" width="100" headerAlign="center" align="center">起付次数</div>
+                    <div field="aka151" width="100" headerAlign="center" align="center">起付标准额</div>
+					<div field="aae030" width="100" headerAlign="center" align="center">开始日期</div>
+					<div field="aae031" width="100" headerAlign="center" align="center">终止日期</div>
+                    <div field="aae013" width="100" headerAlign="center" align="center">备注</div>
+				</div>
+			</div>
+			<!-- center end -->
+		</div>
+	</div>
+	<script type="text/javascript">
+		mini.parse();
+		var form = new mini.Form("form1");
+		var grid = mini.get("grid1");
+		
+		grid.on("rowdblclick",function(e){//双击修改
+			edit();
+		});
+		
+		function search() {
+			form.validate();
+			if (form.isValid() == false) {
+				return;
+			}
+			var data = form.getData(true);
+			console.log(data);
+			grid.load(data);
+		}
+
+		function resetForm() {
+			form.reset();
+		}
+
+		function add() {
+			mini.open({
+				targetWindow : window,
+				url : "${pageContext.request.contextPath}/pages/k00/f30100101/f30100101_add.jsp",
+				title : "新增起付线标准",
+				width : 800,
+				height : 400,
+				iconCls : "icon-add",
+				onload : function() {
+					/* 
+					var iframe = this.getIFrameEl();
+					var data = iframe.contentWindow.GetData();
+					data = mini.clone(data);    //必须
+					if (data) {
+					    btnEdit.setValue(data.id);
+					    btnEdit.setText(data.name);
+					} */
+				},
+				ondestroy : function(action) {
+					grid.reload();
+				}
+			});
+		}
+
+		function edit() {
+			var rows = grid.getSelecteds();
+			if (rows.length <= 0) {
+				mini.alert("请选择需要修改的记录");
+				return;
+			} else if (rows.length > 1) {
+				mini.alert("最多选择一条记录");
+				return;
+			}
+			
+			var aae031 = rows[0].aae031;
+			var nowdate = mini.formatDate ( new Date(), "yyyyMMdd");
+			if(aae031 < nowdate){
+				mini.alert("终止日期小于当前系统时间，不能修改！");
+				return;
+			}
+
+			mini.open({
+				url : "${pageContext.request.contextPath}/pages/k00/f30100101/f30100101_edit.jsp",
+				title : "起付线标准修改",
+				width : 800,
+				height : 400,
+				showMaxButton : true,
+				iconCls : "icon-edit",
+				onload : function() {
+					var iframe = this.getIFrameEl();
+					var data = {};
+					data = rows[0];
+					//调用弹出页面方法进行初始化
+					iframe.contentWindow.setData(data);
+				},
+				ondestroy : function(action) {
+					grid.reload();
+				}
+			});
+		}
+		
+	</script>
+
+</body>
+</html>

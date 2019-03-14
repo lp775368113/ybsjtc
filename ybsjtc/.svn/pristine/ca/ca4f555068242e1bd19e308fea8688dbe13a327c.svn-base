@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wondersgroup.k01.f30100108.dao.F30100108Dao">
+
+
+ 
+
+  <select id="getPage" parameterType="java.util.Map" resultType="com.wondersgroup.k01.f30100108.vo.F30100108VO">
+           <bind name="aka121Pattern" value="'%' + _parameter.aka121 + '%'" />
+  	SELECT * FROM(
+  	
+  	         SELECT a.*,rownum rn FROM ka06 a where 1=1
+  	         
+  	         <if test="aka120!=null and aka120!=''">
+		   	 and  a.aka120 = #{aka120} <!--疾病编码 -->		   
+	         </if>
+	         
+	         <if test="aka121!=null and aka121!=''">
+		   	 and  a.aka121 like #{aka121Pattern} <!--疾病名称 -->		   
+	         </if>
+	         
+	         <if test="aka122!=null and aka122!=''">
+		   	 and  a.aka122 = #{aka122} <!--疾病分类 -->		   
+	         </if>
+	         
+	         <if test="aae100!=null and aae100!=''">
+		   	 and  a.aae100 = #{aae100} <!--有效标志-->		   
+	         </if>
+	         
+	         <if test="aae030!=null and aae030!=''">
+		   	 and  a.aae030 <![CDATA[>=]]> #{aae030} <!-- 开始日期-->		   
+	         </if>
+	         
+	         <if test="aae031!=null and aae031!=''">
+		   	 and  a.aae031 <![CDATA[<=]]>  #{aae031} <!-- 终止日期-->		   
+	         </if>
+  	         
+  	     )b WHERE b.rn <![CDATA[>=]]> #{start} and b.rn <![CDATA[<=]]> #{end}
+	
+  </select>
+  
+  
+  
+  <select id="getPageCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+  	 <bind name="aka121Pattern" value="'%' + _parameter.aka121 + '%'" /> 		
+  	SELECT count(1) FROM ka06 a where 1=1
+  	
+  	         <if test="aka120!=null and aka120!=''">
+		   	 and  a.aka120 = #{aka120} <!--疾病编码 -->		   
+	         </if>
+	         
+	         <if test="aka121!=null and aka121!=''">
+		   	 and  a.aka121 = #{aka121} <!--疾病名称 -->		   
+	         </if>
+	         
+	         <if test="aka122!=null and aka122!=''">
+		   	  and  a.aka121 like #{aka121Pattern} <!--疾病名称 -->		   
+	         </if>
+	         
+	         <if test="aae100!=null and aae100!=''">
+		   	 and  a.aae100 = #{aae100} <!--有效标志-->		   
+	         </if>
+	         
+	         <if test="aae030!=null and aae030!=''">
+		   	 and  a.aae030 <![CDATA[>=]]> #{aae030} <!-- 开始日期-->		   
+	         </if>
+	         
+	         <if test="aae031!=null and aae031!=''">
+		   	 and  a.aae031 <![CDATA[<=]]>  #{aae031} <!-- 终止日期-->		   
+	         </if>
+  </select>
+  		
+  		
+  		
+  <select id="queryMaxAaz082"  resultType="java.lang.String">
+     
+        select nvl(max(to_number(trim(aaz082))),0) aaz082 from ke08
+
+  </select>
+  
+   <select id="listKa06" parameterType="com.wondersgroup.k01.f30100108.vo.F30100108VO" resultType="com.wondersgroup.k01.f30100108.vo.F30100108VO">
+  	SELECT * FROM ka06 a where 1=1
+  	        <if test="aka120!=null and aka120!=''">
+		   	 and  a.aka120 = #{aka120} <!--疾病编码 -->		   
+	         </if>
+	         <if test="aae031!=null and aae031!=''">
+		   	 and  nvl(a.aae031,'30000101') <![CDATA[>=]]>  #{aae031} <!-- 终止日期-->		   
+	         </if>
+  </select>
+  
+</mapper>

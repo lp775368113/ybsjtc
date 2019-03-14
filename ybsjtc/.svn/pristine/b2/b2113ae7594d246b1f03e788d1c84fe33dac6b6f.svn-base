@@ -1,0 +1,123 @@
+<%@ page contentType="text/html;charset=utf-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<%@ taglib prefix="cw" uri="/widget-tags"%>
+<head>
+<title>医疗服务机构信息</title>
+<%@ include file="/pages/include/header.jsp"%>
+<%  
+%>
+
+<style type="text/css">
+html, body {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+}
+</style>
+
+</head>
+<body>
+
+	<div id="layout1" class="mini-layout" style="width: 100%; height: 100%;">
+		<div title="center" region="center" bodyStyle="overflow:hidden;"
+			style="border: 0;">
+			<div>
+				<div id="form1" class="mini_info">
+					<table cellpadding="3" cellspacing="3" >
+						<tr>
+							<td class="mini_title">辖区：</td>
+					        <td>
+						        <input id="aaa027" name="aaa027" class="mini-combobox" width="120px" valueField='aaa027' textField='aaa129'  emptyText="全部"  allowInput="true" url='${pageContext.request.contextPath}/aa13/listaa13.do'/>
+					        </td>
+							<td class="mini_title">医疗机构：</td>
+							<td>
+								<input id="akb021" name="akb021" class="mini-textbox" />
+							</td>
+							<td >
+								<div class="operate" width="200px">
+									<button type="button" class="cx_color" onclick="search()"><span class="cx"></span>查询</button>
+									<button type="button" class="cz_color" onclick="resetForm()"><span class="cz"></span>重置</button>
+								</div>
+							</td>
+						</tr>
+					</table>
+				</div>
+
+				<div id="grid1" class="mini-datagrid" idField="id" multiSelect="false"	style="width: 100%; height: 300px;" 
+					onrowdblclick="onRowDblclick" allowResize="true" pageSize="10"
+					url="${pageContext.request.contextPath}/kb01/listkb01.do">
+					<div property="columns">
+						<div type="indexcolumn"></div>
+						<div type="checkcolumn"></div>
+						<div header="行政区划代码" field="aaa027" type="comboboxcolumn" width="80"	headerAlign="center" align="center">
+							<input property="editor" class="mini-combobox" style="width: 100%" url="${pageContext.request.contextPath}/aa13/getDic.do" />
+						</div>
+						<div header="医疗机构代码" field="akb020" width="100" headerAlign="center" align="center"></div>
+						<div header="医疗机构名称" field="akb021" width="200" headerAlign="center" align="center"></div>
+						<div header="等级" field="aka101" type="comboboxcolumn" width="80"  headerAlign="center" align="center">
+                            <input property="editor" class="mini-combobox" style="width: 100%" url="${pageContext.request.contextPath}/aa10/getDic.do?aaa100=AKA101" />
+                        </div>
+					    <div header="性质" field="akb022" type="comboboxcolumn" width="80" headerAlign="center" align="center">
+                            <input property="editor" class="mini-combobox" style="width: 100%"  url="${pageContext.request.contextPath}/aa10/getDic.do?aaa100=AKB022" />
+                        </div>
+                        <div header="类别" field="akb023" type="comboboxcolumn" width="80"   headerAlign="center" align="center">
+                            <input property="editor" class="mini-combobox" style="width: 100%"  url="${pageContext.request.contextPath}/aa10/getDic.do?aaa100=AKB023" />
+                        </div>
+					</div>
+				</div>
+				<div class="operate" >
+					<button type="button" class="qd_color" onclick="selectValue()"><span class="qd"></span>确定</button>
+					<button type="button" class="zh_z_color" onclick="closeWin()"><span class="zh_z"></span>取消</button>
+				</div>
+		
+			</div>
+		</div>
+	</div>
+
+	<script type="text/javascript">
+		mini.parse();
+		var grid = mini.get("grid1");
+		var form = new mini.Form("form1");
+		
+		function setData(data){
+			mini.get("akb021").setValue(data.akb021);
+		}
+		function GetData() {
+			var row = grid.getSelected();
+			return row;
+		}
+		function search() {
+			var data = form.getData(true);
+			grid.load(data);
+		}
+		function onRowDblclick(e) {
+			CloseWindow("ok");
+		}
+		function CloseWindow(action) {
+			if (window.CloseOwnerWindow) {
+				window.CloseOwnerWindow(action);
+			} else {
+				window.close();
+			}
+		}
+		function resetForm() {
+			form.reset();
+		}
+		function selectValue() {
+			var row = grid.getSelected();
+			if (row == null) {
+				mini.alert("请选择一条记录");
+			} else {
+				CloseWindow("ok");
+			}
+		}
+		function closeWin() {
+			CloseWindow();
+		}
+	</script>
+</body>
+</html>

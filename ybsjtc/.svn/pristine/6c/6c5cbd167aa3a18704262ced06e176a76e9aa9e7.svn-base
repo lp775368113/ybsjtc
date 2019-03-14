@@ -1,0 +1,31 @@
+package com.wondersgroup.kxx.f30000101.dao;
+
+import java.util.List;
+import java.util.Map;
+
+import org.mybatis.spring.annotation.MapperScan;
+
+import com.wondersgroup.framework.comwork.dao.BaseDAO;
+import com.wondersgroup.framework.comwork.vo.BaseObject;
+import com.wondersgroup.kxx.f30000101.vo.Aa13VO;
+
+/**   ***********************************************
+ * Simple to Introduction  
+ * @ProjectName:  [ybsjtc]
+ * @Package:      [com.wondersgroup.kxx.f30000101.dao]
+ * @ClassName:    [Aa10DAO]   
+ * @Description:  [一句话描述该类的功能]  
+ * @Author:       [Administrator]   	   
+ * @CreateDate:   [2018年1月18日 上午10:03:35]  
+ * @UpdateUser:   [Administrator]   	   
+ * @UpdateDate:   [2018年1月18日 上午10:03:35]  
+ * @UpdateRemark: [说明本次修改内容]     
+ * @Version:      [v1.0] 		   
+ ************************************************** **/
+@MapperScan
+public interface Aa13DAO_  extends BaseDAO<BaseObject>{
+	
+	public List<Aa13VO> listAA13(Map<String, Object> map);
+
+}
+

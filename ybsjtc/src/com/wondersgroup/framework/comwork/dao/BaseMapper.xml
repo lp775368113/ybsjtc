@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wondersgroup.framework.comwork.dao.BaseDAO">
+
+	<select id="getSequence" parameterType="java.util.HashMap"
+		resultType="java.lang.String">
+		<if test="date==true">
+			select
+			to_char(sysdate,
+			<choose>
+                <when test="pattern !=null and pattern != ''">
+                    '${pattern}'
+                </when>
+                <otherwise>
+                    'yyyymmdd'
+                </otherwise>
+            </choose>
+			)||lpad(${sequence_name}.nextval,
+			#{length},'0') seq from dual
+		</if>
+		<if test="date==false">
+			select lpad(${sequence_name}.nextval, #{length},'0') seq
+			from dual
+		</if>
+	</select>
+
+	<insert id="saveOperateLog" parameterType="java.util.HashMap">
+		insert into tb_sys_busilog (busilog_id,user_id ,user_name,czsj,classname
+		,methodname ,object_id ,czjg ,memo )
+		values
+		(#{busilog_id},#{login_userid},#{login_realname},sysdate,#{classname},#{methodname},#{logywlsh},#{czjg},#{memo}
+		)
+
+	</insert>
+</mapper>
+ 

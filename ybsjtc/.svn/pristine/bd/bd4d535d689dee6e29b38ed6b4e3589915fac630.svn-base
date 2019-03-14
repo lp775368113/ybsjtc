@@ -1,0 +1,109 @@
+package com.wondersgroup.k00.f30010105.service;
+
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import javax.annotation.Resource;
+
+import org.springframework.beans.BeanUtils;
+import org.springframework.stereotype.Service;
+
+import com.wondersgroup.application.basedao.bo.Aa24;
+import com.wondersgroup.application.basedao.dao.Aa24Dao;
+import com.wondersgroup.application.basedao.bo.Ae02;
+import com.wondersgroup.application.basedao.dao.Ae02Dao;
+import com.wondersgroup.framework.comwork.dao.BaseDAO;
+import com.wondersgroup.framework.comwork.service.BaseService;
+import com.wondersgroup.framework.comwork.vo.BaseObject;
+import com.wondersgroup.framework.exception.BusinessException;
+import com.wondersgroup.framework.upms.vo.UasUserVO;
+import com.wondersgroup.framework.util.Tools;
+import com.wondersgroup.k00.f30010105.dao.F30010105Dao;
+import com.wondersgroup.k00.f30010105.vo.F30010105VO;
+/**
+ * @author Yuanqiwen
+ * @date  2018年1月21日
+ */
+@Service
+public class F30010105Service extends BaseService<BaseObject>{
+
+	@Resource(name="f30010105Dao")
+	private F30010105Dao f30010105Dao;
+	
+	@Resource(name="ae02Dao")
+	private Ae02Dao ae02Dao;
+	
+	@Resource(name="aa24Dao")
+	private Aa24Dao aa24Dao;
+	
+	@Resource(name="f30010105Dao")
+	public void setDao(BaseDAO<BaseObject> dao){
+		super.dao = dao;
+	}
+	
+    /**
+	 * 
+	 * @description  查询AA24
+	 * @author Yuanqiwen
+	 * @date  2018年1月21日 
+	 * @param params()
+	 * @return
+	 */
+	public List<F30010105VO> queryAa24( Map<String, Object> map){
+		return f30010105Dao.queryAa24(map);
+	}
+	
+	
+	   /**
+			 * @description  保存AA24
+			 * @author Yuanqiwen
+			 * @date  2018年1月21日 
+			 * @param params()
+			 * @return
+			 */
+	public void save(F30010105VO vo){
+			
+		/**
+    	 * 保存的时候需先判断有没有终止日期大于目前开始日期的记录
+    	 */
+    	List<F30010105VO> list =f30010105Dao.queryAae031(vo);
+    	
+    	if (list !=null && list.size()>0) {
+    		throw new BusinessException("已存在终止日期大于当前开始日期的记录");
+    	}
+    	/**
+    	 * 获取操作人员信息
+    	 */
+    	UasUserVO userVO= getLoginUser();
+       //保存AE02
+    	Ae02 ae02= new Ae02();
+    	ae02.setAaa121("f3001010500");
+    	String aaz002=this.getSequence("SEQ_AAZ002", 8, "yyyymmdd", true);
+    	ae02.setAaz002(aaz002);
+        ae02.setAae011(userVO.getLoginname());
+        ae02.setBae121(userVO.getName());
+        ae02.setAae036(new Date());
+        ae02.setBae122(userVO.getName());
+        ae02.setAae015(new Date());
+        ae02.setAae014(userVO.getLoginname());
+        ae02.setAae016("3");
+        ae02.setAae012(userVO.getLoginname());
+        ae02.setBae123(userVO.getName());
+        ae02.setBae124(new Date());
+        ae02.setAae013("");
+        ae02.setAae148("1");
+        ae02.setAae215(Tools.dateToString(new Date(), "yyyyMMdd"));
+        ae02.setAae216(Tools.dateToString(new Date(), "yyyyMMdd"));
+        ae02.setAae217(Tools.dateToString(new Date(), "yyyyMMdd"));
+        ae02.setAae218(Tools.dateToString(new Date(), "yyyyMMdd"));
+    	ae02Dao.save(ae02);
+    	//保存AA24
+    	String baz122=this.getSequence("SEQ_BAZ122", 8, "yyyymmdd", true);
+    	vo.setBaz122(baz122);
+    	Aa24 aa24 = new Aa24();
+    	BeanUtils.copyProperties(vo, aa24);
+    	aa24Dao.save(aa24);	
+
+	}
+		
+}

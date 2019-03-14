@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wondersgroup.k00.f30010105.dao.F30010105Dao">
+
+
+ 
+
+  <select id="getPage" parameterType="java.util.Map" resultType="com.wondersgroup.k00.f30010105.vo.F30010105VO">
+  	SELECT * FROM(
+  	
+  	         SELECT a.*,rownum rn FROM aa24 a where 1=1
+  	         
+  	         <if test="aaa027!=null and aaa027!=''">
+		   	 and  a.aaa027 = #{aaa027} <!-- 统筹区 -->		   
+	         </if>
+	         
+	         <if test="bae102!=null and bae102!=''">
+		   	 and  a.bae102 = #{bae102} <!-- 年度类型 -->		   
+	         </if>
+	         
+	         <if test="aae001!=null and aae001!=''">
+		   	 and  a.aae001 = #{aae001} <!-- 年度 -->		   
+	         </if>
+	         
+	         <if test="aae030!=null and aae030!=''">
+		   	 and  a.aae030 <![CDATA[>=]]> #{aae030} <!-- 开始日期-->		   
+	         </if>
+	         
+	         <if test="aae031!=null and aae031!=''">
+		   	 and  a.aae031 <![CDATA[<=]]>  #{aae031} <!-- 终止日期-->		   
+	         </if>
+  	         
+  	         
+  	     )b WHERE b.rn <![CDATA[>=]]> #{start} and b.rn <![CDATA[<=]]> #{end}
+	
+  </select>
+  
+  
+  
+  <select id="getPageCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+  		
+  	SELECT count(1) FROM aa24 a where 1=1
+  	
+  	         <if test="aaa027!=null and aaa027!=''">
+		   	 and  a.aaa027 = #{aaa027} <!-- 统筹区 -->		   
+	         </if>
+	         
+	         <if test="bae102!=null and bae102!=''">
+		   	 and  a.bae102 = #{bae102} <!-- 年度类型 -->		   
+	         </if>
+	         
+	         <if test="aae001!=null and aae001!=''">
+		   	 and  a.aae001 = #{aae001} <!-- 年度 -->		   
+	         </if>
+	         
+	         <if test="aae030!=null and aae030!=''">
+		   	 and  a.aae030 <![CDATA[>=]]> #{aae030} <!-- 开始日期-->		   
+	         </if>
+	         
+	         <if test="aae031!=null and aae031!=''">
+		   	 and  a.aae031 <![CDATA[<=]]>  #{aae031} <!-- 终止日期-->		   
+	         </if>
+  	         
+  </select>
+  
+      
+    <select id="queryAae031" parameterType="com.wondersgroup.k00.f30010105.vo.F30010105VO" resultType="com.wondersgroup.k00.f30010105.vo.F30010105VO">
+  		
+  	  SELECT * FROM aa24 a where 
+  	 	          
+		     a.aae001 = #{aae001} <!-- 年度-->	
+		     and  a.bae102 = #{bae102} <!-- 年度类型-->	    	         
+		   	 and  a.aaa027 = #{aaa027} <!-- 统筹区 -->		   		   	 	         
+	         <if test="aae030!=null and aae030!=''">
+		   	 and  a.aae031 <![CDATA[>=]]>  #{aae030} <!-- 终止日期大于传进来的开始日期 -->			   
+	         </if>
+	         
+  </select>
+  
+</mapper>

@@ -1,0 +1,145 @@
+<%@ page contentType="text/html; charset=utf-8"%>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<%@ taglib prefix="cw" uri="/widget-tags"%>
+<%@ include file="/pages/include/header.jsp"%>
+<head>
+<title>利率参数修改</title>
+<style type="text/css">
+html, body {
+	font-size: 12px;
+	padding: 0;
+	margin: 0;
+	border: 0;
+	height: 100%;
+	overflow: hidden;
+}
+.mini-panel-header{
+	background-color:#E0EEEE;
+}
+.mini-panel-body{
+padding:0px;
+}
+
+
+
+#form2 table tr {
+	height:50px;
+}
+
+*{
+background-color:#FDFDFD;
+}
+</style>
+
+<object id="LODOP" classid="clsid:2105C259-1E0C-4534-8141-A753534CB4CA"
+	width=0 height=0></object>
+</head>
+<body>
+
+	  <div class="mini-fit">
+			<form id="form3" name="form3" style="padding-top:10px" action="#" method="post">
+				<table cellpadding="0" class="main-table" cellspacing="0" border="0"
+					width="97%">
+
+					<tr>
+						<td class="mini_title"><span style="color: red">*</span>利率类型：</td>
+						<td ><input id="aaa030" name="aaa030" class="mini-combobox" textField="aaa103" valueField="aaa102"  style="width:150px"
+							showNullItem="true"	emptyText="全部"  readonly="true"   url="${pageContext.request.contextPath}/aa10/listaa10.do?aaa100=AAA030" 
+							required="true" />
+					    </td>
+					    <td class="mini_title"><span style="color: red">*</span>利率名称：</td>
+						<td><input id="aaa032" name="aaa032" class="mini-textbox"  required="true" readonly="true"  />
+					    </td>
+					    <td class="mini_title"><span style="color: red">*</span>利率值：</td>
+						<td><input id="aaa031" name="aaa031" class="mini-textbox"  required="true" readonly="true"  />
+					    </td>
+					</tr>
+					
+					<tr>
+						<td class="mini_title"><span style="color: red">*</span>统筹区编码：</td>
+						<td ><input id="aaa027" name="aaa027" required="true"  readonly="true"  style="width:150px"
+							class="mini-combobox" textField="aaa129" valueField="aaa027" value="<%=loginuser_area_id %>"
+							emptyText="全部"  
+							url="${pageContext.request.contextPath}/f30010000/listTcq.do"/> 
+						</td>
+						<td class="mini_title"><span style="color: red">*</span>开始年月：</td>
+						<td><input id="aae041" name="aae041"  required="true" readonly="true" 
+							class="mini-monthpicker" format="yyyyMM"  />
+						</td>
+
+						<td class="mini_title"><span style="color: red">*</span>终止年月：</td>
+						<td><input id="aae042" name="aae042"  required="true" 
+							class="mini-monthpicker" format="yyyyMM"  />
+						</td>
+					</tr>
+					<tr>
+					    <td colspan="2"></td>
+					    <td colspan="2">
+							<div style="width: 200px" class="operate">
+								<button id="button_save" type="button" class="bc_color" onclick="save();" >
+									<span class="bc"></span>修改
+								</button>
+								<button type="button" class="cancel_color" onclick="cancel()">
+									<span class="cancel"></span>取消
+								</button>
+							</div>
+						</td>
+						<td colspan="2"></td>
+					</tr>
+				</table>
+			</form>
+	  </div>
+	<script type="text/javascript">
+	mini.parse();
+	var form = new mini.Form("form3");
+	var saveBtn = document.getElementById("button_save");
+	var aaz153 ="";
+	
+	function save(){
+		 form.validate();
+		if (form.isValid() == false) {
+			return;
+		} 
+		var data = form.getData(true);
+		data.aaz153=aaz153;
+		var msgid=mini.loading("修改中......","提示");
+	  	$.ajax({
+			url : "${pageContext.request.contextPath}/f30010102/update.do",
+			type : "post",
+			cache : false,
+			data : data,
+			success : function(result){
+			     mini.alert("修改成功");
+				 saveBtn.disabled = true;
+				
+			},
+			complete:function(msg){
+				mini.hideMessageBox(msgid);
+			}
+		});
+	}
+	
+	function cancel() {
+		window.CloseOwnerWindow()
+	}
+	
+	
+	
+	function setData(data){
+		mini.get("aaa030").setValue(data.resultlist.aaa030);
+		mini.get("aaa031").setValue(data.resultlist.aaa031);
+		mini.get("aaa032").setValue(data.resultlist.aaa032);
+		mini.get("aaa027").setValue(data.resultlist.aaa027);
+		mini.get("aae041").setValue(data.resultlist.aae041);
+		mini.get("aae042").setValue(data.resultlist.aae042);
+		aaz153=data.resultlist.aaz153;
+	}
+	
+
+	</script>
+
+</body>
+</html>

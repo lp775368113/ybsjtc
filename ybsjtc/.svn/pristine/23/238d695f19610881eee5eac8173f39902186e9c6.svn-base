@@ -1,0 +1,70 @@
+package com.wondersgroup.kxx.f30000101.vo;
+
+import com.wondersgroup.framework.comwork.vo.BaseObject;
+
+
+/**   ***********************************************
+ * Simple to Introduction  
+ * @ProjectName:  [ybsjtc]
+ * @Package:      [com.wondersgroup.kxx.f30000101.vo]
+ * @ClassName:    [Aa13VO]   
+ * @Description:  [一句话描述该类的功能]  
+ * @Author:       [Administrator]   	   
+ * @CreateDate:   [2018年1月18日 上午11:31:56]  
+ * @UpdateUser:   [Administrator]   	   
+ * @UpdateDate:   [2018年1月18日 上午11:31:56]  
+ * @UpdateRemark: [说明本次修改内容]     
+ * @Version:      [v1.0] 		   
+ ************************************************** **/
+public class Aa13VO extends BaseObject{
+	
+	
+	/**@Fields serialVersionUID: TODO[用一句话描述这个变量表示什么]   */
+	private static final long serialVersionUID = 1L;
+	
+	private String BAZ030;//	CHAR(16)			统筹区ID
+	private String AAA027;//	VARCHAR2(6)	Y		统筹区编码
+	private String AAA129;//	VARCHAR2(50)	Y		统筹区名称
+	private String AAB301;//	VARCHAR2(6)	Y		参保地行政区划代码
+	private String AAE013;//	VARCHAR2(100)	Y		备注
+	private String BAE148;//	VARCHAR2(3)	Y		统筹层次
+	public String getBAZ030() {
+		return BAZ030;
+	}
+	public void setBAZ030(String bAZ030) {
+		BAZ030 = bAZ030;
+	}
+	public String getAAA027() {
+		return AAA027;
+	}
+	public void setAAA027(String aAA027) {
+		AAA027 = aAA027;
+	}
+	public String getAAA129() {
+		return AAA129;
+	}
+	public void setAAA129(String aAA129) {
+		AAA129 = aAA129;
+	}
+	public String getAAB301() {
+		return AAB301;
+	}
+	public void setAAB301(String aAB301) {
+		AAB301 = aAB301;
+	}
+	public String getAAE013() {
+		return AAE013;
+	}
+	public void setAAE013(String aAE013) {
+		AAE013 = aAE013;
+	}
+	public String getBAE148() {
+		return BAE148;
+	}
+	public void setBAE148(String bAE148) {
+		BAE148 = bAE148;
+	}
+
+
+
+}

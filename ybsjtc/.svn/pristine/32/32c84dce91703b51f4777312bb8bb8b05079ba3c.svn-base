@@ -1,0 +1,172 @@
+<%@ page contentType="text/html; charset=utf-8"%>
+<%@ include file="/pages/include/header.jsp"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>基金分段标准维护</title>
+<style type="text/css">
+html, body {
+	font-size: 12px;
+	padding: 0;
+	margin: 0;
+	border: 0;
+	height: 100%;
+	overflow: hidden;
+}
+
+.mini-panel-header {
+	background-color: #E0EEEE;
+}
+
+.mini-panel-body {
+	padding: 0px;
+}
+
+#form3 table tr {
+	height: 50px;
+}
+
+* {
+	background-color: #FDFDFD;
+}
+</style>
+
+<object id="LODOP" classid="clsid:2105C259-1E0C-4534-8141-A753534CB4CA" width="0" height="0"></object>
+</head>
+<body>
+	<div class="mini-fit">
+		<form id="form3" name="form3" style="padding-top: 10px" action="#" method="post">
+			<table cellpadding="0" class="main-table" cellspacing="0" border="0" width="97%">
+				<tr>
+					<input id="aaz131" name="aaz131" class="mini-textbox" required="true" visible="false"/>
+					<td class="mini_title"><span style="color: red">*</span>统筹区：</td>
+					<td><input id="aaa027" name="aaa027"
+						class="mini-combobox" textField="aaa129" valueField="aaa027" emptyText="全部" showNullItem="true" required="true" ajaxOptions="{async: true}"
+						url="${pageContext.request.contextPath}/f30010000/listTcq.do" readonly="true"/>
+					</td>
+					<td class="mini_title"><span style="color: red">*</span>基金款项代码：</td>
+					<td ><input id="aaa157" name="aaa157" class="mini-textbox" required="true" readonly="true"/></td>
+					<td class="mini_title"><span style="color: red">*</span>分段类型：</td>
+					<td ><input id="aka046" name="aka046" class="mini-combobox" textField="aaa103" valueField="aaa102" required="true" ajaxOptions="{async: true}"
+						showNullItem="true"	emptyText="全部"    url="${pageContext.request.contextPath}/aa10/listaa10.do?aaa100=AKA046" readonly="true"/>
+				    </td>
+				</tr>
+				<tr>
+					<td class="mini_title"><span style="color: red">*</span>基金支付比例：</td>
+					<td ><input id="aka047" name="aka047" class="mini-textbox" required="true" vtype="range:0,1" /></td>
+					<td class="mini_title"><span style="color: red">*</span>上限金额：</td>
+					<td ><input id="aka048" name="aka048" class="mini-textbox" required="true" vtype="float" vtype="float"/></td>
+					<td class="mini_title"><span style="color: red">*</span>下限金额：</td>
+					<td ><input id="aka049" name="aka049" class="mini-textbox" required="true" vtype="float" vtype="float"/></td>
+				</tr>
+				<tr>
+					<td class="mini_title"><span style="color: red">*</span>基金支付上线金额：</td>
+					<td ><input id="bka133" name="bka133" class="mini-textbox" required="true" vtype="float" /></td>
+					<td class="mini_title"><span style="color: red">*</span>签约上限金额：</td>
+					<td ><input id="bka135" name="bka135" class="mini-textbox" required="true" vtype="float" /></td>
+				</tr>
+				<tr>
+					<td class="mini_title"><span style="color: red">*</span>医疗服务机构类型：</td>
+					<td ><input id="akb022" name="akb022" class="mini-combobox" textField="aaa103" valueField="aaa102" required="true" ajaxOptions="{async: true}"
+						showNullItem="true"	emptyText="全部"    url="${pageContext.request.contextPath}/aa10/listaa10.do?aaa100=AKB022" readonly="true"/>
+				    </td>
+					<td class="mini_title"><span style="color: red">*</span>医院等级：</td>
+					<td ><input id="aka101" name="aka101" class="mini-combobox" textField="aaa103" valueField="aaa102" required="true" ajaxOptions="{async: true}"
+						showNullItem="true"	emptyText="全部" url="${pageContext.request.contextPath}/aa10/listaa10.do?aaa100=AKA101"  readonly="true"/>
+				    </td>
+				</tr>
+				<tr>
+					<td class="mini_title"><span style="color: red">*</span>医疗待遇人员类别：</td>
+					<td ><input id="akc021" name="akc021" class="mini-combobox" textField="aaa103" valueField="aaa102" required="true" ajaxOptions="{async: true}"
+						showNullItem="true"	emptyText="全部"    url="${pageContext.request.contextPath}/aa10/listaa10.do?aaa100=AKC021" readonly="true"/>
+				    </td>
+					
+				    <td class="mini_title"><span style="color: red">*</span>就诊方式：</td>
+					<td ><input id="aka078" name="aka078" class="mini-combobox" textField="aaa103" valueField="aaa102" required="true"
+						showNullItem="true"	emptyText="全部"  url="${pageContext.request.contextPath}/aa10/listaa10.do?aaa100=AKA078" readonly="true"/>
+				    </td>
+				    <td class="mini_title"><span style="color: red">*</span>分段顺序：</td>
+					<td ><input id="bka134" name="bka134" class="mini-textbox" required="true" vtype="int" />
+				    </td>
+				</tr>
+				<tr>
+					<td class="mini_title"><span style="color: red">*</span>转诊基金支付比例：</td>
+					<td ><input id="bka136" name="bka136" class="mini-textbox" required="true" vtype="range:0,1" />
+				    </td>
+					<td class="mini_title"><span style="color: red">*</span>开始日期：</td>
+					<td><input id="aae030" name="aae030"  required="true"
+						class="mini-datepicker" format="yyyyMMdd"  />
+					</td>
+
+					<td class="mini_title"><span style="color: red">*</span>终止日期：</td>
+					<td><input id="aae031" name="aae031"  required="true" value="30000101"
+						class="mini-datepicker" format="yyyyMMdd"  />
+					</td>
+				</tr>
+				<tr>
+					<td class="mini_title">备注：</td>
+					<td colspan="5"><input id="aae013" name="aae013" class="mini-textarea" width="85%"/>
+					</td>
+				</tr>
+			</table>
+			<div align="center" class="operate">
+				<button id="button_save" type="button" class="bc_color"
+					onclick="save();">
+					<span class="bc"></span>修改
+				</button>
+				<button type="button" class="cancel_color" onclick="cancel()">
+					<span class="cancel"></span>取消
+				</button>
+			</div>
+		</form>
+	</div>
+	<script type="text/javascript">
+		mini.parse();
+		var form = new mini.Form("form3");
+		var saveBtn = document.getElementById("button_save");
+		
+		function save(){
+			 form.validate();
+			if (form.isValid() == false) {
+				return;
+			} 
+			var data = form.getData(true);
+			if(data.aae031<data.aae030){
+				mini.alert("终止日期小于开始日期");
+				return;
+			}
+			var msgid=mini.loading("修改中......","提示");
+		  	$.ajax({
+				url : "${pageContext.request.contextPath}/f30100102/edit.do",
+				type : "post",
+				cache : false,
+				data : data,
+				success : function(result){
+					if(result.success){
+						mini.alert("修改成功");
+						saveBtn.disabled = true;
+					}else{
+						mini.alert(result.msg);
+					}
+				},
+				error:function(msg){					
+
+				},
+				complete:function(msg){
+					mini.hideMessageBox(msgid);
+				}
+			});
+		}
+		
+		function cancel() {
+			window.CloseOwnerWindow()
+		}
+		
+		function setData(data){
+			form.setData(data);
+		}
+		
+	</script>
+</body>
+</html>

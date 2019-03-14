@@ -1,0 +1,249 @@
+<%@ page contentType="text/html; charset=utf-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+
+	<head>
+
+		<title>禾川科技</title>
+		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resource/assets/css/login.css" />
+		<script>
+			$(document).ready(function(){
+				 $(".close_prompt_bar").click(function(){
+                 $(".prompt_bar").remove();
+              });
+			})
+		</script>
+	</head>
+	
+ <script  type="text/javascript">
+		if(top!=this){
+			top.window.location.href="login.jsp";
+		}
+</script>	
+	<body>
+		<div class="contenter">
+			<!--<div class="prompt_bar">
+				您当前的浏览器不是谷歌浏览器，建议您使用谷歌浏览器，效果更佳！
+				<div class="close_prompt_bar"></div>
+				</div>-->
+			<div class="main_top">
+				<div class="main_logo">禾川科技</div>
+			</div>
+			<div class="mainmiddle">
+				<div class="weather">
+					<div class="weather_img">
+						<span class="weather_pic"></span>
+						<span class="temperature">9</span>
+						<span class="centigrade">
+						<span class="entigrade2">℃</span>
+						<span class="weather2">多云（实时）</span>
+						</span>
+					</div>
+					<div class="weather_temp">
+						<div class="weather_temp_op">
+							<span class="weather_temp_tq">晴转多云</span>
+							<span class="entigrade_wd">3~10℃</span>
+						</div>
+						<div class="weather_temp_op">
+							<span class="weather_temp_fx">偏北风3-4级</span>
+						</div>
+						<div class="weather_temp_op">
+							<span class="weather_temp_air">
+							空气质量：<span class="air_quality">109轻度污染</span>
+							</span>
+						</div>
+					</div>
+				</div>
+				<div class="line"></div>
+				
+		<form name="loginForm" action="${pageContext.request.contextPath}/login/doLogin.do" method="post" style="margin:0">
+   			 <input type="hidden" name="macAddress" value="00-00-00-00-00-00"/>
+				<div class="login">
+					<div class="login_icon">
+					<div class="login_user_1">
+						<div class="login_user" title="用户名登录">
+							<img src="${pageContext.request.contextPath}/resource/assets/images/user.png" style="position: absolute;left: 17px;top: 16px;"/>
+						</div>
+					</div>
+					<div class="login_user_1">
+						<div class="login_card" title="刷卡登录">
+							<img src="${pageContext.request.contextPath}/resource/assets/images/sk.png" style="width: 25px; position: absolute;left: 17px;top: 17px;"/>
+						</div>
+					</div>
+					<div class="login_user_1">
+						<div class="login_rlsb" title="人脸识别登录">
+							<img src="${pageContext.request.contextPath}/resource/assets/images/rlsb.png" style="position: absolute;left: 17px;top: 17px;"/>
+						</div>
+					</div>
+				</div>
+				<div class="login_user1 animated  zoomIn1" style="display: block;">
+					<div class="close2 close2_1"></div>
+					<div class="error_prompt">
+						<div class="error_prompt_text" id="account_error" >${errMsg}</div> <!-- style="display: none;" -->
+					</div>
+					
+					<div class="user_margin">
+						<div class="urlField " id="usercard">
+							<span class="user_icon"> <img src="${pageContext.request.contextPath}/resource/assets/images/user2.png">
+							</span><input id="loginname" name="loginname" type="text" class="fileUrl input_clear" onkeydown="if(event.keyCode==13){$('#button_basic_upload').click();this.blur();}" placeholder="请输入用户名">
+						</div>
+					</div>
+					<div class="password_margin">
+						<div class="urlField">
+							<span class="password_icon"> <img src="${pageContext.request.contextPath}/resource/assets/images/password.png"/>
+							</span> <input id="password" name="password" type="password" class="fileUrl input_clear" onkeydown="if(event.keyCode==13){$('#button_basic_upload').click();this.blur();}" placeholder="请输入密码"/>
+						</div>
+					</div>
+					<div class="phone_block">
+						<div class="urlField" style="display:none">
+							<span class="phone_icon"> <img src="/nbcop/web/resource/images/phone.png"/>
+							</span> <input id="inputpassword" name="inputpassword" type="password" class="fileUrl input_clear" placeholder="请输入手机号码">
+						</div>
+					</div>
+                    <a href="#" style="text-decoration: none;" onclick="document.loginForm.submit();">
+					  <div id="button_basic_upload" loadtag="show">
+						 <span>登录</span>
+					  </div>
+					</a>
+					<div class="register_list">
+						<span class="register" id="regurl" style="cursor:pointer;"><a onclick="reg_url()" target="_blank">立即注册</a></span> <span class="forget_password" style="cursor:pointer;"> <a onclick="forget_url()" target="_blank">忘记密码</a></span>
+					</div>
+				</div>	
+				<div class="login_user2 animated  zoomIn" style="display: none;">
+					<div class="close2 close2_2"></div>
+					<div class="">
+						<div class="pay_card"></div>
+						<div id="button_basic_confirm_delete" loadtag="show">
+							<span>登录</span>
+						</div>
+					</div>
+				</div>
+				<div class="login_user3 animated  zoomIn2" style="display: none;">
+					<div class="close2 close2_3"></div>
+					<div class="" id="face-frist">
+						<div class="rlsb2"></div>
+
+						<div class="error_prompt">
+							<div class="error_prompt_text" id="rlsb_error" style="display: none;"></div>
+						</div>
+						<div class="face_recognition">
+							<span class="user_icon"> <img src="${pageContext.request.contextPath}/resource/assets/images/user2.png"/>
+							</span> <input type="text" placeholder="身号" id="faccount" name="faccount" class="input_clear" onkeydown="if(event.keyCode==13){$('#btnface').click();this.blur();}" maxlength="18"/>
+						</div>
+						<div class="ui input telephone " style="display:none;" id="userfname">
+						  <span class="user_icon"> <img src="${pageContext.request.contextPath}/resource/assets/images/user2.png"/>
+						  </span><input type="text" id="fusername" name="fusername" class="input_clear" placeholder="姓名" onkeydown="if(event.keyCode==13){$('#btnface').click();this.blur();}"/>
+						</div>
+						<div id="btnface" loadtag="show" style="margin-top: 20px;">
+							<span>下一步</span><img class="btnloading" src="/nbcop/web/resource/images/loading.gif"/>
+						</div>
+
+					</div>
+					<div class="face2" id="facelogin" style="display: none;">
+						<div class="face" style="width:280px;height:270px;">
+
+							<div class="loading">
+								<div class="img"></div>
+							</div>
+							<div id="FlashReplaceparent" style="display: none ">
+								<div id="divFlashReplace" style="background: rgb(255, 255, 255); visibility: visible;"></div>
+
+							</div>
+						</div>
+						<div class="face_button">
+							<button type="button" class="face_back" onclick="faceback()" style="cursor:pointer;">返回</button>
+
+							<button type="button" class="face_login" onclick="takePic()" id="takePicbut" loadtag="show" style="cursor:pointer;">
+								<span>登录</span>
+							</button>
+
+						</div>
+					</div>
+				</div>
+				</div>
+		</form>
+			</div>
+		
+		    <div class="main_footer">
+		    	<div class="footer_text">©版权所有&nbsp;&nbsp;禾川科技</div>
+		    </div>
+		
+		</div>
+		
+		<script src="${pageContext.request.contextPath}/resource/assets/login-js/velocity.js"></script>
+		<script src="${pageContext.request.contextPath}/resource/assets/login-js/velocity.ui.js"></script>
+		<script src="${pageContext.request.contextPath}/resource/assets/login-js/Quttons.js"></script>
+		<script>
+			//回车实现点击登录操作
+			document.onkeydown = function(event){  
+				if(event.keyCode == 13){
+					document.loginForm.submit();
+				}
+			};
+			$(function() {
+				var quttonUpload = Qutton.getInstance($('#qutton_upload'));
+				quttonUpload.init({
+					icon: '${pageContext.request.contextPath}/resource/assets/images/user.png',
+					backgroundColor: '#2ecc71'
+				});
+
+				var quttonDelete = Qutton.getInstance($('#qutton_delete'));
+				quttonDelete.init({
+					icon: '${pageContext.request.contextPath}/resource/assets/images/sk.png',
+					backgroundColor: "#e74c3c"
+				});
+
+				var quttonComment = Qutton.getInstance($('#qutton_comment'));
+				quttonComment.init({
+					icon: '${pageContext.request.contextPath}/resource/assets/images/rlsb.png',
+					backgroundColor: "#3498db"
+				});
+			});
+			
+			function reg_url(){
+				window.location.href="${pageContext.request.contextPath}/pages/premission/user/signin.jsp"; 
+			}
+			
+			$(".login_user").click(function() {
+							$(".login_user1").css({
+								"display" : "block"
+							});
+						});
+						$(".close2_1").click(function() {
+							$(".login_user1").css({
+								"display" : "none"
+							});
+							clearform();
+						});
+						$(".login_card").click(function() {
+							$(".login_user2").css({
+								"display" : "block"
+							});
+						});
+						$(".close2_2").click(function() {
+							$(".login_user2").css({
+								"display" : "none"
+							});
+                            clearform();
+						});
+						$(".login_rlsb").click(function() {
+							$(".login_user3").css({
+								"display" : "block"
+							});
+						});
+						$(".close2_3").click(function() {
+							$(".login_user3").css({
+								"display" : "none"
+							});
+                            faceback();
+                            clearform();
+						});
+		</script>
+		
+		
+		
+	</body>
+
+</html>

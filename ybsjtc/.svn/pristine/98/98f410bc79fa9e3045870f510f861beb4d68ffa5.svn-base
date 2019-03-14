@@ -1,0 +1,81 @@
+package com.wondersgroup.k00.f30010101.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.net.URLDecoder;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import com.alibaba.fastjson.JSONArray;
+import com.wondersgroup.framework.comwork.controller.BaseController;
+import com.wondersgroup.framework.upms.vo.UasUserVO;
+import com.wondersgroup.k00.f30010101.service.F30010101Service;
+import com.wondersgroup.k00.f30010101.vo.F30010101VO;
+
+/**
+ * ***********************************************
+ * Simple to Introduction  
+ * @ProjectName:  [ybsjtc]
+ * @Package:      [com.wondersgroup.k00.f30010101.action]
+ * @ClassName:    [F30010101Controller]   
+ * @Description:  [综合参数AA01公共类] 
+ * @Author:       [Yuanqiwen]   	   
+ * @CreateDate:   [2018年1月17日 下午2:57:21]  
+ * @UpdateUser:   [Yuanqiwen]   	   
+ * @UpdateDate:   [2018年1月17日 下午2:57:21]  
+ * @UpdateRemark:      
+ * @Version:      [v1.0] 		   
+ ************************************************** *
+ */
+@Controller
+@RequestMapping("f30010101")
+public class F30010101Controller extends BaseController {
+	
+	   @Autowired
+	    private F30010101Service f30010101Service;
+
+	    @ResponseBody
+	    @RequestMapping("queryAa01")
+	    public Map<String, Object> queryAa01(@RequestParam Map<String, Object> map) {
+	    	
+	    	Map<String, Object> result = new HashMap<String, Object>();
+			result = f30010101Service.getPage(map);
+			return result ;
+		}
+	    
+	    
+	    @ResponseBody
+	    @RequestMapping("save")
+	    public Map<String, Object> save(F30010101VO vo) {
+	    	
+	    	Map<String, Object> result = new HashMap<String, Object>();		
+			f30010101Service.save(vo);
+			result.put("success", new Boolean(true));
+			return result ;
+		}
+	    
+	    
+	    @ResponseBody
+	    @RequestMapping("destroy")
+	    public Map<String, Object> destroy(@RequestParam Map<String, Object> map) {
+	    	
+	    	Map<String, Object> result = new HashMap<String, Object>();
+			f30010101Service.updateAa01(map);
+			return result ;
+		}
+	    
+	    @ResponseBody
+	    @RequestMapping("update")
+	    public Map<String, Object> update(F30010101VO vo) {
+	    	
+	    	Map<String, Object> result = new HashMap<String, Object>();
+			f30010101Service.updateAa01(vo);
+			return result ;
+		}
+
+}

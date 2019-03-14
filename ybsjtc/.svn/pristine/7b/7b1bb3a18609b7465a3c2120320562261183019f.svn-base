@@ -1,0 +1,267 @@
+package com.wondersgroup.kxx.f30000101.vo;
+
+import com.wondersgroup.framework.comwork.vo.BaseObject;
+
+
+/**   ***********************************************
+ * Simple to Introduction  
+ * @ProjectName:  [ybsjtc]
+ * @Package:      [com.wondersgroup.kxx.f30000101.vo]
+ * @ClassName:    [Aa13VO]   
+ * @Description:  [一句话描述该类的功能]  
+ * @Author:       [Administrator]   	   
+ * @CreateDate:   [2018年1月18日 上午11:31:56]  
+ * @UpdateUser:   [Administrator]   	   
+ * @UpdateDate:   [2018年1月18日 上午11:31:56]  
+ * @UpdateRemark: [说明本次修改内容]     
+ * @Version:      [v1.0] 		   
+ ************************************************** **/
+public class Kb01VO extends BaseObject{
+	
+	
+	/**@Fields serialVersionUID: TODO[用一句话描述这个变量表示什么]   */
+	private static final long serialVersionUID = 1L;
+	
+	private String AAZ107;//	CHAR(16)			定点医疗机构ID
+	private String AAA027;//	VARCHAR2(6)	Y		统筹区编码
+	private String AKB020;//	VARCHAR2(20)	Y		医疗服务机构编号
+	private String BKA111;//	VARCHAR2(20)	Y		医疗机构省编码
+	private String AKA101;//	VARCHAR2(2)	Y		医院等级
+	private String BKA153;//	VARCHAR2(2)	Y		医院详细等级
+	private String AKB022;//	VARCHAR2(1)	Y		医疗服务机构类型
+	private String AKB023;//	VARCHAR2(2)	Y		定点医疗机构类别
+	private String AAF003;//	VARCHAR2(1)	Y		定点联网开通标志
+	private String AAE030;//	NUMBER(8)	Y		开始日期
+	private String AAE031;//	NUMBER(8)	Y		终止日期
+	private String AKB013;//	NUMBER(8)	Y		定点单位从事医疗保险管理工作的人数
+	private String AKF006;//	VARCHAR2(20)	Y		药品经营企业许可证号
+	private String AKF007;//	VARCHAR2(20)	Y		执业许可证号
+	private String AKF008;//	NUMBER(8)	Y		在编职工数
+	private String AKF009;//	NUMBER(4)	Y		医院科室数
+	private String AKF010;//	NUMBER(4)	Y		医院重点科室数
+	private String AKF011;//	NUMBER(8)	Y		正高职称人数
+	private String AKF012;//	NUMBER(8)	Y		中级职称人数
+	private String AKF013;//	NUMBER(8)	Y		专业技术人员人数
+	private String AKF014;//	NUMBER(8)	Y		副高职称人数
+	private String AKF015;//	NUMBER(8)	Y		床位数
+	private String AKF016;//	VARCHAR2(100)	Y		经营面积
+	private String AKF017;//	NUMBER(8)	Y		营业人数
+	private String AKF018;//	NUMBER(4)	Y		其他人数
+	private String AAZ003;//	CHAR(16)	Y		当事人银行账号ID
+	private String AAE004;//	VARCHAR2(50)	Y		联系人姓名
+	private String AAE005;//	VARCHAR2(20)	Y		联系电话
+	private String AAE006;//	VARCHAR2(100)	Y		地址
+	private String AAE007;//	VARCHAR2(6)	Y		邮政编码
+	private double BKE108;//	NUMBER(5,4)	Y		保证金预留比例
+	private String AAE100;//	VARCHAR2(1)	Y		当前有效标志
+	private String AAE013;//	VARCHAR2(100)	Y		备注
+	private String AKB021;//	VARCHAR2(100)	Y		定点单位名称 
+	public String getAAZ107() {
+		return AAZ107;
+	}
+	public void setAAZ107(String aAZ107) {
+		AAZ107 = aAZ107;
+	}
+	public String getAAA027() {
+		return AAA027;
+	}
+	public void setAAA027(String aAA027) {
+		AAA027 = aAA027;
+	}
+	public String getAKB020() {
+		return AKB020;
+	}
+	public void setAKB020(String aKB020) {
+		AKB020 = aKB020;
+	}
+	public String getBKA111() {
+		return BKA111;
+	}
+	public void setBKA111(String bKA111) {
+		BKA111 = bKA111;
+	}
+	public String getAKA101() {
+		return AKA101;
+	}
+	public void setAKA101(String aKA101) {
+		AKA101 = aKA101;
+	}
+	public String getBKA153() {
+		return BKA153;
+	}
+	public void setBKA153(String bKA153) {
+		BKA153 = bKA153;
+	}
+	public String getAKB022() {
+		return AKB022;
+	}
+	public void setAKB022(String aKB022) {
+		AKB022 = aKB022;
+	}
+	public String getAKB023() {
+		return AKB023;
+	}
+	public void setAKB023(String aKB023) {
+		AKB023 = aKB023;
+	}
+	public String getAAF003() {
+		return AAF003;
+	}
+	public void setAAF003(String aAF003) {
+		AAF003 = aAF003;
+	}
+	public String getAAE030() {
+		return AAE030;
+	}
+	public void setAAE030(String aAE030) {
+		AAE030 = aAE030;
+	}
+	public String getAAE031() {
+		return AAE031;
+	}
+	public void setAAE031(String aAE031) {
+		AAE031 = aAE031;
+	}
+	public String getAKB013() {
+		return AKB013;
+	}
+	public void setAKB013(String aKB013) {
+		AKB013 = aKB013;
+	}
+	public String getAKF006() {
+		return AKF006;
+	}
+	public void setAKF006(String aKF006) {
+		AKF006 = aKF006;
+	}
+	public String getAKF007() {
+		return AKF007;
+	}
+	public void setAKF007(String aKF007) {
+		AKF007 = aKF007;
+	}
+	public String getAKF008() {
+		return AKF008;
+	}
+	public void setAKF008(String aKF008) {
+		AKF008 = aKF008;
+	}
+	public String getAKF009() {
+		return AKF009;
+	}
+	public void setAKF009(String aKF009) {
+		AKF009 = aKF009;
+	}
+	public String getAKF010() {
+		return AKF010;
+	}
+	public void setAKF010(String aKF010) {
+		AKF010 = aKF010;
+	}
+	public String getAKF011() {
+		return AKF011;
+	}
+	public void setAKF011(String aKF011) {
+		AKF011 = aKF011;
+	}
+	public String getAKF012() {
+		return AKF012;
+	}
+	public void setAKF012(String aKF012) {
+		AKF012 = aKF012;
+	}
+	public String getAKF013() {
+		return AKF013;
+	}
+	public void setAKF013(String aKF013) {
+		AKF013 = aKF013;
+	}
+	public String getAKF014() {
+		return AKF014;
+	}
+	public void setAKF014(String aKF014) {
+		AKF014 = aKF014;
+	}
+	public String getAKF015() {
+		return AKF015;
+	}
+	public void setAKF015(String aKF015) {
+		AKF015 = aKF015;
+	}
+	public String getAKF016() {
+		return AKF016;
+	}
+	public void setAKF016(String aKF016) {
+		AKF016 = aKF016;
+	}
+	public String getAKF017() {
+		return AKF017;
+	}
+	public void setAKF017(String aKF017) {
+		AKF017 = aKF017;
+	}
+	public String getAKF018() {
+		return AKF018;
+	}
+	public void setAKF018(String aKF018) {
+		AKF018 = aKF018;
+	}
+	public String getAAZ003() {
+		return AAZ003;
+	}
+	public void setAAZ003(String aAZ003) {
+		AAZ003 = aAZ003;
+	}
+	public String getAAE004() {
+		return AAE004;
+	}
+	public void setAAE004(String aAE004) {
+		AAE004 = aAE004;
+	}
+	public String getAAE005() {
+		return AAE005;
+	}
+	public void setAAE005(String aAE005) {
+		AAE005 = aAE005;
+	}
+	public String getAAE006() {
+		return AAE006;
+	}
+	public void setAAE006(String aAE006) {
+		AAE006 = aAE006;
+	}
+	public String getAAE007() {
+		return AAE007;
+	}
+	public void setAAE007(String aAE007) {
+		AAE007 = aAE007;
+	}
+	public double getBKE108() {
+		return BKE108;
+	}
+	public void setBKE108(double bKE108) {
+		BKE108 = bKE108;
+	}
+	public String getAAE100() {
+		return AAE100;
+	}
+	public void setAAE100(String aAE100) {
+		AAE100 = aAE100;
+	}
+	public String getAAE013() {
+		return AAE013;
+	}
+	public void setAAE013(String aAE013) {
+		AAE013 = aAE013;
+	}
+	public String getAKB021() {
+		return AKB021;
+	}
+	public void setAKB021(String aKB021) {
+		AKB021 = aKB021;
+	}
+
+
+
+
+}

@@ -1,0 +1,155 @@
+package com.wondersgroup.k00.f30100103.service;
+
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
+
+import com.wondersgroup.application.basedao.bo.Ae02;
+import com.wondersgroup.application.basedao.dao.Ae02Dao;
+import com.wondersgroup.framework.comwork.dao.BaseDAO;
+import com.wondersgroup.framework.comwork.service.BaseService;
+import com.wondersgroup.framework.comwork.vo.BaseObject;
+import com.wondersgroup.framework.exception.BusinessException;
+import com.wondersgroup.framework.upms.vo.UasUserVO;
+import com.wondersgroup.framework.util.Tools;
+import com.wondersgroup.k00.f30100102.vo.F30100102VO;
+import com.wondersgroup.k00.f30100103.dao.F30100103DAO;
+import com.wondersgroup.k00.f30100103.vo.F30100103VO;
+
+/**   ***********************************************
+ * Simple to Introduction  
+ * @ProjectName:  [ybsjtc]
+ * @Package:      [com.wondersgroup.k00.f30100103.service]
+ * @ClassName:    [F30100103Service]   
+ * @Description:  [一句话描述该类的功能]  
+ * @Author:       [wangr]   	   
+ * @CreateDate:   [2018年1月30日 下午1:33:15]  
+ * @UpdateUser:   [wangr]   	   
+ * @UpdateDate:   [2018年1月30日 下午1:33:15]  
+ * @UpdateRemark: [说明本次修改内容]     
+ * @Version:      [v1.0] 		   
+ ************************************************** **/
+@Service
+public class F30100103Service extends BaseService<BaseObject> {
+	
+	@Resource(name="f30100103DAO")
+	private F30100103DAO f30100103DAO;
+	
+	/**Title: setDao
+	 * Description:[用一句话描述这个方法的作用]
+	 * @param dao   
+	 * @see com.wondersgroup.application.service.BaseService#setDao(com.wondersgroup.application.dao.BaseDAO)   
+	 */
+	@Resource(name="f30100103DAO")
+	@Override
+	public void setDao(BaseDAO<BaseObject> dao) {
+		super.setDao(dao);
+	}
+	
+	@Resource(name="ae02Dao")
+	private Ae02Dao ae02Dao;
+
+	/**@Title: 		 getListPage   
+	 * @Description: TODO[用一句话描述这个方法的作用]   
+	 * @param map
+	 * @return      
+	 * @return_type: List<F30100103VO>      
+	 */
+	public List<F30100103VO> getListPage(Map<String, Object> map) {
+		return f30100103DAO.getListPage(map);
+	}
+
+	/**@Title: 		 save   
+	 * @Description: TODO[用一句话描述这个方法的作用]   
+	 * @param map      
+	 * @return_type: void      
+	 */
+	public void save(Map<String, Object> map) {
+		/**
+    	 * 保存时查询时间是否有交叉
+    	 */
+		List<F30100102VO> list = f30100103DAO.queryKa16ByTime(map);
+		
+		if(list != null && list.size()>0) {
+			throw new BusinessException("转外自理比例选择的开始时间和终止时间存在重复，请重新确认后再次操作");
+		}
+		/**
+    	 * 获取操作人员信息
+    	 */
+    	UasUserVO userVO= getLoginUser();
+       //保存AE02
+    	Ae02 ae02= new Ae02();
+    	ae02.setAaa121("f3010010300");
+    	String aaz002=this.getSequence("SEQ_AAZ002", 8, "yyyymmdd", true);
+    	ae02.setAaz002(aaz002);
+        ae02.setAae011(userVO.getLoginname());
+        ae02.setBae121(userVO.getName());
+        ae02.setAae036(new Date());
+        ae02.setBae122(userVO.getName());
+        ae02.setAae015(new Date());
+        ae02.setAae014(userVO.getLoginname());
+        ae02.setAae016("3");
+        ae02.setAae012(userVO.getLoginname());
+        ae02.setBae123(userVO.getName());
+        ae02.setBae124(new Date());
+        ae02.setAae013("");
+        ae02.setAae148("1");
+        ae02.setAae215(Tools.dateToString(new Date(), "yyyyMMdd"));
+        ae02.setAae216(Tools.dateToString(new Date(), "yyyyMMdd"));
+        ae02.setAae217(Tools.dateToString(new Date(), "yyyyMMdd"));
+        ae02.setAae218(Tools.dateToString(new Date(), "yyyyMMdd"));
+    	ae02Dao.save(ae02);
+		
+    	f30100103DAO.saveKa16(map);
+	}
+
+	/**@Title: 		 edit   
+	 * @Description: TODO[用一句话描述这个方法的作用]   
+	 * @param map      
+	 * @return_type: void      
+	 */
+	public void edit(Map<String, Object> map) {
+		/**
+    	 * 保存时查询时间是否有交叉
+    	 */
+		List<F30100102VO> list = f30100103DAO.queryKa16ByTime(map);
+		
+		if(list != null && list.size()>0) {
+			throw new BusinessException("转外自理比例选择的开始时间和终止时间存在重复，请重新确认后再次操作");
+		}
+		/**
+    	 * 获取操作人员信息
+    	 */
+    	UasUserVO userVO= getLoginUser();
+       //保存AE02
+    	Ae02 ae02= new Ae02();
+    	ae02.setAaa121("f3010010301");
+    	String aaz002=this.getSequence("SEQ_AAZ002", 8, "yyyymmdd", true);
+    	ae02.setAaz002(aaz002);
+        ae02.setAae011(userVO.getLoginname());
+        ae02.setBae121(userVO.getName());
+        ae02.setAae036(new Date());
+        ae02.setBae122(userVO.getName());
+        ae02.setAae015(new Date());
+        ae02.setAae014(userVO.getLoginname());
+        ae02.setAae016("3");
+        ae02.setAae012(userVO.getLoginname());
+        ae02.setBae123(userVO.getName());
+        ae02.setBae124(new Date());
+        ae02.setAae013("");
+        ae02.setAae148("1");
+        ae02.setAae215(Tools.dateToString(new Date(), "yyyyMMdd"));
+        ae02.setAae216(Tools.dateToString(new Date(), "yyyyMMdd"));
+        ae02.setAae217(Tools.dateToString(new Date(), "yyyyMMdd"));
+        ae02.setAae218(Tools.dateToString(new Date(), "yyyyMMdd"));
+    	ae02Dao.save(ae02);
+    	
+    	f30100103DAO.updateKa16(map);
+		
+	}
+
+}

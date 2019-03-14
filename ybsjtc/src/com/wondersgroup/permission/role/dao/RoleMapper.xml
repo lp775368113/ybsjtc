@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wondersgroup.permission.role.dao.UaasRoleMapper">
+	<select id="getPage" resultType="com.wondersgroup.permission.role.vo.UaasRole"
+		parameterType="java.util.Map">
+		SELECT t.* from (SELECT
+		p.*,@rownum :=@rownum + 1 AS rn
+		FROM
+		(SELECT @rownum := 0) r,
+		(
+		SELECT
+		DISTINCT a.*
+		FROM
+		UAAS_ROLE a
+		LEFT JOIN UAAS_USER_ROLE b ON a.id = b.roleid and b.removed = 0
+		WHERE
+		a.removed = 0
+		<if test="name != null and name != ''">
+			AND a.NAME like concat(concat('%',#{name}),'%')
+		</if>
+		<if test="userid != null">
+			AND b.USERID = #{userid}
+		</if>
+
+		)p ORDER BY
+		p.id ASC ) t WHERE t.rn <![CDATA[>=]]>
+		#{start} and t.rn <![CDATA[<=]]>
+		#{end}
+
+	</select>
+	<select id="getPageCount" resultType="java.lang.Integer"
+		parameterType="java.util.Map">
+		select count(1) from (
+		select distinct a.* from
+		UAAS_ROLE a LEFT JOIN UAAS_USER_ROLE b ON a.id = b.roleid 
+		and b.removed = 0 where a.removed = 0
+		<if test="name != null and name != ''">
+			AND a.NAME like concat(concat('%',#{name}),'%')
+		</if>
+		<if test="userid != null">
+			AND b.USERID = #{userid}
+		</if>) d
+	</select>
+	
+	<select id="queryRole" resultType="com.wondersgroup.permission.role.vo.UaasRole"
+		parameterType="java.util.Map">
+		SELECT t.* from (SELECT
+			a.*,@rownum :=@rownum + 1 AS rn
+		FROM
+			(SELECT @rownum := 0) r,
+			UAAS_ROLE a
+		WHERE
+			a.REMOVED = 0
+		<if test="district == '2'">
+			AND a.ISAPPLY IN (2, 3)
+		</if>
+		<if test="district != '2'">
+			AND a.ISAPPLY IN (1, 3)
+		</if>
+		<if test="name != null and name != ''">
+			AND a.NAME like concat(concat('%',#{name}),'%')
+		</if>
+		ORDER BY
+		a.ID) t WHERE t.rn <![CDATA[>=]]>
+		#{start} and t.rn <![CDATA[<=]]>
+		#{end}
+	</select>
+	
+	<select id="queryRoleCount" resultType="java.lang.Integer"
+		parameterType="java.util.Map">
+		SELECT
+			COUNT(*)
+		FROM
+			UAAS_ROLE a
+		WHERE
+			a.REMOVED = 0
+		<if test="district == '2'">
+			AND a.ISAPPLY IN (2, 3)
+		</if>
+		<if test="district != '2'">
+			AND a.ISAPPLY IN (1, 3)
+		</if>
+		<if test="name != null and name != ''">
+			AND a.NAME like concat(concat('%',#{name}),'%')
+		</if>
+		ORDER BY
+			a.ID
+	</select>
+	
+	<select id="getUaasRole" resultType="com.wondersgroup.permission.role.vo.UaasRole"
+		parameterType="java.lang.Integer">
+		SELECT * FROM UAAS_ROLE
+		WHERE ID = #{id}
+	</select>
+	<delete id="removeUaasRole" parameterType="java.util.List">
+		update UAAS_ROLE
+		set removed = 1
+		where ID in
+		<foreach item="item" collection="list" open="(" separator=","
+			close=")">
+			#{item.id}
+		</foreach>
+	</delete>
+	<insert id="saveUaasRole" parameterType="com.wondersgroup.permission.role.vo.UaasRole"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into UAAS_ROLE
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				ID,
+			</if>
+			<if test="name != null">
+				NAME,
+			</if>
+			<if test="description != null">
+				DESCRIPTION,
+			</if>
+			<if test="roletype != null">
+				ROLETYPE,
+			</if>
+			<if test="enddate != null">
+				ENDDATE,
+			</if>
+			<if test="creatorid != null">
+				CREATORID,
+			</if>
+			<if test="systemrole != null">
+				SYSTEMROLE,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="description != null">
+				#{description,jdbcType=VARCHAR},
+			</if>
+			<if test="roletype != null">
+				#{roletype,jdbcType=CHAR},
+			</if>
+			<if test="enddate != null">
+				#{enddate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="creatorid != null">
+				#{creatorid,jdbcType=INTEGER},
+			</if>
+			<if test="systemrole != null">
+				#{systemrole,jdbcType=CHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateUaasRole" parameterType="com.wondersgroup.permission.role.vo.UaasRole">
+		update UAAS_ROLE
+		<set>
+			<if test="name != null">
+				NAME = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="description != null">
+				DESCRIPTION = #{description,jdbcType=VARCHAR},
+			</if>
+			<if test="roletype != null">
+				ROLETYPE = #{roletype,jdbcType=CHAR},
+			</if>
+			<if test="enddate != null">
+				ENDDATE = #{enddate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="creatorid != null">
+				CREATORID = #{creatorid,jdbcType=DECIMAL},
+			</if>
+			<if test="systemrole != null">
+				SYSTEMROLE = #{systemrole,jdbcType=CHAR},
+			</if>
+		</set>
+		where ID = #{id,jdbcType=DECIMAL}
+	</update>
+</mapper>

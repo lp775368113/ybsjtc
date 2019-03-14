@@ -1,0 +1,26 @@
+package com.wondersgroup.framework.upms.util;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.TreeMap;
+
+import com.wondersgroup.framework.upms.vo.UasMenuVO;
+
+public class MenuUtil {	
+	public static HashMap<String, TreeMap<String,List<UasMenuVO>> >  CreateMenuTree(List<UasMenuVO> list ){
+		//此注释很重要，切勿删除 ：权限树格式定义  <    leave    ,    <    pid    ,    TreeMap(UasMenuVO)    >      > 
+		HashMap<String, TreeMap<String,List<UasMenuVO>> > tree1  = new HashMap<String, TreeMap<String,List<UasMenuVO>> >();
+		for (UasMenuVO uasMenuVO : list) {
+			String menuLevel =  uasMenuVO.getMenuLevel();
+			String pmenu_id  =  uasMenuVO.getpMenuId();
+			TreeMap<String,List<UasMenuVO>> tree2 = tree1.containsKey(menuLevel)? tree1.get(menuLevel): new TreeMap<String,List<UasMenuVO>>();
+			List<UasMenuVO> Ptree2 =  tree2.containsKey(pmenu_id)? tree2.get(pmenu_id):new ArrayList<UasMenuVO>();
+			uasMenuVO.setMenuName(uasMenuVO.getMenuName().trim());
+			Ptree2.add(uasMenuVO);
+			tree2.put(pmenu_id,Ptree2);
+			tree1.put(menuLevel, tree2);
+		}
+		return tree1;
+	}
+}

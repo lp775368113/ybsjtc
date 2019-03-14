@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wondersgroup.kxx.f30000101.dao.Kb01DAO_">
+ 	<!-- ehcache配置namespace案例 
+	<cache type="org.mybatis.caches.ehcache.LoggingEhcache" />-->
+ 	<!--<cache type="org.mybatis.caches.ehcache.EhcacheCache"/> -->
+	<select id="listKB01ListPage" resultType="com.wondersgroup.kxx.f30000101.vo.Kb01VO"
+		parameterType="java.util.HashMap" useCache="true">
+		select * from kb01 where 1=1
+		<if test="aaa027 !=null and aaa027 != ''"> and aaa027 = #{aaa027} </if> 
+		<if test="akb021 !=null and akb021 != ''"> and akb021 like '%'||trim(#{akb021})||'%' </if> 
+		order by akb020
+	</select>
+</mapper>

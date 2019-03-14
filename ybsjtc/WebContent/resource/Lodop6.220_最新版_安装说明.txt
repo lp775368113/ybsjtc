@@ -1,0 +1,3 @@
+根据系统安装install_lodop32.exe或者install_lodop64.exe，
+然后安装CLodop_Setup_for_Win32NT.exe
+解压包里的HTML是一些说明文档

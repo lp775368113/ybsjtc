@@ -1,0 +1,289 @@
+package com.wondersgroup.k00.f30100102.vo;
+
+import com.wondersgroup.framework.comwork.vo.BaseObject;
+
+/**   ***********************************************
+ * Simple to Introduction  
+ * @ProjectName:  [ybsjtc]
+ * @Package:      [com.wondersgroup.k00.f30100102.vo]
+ * @ClassName:    [F30100102VO]   
+ * @Description:  [一句话描述该类的功能]  
+ * @Author:       [wangr]   	   
+ * @CreateDate:   [2018年2月1日 上午10:57:44]  
+ * @UpdateUser:   [wangr]   	   
+ * @UpdateDate:   [2018年2月1日 上午10:57:44]  
+ * @UpdateRemark: [说明本次修改内容]     
+ * @Version:      [v1.0] 		   
+ ************************************************** **/
+public class F30100102VO extends BaseObject {
+	private String aaz131;//基金分段标准ID
+	private String aae030;//开始日期
+	private String aae031;//终止日期
+	private String aaa157;//基金款项代码
+	private String aka046;//分段类型
+	private String aka047;//基金支付比例
+	private String aka048;//上限金额
+	private String aka049;//下限金额
+	private String bka133;//基金支付上限金额
+	private String akc021;//医疗待遇人员类别
+	private String aaa027;//统筹区编码
+	private String aka078;//就诊方式
+	private String akb022;//医疗服务机构类型
+	private String bka134;//分段顺序
+	private String aka101;//医院等级
+	private String bka135;//签约上限金额
+	private String bka136;//转诊基金支付比例
+	private String aae013;//备注
+	/**@Title:  	getAaz131
+	 * @Description:[please write your description]
+	 * @return: 	String
+	 */
+	public String getAaz131() {
+		return aaz131;
+	}
+	/**@Title:  	setAaz131
+	 * @Description:[please write your description]
+	 * @return: 	String
+	 */
+	public void setAaz131(String aaz131) {
+		this.aaz131 = aaz131;
+	}
+	/**@Title:  	getAae030
+	 * @Description:[please write your description]
+	 * @return: 	String
+	 */
+	public String getAae030() {
+		return aae030;
+	}
+	/**@Title:  	setAae030
+	 * @Description:[please write your description]
+	 * @return: 	String
+	 */
+	public void setAae030(String aae030) {
+		this.aae030 = aae030;
+	}
+	/**@Title:  	getAae031
+	 * @Description:[please write your description]
+	 * @return: 	String
+	 */
+	public String getAae031() {
+		return aae031;
+	}
+	/**@Title:  	setAae031
+	 * @Description:[please write your description]
+	 * @return: 	String
+	 */
+	public void setAae031(String aae031) {
+		this.aae031 = aae031;
+	}
+	/**@Title:  	getAaa157
+	 * @Description:[please write your description]
+	 * @return: 	String
+	 */
+	public String getAaa157() {
+		return aaa157;
+	}
+	/**@Title:  	setAaa157
+	 * @Description:[please write your description]
+	 * @return: 	String
+	 */
+	public void setAaa157(String aaa157) {
+		this.aaa157 = aaa157;
+	}
+	/**@Title:  	getAka046
+	 * @Description:[please write your description]
+	 * @return: 	String
+	 */
+	public String getAka046() {
+		return aka046;
+	}
+	/**@Title:  	setAka046
+	 * @Description:[please write your description]
+	 * @return: 	String
+	 */
+	public void setAka046(String aka046) {
+		this.aka046 = aka046;
+	}
+	/**@Title:  	getAka047
+	 * @Description:[please write your description]
+	 * @return: 	String
+	 */
+	public String getAka047() {
+		return aka047;
+	}
+	/**@Title:  	setAka047
+	 * @Description:[please write your description]
+	 * @return: 	String
+	 */
+	public void setAka047(String aka047) {
+		this.aka047 = aka047;
+	}
+	/**@Title:  	getAka048
+	 * @Description:[please write your description]
+	 * @return: 	String
+	 */
+	public String getAka048() {
+		return aka048;
+	}
+	/**@Title:  	setAka048
+	 * @Description:[please write your description]
+	 * @return: 	String
+	 */
+	public void setAka048(String aka048) {
+		this.aka048 = aka048;
+	}
+	/**@Title:  	getAka049
+	 * @Description:[please write your description]
+	 * @return: 	String
+	 */
+	public String getAka049() {
+		return aka049;
+	}
+	/**@Title:  	setAka049
+	 * @Description:[please write your description]
+	 * @return: 	String
+	 */
+	public void setAka049(String aka049) {
+		this.aka049 = aka049;
+	}
+	/**@Title:  	getBka133
+	 * @Description:[please write your description]
+	 * @return: 	String
+	 */
+	public String getBka133() {
+		return bka133;
+	}
+	/**@Title:  	setBka133
+	 * @Description:[please write your description]
+	 * @return: 	String
+	 */
+	public void setBka133(String bka133) {
+		this.bka133 = bka133;
+	}
+	/**@Title:  	getAkc021
+	 * @Description:[please write your description]
+	 * @return: 	String
+	 */
+	public String getAkc021() {
+		return akc021;
+	}
+	/**@Title:  	setAkc021
+	 * @Description:[please write your description]
+	 * @return: 	String
+	 */
+	public void setAkc021(String akc021) {
+		this.akc021 = akc021;
+	}
+	/**@Title:  	getAaa027
+	 * @Description:[please write your description]
+	 * @return: 	String
+	 */
+	public String getAaa027() {
+		return aaa027;
+	}
+	/**@Title:  	setAaa027
+	 * @Description:[please write your description]
+	 * @return: 	String
+	 */
+	public void setAaa027(String aaa027) {
+		this.aaa027 = aaa027;
+	}
+	/**@Title:  	getAka078
+	 * @Description:[please write your description]
+	 * @return: 	String
+	 */
+	public String getAka078() {
+		return aka078;
+	}
+	/**@Title:  	setAka078
+	 * @Description:[please write your description]
+	 * @return: 	String
+	 */
+	public void setAka078(String aka078) {
+		this.aka078 = aka078;
+	}
+	/**@Title:  	getAkb022
+	 * @Description:[please write your description]
+	 * @return: 	String
+	 */
+	public String getAkb022() {
+		return akb022;
+	}
+	/**@Title:  	setAkb022
+	 * @Description:[please write your description]
+	 * @return: 	String
+	 */
+	public void setAkb022(String akb022) {
+		this.akb022 = akb022;
+	}
+	/**@Title:  	getBka134
+	 * @Description:[please write your description]
+	 * @return: 	String
+	 */
+	public String getBka134() {
+		return bka134;
+	}
+	/**@Title:  	setBka134
+	 * @Description:[please write your description]
+	 * @return: 	String
+	 */
+	public void setBka134(String bka134) {
+		this.bka134 = bka134;
+	}
+	/**@Title:  	getAka101
+	 * @Description:[please write your description]
+	 * @return: 	String
+	 */
+	public String getAka101() {
+		return aka101;
+	}
+	/**@Title:  	setAka101
+	 * @Description:[please write your description]
+	 * @return: 	String
+	 */
+	public void setAka101(String aka101) {
+		this.aka101 = aka101;
+	}
+	/**@Title:  	getBka135
+	 * @Description:[please write your description]
+	 * @return: 	String
+	 */
+	public String getBka135() {
+		return bka135;
+	}
+	/**@Title:  	setBka135
+	 * @Description:[please write your description]
+	 * @return: 	String
+	 */
+	public void setBka135(String bka135) {
+		this.bka135 = bka135;
+	}
+	/**@Title:  	getBka136
+	 * @Description:[please write your description]
+	 * @return: 	String
+	 */
+	public String getBka136() {
+		return bka136;
+	}
+	/**@Title:  	setBka136
+	 * @Description:[please write your description]
+	 * @return: 	String
+	 */
+	public void setBka136(String bka136) {
+		this.bka136 = bka136;
+	}
+	/**@Title:  	getAae013
+	 * @Description:[please write your description]
+	 * @return: 	String
+	 */
+	public String getAae013() {
+		return aae013;
+	}
+	/**@Title:  	setAae013
+	 * @Description:[please write your description]
+	 * @return: 	String
+	 */
+	public void setAae013(String aae013) {
+		this.aae013 = aae013;
+	}
+}

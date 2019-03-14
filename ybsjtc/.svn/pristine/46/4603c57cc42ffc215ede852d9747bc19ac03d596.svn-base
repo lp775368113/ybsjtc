@@ -1,0 +1,43 @@
+package com.wondersgroup.k01.f30100108.dao;
+
+import java.util.List;
+import java.util.Map;
+import org.mybatis.spring.annotation.MapperScan;
+import com.wondersgroup.framework.comwork.dao.BaseDAO;
+import com.wondersgroup.framework.comwork.vo.BaseObject;
+import com.wondersgroup.k01.f30100108.vo.F30100108VO;
+/**
+ * @author Yuanqiwen
+ * @date  2018年1月27日
+ */
+@MapperScan
+public interface F30100108Dao extends BaseDAO<BaseObject>{
+    /**
+	 * @description  查询KA06
+	 * @author Yuanqiwen
+	 * @date  2018年1月27日 
+	 * @param params()
+	 * @return
+	 */
+	public List<F30100108VO> queryAa13( Map<String, Object> map);
+	
+
+    /**
+	 * @description  查询KE08最大流水号
+	 * @author Yuanqiwen
+	 * @date  2018年2月2日 
+	 * @param params()
+	 * @return
+	 */
+	public String queryMaxAaz082();
+	
+	/**
+	 * @description  查询KA06记录
+	 * @author Yuanqiwen
+	 * @date  2018年2月6日 
+	 * @param params()
+	 * @return
+	 */
+	public List<F30100108VO> listKa06(F30100108VO vo);
+	    
+}

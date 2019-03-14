@@ -1,0 +1,65 @@
+package com.wondersgroup.application.wj01.j2108;
+
+import com.wondersgroup.framework.fmtcheck.Fmtdescribe;
+
+/**   ***********************************************
+
+ * @Description:  [省一卡通疾病目录下载发送报文体]  
+ * @Author:       [Administrator]   	     
+ * @Version:      [v1.0] 		   
+ ************************************************** **/
+public class ReqBody2108_ {
+		
+	@Fmtdescribe(description = "交易发起机构代码", minLength = 1, maxLength = 16, nullable = false)
+	private String fqjgdm;//交易发起机构代码
+	@Fmtdescribe(description = "交易发起机构名称", minLength = 1, maxLength = 200, nullable = false)
+	private String fqjgmc;//交易发起机构名称
+	@Fmtdescribe(description = "交易发起机构类型", minLength = 1, maxLength = 3, nullable = false)
+	private String fqjglx;//交易发起机构类型
+	@Fmtdescribe(description = "交易发起机构统筹区", minLength = 1, maxLength = 20, nullable = false)
+	private String fqjgtcq;//交易发起机构统筹区
+	@Fmtdescribe(description = "已下载最大平台流水号", minLength = 1, maxLength = 20, nullable = false)
+	private String zdlsh;//已下载最大平台流水号
+
+	public String getFqjgdm() {
+		return fqjgdm;
+	}
+
+	public void setFqjgdm(String fqjgdm) {
+		this.fqjgdm = fqjgdm;
+	}
+
+	public String getFqjgmc() {
+		return fqjgmc;
+	}
+
+	public void setFqjgmc(String fqjgmc) {
+		this.fqjgmc = fqjgmc;
+	}
+
+	public String getFqjglx() {
+		return fqjglx;
+	}
+
+	public void setFqjglx(String fqjglx) {
+		this.fqjglx = fqjglx;
+	}
+
+	public String getFqjgtcq() {
+		return fqjgtcq;
+	}
+
+	public void setFqjgtcq(String fqjgtcq) {
+		this.fqjgtcq = fqjgtcq;
+	}
+
+	public String getZdlsh() {
+		return zdlsh;
+	}
+
+	public void setZdlsh(String zdlsh) {
+		this.zdlsh = zdlsh;
+	}
+	
+}
+

@@ -1,0 +1,16 @@
+01.adapter:登录权限适配器
+02.exception:自定义异常类、MVC全局异常控制器
+03.Filter:过滤器
+04.jasper:报表打印实现
+05.jxls:excel导出实现
+06.listener:项目监听器，项目启动时往容器中加载缓存
+07.aop:代码层面的切面日志记录
+08.redis:reids键值对重构
+09.tag:常用标签的封装
+10.upms:第三方权限控制系统
+11.comwork:用户登录模块、项目分层继承的基础类
+12.util:工具类
+13.wjxy:外部接入系统协议封装
+	Xy01:省下发
+14.fmtcheck:自定义格式校验
+15:mpage:mybatis的分页插件(协定 dao中需要分页的方法 方法名后需加入ListPage)

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wondersgroup.application.basedao.dao.Ae02Dao">
+
+ <insert id="save" parameterType="com.wondersgroup.application.basedao.bo.Ae02" >   
+        insert into AE02(
+                        aaa121,<!-- 业务类型编码-->
+						aaz002,<!-- 业务日志id-->
+						aae011,	<!-- 经办人-->
+						bae121,	<!-- 经办人姓名-->
+						aae036,	<!-- 经办时间-->
+						bae122,	<!-- 复核人姓名-->
+						aae015,	<!-- 复核时间-->
+						aae014,	<!-- 复核人-->
+						aae016,	<!-- 复核标志-->
+						aae012,	<!-- 审批人-->
+						bae123,	<!-- 审批人姓名-->
+						bae124,	<!-- 审批时间-->
+						aae013,	<!-- 备注-->
+						aae148,	<!-- 预约标志-->
+						aae215,	<!-- 预约办理日期-->
+						aae216,	<!-- 申请办理日期-->
+						aae217,	<!-- 开始办理日期-->
+						aae218	<!-- 办理完成日期-->
+                    
+                       )       
+                  values(
+                        #{aaa121,jdbcType=VARCHAR},
+                        #{aaz002,jdbcType=CHAR},
+                        #{aae011,jdbcType=VARCHAR},
+                        #{bae121,jdbcType=VARCHAR},
+                        #{aae036,jdbcType=TIMESTAMP},
+                        #{bae122,jdbcType=VARCHAR},
+                        #{aae015,jdbcType=TIMESTAMP},
+                        #{aae014,jdbcType=VARCHAR},
+                        #{aae016,jdbcType=VARCHAR},
+                        #{aae012,jdbcType=VARCHAR},
+                        #{bae123,jdbcType=VARCHAR},
+                        #{bae124,jdbcType=TIMESTAMP},
+                        #{aae013,jdbcType=VARCHAR},
+                        #{aae148,jdbcType=VARCHAR},
+                        #{aae215,jdbcType=DECIMAL},
+                        #{aae216,jdbcType=DECIMAL},
+                        #{aae217,jdbcType=DECIMAL},
+                        #{aae218,jdbcType=DECIMAL}              
+                   )	
+  </insert>
+  
+  
+  <update id="update" parameterType="com.wondersgroup.application.basedao.bo.Ae02">
+        update ae02 
+          <trim prefix="set" suffixOverrides=",">
+              <if test="aaa121 != null and aaa121 != ''">aaa121 = #{aaa121,jdbcType=VARCHAR}, </if>
+              <if test="aae011 != null and aae011 != ''">aae011 = #{aae011,jdbcType=VARCHAR}, </if>
+              <if test="bae121 != null and bae121 != ''">bae121 = #{bae121,jdbcType=VARCHAR}, </if>
+              <if test="aae036 != null and aae036 != ''">aae036 = #{aae036,jdbcType=TIMESTAMP}, </if>
+              <if test="bae122 != null and bae122 != ''">bae122 = #{bae122,jdbcType=VARCHAR}, </if>
+              <if test="aae015 != null and aae015 != ''">aae015 = #{aae015,jdbcType=TIMESTAMP}, </if>
+              <if test="aae014 != null and aae014 != ''">aae014 = #{aae014,jdbcType=VARCHAR}, </if>
+              <if test="aae016 != null and aae016 != ''">aae016 = #{aae016,jdbcType=VARCHAR}, </if>
+              <if test="bae123 != null and bae123 != ''">bae123 = #{bae123,jdbcType=VARCHAR}, </if>
+              <if test="bae124 != null and bae124 != ''">bae124 = #{bae124,jdbcType=TIMESTAMP}, </if>
+              <if test="aae013 != null and aae013 != ''">aae013 = #{aae013,jdbcType=VARCHAR}, </if>
+              <if test="aae148 != null and aae148 != ''">aae148 = #{aae148,jdbcType=VARCHAR}, </if>
+              <if test="aae215 != null and aae215 != ''">aae215 = #{aae215,jdbcType=DECIMAL}, </if>
+              <if test="aae216 != null and aae216 != ''">aae216 = #{aae216,jdbcType=DECIMAL}, </if>
+              <if test="aae217 != null and aae217 != ''">aae217 = #{aae217,jdbcType=DECIMAL}, </if>
+              <if test="aae218 != null and aae218 != ''">aae218 = #{aae218,jdbcType=DECIMAL}, </if>
+              
+          </trim>
+        where aaz002 = #{aaz002}
+          
+    </update>
+
+</mapper>

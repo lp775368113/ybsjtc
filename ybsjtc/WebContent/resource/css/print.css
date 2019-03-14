@@ -1,0 +1,192 @@
+/*@charset "utf-8";*/
+
+h2.h2_class_16 {font-size: 16px;font-weight: bold;}
+h2.h2_class_20 {font-size: 20px;font-weight: bold;}
+
+/*body{ background:url(circle_03.jpg) no-repeat;}
+*/
+.circle_div{ width:100%;background:url(../images/circle_03.jpg) no-repeat;}
+.tab_border{ border:3px #000 solid; width:100%; padding:1px;}
+.tab_border2{ border:2px #000 solid; width:100%; padding:1px;}
+.tab_border3{ border:2px #000 solid; width:100%; padding:3px;}
+.tab_border4{ border:2px #000 solid;width:17cm; padding:0px;}
+.testa{	border:solid 2px #000;word-break:break-all;font-family:·ÂËÎ_GB2312;font-size:15pt}
+
+/*class1,class2 qx+zx*/
+table.table_class1{	table-layout:fixed; text-align:left;	border-color:#000;	width:96%; }
+table.table_class1 thead{ font-size:11px; }
+table.table_class1 tbody{ font-size:8px; text-align:right; }
+table.table_class1 tfoot{ font-size:8px; text-align:right; }
+table.table_class1 tr{	height: 20px;	}
+table.table_class1 td{	border-color:#000; text-overflow:ellipsis;  white-space:nowrap; }
+
+table.table_class2{	table-layout:fixed; text-align:left;	border-color:#000;	border-collapse:collapse; width:96%; }
+table.table_class2 thead{ font-size:11px; text-align:center;}
+table.table_class2 tbody{ font-size:8px; text-align:right; }
+table.table_class2 tfoot{ font-size:8px; text-align:right; }
+table.table_class2 tr{	height: 20px;	}
+
+
+table.dasys_class1{	table-layout:fixed; text-align:left;	border-color:#000;}
+table.dasys_class1 thead{ font-size:11px; }
+table.dasys_class1 tbody{ font-size:8px; text-align:right; }
+table.dasys_class1 tfoot{ font-size:8px; text-align:right; }
+table.dasys_class1 tr{	height: 68px;	}
+table.dasys_class1 td{	border-color:#000; word-break:break-all; }
+
+table.dasys_class2{	table-layout:fixed; text-align:left;	border-color:#000;	border-collapse:collapse; }
+table.dasys_class2 thead{ font-size:15px; text-align:center;}
+table.dasys_class2 tbody{ font-size:15px; text-align:center;}
+table.dasys_class2 tfoot{ font-size:15px; text-align:right; }
+table.dasys_class2 tr{	height: 19.6mm;	}
+table.dasys_class2 td{	border:solid 1px #000;word-break:break-all;}
+
+table.dasys_class2m{	table-layout:fixed; text-align:left;	border-color:#000;	border-collapse:collapse; }
+table.dasys_class2m thead{ font-size:15px; text-align:center;}
+table.dasys_class2m tbody{ font-size:15px; text-align:center;font-family:·ÂËÎ_GB2312}
+table.dasys_class2m tfoot{ font-size:15px; text-align:right;font-family:·ÂËÎ_GB2312}
+table.dasys_class2m tr{	height: 14.8mm;	font-family:·ÂËÎ_GB2312}
+table.dasys_class2m td{	border:solid 1px #000;font-size:12pt;word-break:break-all;height: 14.8mm;font-family:·ÂËÎ_GB2312}
+
+table.dasys_class2m1{	table-layout:fixed; text-align:left;	border-color:#000;	border-collapse:collapse; }
+table.dasys_class2m1 thead{ font-size:15px; text-align:center;}
+table.dasys_class2m1 tbody{ font-size:15px; text-align:center;font-family:·ÂËÎ_GB2312}
+table.dasys_class2m1 tfoot{ font-size:15px; text-align:right;font-family:·ÂËÎ_GB2312}
+table.dasys_class2m1 tr{	height: 14.8mm;	font-family:·ÂËÎ_GB2312}
+table.dasys_class2m1 td{	border:solid 1px #000;font-size:12pt;word-break:break-all;height: 20mm;font-family:·ÂËÎ_GB2312}
+
+table.dasys_class2am{	table-layout:fixed; text-align:left;	border-color:#000;	border-collapse:collapse; }
+table.dasys_class2am thead{ font-size:15px; text-align:center;}
+table.dasys_class2am tbody{ font-size:11px; text-align:center;}
+table.dasys_class2am tfoot{ font-size:15px; text-align:right; }
+table.dasys_class2am tr{	height: 19.8mm;	}
+table.dasys_class2am td{	border:solid 1px #000;word-break:break-all;height: 19.8mm;}
+
+table.dasys_class3{	text-align:left;	border-color:#000;	border-collapse:collapse;	border-top:solid 1px #000;}
+table.dasys_class3 thead{ font-size:15px; text-align:center;}
+table.dasys_class3 tbody{ font-size:15px; text-align:center; }
+table.dasys_class3 tfoot{ font-size:15px; text-align:right; }
+table.dasys_class3 tr{	font-family:·ÂËÎ_GB2312;	}
+table.dasys_class3 td{	border-bottom:solid 1px #000;border-left:solid 1px #000;word-break:break-all;border-right:solid 1px #000;}
+
+table.dasys_class4{	text-align:left;	border-color:#000;	border-collapse:collapse;	border-top:solid 1px #000;}
+table.dasys_class4 thead{ font-size:10px; text-align:center;}
+table.dasys_class4 tbody{ font-size:10px; text-align:center; }
+table.dasys_class4 tfoot{ font-size:10px; text-align:right; }
+table.dasys_class4 td{	border-bottom:solid 1px #000;border-left:solid 1px #000;word-break:break-all;border-right:solid 1px #000;}
+
+table.dasys_class7{	text-align:left;	border-color:#000;	border-collapse:collapse;	border-top:solid 1px #000;}
+table.dasys_class7 tr{	height: 16px;	}
+table.dasys_class7 td{	border-bottom:solid 1px #000;border-left:solid 1px #000;word-break:break-all;border-right:solid 1px #000;}
+
+table.dasys_class5{	text-align:left;	border-color:#000;	border-collapse:collapse;	border-top:solid 1px #000;}
+table.dasys_class5 thead{ font-size:15px; text-align:center;}
+table.dasys_class5 tbody{ font-size:15px; text-align:center; }
+table.dasys_class5 tfoot{ font-size:15px; text-align:right; }
+table.dasys_class5 tr{	height: 30px;	}
+table.dasys_class5 td{	border-bottom:solid 1px #000;border-left:solid 1px #000;word-break:break-all;border-right:solid 1px #000;}
+
+table.dasys_class6{	text-align:left;	border-color:#000;	border-collapse:collapse;	border-top:solid 1px #000;}
+table.dasys_class6 thead{ font-size:15px; text-align:center;}
+table.dasys_class6 tbody{ font-size:15px; text-align:center; }
+table.dasys_class6 tfoot{ font-size:15px; text-align:right; }
+table.dasys_class6 tr{	height: 20px;	}
+table.dasys_class6 td{	border-bottom:solid 1px #000;border-left:solid 0px #000;word-break:break-all;border-right:solid 1px #000;}
+
+
+table.dasys_class8{	text-align:left;	border-color:#000;	border-collapse:collapse;	border-top:solid 1px #000;border-right:solid 1px #000;}
+table.dasys_class8 thead{ font-size:15px; text-align:center;}
+table.dasys_class8 tbody{ font-size:15px; text-align:center; }
+table.dasys_class8 tfoot{ font-size:15px; text-align:right; }
+table.dasys_class8 tr{	height: 40px;	}
+table.dasys_class8 td{	border-bottom:solid 1px #000;border-left:solid 1px #000;word-break:break-all;}
+
+
+table.dasys_class9{	table-layout:fixed; text-align:left;	border-color:#000;	border-collapse:collapse; }
+table.dasys_class9 thead{ font-size:12px; text-align:center;}
+table.dasys_class9 tbody{ font-size:12px; text-align:center;height:15mm; }
+table.dasys_class9 tfoot{ font-size:12px; text-align:right; }
+table.dasys_class9 tr{	height:15mm;	}
+table.dasys_class9 td{	border:solid 1px #000;word-break:break-all;}
+
+table.dasys_class10{	table-layout:fixed; text-align:left;	border-color:#000;}
+table.dasys_class10 thead{ font-size:11px; }
+table.dasys_class10 tbody{ font-size:8px; text-align:right; }
+table.dasys_class10 tfoot{ font-size:8px; text-align:right; }
+table.dasys_class10 tr{	height: 40px;	}
+table.dasys_class10 td{	border-color:#000; word-break:break-all; }
+
+table.dasys_class11{	table-layout:fixed; text-align:left;	border-color:#000;	border-collapse:collapse; }
+table.dasys_class11 thead{ font-size:10px; text-align:center;}
+table.dasys_class11 tbody{ font-size:10px; text-align:center;height:10mm; }
+table.dasys_class11 tfoot{ font-size:10px; text-align:right; }
+table.dasys_class11 tr{	height:10mm;	}
+table.dasys_class11 td{	border:solid 2px #000;word-break:break-all;font-family:·ÂËÎ_GB2312}
+
+table.dasys_class12{	table-layout:fixed; text-align:left;	border-color:#000;}
+table.dasys_class12 thead{ font-size:11px; }
+table.dasys_class12 tbody{ font-size:6px; text-align:right; }
+table.dasys_class12 tfoot{ font-size:8px; text-align:right; }
+table.dasys_class12 tr{	height: 10mm;	}
+table.dasys_class12 td{	border-color:#000; word-break:break-all; }
+
+table.dasys_class13{	table-layout:fixed; text-align:left;	border-color:#000;	border-collapse:collapse; }
+table.dasys_class13 thead{ font-size:15px; text-align:center;}
+table.dasys_class13 tbody{ font-size:15px; text-align:center;}
+table.dasys_class13 tfoot{ font-size:15px; text-align:right; }
+table.dasys_class13 tr{	height: 10.2mm;	}
+table.dasys_class13 td{	border:solid 1px #000;word-break:break-all;height: 10.2mm;}
+
+table.dasys_class2{	table-layout:fixed; text-align:left;	border-color:#000;	border-collapse:collapse; }
+table.dasys_class2 thead{ font-size:15px; text-align:center;}
+table.dasys_class2 tbody{ font-size:15px; text-align:center; }
+table.dasys_class2 tfoot{ font-size:15px; text-align:right; }
+table.dasys_class2 tr{	height: 10mm;	}
+table.dasys_class2 td{	border:solid 1px #000;word-break:break-all;}
+/*12345*/
+table.table_class3{	table-layout:fixed; font-size:11px; text-align:center;	border-color:#000;	border-collapse:collapse; width:96%; }
+table.table_class3 tr{	height: 20px;	}
+table.table_class3 td{	border:solid 1px #000; text-overflow:ellipsis;  white-space:nowrap; }
+
+table.table_class4{	table-layout:fixed; font-size:11px;	text-align:left;	border-collapse:collapse;	border-color:#000; border:solid 1px; width:96%; }
+table.table_class4 tr{	height: 20px;	}
+table.table_class4 td{	text-overflow:ellipsis;  white-space:nowrap; border-left:solid 1px;}
+
+table.table_class5{	table-layout:fixed; font-size:11px; border-color:#000;	border-collapse:collapse; width:96%; }
+table.table_class5 thead{ text-align:center;}
+table.table_class5 tbody{ text-align:right;}
+table.table_class5 tfoot{ text-align:right;}
+table.table_class5 tr{	height: 20px;	}
+table.table_class5 td{	border:solid 1px #000; text-overflow:ellipsis;  white-space:nowrap; }
+
+
+table.table_class6{	table-layout:fixed; text-align:left;	border-color:#000; font-size:11px;	width:96%; }
+table.table_class6 tr{	height: 20px;	}
+table.table_class6 td{	border-color:#000; text-overflow:ellipsis;  white-space:nowrap; }
+
+table.table_class7{	table-layout:fixed; text-align:center;	border-color:#000; font-size:11px;border-collapse:collapse;	width:96%; }
+table.table_class7 tr{	height: 20px;	}
+table.table_class7 td{	border: solid 1px; text-overflow:ellipsis;  white-space:nowrap; }
+
+td.td_class_c{ text-align:center; }
+td.td_class_r{ text-align:right; }
+td.td_class_05{ width:5%; }
+td.td_class_06{ width:6%; }
+td.td_class_07{ width:7%; }
+td.td_class_11{ width:11%; }
+td.td_class_25{ width:25%; }
+
+
+table.table_class1_A4{ table-layout:fixed; text-align:left; border-color:#000; width:60%;}
+table.table_class1_A4 thead{ font-size:11px; }
+table.table_class1_A4 tbody{ font-size:8px; text-align:right; }
+table.table_class1_A4 tfoot{ font-size:8px; text-align:right; }
+table.table_class1_A4 tr{	height: 32px;	}
+table.table_class1_A4 td{	border-color:#000; white-space:normal; }
+
+table.table_class5_A4{ table-layout:fixed; font-size:11px; border-color:#000;	border-collapse:collapse;  width:60%; }
+table.table_class5_A4 thead{ text-align:center;}
+table.table_class5_A4 tbody{ text-align:right;}
+table.table_class5_A4 tfoot{ text-align:right;}
+table.table_class5_A4 tr{	height: 20px;	}
+table.table_class5_A4 td{	border:solid 1px #000; text-overflow:ellipsis;  white-space:nowrap; }
