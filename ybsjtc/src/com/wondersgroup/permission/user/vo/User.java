@@ -2,6 +2,8 @@ package com.wondersgroup.permission.user.vo;
 
 import java.util.Date;
 
+import com.wondersgroup.framework.comwork.vo.BaseObject;
+
 /**   ***********************************************
  * Simple to Introduction  
  * @ProjectName:  [ybsjtc]
@@ -15,8 +17,8 @@ import java.util.Date;
  * @UpdateRemark: [说明本次修改内容]     
  * @Version:      [v1.0] 		   
  ************************************************** **/
-public class User {
-	private Integer uid;
+public class User extends BaseObject{
+	private Integer id;
 	private String loginname;
 	private String password;
 	private String vsername;
@@ -26,19 +28,21 @@ public class User {
 	private Date last_login_time;
 	private String address;
 	private String status;
-	/**@Title:  	getUid
+	private String _state;
+	
+	/**@Title:  	getId
 	 * @Description:[please write your description]
 	 * @return: 	Integer
 	 */
-	public Integer getUid() {
-		return uid;
+	public Integer getId() {
+		return id;
 	}
-	/**@Title:  	setUid
+	/**@Title:  	setId
 	 * @Description:[please write your description]
 	 * @return: 	Integer
 	 */
-	public void setUid(Integer uid) {
-		this.uid = uid;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 	/**@Title:  	getLoginname
 	 * @Description:[please write your description]
@@ -166,6 +170,27 @@ public class User {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+	
+	
+	/**@Title:  	get_state
+	 * @Description:[please write your description]
+	 * @return: 	String
+	 */
+	public String get_state() {
+		return _state;
+	}
+	/**@Title:  	set_state
+	 * @Description:[please write your description]
+	 * @return: 	String
+	 */
+	public void set_state(String _state) {
+		this._state = _state;
+	}
+	/**Title: toString
+	 * Description:[用一句话描述这个方法的作用]
+	 * @return   
+	 * @see java.lang.Object#toString()   
+	 */
 	/**Title: toString
 	 * Description:[用一句话描述这个方法的作用]
 	 * @return   
@@ -173,9 +198,12 @@ public class User {
 	 */
 	@Override
 	public String toString() {
-		return "User [uid=" + uid + ", loginname=" + loginname + ", password=" + password + ", vsername=" + vsername
+		return "User [id=" + id + ", loginname=" + loginname + ", password=" + password + ", vsername=" + vsername
 				+ ", mobilephone=" + mobilephone + ", email=" + email + ", create_time=" + create_time
-				+ ", last_login_time=" + last_login_time + ", address=" + address + ", status=" + status + "]";
+				+ ", last_login_time=" + last_login_time + ", address=" + address + ", status=" + status + ", _state="
+				+ _state + "]";
 	}
+	
+	
 	
 }

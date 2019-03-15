@@ -35,7 +35,7 @@ html,body {
                 <div id="grid1" class="mini-datagrid"
                     style="width:350px;height:350px;" multiSelect="true"
                     showReloadButton="false"
-                    url="${pageContext.request.contextPath}/uaasRole/queryRole.do"
+                    url="${pageContext.request.contextPath}/role/queryRole.do"
                     resultAsData="true">
                     <div property="columns">
                         <div type="checkcolumn"></div>
@@ -53,7 +53,7 @@ html,body {
                 <div id="grid2" class="mini-datagrid"
                     style="width:350px;height:350px;" multiSelect="true"
                     showReloadButton="false" 
-                    url="${pageContext.request.contextPath}/uaasRole/queryRole.do"
+                    url="${pageContext.request.contextPath}/role/queryRole.do"
                     allowCellEdit="true" allowCellSelect="true">
                     <div property="columns">
                         <div type="checkcolumn"></div>
@@ -125,7 +125,7 @@ html,body {
             });
             $
                     .ajax({
-                        url : "${pageContext.request.contextPath}/uaasRole/changeUserRole.do",
+                        url : "${pageContext.request.contextPath}/role/changeUserRole.do",
                         data : {
                             data : json,
                             userid : userid

@@ -72,7 +72,7 @@ html,body {
 				<div id="roleGrid" class="mini-datagrid" multiSelect="true"
 					style="width: 100%; height: auto;" allowResize="false"
 					showReloadButton="flase" showPageSize="false"
-					url="${pageContext.request.contextPath}/uaasRole/queryRole.do">
+					url="${pageContext.request.contextPath}/role/queryRole.do">
 					<div property="columns">
 						<div type="indexcolumn" headerAlign="center" align="center"
 							width="10%">序号</div>
@@ -114,11 +114,11 @@ html,body {
 				<div id="userGrid" class="mini-datagrid"
 					style="width: 100%; height: auto;" allowResize="false"
 					showReloadButton="flase" showPageSize="false"
-					url="${pageContext.request.contextPath}/uaasRole/queryUser.do">
+					url="${pageContext.request.contextPath}/role/queryUser.do">
 					<div property="columns">
 						<div type="indexcolumn" headerAlign="center" align="center"
 							width="20%">序号</div>
-						<div field="name" width="40%" headerAlign="center" align="center">用户名称</div>
+						<div field="vsername" width="40%" headerAlign="center" align="center">用户名称</div>
 						<div field="loginname" width="40%" headerAlign="center"
 							align="center">登录名称</div>
 					</div>
@@ -135,7 +135,7 @@ html,body {
 		var roleGrid = mini.get("roleGrid");
 		var userGrid = mini.get("userGrid");
 		search();
-		function search() {
+		function search(){
 			var data = form.getData(true);
 			roleGrid.load(data);
 		}
@@ -162,7 +162,7 @@ html,body {
 		function add() {
 			mini
 					.open({
-						url : "${pageContext.request.contextPath}/pages/permission/role/role_edit.jsp",
+						url : "${pageContext.request.contextPath}/pages/premission/role/role_edit.jsp",
 						title : "增加角色",
 						width : 420,
 						height : 200,
@@ -181,13 +181,14 @@ html,body {
 
 		function edit() {
 			var row = roleGrid.getSelected();
+			console.log(row);
 			if (!row) {
 				mini.alert("请选择一个需要修改的角色");
 				return;
 			}
 			mini
 					.open({
-						url : "${pageContext.request.contextPath}/pages/permission/role/role_edit.jsp",
+						url : "${pageContext.request.contextPath}/pages/premission/role/role_edit.jsp",
 						title : "编辑角色",
 						width : 420,
 						height : 200,
@@ -196,7 +197,8 @@ html,body {
 							//调用弹出页面方法进行初始化
 							iframe.contentWindow.setData({
 								mode : "edit",
-								id : row.id
+								id : row.id,
+								model:row
 							});
 						},
 						ondestroy : function() {
@@ -216,7 +218,7 @@ html,body {
 			roleGrid.loading("删除中，请稍后......");
 			$
 					.ajax({
-						url : "${pageContext.request.contextPath}/uaasRole/removeUaasRole.do",
+						url : "${pageContext.request.contextPath}/role/removeUaasRole.do",
 						data : data,
 						type : "post",
 						dataType : "json",
@@ -244,7 +246,7 @@ html,body {
 			}
 			mini
 					.open({
-						url : "${pageContext.request.contextPath}/pages/permission/role/userChange.jsp",
+						url : "${pageContext.request.contextPath}/pages/premission/role/userChange.jsp",
 						title : "用户维护",
 						width : 750,
 						height : 450,
@@ -270,7 +272,7 @@ html,body {
 			}
 			mini
 					.open({
-						url : "${pageContext.request.contextPath}/pages/permission/role/roleChange.jsp",
+						url : "${pageContext.request.contextPath}/pages/premission/role/roleChange.jsp",
 						title : "角色维护",
 						width : 750,
 						height : 450,

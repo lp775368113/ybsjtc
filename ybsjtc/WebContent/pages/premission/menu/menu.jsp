@@ -216,6 +216,7 @@ html,body {
             mini.alert("请选择要删除的菜单");
             return;
         }
+        console.log(node);
 
         mini.confirm("确定删除选中菜单?", "确认删除", function(btn) {
             if(btn === 'ok') {

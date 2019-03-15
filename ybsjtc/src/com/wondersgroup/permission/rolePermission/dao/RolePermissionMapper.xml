@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper
+	namespace="com.wondersgroup.permission.rolePermission.dao.RolePermissionMapper">
+	<insert id="saveRolePermission" parameterType="java.util.List"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into ROLE_PERMISSION
+		(roleid,permissionid,permissiontype,removed)
+		values
+		<foreach collection="list" item="item" index="index"
+			separator=",">
+			(#{item.roleid},#{item.permissionid},#{item.permissiontype},#{item.removed})
+		</foreach>
+	</insert>
+	<update id="updateRolePermission"  parameterType="com.wondersgroup.permission.rolePermission.vo.RolePermission">
+            UPDATE ROLE_PERMISSION
+                SET removed = #{removed}
+            WHERE id = #{id}
+    </update>
+	<select id="getRolePermission"
+		resultType="com.wondersgroup.permission.rolePermission.vo.RolePermission"
+		parameterType="java.util.Map">
+		select
+		*
+		from ROLE_PERMISSION
+		where roleid = #{roleid}
+		and permissionid = #{permissionid}
+		and permissiontype = #{permissiontype}
+	</select>
+</mapper>

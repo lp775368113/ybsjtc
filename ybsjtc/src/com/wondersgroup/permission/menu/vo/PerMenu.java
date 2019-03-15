@@ -26,6 +26,7 @@ public class PerMenu {
 	private String type;
 	private Integer priority;
 	private String description;
+	private String ischecked;
 	/**@Title:  	getId
 	 * @Description:[please write your description]
 	 * @return: 	Integer
@@ -195,6 +196,20 @@ public class PerMenu {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	/**@Title:  	getIschecked
+	 * @Description:[please write your description]
+	 * @return: 	String
+	 */
+	public String getIschecked() {
+		return ischecked;
+	}
+	/**@Title:  	setIschecked
+	 * @Description:[please write your description]
+	 * @return: 	String
+	 */
+	public void setIschecked(String ischecked) {
+		this.ischecked = ischecked;
+	}
 	/**Title: toString
 	 * Description:[用一句话描述这个方法的作用]
 	 * @return   
@@ -204,10 +219,6 @@ public class PerMenu {
 	public String toString() {
 		return "PerMenu [id=" + id + ", parentid=" + parentid + ", code=" + code + ", name=" + name + ", url=" + url
 				+ ", icon1=" + icon1 + ", icon2=" + icon2 + ", icon3=" + icon3 + ", removed=" + removed + ", type="
-				+ type + ", priority=" + priority + ", description=" + description + "]";
+				+ type + ", priority=" + priority + ", description=" + description + ", ischecked=" + ischecked + "]";
 	}
-	
-	
-	
-	
 }

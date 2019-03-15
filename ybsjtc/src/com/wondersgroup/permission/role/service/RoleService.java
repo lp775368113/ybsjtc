@@ -15,10 +15,10 @@ import com.wondersgroup.framework.comwork.dao.BaseDAO;
 import com.wondersgroup.framework.comwork.service.BaseService;
 import com.wondersgroup.framework.comwork.vo.BaseObject;
 import com.wondersgroup.permission.role.dao.RoleMapper;
-import com.wondersgroup.permission.role.vo.UaasRole;
-import com.wondersgroup.permission.user.vo.UaasUser;
-import com.wondersgroup.permission.userRole.dao.UaasUserRoleMapper;
-import com.wondersgroup.permission.userRole.vo.UaasUserRole;
+import com.wondersgroup.permission.role.vo.Role;
+import com.wondersgroup.permission.user.vo.User;
+import com.wondersgroup.permission.userRole.dao.UserRoleMapper;
+import com.wondersgroup.permission.userRole.vo.UserRole;
 
 /**
  * *********************************************** Simple to Introduction
@@ -36,67 +36,68 @@ import com.wondersgroup.permission.userRole.vo.UaasUserRole;
  ************************************************** **/
 @Service
 public class RoleService extends BaseService<BaseObject> {
-	@Resource(name = "uaasRoleMapper")
-	private RoleMapper uaasRoleMapper;
-
-	@Resource(name = "uaasUserRoleMapper")
-	private UaasUserRoleMapper uaasUserRoleMapper;
-
-	@Resource(name = "uaasRoleMapper")
+	@Resource(name = "roleMapper")
+	private RoleMapper roleMapper;
+	
+	@Resource(name = "userRoleMapper")
+	private UserRoleMapper userRoleMapper;
+	
+	@Resource(name = "roleMapper")
 	public void setDao(BaseDAO<BaseObject> dao) {
 		super.dao = dao;
 	}
 
-	public int saveUaasRole(UaasRole record) {
-		return uaasRoleMapper.saveUaasRole(record);
+	public int saveUaasRole(Role record) {
+		return roleMapper.saveUaasRole(record);
 	}
 
-	public int updateUaasRole(UaasRole record) {
-		return uaasRoleMapper.updateUaasRole(record);
+	public int updateUaasRole(Role record) {
+		return roleMapper.updateUaasRole(record);
 	}
-
-	public void removeUaasRole(List<UaasRole> list) {
-		uaasRoleMapper.removeUaasRole(list);
-		for(UaasRole role:list){
-			uaasUserRoleMapper.removeUserRole(role.getId());
+	
+	public void removeUaasRole(List<Role> list) {
+		roleMapper.removeUaasRole(list);
+		for(Role role:list){
+			userRoleMapper.removeUserRole(role.getId());
 		}
 	}
 
-	public UaasRole getUaasRole(int id) {
+
+	/*public UaasRole getUaasRole(int id) {
 		return uaasRoleMapper.getUaasRole(id);
-	}
+	}*/
 	
-	public Map<String, Object> queryRole(Map<String, Object>  map){
+	/*public Map<String, Object> queryRole(Map<String, Object>  map){
 	    Map<String, Object> result = new HashMap<String, Object>();
         int pageIndex = Integer.parseInt( map.get("pageIndex").toString());
         int pageSize = Integer.parseInt(map.get("pageSize").toString());
         int start = pageIndex * pageSize, end = start + pageSize;
         map.put("start", start + 1);
         map.put("end", end);
-        List<UaasRole> list = uaasRoleMapper.queryRole(map);
-        int count = uaasRoleMapper.queryRoleCount(map);
+        List<Role> list = roleMapper.queryRole(map);
+        int count = roleMapper.queryRoleCount(map);
         result.put("total", count);
 		result.put("data", list);
 	    return result;
-	}
+	}*/
 
 
 	public boolean changeUserRole(Map<String, Object> map) {
 		String roleid = map.get("roleid") != null ? map.get("roleid").toString() : "";
 		String userid = map.get("userid") != null ? map.get("userid").toString() : "";
 		String json = map.get("data").toString();
-		List<UaasUserRole> addList = new ArrayList<UaasUserRole>();
-		List<UaasUserRole> updateList = new ArrayList<UaasUserRole>();
+		List<UserRole> addList = new ArrayList<UserRole>();
+		List<UserRole> updateList = new ArrayList<UserRole>();
 		if (StringUtils.isNotEmpty(userid)) {
-			List<UaasRole> list = JSONArray.parseArray(json, UaasRole.class);
-			for (UaasRole role : list) {
+			List<Role> list = JSONArray.parseArray(json, Role.class);
+			for (Role role : list) {
 				boolean flag = false;// 默认更新
 				Map<String, Object> params = new HashMap<String, Object>();
 				params.put("userid", Integer.valueOf(userid));
 				params.put("roleid", role.getId());
-				UaasUserRole userRole = uaasUserRoleMapper.getUaasUserRole(params);
+				UserRole userRole = userRoleMapper.getUaasUserRole(params);
 				if (userRole == null) {
-					userRole = new UaasUserRole();
+					userRole = new UserRole();
 					flag = true;
 				}
 
@@ -116,15 +117,15 @@ public class RoleService extends BaseService<BaseObject> {
 				}
 			}
 		} else if (StringUtils.isNotEmpty(roleid)) {
-			List<UaasUser> list = JSONArray.parseArray(json, UaasUser.class);
-			for (UaasUser user : list) {
+			List<User> list = JSONArray.parseArray(json, User.class);
+			for (User user : list) {
 				boolean flag = false;// 默认更新
 				Map<String, Object> params = new HashMap<String, Object>();
 				params.put("userid", user.getId());
 				params.put("roleid", Integer.valueOf(roleid));
-				UaasUserRole userRole = uaasUserRoleMapper.getUaasUserRole(params);
+				UserRole userRole = userRoleMapper.getUaasUserRole(params);
 				if (userRole == null) {
-					userRole = new UaasUserRole();
+					userRole = new UserRole();
 					flag = true;
 				}
 
@@ -147,11 +148,14 @@ public class RoleService extends BaseService<BaseObject> {
 			return false;
 		}
 		if (addList.size() > 0) {
-			uaasUserRoleMapper.saveUserRole(addList);
+			userRoleMapper.saveUserRole(addList);
 		}
 
 		if (updateList.size() > 0) {
-			uaasUserRoleMapper.updateUserRole(updateList);
+			for(UserRole userrole:updateList) {
+				userRoleMapper.updateUserRole(userrole);
+			}
+			
 		}
 		return true;
 	}

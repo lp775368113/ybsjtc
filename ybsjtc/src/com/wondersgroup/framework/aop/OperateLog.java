@@ -15,6 +15,7 @@ import com.wondersgroup.framework.comwork.controller.SessionConstants;
 import com.wondersgroup.framework.comwork.vo.BaseObject;
 import com.wondersgroup.framework.upms.vo.UasUserVO;
 import com.wondersgroup.framework.util.BeanUtil;
+import com.wondersgroup.permission.user.vo.User;
 
 /**   ***********************************************
  * Simple to Introduction  
@@ -59,24 +60,24 @@ public class OperateLog {
 			} else if (args[0] instanceof HashMap) {
 				Map map = (Map) args[0];
 				if (BaseObject.WRITE_LOG_YES.equals(map.get("iswritelog"))) {
-					UasUserVO loginUser = (UasUserVO) request.getSession()
+					User loginUser = (User) request.getSession()
 							.getAttribute(SessionConstants.CW_LOGINUSER);
 					System.out.println("map----------------------------" + map.get("logywlsh"));
 					map.put("classname", className);
 					map.put("methodname", method);
 					map.put("czjg", "1");
 					map.put("login_userid", loginUser.getLoginname());
-					map.put("login_realname", loginUser.getName());
+					map.put("login_realname", loginUser.getVsername());
 					sqlSessionTemplate.insert("com.wondersgroup.framework.comwork.dao.BaseDAO.saveOperateLog", map);
 				}
 			} else if (args[0] instanceof BaseObject) {
 				BaseObject bo = (BaseObject) args[0];
 				Map map = BeanUtil.convertBeanToMap(bo);
 				if (BaseObject.WRITE_LOG_YES.equals(map.get("iswritelog"))) {
-					UasUserVO loginUser = (UasUserVO) request.getSession()
+					User loginUser = (User) request.getSession()
 							.getAttribute(SessionConstants.CW_LOGINUSER);
 					map.put("login_userid", loginUser.getLoginname());
-					map.put("login_realname", loginUser.getName());
+					map.put("login_realname", loginUser.getVsername());
 					map.put("classname", className);
 					map.put("methodname", method);
 					map.put("czjg", "1");

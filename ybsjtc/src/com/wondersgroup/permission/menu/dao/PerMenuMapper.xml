@@ -3,13 +3,15 @@
 <mapper namespace="com.wondersgroup.permission.menu.dao.PerMenuMapper" >
   
   <select id="listUserMenu" resultType="com.wondersgroup.permission.menu.vo.PerMenu" parameterType="java.util.Map" >
-    select distinct a.* from menu a,role_menu_permission b,user_role_permission c
-	where c.roleid=b.roleid and b.menuid=a.id
+ select u.* FROM ((select distinct a.* from menu a,role_permission b,user_role_permission c
+	where c.roleid=b.roleid and b.permissionid=a.id	 
 	and c.userid=#{userid}
+	and b.permissiontype=1
 	and b.removed=0 
 	and c.removed=0
-	and a.removed=0
-    order by a.PRIORITY
+	and a.removed=0) 
+UNION 
+(select d.* from menu d,user_menu_permission e where d.id=e.menuid and e.userid=#{userid} and e.removed=0))u  order by priority
   </select>
    <select id="listMenu" resultType="com.wondersgroup.permission.menu.vo.PerMenu" >
     select 
@@ -140,4 +142,24 @@
                 SET removed = #{removed}
             WHERE ID = #{id}
    </update>
+   
+	<select id="listMenuPermission" resultType="com.wondersgroup.permission.menu.vo.PerMenu" parameterType="java.util.Map" >
+    select 
+    a.*,(case when b.id is null then '0' else '1' end) ischecked
+    from MENU a left JOIN ROLE_PERMISSION b
+        on a.ID = b.PERMISSIONID and b.removed = '0' and b.permissiontype = '1'
+        and b.ROLEID = #{roleid}
+    where a.removed=0
+    order by a.PRIORITY
+  </select>
+  
+  <select id="listUserMenuPermission" resultType="com.wondersgroup.permission.menu.vo.PerMenu" parameterType="java.util.Map" >
+    select 
+    a.*,(case when b.id is null then '0' else '1' end) ischecked
+    from MENU a left JOIN USER_MENU_PERMISSION b
+        on a.ID = b.MENUID and b.removed = '0' 
+        and b.userid = #{userid}
+    where a.removed=0
+    order by a.PRIORITY
+  </select>
 </mapper>

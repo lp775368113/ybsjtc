@@ -51,11 +51,11 @@ html,body {
 				<div id="grid1" class="mini-datagrid"
 					style="width:350px;height:350px;" multiSelect="true"
 					showReloadButton="flase" showPageSize="false"
-					url="${pageContext.request.contextPath}/uaasRole/queryUser.do"
+					url="${pageContext.request.contextPath}/role/queryUser.do"
 					resultAsData="true">
 					<div property="columns">
 						<div width="20%" type="checkcolumn"></div>
-						<div field="name" width="40%" headerAlign="center" align="center">用户名称</div>
+						<div field="vsername" width="40%" headerAlign="center" align="center">用户名称</div>
 						<div field="loginname" width="40%" headerAlign="center"
 							align="center">登录名称</div>
 					</div>
@@ -87,11 +87,11 @@ html,body {
 				<div id="grid2" class="mini-datagrid" 
 					style="width:350px;height:350px;" multiSelect="true"
 					showReloadButton="flase" showPageSize="false"
-					url="${pageContext.request.contextPath}/uaasRole/queryUser.do"
+					url="${pageContext.request.contextPath}/role/queryUser.do"
 					allowCellEdit="true" allowCellSelect="true">
 					<div property="columns">
 						<div width="20%" type="checkcolumn"></div>
-						<div field="name" width="40%" headerAlign="center" align="center">用户名称</div>
+						<div field="vsername" width="40%" headerAlign="center" align="center">用户名称</div>
 						<div field="loginname" width="40%" headerAlign="center"
 							align="center">登录名称</div>
 					</div>
@@ -108,7 +108,7 @@ html,body {
 		function search1(){
 			var name = mini.get("name1").getValue();
 			grid1.load({
-				name : name
+				vsername : name
 			});
 				
 				
@@ -117,7 +117,7 @@ html,body {
 			var roleid = mini.get("roleid").getValue();
 			var name = mini.get("name2").getValue();
 			grid2.load({
-				name : name,
+				vsername : name,
 				roleid : roleid
 			});
 				
@@ -179,7 +179,7 @@ html,body {
 			});
 			$
 					.ajax({
-						url : "${pageContext.request.contextPath}/uaasRole/changeUserRole.do",
+						url : "${pageContext.request.contextPath}/role/changeUserRole.do",
 						data : {
 							data : json,
 							roleid : roleid

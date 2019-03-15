@@ -22,9 +22,12 @@ public interface PerMenuMapper extends BaseDAO<BaseObject>{
 	void removeUaasMenu(Map<String, Object> map);
 	
 	
-	/*List<PerMenu> listMenuPermission(Map<String, Object> map);
+	List<PerMenu> listMenuPermission(Map<String, Object> map);
 	
-	List<UaasMenu> listRoleMenu(Map<String, Object> map);
+	
+	List<PerMenu> listUserMenuPermission(Map<String, Object> map);
+	
+	/*List<UaasMenu> listRoleMenu(Map<String, Object> map);
 	
 	
 	UaasMenu getMenu(int id);

@@ -19,7 +19,7 @@ $(".next").click(function(){
 			current_fs.css({'transform': 'scale('+scale+')'});
 			next_fs.css({'left': left, 'opacity': opacity});
 		}, 
-		duration: 800, 
+		duration: 400, 
 		complete: function(){
 			current_fs.hide();
 			animating = false;
@@ -46,7 +46,7 @@ $(".previous").click(function(){
 			current_fs.css({'left': left});
 			previous_fs.css({'transform': 'scale('+scale+')', 'opacity': opacity});
 		}, 
-		duration: 800, 
+		duration: 400, 
 		complete: function(){
 			current_fs.hide();
 			animating = false;
@@ -67,30 +67,35 @@ function getRootPath_web() {
     return (localhostPaht + projectName);
 }
 
-$(".submit").click(function(){
+function tj(){
 	if(!usable&&loginname!=''){
-		alert("用户名已被注册。");
+		window.wxc.xcConfirm("用户名不可用！", window.wxc.xcConfirm.typeEnum.warning);
 		return;
 	}
 	$(".submit").attr("disabled", true); 
 	var loginname=$("#loginname").val();
 	var password=$("#password").val();
 	var cpassword=$("#cpassword").val();
+	var vsername=$("#vsername").val();
 	if(loginname==''){
-		alert("用户名不能为空！");
+		window.wxc.xcConfirm("用户名不能为空！", window.wxc.xcConfirm.typeEnum.warning);
 		$(".submit").attr("disabled", false); 
 		return;
 	}else if(password==''){
-		alert("密码不能为空！");
-		$(".submit").attr("disabled", false); 
+		window.wxc.xcConfirm("密码不能为空！", window.wxc.xcConfirm.typeEnum.warning);
+		$(".submit").attr("disabled", false);
 		return;
 	}else if(cpassword==''){
-		alert("请确认密码！");
+		window.wxc.xcConfirm("请确认密码！", window.wxc.xcConfirm.typeEnum.warning);
+		$(".submit").attr("disabled", false); 
+		return;
+	}else if($.trim(vsername)==''){
+		window.wxc.xcConfirm("真实姓名不能为空！", window.wxc.xcConfirm.typeEnum.warning);
 		$(".submit").attr("disabled", false); 
 		return;
 	}
 	if(password!=cpassword){
-		alert("两次密码输入不相同。");
+		window.wxc.xcConfirm("两次密码输入不相同。", window.wxc.xcConfirm.typeEnum.error);
 		$(".submit").attr("disabled", false); 
 		return;
 	}
@@ -107,20 +112,28 @@ $(".submit").click(function(){
 		data:data,
 		success : function(result){
 			if(result.success){
-				alert("注册成功！");
-				window.location.href=getRootPath_web()+"/login.jsp"; 
+				var txt=  "注册成功，请等待管理员分配权限。";
+				var option = {
+					title: "注册成功！",
+					btn: parseInt("0001",2),
+					onOk: function(){
+						window.location.href=getRootPath_web()+"/login.jsp"; 
+					}
+				}
+				window.wxc.xcConfirm(txt, "custom", option);
+				
 			}else if(result.error){
-				alert("错误提示："+result.error);
+				window.wxc.xcConfirm("系统错误:"+result.error, window.wxc.xcConfirm.typeEnum.error);
 				$(".submit").attr("disabled", false); 
 			}
 		}
 	});
-})
+}
 
 $("#loginname").blur(function(e){
 	var loginname=$("#loginname").val();
 	if(loginname==''){
-		alert("请输入用户名");
+		window.wxc.xcConfirm("请输入用户名！", window.wxc.xcConfirm.typeEnum.warning);
 	}
 	var data={};
 	data.loginname=loginname;
@@ -132,13 +145,13 @@ $("#loginname").blur(function(e){
 		success : function(result){
 			if(!result.usable){
 				usable=false;
-				alert("用户名已被注册。");
+				window.wxc.xcConfirm("用户名已被注册！", window.wxc.xcConfirm.typeEnum.warning);
 			}
 			if(result.usable){
 				usable=true;
 			}
 			else if(result.error){
-				alert("系统错误："+result.error);
+				window.wxc.xcConfirm("系统错误:"+result.error, window.wxc.xcConfirm.typeEnum.error);
 			}
 		}
 	});

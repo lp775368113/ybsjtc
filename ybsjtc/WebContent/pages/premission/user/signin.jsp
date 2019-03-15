@@ -2,6 +2,7 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <link rel="stylesheet" media="screen" href="${pageContext.request.contextPath}/resource/css/signin.css" />
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resource/css/xcConfirm.css"/>
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 
@@ -31,13 +32,14 @@
 	</fieldset>
 	<fieldset>
 		<h2 class="fs-title">填写信息</h2>		
-		<input type="text" name="vsername" placeholder="姓名" />
-		<textarea name="address" placeholder="住址"></textarea>
+		<input type="text"  id="vsername" name="vsername" placeholder="真实姓名" />
+		<textarea name="address" placeholder="通讯住址"></textarea>
 		<input type="button" name="previous" class="previous action-button" value="上一步" />
-		<input type="submit" name="submit" class="submit action-button" value="提交" />
+		<input type="button" name="submit"  onclick="tj()" class="submit action-button" value="提交" />
 	</fieldset>
 </form>
 <script src="${pageContext.request.contextPath}/resource/scripts/jquery-1.10.0.min.js" type="text/javascript"></script>
+<script src="${pageContext.request.contextPath}/resource/scripts/xcConfirm.js" type="text/javascript" charset="utf-8"></script>
 <script src="${pageContext.request.contextPath}/resource/scripts/jquery.easing.min.js" type="text/javascript"></script>
 <script src="${pageContext.request.contextPath}/resource/scripts/jQuery.time.js" type="text/javascript"></script>
 <br><br><br><br><br><br><br><br><br><br>

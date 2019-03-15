@@ -4,6 +4,8 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
+
+import com.wondersgroup.framework.comwork.dao.BaseDAO;
 import com.wondersgroup.framework.comwork.service.BaseService;
 import com.wondersgroup.framework.comwork.vo.BaseObject;
 import com.wondersgroup.permission.user.dao.UserMapper;
@@ -26,6 +28,12 @@ import com.wondersgroup.permission.user.vo.User;
 public class UserService extends BaseService<BaseObject>{
 	@Resource(name="userMapper")
 	private UserMapper userMapper;
+	
+	
+	@Resource(name="userMapper")
+	public void setDao(BaseDAO<BaseObject> dao) {
+		super.setDao(dao);
+	}
 	
 	public User  getUserByLoginname(String loginname){
 		return userMapper.getUserByLoginname(loginname);

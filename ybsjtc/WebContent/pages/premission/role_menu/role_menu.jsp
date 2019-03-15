@@ -54,7 +54,7 @@ html,body {
 				<div id="roleGrid" class="mini-datagrid"
 					style="width: 100%; height: 84%;" allowResize="false"
 					showReloadButton="false" showPageSize="false"
-					url="${pageContext.request.contextPath}/uaasRole/queryRole.do">
+					url="${pageContext.request.contextPath}/role/queryRole.do">
 					<div property="columns">
 						<div type="indexcolumn" headerAlign="center" align="center"
 							width="20%">序号</div>
@@ -96,7 +96,7 @@ html,body {
 						style="width:100%;height:84%;" showTreeIcon="true"
 						treeColumn="name" idField="id" parentField="parentid"
 						resultAsTree="false" expandOnLoad="false" allowCellEdit="true"
-						url="${pageContext.request.contextPath}/uaasMenu/listMenuPermission.do">
+						url="${pageContext.request.contextPath}/menu/listMenuPermission.do">
 						<div property="columns">
 							<%--<div type="indexcolumn">序号</div>--%>
 							<div field="id" visible="false"></div>

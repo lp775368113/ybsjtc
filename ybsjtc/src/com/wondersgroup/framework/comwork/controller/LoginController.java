@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -83,7 +84,7 @@ public class LoginController extends BaseController {
 	 * @return_type: ModelAndView
 	 */
 	@RequestMapping("doLogin")
-	public ModelAndView doLogin(@RequestParam Map<String, Object> paramMap, HttpServletRequest request) {
+	public ModelAndView doLogin(@RequestParam Map<String, Object> paramMap, HttpServletRequest request,HttpServletResponse response) {
 		String errMsg = "";
 		try {
 			//获取当前用户登录信息
@@ -107,7 +108,7 @@ public class LoginController extends BaseController {
 			
 			//获取菜单权限
 			Map<String, Object> map = new HashMap<String, Object>();
-			map.put("userid", user.getUid());
+			map.put("userid", user.getId());
 			List<PerMenu> listMenu = perMenuService.listUserMenu(map);
 			if(listMenu.size()>0){
 				HashMap<String, TreeMap<Integer, List<PerMenu>>> tree = MenuUtil.CreateMenuTree(listMenu);
@@ -115,8 +116,11 @@ public class LoginController extends BaseController {
 				Map<Integer, List<PerMenu>> topChildMenuList = tree.get("2");
 				request.getSession().setAttribute("topMenuList", topMenuList);
 				request.getSession().setAttribute("topChildMenuList", topChildMenuList);
+				return new ModelAndView("/pages/index");
+			}else {
+				return new ModelAndView("/pages/warning");
 			}
-			return new ModelAndView("/pages/index");
+			
 		} catch (Exception e) {
 			errMsg = "系统异常,请联系部门排除!";
 			return new ModelAndView("/login").addObject("errMsg", errMsg);

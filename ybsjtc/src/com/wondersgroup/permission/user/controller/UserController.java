@@ -69,4 +69,10 @@ public class UserController extends BaseController {
 		return result ;
 	}
 	
+	@ResponseBody
+    @RequestMapping("queryUser")
+    public Map<String, Object> queryRole(@RequestParam Map<String, Object> params) {
+    	Map<String, Object> resultMap = userService.getPage(params);
+		return resultMap;
+	}
 }

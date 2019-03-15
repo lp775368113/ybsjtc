@@ -66,26 +66,7 @@ html,body {
                     return;
                 }
                 var form = new mini.Form("#form1");
-                $
-                        .ajax({
-                            url : "${pageContext.request.contextPath}/uaasRole/getUaasRole.do",
-                            data : {
-                                id : data.id
-                            },
-                            type : "post",
-                            dataType:"json",
-                            success : function(text) {
-                                if (text.success) {
-                                    var form = new mini.Form("#form1");
-                                    form.setData(text.data);
-                                } else {
-                                    mini.alert(text.msg);
-                                }
-                            },
-                            error : function(jqXHR, textStatus, errorThrown) {
-                                alert(jqXHR.responseText);
-                            }
-                        });
+                form.setData(data.model);
             }
 
             function save() {
@@ -97,9 +78,9 @@ html,body {
                 var mode = mini.get("mode").getValue();
                 var url = "";
                 if (mode == "add") {
-                    url = "${pageContext.request.contextPath}/uaasRole/saveUaasRole.do"
+                    url = "${pageContext.request.contextPath}/role/saveUaasRole.do"
                 } else if (mode == "edit") {
-                    url = "${pageContext.request.contextPath}/uaasRole/updateUaasRole.do"
+                    url = "${pageContext.request.contextPath}/role/updateUaasRole.do"
                 } else {
                     mini.alert("操作失败");
                     return;

@@ -6,6 +6,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.wondersgroup.framework.upms.vo.UasUserVO;
+import com.wondersgroup.permission.user.vo.User;
 
 /**
  * *********************************************** 
@@ -35,8 +36,8 @@ public class BaseController {
 	 * @return
 	 * @return_type: UasUserVO
 	 */
-	public UasUserVO getLoginUser(HttpServletRequest request) {
-		return (UasUserVO) request.getSession().getAttribute(SessionConstants.CW_LOGINUSER);
+	public User getLoginUser(HttpServletRequest request) {
+		return (User) request.getSession().getAttribute(SessionConstants.CW_LOGINUSER);
 	}
 
 	/**
@@ -45,7 +46,7 @@ public class BaseController {
 	 * @return
 	 * @return_type: UasUserVO
 	 */
-	public UasUserVO getLoginUser() {
-		return (UasUserVO) request.getSession().getAttribute(SessionConstants.CW_LOGINUSER);
+	public User getLoginUser() {
+		return (User) request.getSession().getAttribute(SessionConstants.CW_LOGINUSER);
 	}
 }

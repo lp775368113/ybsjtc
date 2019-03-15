@@ -10,4 +10,43 @@
 		INSERT into users (loginname,password,vsername,mobilephone,email,create_time,removed,address,status) 
 		values(#{loginname},#{password},#{vsername},#{mobilephone},#{email},now(),0,#{address},'0');
 	</insert>
+	<select id="getPage" resultType="com.wondersgroup.permission.user.vo.User"
+		parameterType="java.util.Map">
+		SELECT t.* from (SELECT
+		p.*,@rownum :=@rownum + 1 AS rn
+		FROM
+		(SELECT @rownum := 0) r,
+		(
+		SELECT
+		DISTINCT a.*
+		FROM
+		USERS a
+		LEFT JOIN user_role_permission b ON a.id = b.userid and b.removed = 0
+		WHERE
+		a.removed = 0
+		<if test="name != null and name != ''">
+			AND a.vsername like concat(concat('%',#{name}),'%')
+		</if>
+		<if test="roleid != null">
+			AND b.ROLEID = #{roleid}
+		</if>
+
+		)p ORDER BY
+		p.id ASC ) t WHERE t.rn <![CDATA[>=]]>
+		#{start} and t.rn <![CDATA[<=]]>
+		#{end}
+	</select>
+	<select id="getPageCount" resultType="java.lang.Integer"
+		parameterType="java.util.Map">
+		SELECT COUNT(1) from (select DISTINCT a.* from USERS a LEFT JOIN
+		user_role_permission b ON a.id = b.userid AND b.removed = 0 where
+		a.removed=0
+		<if test="vsername != null and vsername != ''">
+			AND a.vsername like concat(concat('%',#{vsername}),'%')
+		</if>
+		<if test="roleid != null">
+			<!-- 已分配用户 -->
+			AND b.ROLEID = #{roleid}
+		</if>)d
+	</select>
 </mapper>

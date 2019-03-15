@@ -115,7 +115,7 @@ public class PerMenuController extends BaseController {
 		return result;
 	}
 	
-	/*@ResponseBody
+	@ResponseBody
 	@RequestMapping("listMenuPermission")
 	public List<Map<String, Object>> listMenuPermission(@RequestParam Map<String, Object> params) {
 		List<PerMenu> list = perMenuService.listMenuPermission(params);
@@ -129,9 +129,21 @@ public class PerMenuController extends BaseController {
 			treeList.add(map);
 		}
 		return treeList;
-	}*/
-
-	/*
+	}
 	
-	*/
+	@ResponseBody
+	@RequestMapping("listUserMenuPermission")
+	public List<Map<String, Object>> listUserMenuPermission(@RequestParam Map<String, Object> params) {
+		List<PerMenu> list = perMenuService.listUserMenuPermission(params);
+		List<Map<String, Object>> treeList = new ArrayList<Map<String, Object>>(list.size());
+		for (PerMenu menu : list) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("id", menu.getId());
+			map.put("parentid", menu.getParentid());
+			map.put("name", menu.getName());
+			map.put("ischecked","1".equals(menu.getIschecked())?true:false);
+			treeList.add(map);
+		}
+		return treeList;
+	}
 }

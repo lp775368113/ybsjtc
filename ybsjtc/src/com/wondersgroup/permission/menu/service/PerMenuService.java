@@ -62,10 +62,15 @@ public class PerMenuService extends BaseService<BaseObject>{
 	}
 	
 	
-	/*public List<PerMenu> listMenuPermission(Map<String, Object> map){
+	public List<PerMenu> listMenuPermission(Map<String, Object> map){
 		return perMenuMapper.listMenuPermission(map);
 	}
 	
+	public List<PerMenu> listUserMenuPermission(Map<String, Object> map){
+		return perMenuMapper.listUserMenuPermission(map);
+	}
+	
+	/*
 	public List<UaasMenu> listRoleMenu(Map<String, Object> map){
 		return uaasMenuMapper.listRoleMenu(map);
 	}
