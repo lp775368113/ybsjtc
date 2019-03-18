@@ -41,6 +41,8 @@ import com.wondersgroup.framework.upms.vo.DeptVO;
 import com.wondersgroup.framework.upms.vo.UasFuncVO;
 import com.wondersgroup.framework.upms.vo.UasMenuVO;
 import com.wondersgroup.framework.upms.vo.UasUserVO;
+import com.wondersgroup.framework.util.DESUtil;
+import com.wondersgroup.framework.util.EncryptUtil;
 import com.wondersgroup.permission.menu.service.PerMenuService;
 import com.wondersgroup.permission.menu.vo.PerMenu;
 import com.wondersgroup.permission.user.service.UserService;
@@ -93,14 +95,19 @@ public class LoginController extends BaseController {
 			System.out.println("<<<<<<<<<<<<<<<<<<<<<<<"+sessid+">>>>>>>>>>>>>>>>>>>>>>>");
 			String loginname = paramMap.get("loginname").toString().trim();
 			String password = paramMap.get("password").toString().trim();
+			User user=userService.getUserByLoginname(loginname);
+			//不可逆加密密码
+			String des=DESUtil.encrypt(DESUtil.KEY, password);
+			String md5 = EncryptUtil.generate(des);  
+			Boolean can=EncryptUtil.verify(des, user.getPassword());
 			if (StringUtils.isEmpty(loginname) || loginname.trim() == "")
 				return new ModelAndView("/login").addObject("errMsg", "账号不能为空！");
 			if (StringUtils.isEmpty(password) || password.trim() == "")
 				return new ModelAndView("/login").addObject("errMsg", "密码不能为空！");
-			User user=userService.getUserByLoginname(loginname);
+			
 			if(user==null) {
 				return new ModelAndView("/login").addObject("errMsg", "帐号不存在！");
-			}else if(!password.equals(user.getPassword())) {
+			}else if(!can) {
 				return new ModelAndView("/login").addObject("errMsg", "密码错误！");
 			}else {
 				request.getSession().setAttribute(SessionConstants.CW_LOGINUSER, user);
@@ -136,27 +143,32 @@ public class LoginController extends BaseController {
 	 */
 	@RequestMapping("doUpdatePwd")
 	@ResponseBody
-	public String doUpdatePwd(@RequestParam Map<String, Object> paramMap) {
-		String result;
+	public Map doUpdatePwd(@RequestParam Map<String, Object> paramMap) {
+		Map<String,Object> result=new HashMap<String,Object>();
 		try {
 			String password1 = paramMap.get("password1").toString();
 			String password2 = paramMap.get("password2").toString();
 			logger.info("---password1:" + password1);
 			if (password1 != null) {
 				if (!password1.equals(password2)) {
-					result = "{success:false,result:[],errors:[{msg:\"两次输入不一致\"}],exception:[{msg:\"两次输入不一致\"}],target:null}";
+					result.put("success", false);
+					result.put("errors", "两次输入不一致");
 				} else {
-					paramMap.put("password", DigestUtils.md5Hex(password1));
-					//systemService.modUserPassword(paramMap);
-					result = "{success:true}";
+					String des=DESUtil.encrypt(DESUtil.KEY, password1);
+					String md5 = EncryptUtil.generate(des);  
+					paramMap.put("password", md5);
+					userService.modUserPassword(paramMap);
+					result.put("success", true);
 				}
 			} else {
-				result = "{success:false,result:[],errors:[{msg:\"密码不可为空\"}],exception:[{msg:\"密码不可为空\"}],target:null}";
+				result.put("success", false);
+				result.put("errors", "密码不可为空");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.error(e.getMessage(), e);
-			result = "{success:false,result:[],errors:[{msg:\"修改密码出错\"}],exception:[{msg:\"修改密码出错\"}],target:null}";
+			result.put("success", false);
+			result.put("errors", "修改密码出错");
 		}
 		return result;
 	}

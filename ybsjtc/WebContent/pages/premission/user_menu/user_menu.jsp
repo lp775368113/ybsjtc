@@ -222,7 +222,7 @@ html,body {
 			var json = mini.encode(data);
 			var row = roleGrid.getSelected();
 			if (row == null) {
-				mini.alert("请先勾选一个角色");
+				mini.alert("请先勾选一个用户");
 				return;
 			}
 			var userid = row.id;

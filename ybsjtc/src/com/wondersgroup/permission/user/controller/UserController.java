@@ -75,4 +75,20 @@ public class UserController extends BaseController {
     	Map<String, Object> resultMap = userService.getPage(params);
 		return resultMap;
 	}
+	
+	@ResponseBody
+    @RequestMapping("resetpwd")
+    public Map<String, Object> resetpwd(@RequestParam Map<String, Object> params) {
+		Map<String, Object> result = new HashMap<String,Object>();
+        try {
+        	String pwd=userService.resetpwd(params);
+        	result.put("password", pwd);
+        	result.put("success", true);
+		} catch (Exception e) {
+			e.printStackTrace();
+			result.put("error", e.getMessage());
+			logger.error(e.getMessage(),e);
+		}
+		return result ;
+	}
 }

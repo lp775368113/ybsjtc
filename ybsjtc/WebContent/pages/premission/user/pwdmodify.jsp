@@ -44,6 +44,10 @@ html,body {
 	<script type="text/javascript">
         mini.parse();
         var form = new mini.Form("form1");
+        var userid=null;
+        function setData(data) {
+           userid = data.id;
+        }
         function SaveData() {
             var o = form.getData();            
             form.validate();
@@ -61,14 +65,18 @@ html,body {
 				type: 'post',
                 //data: { data: json },
                  data: { 
-                  user_id:'1',
+                  			userid:userid,
 							password1 : password1,
 							password2 : password2
 						},
 						cache : false,
 						success : function(text) {
-							mini.alert("修改成功");
-							CloseWindow("save");
+							console.log(text);
+							if(text.success){
+								mini.alert("密码修改成功！","成功",window.CloseOwnerWindow);
+							}else if(!text.success){
+								mini.alert(text.errors,"失败",window.CloseOwnerWindow);
+							}
 						},
 						error : function(jqXHR, textStatus, errorThrown) {
 							alert(jqXHR.responseText);

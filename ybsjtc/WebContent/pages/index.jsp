@@ -4,6 +4,7 @@
 <%@page import="com.wondersgroup.permission.user.vo.User"%>
 <%@page import="com.wondersgroup.framework.comwork.controller.SessionConstants"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ include file="/pages/include/header.jsp"%>
 <html lang="en">
 	<head>
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
@@ -129,11 +130,10 @@
 									</div>
                                   
 									<div class="exit">
-										<a href="javascript:" onClick="window.open('${pageContext.request.contextPath}/pages/pwdmodify.jsp', '',
-										'height=100,width=400,top=250,left=400,scrollbars=yes,status =yes,depended=yes')">
+										<a href="javascript:" onClick="pwdmodify()">
 										<div class="exit_item"><i class="bj"></i>密码修改</div>
 										</a>
-										<a href="${pageContext.request.contextPath}/login/doLogin.do" style="text-decoration: none;">
+										<a href="${pageContext.request.contextPath}/login/doLoginout.do" style="text-decoration: none;">
 										<div class="exit_item"><i class="exit_icon"></i> 立即注销</div>
 										 </a>
 									</div>
@@ -212,7 +212,7 @@
 						-->
 						<div class="tool">
 							<div class="tool_line"></div>
-							<div class="close icon-close" title="关闭"></div>
+							<div class="close icon-close1" title="关闭"></div>
 						</div>
 					</nav>
 					<div class="content-wrap" id="menu-section">
@@ -328,7 +328,7 @@
 					});
 				}
 				
-				$(".icon-close").click(function() {
+				$(".icon-close1").click(function() {
 					var index = $('.tabs-style-tzoid li.tab-current').index();
 					$(".tabs-style-tzoid li.tab-current").not(".tabs-style-tzoid li:nth-child(1)").remove();
 					var removeMenuId = $(".content-current").attr("id").substring(14);
@@ -443,9 +443,26 @@
 			
 		</script>
 		<script type="text/javascript">
+		 mini.parse();
 			function capture(menuid) {
 				nbwd.captureAsSave();
 				return ;
+			}
+			function pwdmodify() {
+				mini.open({
+							url : "${pageContext.request.contextPath}/pages/premission/user/pwdmodify.jsp",
+							title : "修改密码",
+							width : 420,
+							height : 200,
+							onload : function() {
+								var iframe = this.getIFrameEl();
+								//调用弹出页面方法进行初始化
+								iframe.contentWindow.setData({
+									mode : "edit",
+									id : <%=loginUser.getId() %>,
+								});
+							}
+						});
 			}
 		</script>
 	</body>

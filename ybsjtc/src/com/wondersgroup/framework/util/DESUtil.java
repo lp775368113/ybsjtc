@@ -25,6 +25,7 @@ public class DESUtil {
 
 	private final static String DES = "DES";
 	private final static String CIPHER_ALGORITHM = "DES/ECB/NoPadding";
+	public final static String KEY = "SD4$%Yhnj87^i(hyg%fd##df%";
 
 	public static void main(String[] args) throws NoSuchAlgorithmException, InvalidKeyException, NoSuchPaddingException,
 			InvalidKeySpecException, IllegalBlockSizeException, BadPaddingException {
@@ -37,12 +38,13 @@ public class DESUtil {
 		// 生成密匙
 		// SecretKey key = kg.generateKey();
 		// 获取密匙数据
-		String keydata = "www.wondersgroup.com";
-		String src = "abc123"; // 待加密数据
+		String src = "1111"; // 待加密数据
 		// 调用加密方法
-		System.out.println(encrypt(keydata, src));
-		// 调用解密方法
-		System.out.println(decrypt(keydata, encrypt(keydata, src)));
+		String des=encrypt(DESUtil.KEY, src);
+		
+		System.out.println(des);
+		 String password = EncryptUtil.generate(des);  
+	        System.out.println(decrypt(DESUtil.KEY, "CF62A1107D7B06B2"));  
 	}
 
 	/**

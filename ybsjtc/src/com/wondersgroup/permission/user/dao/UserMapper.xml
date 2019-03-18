@@ -49,4 +49,8 @@
 			AND b.ROLEID = #{roleid}
 		</if>)d
 	</select>
-</mapper>
+	
+	<update id="updatepwd" parameterType="java.util.Map">
+		update users set password=#{password} where id=#{userid}
+	</update>
+</mapper> 

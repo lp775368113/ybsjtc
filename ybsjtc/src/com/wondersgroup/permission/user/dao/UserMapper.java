@@ -19,4 +19,12 @@ public interface UserMapper extends BaseDAO<BaseObject>{
 	 * @return_type: User      
 	 */
 	User getUserByloginname(Map<String, Object> params);
+
+	/**@Title: 		 updatepwd   
+	 * @Description: TODO[用一句话描述这个方法的作用]   
+	 * @param paramMap      
+	 * @return_type: void      
+	 */
+	void updatepwd(Map<String, Object> paramMap);
+
 }

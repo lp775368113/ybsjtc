@@ -1,5 +1,4 @@
 <%@page import="com.wondersgroup.framework.comwork.controller.SessionConstants"%>
-<%@page import="com.wondersgroup.framework.upms.vo.UasUserVO"%>
 <%@page import="com.wondersgroup.framework.upms.vo.DeptVO"%>
 <%@page import="java.util.List"%>
 <link href="${pageContext.request.contextPath}/resource/miniui/themes/default/miniui.css" rel="stylesheet" type="text/css" />
