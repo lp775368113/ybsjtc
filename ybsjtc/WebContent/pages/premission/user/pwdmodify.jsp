@@ -54,9 +54,13 @@ html,body {
             if (form.isValid() == false) return;
             var  password1=mini.getbyName("password1").getValue().trim();
             var  password2=mini.getbyName("password2").getValue().trim();
-            if(password1!=password2){
-            mini.alert("两次密码输入不一致！");
-            return  false;
+            var pPattern = /^.*(?=.{6,})(?=.*\d)(?=.*[A-Z])(?=.*[a-z]).*$/;
+            if(!pPattern.test(password1)){
+            	mini.alert("密码必须包含英文字母大小写和数字，且长度最小6位！");
+                return  false;
+            }else if(password1!=password2){
+            	mini.alert("两次密码输入不一致！");
+            	return  false;
             }
             //var json = mini.encode([o]);
             //alert(json);

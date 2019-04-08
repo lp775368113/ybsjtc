@@ -77,25 +77,22 @@ function tj(){
 	var password=$("#password").val();
 	var cpassword=$("#cpassword").val();
 	var vsername=$("#vsername").val();
-	if(loginname==''){
-		window.wxc.xcConfirm("用户名不能为空！", window.wxc.xcConfirm.typeEnum.warning);
-		$(".submit").attr("disabled", false); 
-		return;
-	}else if(password==''){
-		window.wxc.xcConfirm("密码不能为空！", window.wxc.xcConfirm.typeEnum.warning);
+	var uPattern = /^[a-zA-Z0-9_-]{4,50}$/;
+	var pPattern = /^.*(?=.{6,})(?=.*\d)(?=.*[A-Z])(?=.*[a-z]).*$/;
+	if(!uPattern.test(loginname)){
+		window.wxc.xcConfirm("用户名4位以上，只能包含（字母，数字，下划线，减号）！", window.wxc.xcConfirm.typeEnum.warning);
 		$(".submit").attr("disabled", false);
 		return;
-	}else if(cpassword==''){
-		window.wxc.xcConfirm("请确认密码！", window.wxc.xcConfirm.typeEnum.warning);
+	}else if(!pPattern.test(password)){
+		window.wxc.xcConfirm("密码必须包含英文字母大小写和数字，且长度最小6位！", window.wxc.xcConfirm.typeEnum.warning);
+		$(".submit").attr("disabled", false); 
+		return;
+	}else if(password!=cpassword){
+		window.wxc.xcConfirm("两次密码输入不相同。", window.wxc.xcConfirm.typeEnum.error);
 		$(".submit").attr("disabled", false); 
 		return;
 	}else if($.trim(vsername)==''){
 		window.wxc.xcConfirm("真实姓名不能为空！", window.wxc.xcConfirm.typeEnum.warning);
-		$(".submit").attr("disabled", false); 
-		return;
-	}
-	if(password!=cpassword){
-		window.wxc.xcConfirm("两次密码输入不相同。", window.wxc.xcConfirm.typeEnum.error);
 		$(".submit").attr("disabled", false); 
 		return;
 	}

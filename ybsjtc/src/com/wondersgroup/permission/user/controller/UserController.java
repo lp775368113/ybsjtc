@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.wondersgroup.framework.comwork.controller.BaseController;
@@ -32,7 +33,7 @@ public class UserController extends BaseController {
 	private UserService userService;
 
 	@ResponseBody
-    @RequestMapping("signin")
+    @RequestMapping(value = "signin", method = RequestMethod.POST)
     public Map<String, Object> queryOperator(@RequestParam Map<String, Object> params) {
 		Map<String, Object> result = new HashMap<String,Object>();
         try {
@@ -77,7 +78,7 @@ public class UserController extends BaseController {
 	}
 	
 	@ResponseBody
-    @RequestMapping("resetpwd")
+    @RequestMapping(value = "resetpwd", method = RequestMethod.POST)
     public Map<String, Object> resetpwd(@RequestParam Map<String, Object> params) {
 		Map<String, Object> result = new HashMap<String,Object>();
         try {
