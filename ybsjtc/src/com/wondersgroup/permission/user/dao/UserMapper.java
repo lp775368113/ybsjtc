@@ -5,6 +5,7 @@ import java.util.Map;
 import org.mybatis.spring.annotation.MapperScan;
 import com.wondersgroup.framework.comwork.dao.BaseDAO;
 import com.wondersgroup.framework.comwork.vo.BaseObject;
+import com.wondersgroup.permission.user.vo.Dd_User;
 import com.wondersgroup.permission.user.vo.User;
 @MapperScan
 public interface UserMapper extends BaseDAO<BaseObject>{
@@ -26,5 +27,13 @@ public interface UserMapper extends BaseDAO<BaseObject>{
 	 * @return_type: void      
 	 */
 	void updatepwd(Map<String, Object> paramMap);
+
+	/**@Title: 		 getDd_users   
+	 * @Description: TODO[用一句话描述这个方法的作用]   
+	 * @param string
+	 * @return      
+	 * @return_type: Dd_User      
+	 */
+	Dd_User getDd_users(String string);
 
 }

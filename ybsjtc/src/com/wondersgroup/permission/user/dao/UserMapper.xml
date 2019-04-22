@@ -53,4 +53,8 @@
 	<update id="updatepwd" parameterType="java.util.Map">
 		update users set password=#{password} where id=#{userid}
 	</update>
+	
+	<select id="getDd_users" parameterType="String" resultType="com.wondersgroup.permission.user.vo.Dd_User">
+		select d.* from dd_users d,users a  where d.userid=a.id and a.id=#{userid}
+	</select>
 </mapper> 

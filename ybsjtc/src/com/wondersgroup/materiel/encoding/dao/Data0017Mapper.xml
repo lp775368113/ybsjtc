@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wondersgroup.materiel.encoding.dao.Data0017Mapper" >
+  <resultMap id="BaseResultMap" type="com.wondersgroup.materiel.encoding.vo.Data0017" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="erpid" property="erpid" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="ttype" property="ttype" jdbcType="VARCHAR" />
+    <result column="inv_part_number" property="invPartNumber" jdbcType="VARCHAR" />
+    <result column="extra_desc" property="extraDesc" jdbcType="VARCHAR" />
+    <result column="prod_code_sell_ptr" property="prodCodeSellPtr" jdbcType="VARCHAR" />
+    <result column="prod_supper" property="prodSupper" jdbcType="VARCHAR" />
+    <result column="package_" property="package_" jdbcType="VARCHAR" />
+    <result column="smt_flag" property="smtFlag" jdbcType="VARCHAR" />
+    <result column="inv_part_description_c" property="invPartDescriptionC" jdbcType="VARCHAR" />
+    <result column="cust_part_name" property="custPartName" jdbcType="VARCHAR" />
+    <result column="cust_part_code" property="custPartCode" jdbcType="VARCHAR" />
+    <result column="purch_unit_ptr" property="purchUnitPtr" jdbcType="VARCHAR" />
+    <result column="stock_unit_ptr" property="stockUnitPtr" jdbcType="VARCHAR" />
+    <result column="supplier_ptr" property="supplierPtr" jdbcType="VARCHAR" />
+    <result column="std_cost" property="stdCost" jdbcType="VARCHAR" />
+    <result column="stock_purch" property="stockPurch" jdbcType="VARCHAR" />
+    <result column="iqc_flag" property="iqcFlag" jdbcType="VARCHAR" />
+    <result column="stock_pak_qty" property="stockPakQty" jdbcType="VARCHAR" />
+    <result column="stop_purch" property="stopPurch" jdbcType="VARCHAR" />
+    <result column="qty_per_k" property="qtyPerK" jdbcType="VARCHAR" />
+    <result column="mwidth" property="mwidth" jdbcType="VARCHAR" />
+    <result column="mlength" property="mlength" jdbcType="VARCHAR" />
+    <result column="rest_iqc_date" property="restIqcDate" jdbcType="VARCHAR" />
+    <result column="work_man_h" property="workManH" jdbcType="VARCHAR" />
+    <result column="mach_h" property="machH" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, erpid, status, ttype, inv_part_number, extra_desc, prod_code_sell_ptr, prod_supper, 
+    package_, smt_flag, inv_part_description_c, cust_part_name, cust_part_code, purch_unit_ptr, 
+    stock_unit_ptr, supplier_ptr, std_cost, stock_purch, iqc_flag, stock_pak_qty, stop_purch, 
+    qty_per_k, mwidth, mlength, rest_iqc_date, work_man_h, mach_h
+  </sql>
+    <insert id="insertSelective" parameterType="com.wondersgroup.materiel.encoding.vo.Data0017" useGeneratedKeys="true" keyProperty="id" >
+    insert into materiel_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="erpid != null" >
+        erpid,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="ttype != null" >
+        ttype,
+      </if>
+      <if test="invPartNumber != null" >
+        inv_part_number,
+      </if>
+      <if test="extraDesc != null" >
+        extra_desc,
+      </if>
+      <if test="prodCodeSellPtr != null" >
+        prod_code_sell_ptr,
+      </if>
+      <if test="prodSupper != null" >
+        prod_supper,
+      </if>
+      <if test="package_ != null" >
+        package_,
+      </if>
+      <if test="smtFlag != null" >
+        smt_flag,
+      </if>
+      <if test="invPartDescriptionC != null" >
+        inv_part_description_c,
+      </if>
+      <if test="custPartName != null" >
+        cust_part_name,
+      </if>
+      <if test="custPartCode != null" >
+        cust_part_code,
+      </if>
+      <if test="purchUnitPtr != null" >
+        purch_unit_ptr,
+      </if>
+      <if test="stockUnitPtr != null" >
+        stock_unit_ptr,
+      </if>
+      <if test="supplierPtr != null" >
+        supplier_ptr,
+      </if>
+      <if test="stdCost != null" >
+        std_cost,
+      </if>
+      <if test="stockPurch != null" >
+        stock_purch,
+      </if>
+      <if test="iqcFlag != null" >
+        iqc_flag,
+      </if>
+      <if test="stockPakQty != null" >
+        stock_pak_qty,
+      </if>
+      <if test="stopPurch != null" >
+        stop_purch,
+      </if>
+      <if test="qtyPerK != null" >
+        qty_per_k,
+      </if>
+      <if test="mwidth != null" >
+        mwidth,
+      </if>
+      <if test="mlength != null" >
+        mlength,
+      </if>
+      <if test="restIqcDate != null" >
+        rest_iqc_date,
+      </if>
+      <if test="workManH != null" >
+        work_man_h,
+      </if>
+      <if test="machH != null" >
+        mach_h,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="erpid != null" >
+        #{erpid,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="ttype != null" >
+        #{ttype,jdbcType=VARCHAR},
+      </if>
+      <if test="invPartNumber != null" >
+        #{invPartNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="extraDesc != null" >
+        #{extraDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="prodCodeSellPtr != null" >
+        #{prodCodeSellPtr,jdbcType=VARCHAR},
+      </if>
+      <if test="prodSupper != null" >
+        #{prodSupper,jdbcType=VARCHAR},
+      </if>
+      <if test="package_ != null" >
+        #{package_,jdbcType=VARCHAR},
+      </if>
+      <if test="smtFlag != null" >
+        #{smtFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="invPartDescriptionC != null" >
+        #{invPartDescriptionC,jdbcType=VARCHAR},
+      </if>
+      <if test="custPartName != null" >
+        #{custPartName,jdbcType=VARCHAR},
+      </if>
+      <if test="custPartCode != null" >
+        #{custPartCode,jdbcType=VARCHAR},
+      </if>
+      <if test="purchUnitPtr != null" >
+        #{purchUnitPtr,jdbcType=VARCHAR},
+      </if>
+      <if test="stockUnitPtr != null" >
+        #{stockUnitPtr,jdbcType=VARCHAR},
+      </if>
+      <if test="supplierPtr != null" >
+        #{supplierPtr,jdbcType=VARCHAR},
+      </if>
+      <if test="stdCost != null" >
+        #{stdCost,jdbcType=VARCHAR},
+      </if>
+      <if test="stockPurch != null" >
+        #{stockPurch,jdbcType=VARCHAR},
+      </if>
+      <if test="iqcFlag != null" >
+        #{iqcFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="stockPakQty != null" >
+        #{stockPakQty,jdbcType=VARCHAR},
+      </if>
+      <if test="stopPurch != null" >
+        #{stopPurch,jdbcType=VARCHAR},
+      </if>
+      <if test="qtyPerK != null" >
+        #{qtyPerK,jdbcType=VARCHAR},
+      </if>
+      <if test="mwidth != null" >
+        #{mwidth,jdbcType=VARCHAR},
+      </if>
+      <if test="mlength != null" >
+        #{mlength,jdbcType=VARCHAR},
+      </if>
+      <if test="restIqcDate != null" >
+        #{restIqcDate,jdbcType=VARCHAR},
+      </if>
+      <if test="workManH != null" >
+        #{workManH,jdbcType=VARCHAR},
+      </if>
+      <if test="machH != null" >
+        #{machH,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <select id="getPage" parameterType="java.util.Map" resultMap="BaseResultMap">
+  	SELECT a.*   FROM materiel_info  a where 1=1 and  a.status in('3','7')
+     order by a.id  desc
+     limit #{start},#{row}
+  </select>
+  
+  
+  <select id="getExportData" parameterType="java.util.Map" resultMap="BaseResultMap">
+  	SELECT a.*   FROM materiel_info  a where 1=1 and  a.status in('3','7')
+     order by a.id  desc
+  </select>
+  
+  <select id="getPageCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+  	SELECT COUNT(*) FROM materiel_info  a where 1=1 and a.status in('3','7')
+  </select>
+  
+   <select id="getExtraDesc" resultType="java.lang.String" parameterType="java.lang.String">
+	select a.Extra_Desc from  materiel_info a
+	where a.Extra_Desc like '${_parameter}%'
+	order by REPLACE(a.Extra_Desc,'-','')+0 desc
+	limit 0,1
+  </select>
+  
+  <update id="updateThisData" parameterType="com.wondersgroup.materiel.encoding.vo.Data0017" >
+    update materiel_info
+    <set >
+      <if test="erpid != null" >
+        erpid = #{erpid,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="ttype != null" >
+        ttype = #{ttype,jdbcType=VARCHAR},
+      </if>
+      <if test="invPartNumber != null" >
+        inv_part_number = #{invPartNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="extraDesc != null" >
+        extra_desc = #{extraDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="prodCodeSellPtr != null" >
+        prod_code_sell_ptr = #{prodCodeSellPtr,jdbcType=VARCHAR},
+      </if>
+      <if test="prodSupper != null" >
+        prod_supper = #{prodSupper,jdbcType=VARCHAR},
+      </if>
+      <if test="package_ != null" >
+        package_ = #{package_,jdbcType=VARCHAR},
+      </if>
+      <if test="smtFlag != null" >
+        smt_flag = #{smtFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="invPartDescriptionC != null" >
+        inv_part_description_c = #{invPartDescriptionC,jdbcType=VARCHAR},
+      </if>
+      <if test="custPartName != null" >
+        cust_part_name = #{custPartName,jdbcType=VARCHAR},
+      </if>
+      <if test="custPartCode != null" >
+        cust_part_code = #{custPartCode,jdbcType=VARCHAR},
+      </if>
+      <if test="purchUnitPtr != null" >
+        purch_unit_ptr = #{purchUnitPtr,jdbcType=VARCHAR},
+      </if>
+      <if test="stockUnitPtr != null" >
+        stock_unit_ptr = #{stockUnitPtr,jdbcType=VARCHAR},
+      </if>
+      <if test="supplierPtr != null" >
+        supplier_ptr = #{supplierPtr,jdbcType=VARCHAR},
+      </if>
+      <if test="stdCost != null" >
+        std_cost = #{stdCost,jdbcType=VARCHAR},
+      </if>
+      <if test="stockPurch != null" >
+        stock_purch = #{stockPurch,jdbcType=VARCHAR},
+      </if>
+      <if test="iqcFlag != null" >
+        iqc_flag = #{iqcFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="stockPakQty != null" >
+        stock_pak_qty = #{stockPakQty,jdbcType=VARCHAR},
+      </if>
+      <if test="stopPurch != null" >
+        stop_purch = #{stopPurch,jdbcType=VARCHAR},
+      </if>
+      <if test="qtyPerK != null" >
+        qty_per_k = #{qtyPerK,jdbcType=VARCHAR},
+      </if>
+      <if test="mwidth != null" >
+        mwidth = #{mwidth,jdbcType=VARCHAR},
+      </if>
+      <if test="mlength != null" >
+        mlength = #{mlength,jdbcType=VARCHAR},
+      </if>
+      <if test="restIqcDate != null" >
+        rest_iqc_date = #{restIqcDate,jdbcType=VARCHAR},
+      </if>
+      <if test="workManH != null" >
+        work_man_h = #{workManH,jdbcType=VARCHAR},
+      </if>
+      <if test="machH != null" >
+        mach_h = #{machH,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <update id="updateStatus" parameterType="com.wondersgroup.materiel.encoding.vo.Data0017">
+   update materiel_info set status = #{status,jdbcType=VARCHAR}
+   where id=#{id}
+  </update>
+  
+  <select id="getData0017ById" parameterType="com.wondersgroup.materiel.encoding.vo.Data0017" resultMap="BaseResultMap">
+  	select * from materiel_info where erpid=#{erpid} or id=#{id}
+  </select>
+</mapper>

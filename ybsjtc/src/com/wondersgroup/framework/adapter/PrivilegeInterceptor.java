@@ -96,7 +96,7 @@ public class PrivilegeInterceptor extends HandlerInterceptorAdapter {
 			System.out.println("--isAjaxRequest:" + isAjaxRequest);
 			response.setContentType("application/json;charset=UTF-8");
 			PrintWriter out = response.getWriter();
-			out.print("{sessionstatus:'timeout'}");
+			out.print("登录已过期，请重新登录！");
 			out.flush();
 		} else {
 			PrintWriter out = response.getWriter();

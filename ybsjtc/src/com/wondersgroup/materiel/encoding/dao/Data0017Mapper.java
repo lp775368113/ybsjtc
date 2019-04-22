@@ -1,0 +1,29 @@
+package com.wondersgroup.materiel.encoding.dao;
+
+import com.wondersgroup.materiel.encoding.vo.Data0017;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.ibatis.annotations.Param;
+
+public interface Data0017Mapper {
+
+
+    int insertSelective(Data0017 record);
+    
+    List<Data0017> getPage(Map map);
+    
+    Integer getPageCount(Map map);
+
+	String getExtraDesc(String extraDesc);
+
+	List<Data0017> getExportData(Map<String, Object> params);
+
+	void updateThisData(Data0017 bean);
+
+	void updateStatus(Data0017 params);
+
+	Data0017 getData0017ById(Data0017 params);
+
+
+}
