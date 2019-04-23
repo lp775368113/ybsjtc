@@ -85,12 +85,12 @@ padding:0px;
 					    </td>
 					    <td class="mini_title" width="16%"><span style="color: red">*</span>优先供应商：</td>
 						<td  width="16%"><input id="supplierPtr" name="supplierPtr" class="mini-combobox"  valueFromSelect="true"
-						  url="${pageContext.request.contextPath}/encoding/getSupplier.do"  required="true"  textField="supplier_name" width="100%" valueField="rkey" allowInput="true"/>
+						  url="${pageContext.request.contextPath}/encoding/getSupplier.do"  required="true"  textField="supplier_name" width="100%" valueField="rkey" allowInput="true" value="1"  readonly="true"/>
 					    </td>
 					</tr>
 					<tr>
 					    <td class="mini_title" width="16%"><span style="color: red">*</span>包装数量：</td>
-						<td  width="16%"><input class="mini-textbox" name="stockPurch"  id="stockPurch" width="100%" required="true" vtype="float" />
+						<td  width="16%"><input class="mini-textbox" name="stockPurch"  id="stockPurch" width="100%" required="true" vtype="float" value="1"  readonly ="true"/>
 					    </td>
 					    <td class="mini_title" width="16%"><span style="color: red">*</span>核算单价：</td>
 						<td  width="16%"><input class="mini-textbox" name="stdCost"  id="stdCost" width="100%" required="true" vtype="float" />

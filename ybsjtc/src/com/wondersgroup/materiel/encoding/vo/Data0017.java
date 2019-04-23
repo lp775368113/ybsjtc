@@ -5,6 +5,8 @@ public class Data0017 {
 
     private Integer erpid;
     
+    private  String erpstatus;
+    
     private String status;
     
     private String rkey;
@@ -280,6 +282,13 @@ public class Data0017 {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	
+
+	public String getErpstatus() {
+		return erpstatus;
+	}
+
+	public void setErpstatus(String erpstatus) {
+		this.erpstatus = erpstatus;
+	}
     
 }

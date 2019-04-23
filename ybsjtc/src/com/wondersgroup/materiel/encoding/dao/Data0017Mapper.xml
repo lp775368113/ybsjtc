@@ -214,7 +214,7 @@
   
   
   <select id="getExportData" parameterType="java.util.Map" resultMap="BaseResultMap">
-  	SELECT a.*   FROM materiel_info  a where 1=1 and  a.status in('3','7')
+  	SELECT 0 as erpstatus,a.*   FROM materiel_info  a where 1=1 and  a.status in('3','7')
      order by a.id  desc
   </select>
   

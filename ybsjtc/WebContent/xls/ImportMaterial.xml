@@ -21,15 +21,7 @@
 				<mapping row="3" col="13">material.supplierPtr</mapping>
 				<mapping row="3" col="14">material.stdCost</mapping>
 				<mapping row="3" col="15">material.stockPurch</mapping>
-				<mapping row="3" col="16">material.iqcFlag</mapping>
-				<mapping row="3" col="17">material.stockPakQty</mapping>
-				<mapping row="3" col="18">material.stopPurch</mapping>
-				<mapping row="3" col="19">material.qtyPerK</mapping>
-				<mapping row="3" col="20">material.mwidth</mapping>
-				<mapping row="3" col="21">material.mlength</mapping>
-				<mapping row="3" col="22">material.restIqcDate</mapping>
-				<mapping row="3" col="23">material.machH</mapping>
-				<mapping row="3" col="24">material.workManH</mapping>
+				<mapping row="3" col="16">material.erpstatus</mapping>
             </section>
 			<loopbreakcondition>
 				<rowcheck offset="0">

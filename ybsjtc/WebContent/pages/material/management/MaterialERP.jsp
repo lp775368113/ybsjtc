@@ -71,8 +71,8 @@ html, body {
 				url="${pageContext.request.contextPath}/encoding/getMaterielUpdata.do">
 				<div property="columns">
 					<!-- <div type="checkcolumn"></div> -->
-					<div field="id" width="15%" headerAlign="center" align="center">本系统唯一码</div> 
-					<div field="erpid" width="15%" headerAlign="center" align="center">ERP系统唯一码</div> 
+					<div field="id" width="11%" headerAlign="center" align="center">序号</div> 
+					<div field="erpid" width="11%" headerAlign="center" align="center">Rkey</div> 
 					<div field="invPartNumber" width="20%" headerAlign="center"
 						align="center">物料编码</div>
 					<div field="extraDesc" width="33%" headerAlign="center"
@@ -92,12 +92,16 @@ html, body {
 						align="center">供应商物料名称</div> -->
 					<div field="custPartCode" width="25%" headerAlign="center"
 						align="center">供应商料号</div>
+					<div  type="comboboxcolumn"  name="purchUnitPtr"  field="purchUnitPtr" headerAlign="center" width="10%"   align="center" >包装单位</span>
+                		<input property="editor" class="mini-combobox" style="width:100%;" minWidth="200" textField="unit_name" valueField="rkey"   url="${pageContext.request.contextPath}/encoding/getUnit.do" />
+            		</div>
+            		<div  type="comboboxcolumn"  name="stockUnitPtr"  field="stockUnitPtr" headerAlign="center" width="10%"   align="center" >仓存单位</span>
+                		<input property="editor" class="mini-combobox" style="width:100%;" minWidth="200" textField="unit_name" valueField="rkey"   url="${pageContext.request.contextPath}/encoding/getUnit.do" />
+            		</div>
+					<div  type="comboboxcolumn"  name="supplierPtr"  field="supplierPtr" headerAlign="center" width="40%"   align="center" >优先供应商</span>
+                		<input property="editor" class="mini-combobox" style="width:100%;" minWidth="200" textField="supplier_name" valueField="rkey"   url="${pageContext.request.contextPath}/encoding/getSupplier.do" />
+            		</div>
 					<!-- 	<div field="peVersion" width="33%" headerAlign="center" align="center">版本号</div>
-					<div field="purchUnitPtr" width="33%" headerAlign="center"
-						align="center">包装单位</div>
-					<div field="stockUnitPtr" width="33%" headerAlign="center"
-						align="center">仓存单位</div>
-					<div field="supplierPtr" width="33%" headerAlign="center" align="center" >优先供应商</div>
 					<div field="stdCost" width="33%" headerAlign="center"
 						align="center">核算单价</div>
 					<div field="stockPurch" width="33%" headerAlign="center" align="center" >包装数量</div>

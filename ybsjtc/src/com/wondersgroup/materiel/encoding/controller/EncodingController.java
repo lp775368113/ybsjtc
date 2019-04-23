@@ -198,9 +198,11 @@ public class EncodingController extends BaseController{
         Map<String,Object> needSaveData=JxlsRead.ExcelToBean(inputXML, myfiles[0], beans);
 		ArrayList<Data0017> list=(ArrayList<Data0017>) needSaveData.get("list");
         for(Data0017 bean:list){
-        	bean.setRkey(String.valueOf((int)bean.getErpid()));
-        	bean.setStatus("9");
-        	encodingService.updateThisData(bean);
+        	if("1".equals(bean.getErpstatus())) {
+        		bean.setRkey(String.valueOf((int)bean.getErpid()));
+            	bean.setStatus("9");
+            	encodingService.updateThisData(bean);
+        	}
         }
         result.put("success", true);
         return result;
