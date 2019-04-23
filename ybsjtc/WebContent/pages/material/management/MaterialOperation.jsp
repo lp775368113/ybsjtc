@@ -87,10 +87,10 @@ html, body {
 						<span class=""></span>修改物料
 					</button>
 					<button type="button" class="bc_color" onclick="SD('S')">
-						<span class=""></span>失效编码
+						<span class=""></span>失效编码审批
 					</button>
 					<button type="button" class="bc_color" onclick="SD('D')">
-						<span class=""></span>作废编码
+						<span class=""></span>作废编码审批
 					</button>
 				</div>
 			</div>
