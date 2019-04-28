@@ -106,7 +106,7 @@ html, body {
 				url="${pageContext.request.contextPath}/encoding/getMaterielList.do">
 				<div property="columns">
 					<div type="checkcolumn"></div>
-					<div field="rkey" width="13%" headerAlign="center" align="center">RKEY</div> 
+					<!-- <div field="rkey" width="13%" headerAlign="center" align="center">RKEY</div>  -->
 					<!-- <div field="ttype" width="20%" headerAlign="center" align="center">原料标识</div> -->
 					<div field="invPartNumber" width="20%" headerAlign="center"
 						align="center">物料编码</div>

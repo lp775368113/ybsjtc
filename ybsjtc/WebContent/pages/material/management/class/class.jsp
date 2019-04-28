@@ -95,9 +95,12 @@ html, body {
 							<td width="95px" class="mini_title">小类名称：</td>
 							<td><input id="classname" name="classname"
 								class="mini-textbox" style="width: 120px" /></td>
+							<td width="150px" class="mini_title">物料名称（描述）规则：</td>
+							<td><input id="rules" name="rules"
+								class="mini-textbox" style="width: 250px" /></td>
 						</tr>
 						<tr height="30px">
-							<td colspan="4" style="padding-left: 20px" >
+							<td colspan="6" style="padding-left: 20px" >
 								<div style="width: 200px;" class="operate">
 									<button type="button" class="cz_color" onclick="searchUser()">
 										<span class=""></span>查询
@@ -187,7 +190,6 @@ html, body {
 
 		function edit() {
 			var row = bigGrid.getSelected();
-			console.log(row);
 			if (!row) {
 				mini.alert("请选择一个需要修改的大类");
 				return;
