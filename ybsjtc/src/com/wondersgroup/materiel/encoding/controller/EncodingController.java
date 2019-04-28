@@ -1,5 +1,6 @@
 package com.wondersgroup.materiel.encoding.controller;
 import java.io.BufferedInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,9 +22,12 @@ import com.wondersgroup.framework.comwork.controller.BaseController;
 import com.wondersgroup.framework.comwork.controller.SessionConstants;
 import com.wondersgroup.framework.jxls.JxlsExcelView;
 import com.wondersgroup.framework.jxls.JxlsRead;
+import com.wondersgroup.materiel.encoding.classManagement.service.ClassService;
+import com.wondersgroup.materiel.encoding.classManagement.vo.MaterielSmallclass;
 import com.wondersgroup.materiel.encoding.service.EncodingService;
 import com.wondersgroup.materiel.encoding.vo.Data0017;
 import com.wondersgroup.materiel.encoding.vo.MaterielDevice;
+import com.wondersgroup.materiel.encoding.vo.MaterielFile;
 import com.wondersgroup.materiel.encoding.vo.MaterielSupplier;
 import com.wondersgroup.materiel.encoding.vo.Units;
 import com.wondersgroup.permission.user.vo.User;
@@ -48,6 +53,11 @@ public class EncodingController extends BaseController{
 	@Autowired
 	private  EncodingService encodingService;
 	
+	@Autowired
+	private  ClassService classService;
+	
+	
+	
 	@ResponseBody
 	@RequestMapping("getMaterielList")
 	public Map<String, Object> listSysParameter(@RequestParam Map<String, Object> params){
@@ -61,17 +71,18 @@ public class EncodingController extends BaseController{
 		return map;
 	}
 	
+	/**
+	 * @Title: 		 checkValue   
+	 * @Description: TODO[用一句话描述这个方法的作用]   验证厂商料号和物料描述唯一
+	 * @param params
+	 * @return      
+	 * @return_type: Map<String,Object>
+	 */
 	@ResponseBody
-	@RequestMapping("getMaxClass")
-	public List<MaterielDevice> getMaxClass(@RequestParam Map<String, Object> params){
-		return encodingService.getMaxClass(params);
-	}
-	
-	
-	@ResponseBody
-	@RequestMapping("getMinClass")
-	public List<MaterielDevice> getMinClass(@RequestParam Map<String, Object> params){
-		return encodingService.getMinClass(params);
+	@RequestMapping("checkValue")
+	public Map<String, Object> checkValue(@RequestParam Map<String, Object> params){
+		Map<String, Object> map = encodingService.checkValue(params);
+		return map;
 	}
 	
 	
@@ -82,16 +93,17 @@ public class EncodingController extends BaseController{
 	}
 	
 	
+	
+	@ResponseBody
+	@RequestMapping("getSmallclass")
+	public MaterielSmallclass getSmallclass(@RequestParam Map<String, Object> params){
+		return classService.getSmallclassById(params);
+	}
+	
 	@ResponseBody
 	@RequestMapping("getSupplier")
 	public List<MaterielSupplier> getSupplier(@RequestParam Map<String, Object> params){
 		return encodingService.getSupplier(params);
-	}
-	
-	@ResponseBody
-	@RequestMapping("getWLMS")
-	public MaterielDevice getWLMS(@RequestParam Map<String, Object> params){
-		return encodingService.getWLMS(params);
 	}
 	
 	/**
@@ -120,21 +132,36 @@ public class EncodingController extends BaseController{
 	
 	/**
 	 * @Title: 		 SD   
-	 * @Description: TODO[用一句话描述这个方法的作用]    作废失效编码
+	 * @Description: TODO[用一句话描述这个方法的作用]    作废编码,失效编码
 	 * @param params
 	 * @return      
 	 * @return_type: Map
 	 */
 	@ResponseBody
 	@RequestMapping("SD")
-	public Map SD(Data0017 params,@RequestParam String SD,HttpServletRequest request){
+	public Map SD(@RequestParam Map<String, Object> params,@RequestParam String SD,HttpServletRequest request){
 		Map<String,Object> result=new HashMap<String,Object>();
 		try {
-			String extraDesc=params.getExtraDesc();
+			Data0017 bean=new Data0017();
+			bean.setInvPartNumber((String)params.get("invPartNumber"));
+			bean.setProdSupper((String)params.get("prodSupper"));
+			bean.setPackage_((String)params.get("package_"));
+			bean.setErpid(Integer.parseInt((String)params.get("rkey")));
+			bean.setTtype((String)params.get("ttype"));
+			bean.setProdCodeSellPtr((String)params.get("prodCodeSellPtr"));
+			bean.setSmtFlag((String)params.get("smtFlag"));
+			bean.setInvPartDescriptionC((String)params.get("invPartDescriptionC"));
+			bean.setCustPartName((String)params.get("custPartName"));
+			bean.setCustPartCode((String)params.get("custPartCode"));
+			bean.setPurchUnitPtr((String)params.get("purchUnitPtr"));
+			bean.setStockUnitPtr((String)params.get("stockUnitPtr"));
+			bean.setSupplierPtr((String)params.get("supplierPtr"));
+			bean.setStdCost((String)params.get("stdCost"));
+			bean.setStockPurch((String)params.get("stockPurch"));
+			String extraDesc=(String)params.get("extraDesc");
 			extraDesc=extraDesc+"-"+SD;
-			params.setStatus("5");
-			params.setExtraDesc(extraDesc);
-			params.setErpid(Integer.parseInt(params.getRkey()));
+			bean.setStatus("5");
+			bean.setExtraDesc(extraDesc);
 			String message="";
 			if("S".equals(SD)){
 				message="失效编码";
@@ -142,7 +169,7 @@ public class EncodingController extends BaseController{
 				message="作废编码";
 			}
 			User user=(User)request.getSession().getAttribute(SessionConstants.CW_LOGINUSER);
-			encodingService.addUpdateData(params,user,message);
+			encodingService.addUpdateData(bean,user,message);
 			result.put("success", true);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -213,5 +240,43 @@ public class EncodingController extends BaseController{
 		}
         
     }
+	
+	/**
+	 * @Title: 		 upload   
+	 * @Description: TODO[用一句话描述这个方法的作用]    上传文件
+	 * @param request
+	 * @param myfile
+	 * @param params
+	 * @return
+	 * @throws IOException      
+	 * @return_type: Map<String,Object>
+	 */
+	@RequestMapping("uploadfile")
+	@ResponseBody
+	public Map<String ,Object> upload(HttpServletRequest request, @RequestParam MultipartFile[] myfile,@RequestParam Map<String, Object> params){
+		Map<String, Object> resultMap = new HashMap<String,Object>();;
+		try {
+			MaterielFile sm = encodingService.upload(myfile,request,params);
+			resultMap.put("success", true);
+			resultMap.put("file", sm);
+		} catch (Exception e) {
+			e.printStackTrace();
+			resultMap.put("error", e.getMessage());
+			return resultMap;
+		}
+		return resultMap;
+	}
+	
+	@RequestMapping("downloadFile")
+	public  ResponseEntity<byte[]> base64ToFile(HttpServletRequest request) throws IOException {
+				return encodingService.downloadFile(request);
+	}
+
+	
+	@ResponseBody
+	@RequestMapping("getProdSupper")
+	public List<MaterielDevice> getProdSupper(@RequestParam Map<String, Object> params){
+		return encodingService.getProdSupper(params);
+	}
 	
 }

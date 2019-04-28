@@ -8,7 +8,6 @@
 <link href="${pageContext.request.contextPath}/resource/assets/css/main.css" rel="stylesheet" type="text/css" /> 
 <script type="text/javascript" src="${pageContext.request.contextPath}/resource/miniui/jquery.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resource/miniui/miniui.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/resource/miniui/LodopFuncs.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resource/scripts/date.js"></script>
 
 <meta http-equiv="pragma" content="no-cache">

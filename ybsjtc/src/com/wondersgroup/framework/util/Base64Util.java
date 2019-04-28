@@ -1,5 +1,10 @@
 package com.wondersgroup.framework.util;
 
+import java.io.IOException;
+import java.io.InputStream;
+
+import sun.misc.BASE64Encoder;
+
 public final class Base64Util{
 
     static private final int     BASELENGTH           = 128;
@@ -270,4 +275,11 @@ public final class Base64Util{
         }
         return newSize;
     }
+    
+    public static String fileToBase64(InputStream in) throws IOException {
+		byte[] bytes = new byte[in.available()];
+		in.read(bytes);
+		BASE64Encoder encoder = new BASE64Encoder();
+		return encoder.encode(bytes);
+	}
 }

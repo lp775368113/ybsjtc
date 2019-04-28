@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wondersgroup.materiel.encoding.brandManagement.dao.MaterielSupplierMapper" >
+  <resultMap id="BaseResultMap" type="com.wondersgroup.materiel.encoding.brandManagement.vo.MaterielSupplier" >
+    <result column="id" property="id" jdbcType="INTEGER" />
+    <result column="Code" property="code" jdbcType="VARCHAR" />
+    <result column="supplier_Name" property="supplierName" jdbcType="VARCHAR" />
+    <result column="removed" property="removed" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, Code, supplier_Name, removed, status, remark
+  </sql>
+  <insert id="insert" parameterType="com.wondersgroup.materiel.encoding.brandManagement.vo.MaterielSupplier" >
+    insert into materiel_supplier (id, Code, supplier_Name, 
+      removed, status, remark
+      )
+    values (#{id,jdbcType=INTEGER}, #{code,jdbcType=VARCHAR}, #{supplierName,jdbcType=VARCHAR}, 
+      #{remove,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.wondersgroup.materiel.encoding.brandManagement.vo.MaterielSupplier" >
+    insert into materiel_supplier
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="code != null" >
+        Code,
+      </if>
+      <if test="supplierName != null" >
+        supplier_Name,
+      </if>
+      <if test="removed != null" >
+        removed,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="code != null" >
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="supplierName != null" >
+        #{supplierName,jdbcType=VARCHAR},
+      </if>
+      <if test="removed != null" >
+        #{removed,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <select id="getPage" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select 
+    DISTINCT  a.*
+    from materiel_supplier  a
+	LEFT JOIN materiel_brand_supplier b ON a.id = b.supplierid and b.removed = 0
+		WHERE
+		a.removed = 0
+     <if test="brandid != null and brandid!=''" >
+       and b.brandid =#{brandid}
+     </if>
+     <if test="supplierName != null and supplierName!=''" >
+        and supplier_Name like concat('%',#{supplierName},'%')
+     </if>
+    order by a.id desc
+    limit #{start},#{row}
+  </select>
+  <select id="getPageCount" resultType="Integer" parameterType="java.util.Map" >
+    select count(*) from(
+    select 
+    DISTINCT  a.*
+    from materiel_supplier  a
+	LEFT JOIN materiel_brand_supplier b ON a.id = b.supplierid and b.removed = 0
+		WHERE
+		a.removed = 0
+     <if test="brandid != null and brandid!=''" >
+       and b.brandid =#{brandid}
+     </if>
+     <if test="supplierName != null and supplierName!=''" >
+        and supplier_Name like concat('%',#{supplierName},'%')
+     </if>
+     ) g
+  </select>
+</mapper>

@@ -99,7 +99,7 @@ html, body {
                 		<input property="editor" class="mini-combobox" style="width:100%;" minWidth="200" textField="unit_name" valueField="rkey"   url="${pageContext.request.contextPath}/encoding/getUnit.do" />
             		</div>
 					<div  type="comboboxcolumn"  name="supplierPtr"  field="supplierPtr" headerAlign="center" width="40%"   align="center" >优先供应商</span>
-                		<input property="editor" class="mini-combobox" style="width:100%;" minWidth="200" textField="supplier_name" valueField="rkey"   url="${pageContext.request.contextPath}/encoding/getSupplier.do" />
+                		<input property="editor" class="mini-combobox" style="width:100%;" minWidth="200" textField="supplier_name" valueField="id"   url="${pageContext.request.contextPath}/encoding/getSupplier.do" />
             		</div>
 					<!-- 	<div field="peVersion" width="33%" headerAlign="center" align="center">版本号</div>
 					<div field="stdCost" width="33%" headerAlign="center"

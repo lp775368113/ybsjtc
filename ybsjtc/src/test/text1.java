@@ -1,5 +1,16 @@
 package test;
 
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
+
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
+
+import com.wondersgroup.framework.util.DESUtil;
+import com.wondersgroup.framework.util.EncryptUtil;
+
 /**   ***********************************************
  * Simple to Introduction  
  * @ProjectName:  [ybsjtc]
@@ -18,10 +29,18 @@ public class text1 {
 	/**@Title: 		 main   
 	 * @Description: TODO[用一句话描述这个方法的作用]   
 	 * @param args      
+	 * @throws InvalidKeySpecException 
+	 * @throws NoSuchPaddingException 
+	 * @throws BadPaddingException 
+	 * @throws IllegalBlockSizeException 
+	 * @throws NoSuchAlgorithmException 
+	 * @throws InvalidKeyException 
 	 * @return_type: void      
 	 */
-	public static void main(String[] args) {
-		System.out.println("018f5512f416835a4a46158198235dd58b9e090b90f4192e".length());
+	public static void main(String[] args) throws InvalidKeyException, NoSuchAlgorithmException, IllegalBlockSizeException, BadPaddingException, NoSuchPaddingException, InvalidKeySpecException {
+		String des=DESUtil.encrypt(DESUtil.KEY, "1111");
+		String md5 = EncryptUtil.generate(des);  
+		System.out.println(md5);
 	}
 
 }

@@ -20,21 +20,14 @@
     <result column="supplier_ptr" property="supplierPtr" jdbcType="VARCHAR" />
     <result column="std_cost" property="stdCost" jdbcType="VARCHAR" />
     <result column="stock_purch" property="stockPurch" jdbcType="VARCHAR" />
-    <result column="iqc_flag" property="iqcFlag" jdbcType="VARCHAR" />
-    <result column="stock_pak_qty" property="stockPakQty" jdbcType="VARCHAR" />
-    <result column="stop_purch" property="stopPurch" jdbcType="VARCHAR" />
-    <result column="qty_per_k" property="qtyPerK" jdbcType="VARCHAR" />
-    <result column="mwidth" property="mwidth" jdbcType="VARCHAR" />
-    <result column="mlength" property="mlength" jdbcType="VARCHAR" />
-    <result column="rest_iqc_date" property="restIqcDate" jdbcType="VARCHAR" />
-    <result column="work_man_h" property="workManH" jdbcType="VARCHAR" />
-    <result column="mach_h" property="machH" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="userid" property="userid" jdbcType="INTEGER" />
+    <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Base_Column_List" >
     id, erpid, status, ttype, inv_part_number, extra_desc, prod_code_sell_ptr, prod_supper, 
     package_, smt_flag, inv_part_description_c, cust_part_name, cust_part_code, purch_unit_ptr, 
-    stock_unit_ptr, supplier_ptr, std_cost, stock_purch, iqc_flag, stock_pak_qty, stop_purch, 
-    qty_per_k, mwidth, mlength, rest_iqc_date, work_man_h, mach_h
+    stock_unit_ptr, supplier_ptr, std_cost, stock_purch,remark,userid,createtime
   </sql>
     <insert id="insertSelective" parameterType="com.wondersgroup.materiel.encoding.vo.Data0017" useGeneratedKeys="true" keyProperty="id" >
     insert into materiel_info
@@ -93,32 +86,14 @@
       <if test="stockPurch != null" >
         stock_purch,
       </if>
-      <if test="iqcFlag != null" >
-        iqc_flag,
+      <if test="remark != null" >
+        remark,
       </if>
-      <if test="stockPakQty != null" >
-        stock_pak_qty,
+      <if test="userid != null" >
+        userid,
       </if>
-      <if test="stopPurch != null" >
-        stop_purch,
-      </if>
-      <if test="qtyPerK != null" >
-        qty_per_k,
-      </if>
-      <if test="mwidth != null" >
-        mwidth,
-      </if>
-      <if test="mlength != null" >
-        mlength,
-      </if>
-      <if test="restIqcDate != null" >
-        rest_iqc_date,
-      </if>
-      <if test="workManH != null" >
-        work_man_h,
-      </if>
-      <if test="machH != null" >
-        mach_h,
+      <if test="createtime != null" >
+        createtime,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -176,32 +151,14 @@
       <if test="stockPurch != null" >
         #{stockPurch,jdbcType=VARCHAR},
       </if>
-      <if test="iqcFlag != null" >
-        #{iqcFlag,jdbcType=VARCHAR},
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
       </if>
-      <if test="stockPakQty != null" >
-        #{stockPakQty,jdbcType=VARCHAR},
+      <if test="userid != null" >
+        #{userid,jdbcType=INTEGER},
       </if>
-      <if test="stopPurch != null" >
-        #{stopPurch,jdbcType=VARCHAR},
-      </if>
-      <if test="qtyPerK != null" >
-        #{qtyPerK,jdbcType=VARCHAR},
-      </if>
-      <if test="mwidth != null" >
-        #{mwidth,jdbcType=VARCHAR},
-      </if>
-      <if test="mlength != null" >
-        #{mlength,jdbcType=VARCHAR},
-      </if>
-      <if test="restIqcDate != null" >
-        #{restIqcDate,jdbcType=VARCHAR},
-      </if>
-      <if test="workManH != null" >
-        #{workManH,jdbcType=VARCHAR},
-      </if>
-      <if test="machH != null" >
-        #{machH,jdbcType=VARCHAR},
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -283,33 +240,6 @@
       <if test="stockPurch != null" >
         stock_purch = #{stockPurch,jdbcType=VARCHAR},
       </if>
-      <if test="iqcFlag != null" >
-        iqc_flag = #{iqcFlag,jdbcType=VARCHAR},
-      </if>
-      <if test="stockPakQty != null" >
-        stock_pak_qty = #{stockPakQty,jdbcType=VARCHAR},
-      </if>
-      <if test="stopPurch != null" >
-        stop_purch = #{stopPurch,jdbcType=VARCHAR},
-      </if>
-      <if test="qtyPerK != null" >
-        qty_per_k = #{qtyPerK,jdbcType=VARCHAR},
-      </if>
-      <if test="mwidth != null" >
-        mwidth = #{mwidth,jdbcType=VARCHAR},
-      </if>
-      <if test="mlength != null" >
-        mlength = #{mlength,jdbcType=VARCHAR},
-      </if>
-      <if test="restIqcDate != null" >
-        rest_iqc_date = #{restIqcDate,jdbcType=VARCHAR},
-      </if>
-      <if test="workManH != null" >
-        work_man_h = #{workManH,jdbcType=VARCHAR},
-      </if>
-      <if test="machH != null" >
-        mach_h = #{machH,jdbcType=VARCHAR},
-      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -321,5 +251,17 @@
   
   <select id="getData0017ById" parameterType="com.wondersgroup.materiel.encoding.vo.Data0017" resultMap="BaseResultMap">
   	select * from materiel_info where erpid=#{erpid} or id=#{id}
+  </select>
+  <select id="agree" parameterType="Integer" resultType="Integer">
+  	update materiel_info a set a.status=3 where a.id=#{id}
+  </select>
+  <select id="refuse" parameterType="Integer" resultType="Integer">
+  	update materiel_info a set a.status=4 where a.id=#{id}
+  </select>
+   <select id="getUnit" resultType="com.wondersgroup.materiel.encoding.vo.Units">
+  	select *  from materiel_unit 
+  </select>
+  <select id="getSupplier" resultType="com.wondersgroup.materiel.encoding.vo.MaterielSupplier"  parameterType="java.util.Map" >
+  	select a.*  from Materiel_Supplier  a,materiel_brand_supplier b where a.id=b.supplierid and b.brandid=#{brandid} and b.removed='0'
   </select>
 </mapper>

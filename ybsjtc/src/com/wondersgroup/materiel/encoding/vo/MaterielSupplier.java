@@ -14,14 +14,15 @@ package com.wondersgroup.materiel.encoding.vo;
  * @Version:      [v1.0] 		   
  ************************************************** **/
 public class MaterielSupplier {
-	private String rkey;
+	private String id;
 	private String code;
 	private String supplier_name;
-	public String getRkey() {
-		return rkey;
+
+	public String getId() {
+		return id;
 	}
-	public void setRkey(String rkey) {
-		this.rkey = rkey;
+	public void setId(String id) {
+		this.id = id;
 	}
 	public String getCode() {
 		return code;

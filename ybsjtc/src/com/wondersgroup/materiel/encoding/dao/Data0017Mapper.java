@@ -1,6 +1,9 @@
 package com.wondersgroup.materiel.encoding.dao;
 
 import com.wondersgroup.materiel.encoding.vo.Data0017;
+import com.wondersgroup.materiel.encoding.vo.MaterielSupplier;
+import com.wondersgroup.materiel.encoding.vo.Units;
+
 import java.util.List;
 import java.util.Map;
 
@@ -24,6 +27,14 @@ public interface Data0017Mapper {
 	void updateStatus(Data0017 params);
 
 	Data0017 getData0017ById(Data0017 params);
+
+	int agree(Integer id);
+
+	int refus(Integer id);
+
+	List<Units> getUnit();
+
+	List<MaterielSupplier> getSupplier(Map map);
 
 
 }

@@ -1,5 +1,9 @@
 package com.wondersgroup.materiel.encoding.vo;
 
+import java.util.Date;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class Data0017 {
     private Integer id;
 
@@ -40,24 +44,16 @@ public class Data0017 {
     private String stdCost;
 
     private String stockPurch;
-
-    private String iqcFlag;
-
-    private String stockPakQty;
-
-    private String stopPurch;
-
-    private String qtyPerK;
-
-    private String mwidth;
-
-    private String mlength;
-
-    private String restIqcDate;
-
-    private String workManH;
-
-    private String machH;
+    
+    private String remark;
+    
+    private Integer userid;
+    
+    private Date createtime; 
+    
+    private String fileidstr;
+    
+    private String maxclass;
 
     public Integer getId() {
         return id;
@@ -195,77 +191,6 @@ public class Data0017 {
         this.stockPurch = stockPurch == null ? null : stockPurch.trim();
     }
 
-    public String getIqcFlag() {
-        return iqcFlag;
-    }
-
-    public void setIqcFlag(String iqcFlag) {
-        this.iqcFlag = iqcFlag == null ? null : iqcFlag.trim();
-    }
-
-    public String getStockPakQty() {
-        return stockPakQty;
-    }
-
-    public void setStockPakQty(String stockPakQty) {
-        this.stockPakQty = stockPakQty == null ? null : stockPakQty.trim();
-    }
-
-    public String getStopPurch() {
-        return stopPurch;
-    }
-
-    public void setStopPurch(String stopPurch) {
-        this.stopPurch = stopPurch == null ? null : stopPurch.trim();
-    }
-
-    public String getQtyPerK() {
-        return qtyPerK;
-    }
-
-    public void setQtyPerK(String qtyPerK) {
-        this.qtyPerK = qtyPerK == null ? null : qtyPerK.trim();
-    }
-
-    public String getMwidth() {
-        return mwidth;
-    }
-
-    public void setMwidth(String mwidth) {
-        this.mwidth = mwidth == null ? null : mwidth.trim();
-    }
-
-    public String getMlength() {
-        return mlength;
-    }
-
-    public void setMlength(String mlength) {
-        this.mlength = mlength == null ? null : mlength.trim();
-    }
-
-    public String getRestIqcDate() {
-        return restIqcDate;
-    }
-
-    public void setRestIqcDate(String restIqcDate) {
-        this.restIqcDate = restIqcDate == null ? null : restIqcDate.trim();
-    }
-
-    public String getWorkManH() {
-        return workManH;
-    }
-
-    public void setWorkManH(String workManH) {
-        this.workManH = workManH == null ? null : workManH.trim();
-    }
-
-    public String getMachH() {
-        return machH;
-    }
-
-    public void setMachH(String machH) {
-        this.machH = machH == null ? null : machH.trim();
-    }
 
 	public String getRkey() {
 		return rkey;
@@ -290,5 +215,44 @@ public class Data0017 {
 	public void setErpstatus(String erpstatus) {
 		this.erpstatus = erpstatus;
 	}
-    
+
+	public String getRemark() {
+		return remark;
+	}
+
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
+
+	public Integer getUserid() {
+		return userid;
+	}
+
+	public void setUserid(Integer userid) {
+		this.userid = userid;
+	}
+
+	public Date getCreatetime() {
+		return createtime;
+	}
+
+	public void setCreatetime(Date createtime) {
+		this.createtime = createtime;
+	}
+
+	public String getFileidstr() {
+		return fileidstr;
+	}
+
+	public void setFileidstr(String fileidstr) {
+		this.fileidstr = fileidstr;
+	}
+
+	public String getMaxclass() {
+		return maxclass;
+	}
+
+	public void setMaxclass(String maxclass) {
+		this.maxclass = maxclass;
+	}
 }

@@ -130,6 +130,8 @@ public class LoginController extends BaseController {
 			}
 			
 		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error(e.getMessage());
 			errMsg = "系统异常,请联系部门排除!";
 			return new ModelAndView("/login").addObject("errMsg", errMsg);
 		}

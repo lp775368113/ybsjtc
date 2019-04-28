@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wondersgroup.materiel.encoding.classManagement.dao.MaterielBigclassMapper" >
+  <resultMap id="BaseResultMap" type="com.wondersgroup.materiel.encoding.classManagement.vo.MaterielBigclass" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="classname" property="classname" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="removed" property="removed" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, code, classname, remark, removed, status
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from materiel_bigclass
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from materiel_bigclass
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.wondersgroup.materiel.encoding.classManagement.vo.MaterielBigclass" >
+    insert into materiel_bigclass (id, code, classname, 
+      remark, removed, status
+      )
+    values (#{id,jdbcType=INTEGER}, #{code,jdbcType=VARCHAR}, #{classname,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{removed,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.wondersgroup.materiel.encoding.classManagement.vo.MaterielBigclass" >
+    insert into materiel_bigclass
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="code != null" >
+        code,
+      </if>
+      <if test="classname != null" >
+        classname,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="removed != null" >
+        removed,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="code != null" >
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="classname != null" >
+        #{classname,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="removed != null" >
+        #{removed,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wondersgroup.materiel.encoding.classManagement.vo.MaterielBigclass" >
+    update materiel_bigclass
+    <set >
+      <if test="code != null" >
+        code = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="classname != null" >
+        classname = #{classname,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="removed != null" >
+        removed = #{removed,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wondersgroup.materiel.encoding.classManagement.vo.MaterielBigclass" >
+    update materiel_bigclass
+    set code = #{code,jdbcType=VARCHAR},
+      classname = #{classname,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      removed = #{removed,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="getPage" resultMap="BaseResultMap" parameterType="java.util.Map">
+  	select * from  materiel_bigclass  a  where a.removed='0' and a.status='0' 
+  	<if test="code != null and code!='' " >
+        and a.code = #{code,jdbcType=VARCHAR}
+      </if>
+      <if test="bigclassid != null and bigclassid!='' " >
+        and a.id = #{bigclassid,jdbcType=INTEGER}
+      </if>
+      <if test="classname != null and classname!='' " >
+        and a.classname like concat('%',#{classname},'%')
+      </if>
+     	ORDER BY a.code+0 desc
+     	limit #{start},#{row}
+  </select>
+  
+  <select id="getPageCount" resultType="Integer" parameterType="java.util.Map">
+  	select count(*) from  materiel_bigclass  a  where a.removed='0' and a.status='0' 
+  	<if test="code != null and code!='' " >
+        and a.code = #{code,jdbcType=VARCHAR}
+      </if>
+      <if test="bigclassid != null and bigclassid!='' " >
+        and a.id = #{bigclassid,jdbcType=INTEGER}
+      </if>
+      <if test="classname != null and classname!='' " >
+        and a.classname like concat('%',#{classname},'%')
+      </if>
+  </select>
+  <select id="canDddCode" resultType="Integer" parameterType="com.wondersgroup.materiel.encoding.classManagement.vo.MaterielBigclass" >
+  	select count(*) from  materiel_bigclass  a  where a.removed='0'  and a.code=#{code,jdbcType=VARCHAR}
+  </select>
+  <select id="canClassName" resultType="Integer" parameterType="com.wondersgroup.materiel.encoding.classManagement.vo.MaterielBigclass" >
+  	select count(*) from  materiel_bigclass  a  where a.removed='0'  and a.classname=#{classname,jdbcType=VARCHAR}
+  </select>
+  <select id="getAllbigclass" resultMap="BaseResultMap">
+  select * from  materiel_bigclass  a  where a.removed='0' and a.status='0'
+  </select>
+  <select id="getAllbigclassPre" resultMap="BaseResultMap">
+  select * from  materiel_bigclass  a  where a.removed='0' and a.status='0' and a.code!=''  
+  </select>
+</mapper>
