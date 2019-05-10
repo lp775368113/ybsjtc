@@ -12,6 +12,8 @@ public class MaterielSmallclass {
     private String classname;
 
     private String rules;
+    
+    private String ensample;
 
     private String remark;
 
@@ -91,4 +93,13 @@ public class MaterielSmallclass {
     public void setStatus(String status) {
         this.status = status == null ? null : status.trim();
     }
+
+	public String getEnsample() {
+		return ensample;
+	}
+
+	public void setEnsample(String ensample) {
+		this.ensample = ensample;
+	}
+    
 }

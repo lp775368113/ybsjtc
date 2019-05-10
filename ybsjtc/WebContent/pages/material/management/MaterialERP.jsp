@@ -80,9 +80,9 @@ html, body {
 					<!-- <div field="invPartDescriptionC" width="33%" headerAlign="center" align="center">物料大类</div> -->
 					<!-- <div field="prodCodeSellPtr" width="33%" headerAlign="center"
 						align="center">物料小类</div> -->
-					<div field="prodSupper" width="25%" headerAlign="center"
+					<div field="prodSupperStr" width="25%" headerAlign="center"
 						align="center">制造厂商</div>
-					<div field="package_" width="25%" headerAlign="center"
+					<div field="package_Str" width="25%" headerAlign="center"
 						align="center">封装</div>
 					<!-- <div field="smtFlag" width="33%" headerAlign="center"
 						align="center">SMT/DIP</div>  -->
@@ -98,9 +98,8 @@ html, body {
             		<div  type="comboboxcolumn"  name="stockUnitPtr"  field="stockUnitPtr" headerAlign="center" width="10%"   align="center" >仓存单位</span>
                 		<input property="editor" class="mini-combobox" style="width:100%;" minWidth="200" textField="unit_name" valueField="rkey"   url="${pageContext.request.contextPath}/encoding/getUnit.do" />
             		</div>
-					<div  type="comboboxcolumn"  name="supplierPtr"  field="supplierPtr" headerAlign="center" width="40%"   align="center" >优先供应商</span>
-                		<input property="editor" class="mini-combobox" style="width:100%;" minWidth="200" textField="supplier_name" valueField="id"   url="${pageContext.request.contextPath}/encoding/getSupplier.do" />
-            		</div>
+            		<div field="supplierPtrStr" width="25%" headerAlign="center"
+						align="center">优先供应商</div>
 					<!-- 	<div field="peVersion" width="33%" headerAlign="center" align="center">版本号</div>
 					<div field="stdCost" width="33%" headerAlign="center"
 						align="center">核算单价</div>

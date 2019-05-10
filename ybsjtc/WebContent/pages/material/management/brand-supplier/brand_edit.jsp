@@ -30,7 +30,7 @@ html,body {
 <body>
     <input class="mini-hidden" name="mode" id="mode" />
     <div id="form1">
-        <input class="mini-hidden" name="parentid" id="parentid" />
+        <input class="mini-hidden" name="id" id="id" />
         <table class="table" border="0" width="100%">
             <tr>
                 <th class="mini_title">标识：</th>

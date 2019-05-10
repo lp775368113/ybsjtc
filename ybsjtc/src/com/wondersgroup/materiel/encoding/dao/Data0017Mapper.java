@@ -14,9 +14,9 @@ public interface Data0017Mapper {
 
     int insertSelective(Data0017 record);
     
-    List<Data0017> getPage(Map map);
+    List<Data0017> getExportPage(Map map);
     
-    Integer getPageCount(Map map);
+    Integer getPageExportCount(Map map);
 
 	String getExtraDesc(String extraDesc);
 
@@ -36,5 +36,11 @@ public interface Data0017Mapper {
 
 	List<MaterielSupplier> getSupplier(Map map);
 
+	List<MaterielSupplier> getAllSupplier(Map<String, Object> params);
 
+	Data0017 lodingremark(Integer params);
+
+	List<Data0017> getPage(Map<String, Object> params);
+
+	Integer getPageCount(Map<String, Object> params);
 }

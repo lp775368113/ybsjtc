@@ -114,6 +114,19 @@ public class ClassController extends BaseController{
 	}
 	
 	@ResponseBody
+	@RequestMapping("getAllSmallClass")
+	public List<MaterielSmallclass> getAllSmallClass(@RequestParam Map<String, Object> params){
+		return classService.getAllSmallClass(params);
+	}
+	
+	
+	@ResponseBody
+	@RequestMapping("getBigClassBySmallclassid")
+	public List<MaterielSmallclass> getBigClassBySmallclassid(@RequestParam Map<String, Object> params){
+		return classService.getBigClassBySmallclassid(params);
+	}
+	
+	@ResponseBody
 	@RequestMapping("savesmallclass")
 	public Map<String, Object> savesmallclass(MaterielSmallclass params){
 		Map<String, Object> result=new HashMap<String,Object>();

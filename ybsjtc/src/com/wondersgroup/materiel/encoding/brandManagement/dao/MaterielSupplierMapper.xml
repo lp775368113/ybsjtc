@@ -96,4 +96,14 @@
      </if>
      ) g
   </select>
+  
+  <select id="getProdSupperId" parameterType="Integer" resultMap="BaseResultMap" >
+  select a.* from materiel_supplier a where a.id=#{id}
+  </select>
+  <select id="countSuppliername"  resultType="Integer" parameterType="com.wondersgroup.materiel.encoding.brandManagement.vo.MaterielSupplier"  >
+  select count(*) from materiel_supplier a where a.supplier_Name=#{supplierName}
+  		<if test="id != null and id!=''" >
+        and id!=#{id}
+     	</if>
+  </select>
 </mapper>

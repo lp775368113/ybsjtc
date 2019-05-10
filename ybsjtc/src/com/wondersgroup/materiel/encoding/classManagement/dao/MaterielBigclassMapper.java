@@ -1,6 +1,8 @@
 package com.wondersgroup.materiel.encoding.classManagement.dao;
 
 import com.wondersgroup.materiel.encoding.classManagement.vo.MaterielBigclass;
+import com.wondersgroup.materiel.encoding.classManagement.vo.MaterielSmallclass;
+
 import java.util.List;
 import java.util.Map;
 
@@ -28,4 +30,6 @@ public interface MaterielBigclassMapper {
 	List<MaterielBigclass> getAllbigclass();
 
 	List<MaterielBigclass> getAllbigclassPre();
+
+	List<MaterielSmallclass> getBigClassBySmallclassid(Map<String, Object> params);
 }

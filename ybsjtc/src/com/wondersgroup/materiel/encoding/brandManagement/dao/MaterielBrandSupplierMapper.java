@@ -1,5 +1,6 @@
 package com.wondersgroup.materiel.encoding.brandManagement.dao;
 
+import com.wondersgroup.materiel.encoding.brandManagement.vo.MaterielBrand;
 import com.wondersgroup.materiel.encoding.brandManagement.vo.MaterielBrandSupplier;
 import java.util.List;
 import java.util.Map;

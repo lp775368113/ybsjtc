@@ -65,6 +65,7 @@ public class EncodingController extends BaseController{
         int pageSize = Integer.parseInt(params.get("pageSize").toString());
 		int start = pageIndex * pageSize;
 		int end = start + pageSize;
+		params.put("row",pageSize);
 		params.put("end",end);
 		params.put("start",start);
 		Map<String, Object> map = encodingService.getPage(params);
@@ -106,6 +107,14 @@ public class EncodingController extends BaseController{
 		return encodingService.getSupplier(params);
 	}
 	
+	
+	
+	@ResponseBody
+	@RequestMapping("getAllSupplier")
+	public List<MaterielSupplier> getAllSupplier(@RequestParam Map<String, Object> params){
+		return encodingService.getAllSupplier(params);
+	}
+	
 	/**
 	 * @Title: 		 getWLMS   
 	 * @Description: TODO[用一句话描述这个方法的作用]  新增物料信息 
@@ -120,6 +129,43 @@ public class EncodingController extends BaseController{
 		try {
 			User user=(User)request.getSession().getAttribute(SessionConstants.CW_LOGINUSER);
 			encodingService.saveData0017(params,user);
+			result.put("success", true);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error(e.getMessage());
+			result.put("success", false);
+			result.put("message", e.getMessage());
+		}
+		return result;
+	}
+	
+	
+	@ResponseBody
+	@RequestMapping("editData0017")
+	public Map editData0017(Data0017 params,HttpServletRequest request){
+		Map<String,Object> result=new HashMap<String,Object>();
+		try {
+			User user=(User)request.getSession().getAttribute(SessionConstants.CW_LOGINUSER);
+			params.setErpid(Integer.parseInt(params.getRkey()));
+			encodingService.editData0017(params,user);
+			result.put("success", true);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error(e.getMessage());
+			result.put("success", false);
+			result.put("message", e.getMessage());
+		}
+		return result;
+	}
+	
+	
+	@ResponseBody
+	@RequestMapping("saveReplaceData0017")
+	public Map saveReplaceData0017(Data0017 params,HttpServletRequest request){
+		Map<String,Object> result=new HashMap<String,Object>();
+		try {
+			User user=(User)request.getSession().getAttribute(SessionConstants.CW_LOGINUSER);
+			encodingService.saveReplaceData0017(params,user);
 			result.put("success", true);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -208,7 +254,6 @@ public class EncodingController extends BaseController{
 		Map<String, Object> model = new HashMap<String, Object>();
 		List<Data0017> list = encodingService.getExportData(params);
         model.put("users", list);
-        String affairtypeid=(String) params.get("affairtypeid");
         return new ModelAndView(new JxlsExcelView("xls/exportMaterial_info.xls","Material"), model);
 	}
 	
@@ -226,9 +271,13 @@ public class EncodingController extends BaseController{
 		ArrayList<Data0017> list=(ArrayList<Data0017>) needSaveData.get("list");
         for(Data0017 bean:list){
         	if("1".equals(bean.getErpstatus())) {
-        		bean.setRkey(String.valueOf((int)bean.getErpid()));
-            	bean.setStatus("9");
-            	encodingService.updateThisData(bean);
+        		Data0017 needupdate=new Data0017();
+        		needupdate.setErpid(bean.getErpid());
+        		needupdate.setId(bean.getId());
+        		needupdate.setInvPartNumber(bean.getInvPartNumber());
+        		needupdate.setRkey(String.valueOf((int)bean.getErpid()));
+        		needupdate.setStatus("9");
+            	encodingService.updateThisData(needupdate);
         	}
         }
         result.put("success", true);
@@ -277,6 +326,20 @@ public class EncodingController extends BaseController{
 	@RequestMapping("getProdSupper")
 	public List<MaterielDevice> getProdSupper(@RequestParam Map<String, Object> params){
 		return encodingService.getProdSupper(params);
+	}
+	
+	
+	@ResponseBody
+	@RequestMapping("getFilesPre")
+	public List<MaterielFile> getFilesPre(@RequestParam Map<String, Object> params){
+		return encodingService.getFilesPre(params);
+	}
+	
+	
+	@ResponseBody
+	@RequestMapping("lodingremark")
+	public Data0017 lodingremark(Integer erpid){
+		return encodingService.lodingremark(erpid);
 	}
 	
 }

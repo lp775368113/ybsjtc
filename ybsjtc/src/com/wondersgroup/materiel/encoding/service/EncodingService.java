@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -41,6 +42,8 @@ import com.wondersgroup.materiel.encoding.classManagement.dao.MaterielSmallclass
 import com.wondersgroup.materiel.encoding.classManagement.vo.MaterielSmallclass;
 import com.wondersgroup.materiel.encoding.dao.Data0017Mapper;
 import com.wondersgroup.materiel.encoding.dao.MaterielFileMapper;
+import com.wondersgroup.materiel.encoding.packageManagement.dao.MaterielPackageMapper;
+import com.wondersgroup.materiel.encoding.packageManagement.vo.MaterielPackage;
 import com.wondersgroup.materiel.encoding.vo.Data0017;
 import com.wondersgroup.materiel.encoding.vo.MaterielDevice;
 import com.wondersgroup.materiel.encoding.vo.MaterielFile;
@@ -85,29 +88,49 @@ public class EncodingService {
 	MaterielFileMapper materielFileMapper;
 	
 	@Autowired
+	MaterielPackageMapper materielPackageMapper;
+	
+	@Autowired
 	MaterielSmallclassMapper materielSmallclassMapper;
 
 	public Map<String, Object> getPage(Map<String, Object> params) {
-		JaxWsProxyFactoryBean jwpfb = new JaxWsProxyFactoryBean();
-		jwpfb.setServiceClass(MaterialService.class);
-		InputStream is = EncodingService.class.getClassLoader().getResourceAsStream("SetSystem.properties");
-		Properties pro = new Properties();
-		try {
-			pro.load(is);
-		} catch (IOException e) {
-			e.printStackTrace();
-			logger.error(e.getMessage(), e);
+		String status=(String) params.get("status");
+		if("9".equals(status)) {
+			JaxWsProxyFactoryBean jwpfb = new JaxWsProxyFactoryBean();
+			jwpfb.setServiceClass(MaterialService.class);
+			InputStream is = EncodingService.class.getClassLoader().getResourceAsStream("SetSystem.properties");
+			Properties pro = new Properties();
+			try {
+				pro.load(is);
+			} catch (IOException e) {
+				e.printStackTrace();
+				logger.error(e.getMessage(), e);
+			}
+			String webServiceURL = pro.getProperty("webServiceURL");
+			jwpfb.setAddress(webServiceURL);
+			MaterialService ms = (MaterialService) jwpfb.create();
+			JSONObject postPara = JSONObject.fromObject(params);
+			String resultstr = ms.getWLInfo(postPara.toString());
+			JSONObject jsonObject = JSONObject.fromObject(resultstr);
+			Map<String, Object> classMap = new HashMap<String, Object>();
+			classMap.put("data", Data0017.class);
+			Map stu = (Map) JSONObject.toBean(jsonObject, Map.class, classMap);
+			return stu;
+		}else {
+			String ipdcSTR=(String) params.get("ipdcSTR");
+			if(!"".equals(ipdcSTR)&&ipdcSTR!=null) {
+				String [] list = ipdcSTR.split("\\s+");
+				 List<String> stringB = Arrays.asList(list);
+				 params.put("list", stringB);
+			}
+			List<Data0017> list=data0017Mapper.getPage(params);
+			Integer count=data0017Mapper.getPageCount(params);
+			Map<String, Object> result = new HashMap<String, Object>();
+			result.put("total", count);
+			result.put("data", list);
+			return result;
 		}
-		String webServiceURL = pro.getProperty("webServiceURL");
-		jwpfb.setAddress(webServiceURL);
-		MaterialService ms = (MaterialService) jwpfb.create();
-		JSONObject postPara = JSONObject.fromObject(params);
-		String resultstr = ms.getWLInfo(postPara.toString());
-		JSONObject jsonObject = JSONObject.fromObject(resultstr);
-		Map<String, Object> classMap = new HashMap<String, Object>();
-		classMap.put("data", Data0017.class);
-		Map stu = (Map) JSONObject.toBean(jsonObject, Map.class, classMap);
-		return stu;
+		
 	}
 	
 	
@@ -156,7 +179,10 @@ public class EncodingService {
 		return data0017Mapper.getSupplier(params);
 	}
 
-
+	
+	public List<MaterielSupplier> getAllSupplier(Map<String, Object> params) {
+		return data0017Mapper.getAllSupplier(params);
+	}
 
 	/**
 	 * @Title: saveData0017
@@ -170,12 +196,11 @@ public class EncodingService {
 		if (dd_user == null) {
 			throw new Exception("您的账户和钉钉未绑定！请联系管理员！");
 		}
-		String rkey = params.getProdCodeSellPtr();
-		Map<String, Object> getmd = new HashMap<String, Object>();
 		String smallid=params.getProdCodeSellPtr();
 		MaterielSmallclass msc=materielSmallclassMapper.getSmallclassById(Integer.parseInt(smallid));
 		String extraDesc = msc.getBigcode() + "-" + msc.getCode() + "-";
 		String daoed = data0017Mapper.getExtraDesc(extraDesc);
+		//生成禾川编码
 		if (daoed == null || "".equals(daoed)) {
 			extraDesc = extraDesc + "0001";
 			params.setExtraDesc(extraDesc);
@@ -191,8 +216,71 @@ public class EncodingService {
 		params.setUserid(user.getId());
 		params.setCreatetime(new Date());
 		params.setStatus("1");
+		//获取工序
+		String package_=params.getPackage_();
+		MaterielPackage materielPackage=materielPackageMapper.selectByPrimaryKey(Integer.parseInt(package_)); 
+		params.setSmtFlag(materielPackage.getProcess()); 
 		data0017Mapper.insertSelective(params);
-		Check.startProcessInstance(params, dd_user, "新增物料");// 发起审批流程
+		// 发起审批流程
+		Check.startProcessInstance(params, dd_user, "新增物料");
+		params.setStatus("2");
+		data0017Mapper.updateStatus(params);
+		String fileids=params.getFileidstr();
+		//关联相关文件
+		if(!"".equals(fileids)) {
+			Map<String,Object> para=new HashMap<String,Object>();
+			para.put("fileids", fileids);
+			para.put("materielId", params.getId());
+			materielFileMapper.updateByids(para);
+		}
+	}
+	
+	
+	public void editData0017(Data0017 params, User user) throws Exception {
+		Dd_User dd_user = userMapper.getDd_users(String.valueOf((int) user.getId()));
+		if (dd_user == null) {
+			throw new Exception("您的账户和钉钉未绑定！请联系管理员！");
+		}
+		Integer materielId=null;
+		Data0017 ThisData = data0017Mapper.getData0017ById(params);
+		if (ThisData == null) {
+			params.setUserid(user.getId());
+			params.setCreatetime(new Date());
+			params.setStatus("5");
+			data0017Mapper.insertSelective(params);
+			Check.startProcessInstance(params, dd_user, "修改物料");// 发起审批流程
+			params.setStatus("6");
+			data0017Mapper.updateStatus(params);
+			materielId=params.getId();
+		} else {
+			params.setStatus("5");
+			params.setId(ThisData.getId());
+			data0017Mapper.updateThisData(params);
+			Check.startProcessInstance(params, dd_user, "修改物料");// 发起审批流程
+			params.setStatus("6");
+			data0017Mapper.updateStatus(params);
+			materielId=ThisData.getId();
+		}
+		String fileids=params.getFileidstr();
+		if(!"".equals(fileids)) {
+			Map<String,Object> para=new HashMap<String,Object>();
+			para.put("fileids", fileids);
+			para.put("materielId", materielId);
+			materielFileMapper.updateByids(para);
+		}
+	}
+	
+	
+	public void saveReplaceData0017(Data0017 params, User user) throws Exception {
+		Dd_User dd_user = userMapper.getDd_users(String.valueOf((int) user.getId()));
+		if (dd_user == null) {
+			throw new Exception("您的账户和钉钉未绑定！请联系管理员！");
+		}
+		params.setUserid(user.getId());
+		params.setCreatetime(new Date());
+		params.setStatus("1");
+		data0017Mapper.insertSelective(params);
+		Check.startProcessInstance(params, dd_user, "新增替换料");// 发起审批流程
 		params.setStatus("2");
 		data0017Mapper.updateStatus(params);
 		String fileids=params.getFileidstr();
@@ -243,8 +331,8 @@ public class EncodingService {
 	 * @return_type: Map<String,Object>
 	 */
 	public Map<String, Object> getThisPage(Map<String, Object> params) {
-		List<Data0017> list = data0017Mapper.getPage(params);
-		Integer count = data0017Mapper.getPageCount(params);
+		List<Data0017> list = data0017Mapper.getExportPage(params);
+		Integer count = data0017Mapper.getPageExportCount(params);
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.put("total", count);
 		result.put("data", list);
@@ -350,6 +438,24 @@ public class EncodingService {
 	 */
 	public int refuse(String id) {
 		return data0017Mapper.refus(Integer.valueOf(id));
+	}
+
+
+
+	/**@Title: 		 getFilesPre   
+	 * @Description: TODO[用一句话描述这个方法的作用]   
+	 * @param params
+	 * @return      
+	 * @return_type: List<MaterielFile>      
+	 */
+	public List<MaterielFile> getFilesPre(Map<String, Object> params) {
+		return materielFileMapper.getFilesPre(params);
+	}
+
+
+
+	public Data0017 lodingremark(Integer params) {
+		return data0017Mapper.lodingremark(params);
 	}
 
 	

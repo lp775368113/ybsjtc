@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <workbook>  
     <worksheet name="物料信息">  
-        <section startRow="1" endRow="2">  
+        <section startRow="1" endRow="1">  
         </section>  
-        <loop startRow="3" endRow="3"  items="list" var="material" varType="com.wondersgroup.materiel.encoding.vo.Data0017">  
-			<section startRow="3" endRow="3">
-				<mapping row="3" col="0">material.erpid</mapping>
-				<mapping row="3" col="1">material.id</mapping>
-				<mapping row="3" col="2">material.invPartNumber</mapping>
-				<mapping row="3" col="3">material.extraDesc</mapping>
-				<mapping row="3" col="4">material.prodCodeSellPtr</mapping>
-				<mapping row="3" col="5">material.prodSupper</mapping>
-				<mapping row="3" col="6">material.package_</mapping>
-				<mapping row="3" col="7">material.smtFlag</mapping>
-				<mapping row="3" col="8">material.invPartDescriptionC</mapping>
-				<mapping row="3" col="9">material.custPartName</mapping>
-				<mapping row="3" col="10">material.custPartCode</mapping>
-				<mapping row="3" col="11">material.purchUnitPtr</mapping>
-				<mapping row="3" col="12">material.stockUnitPtr</mapping>
-				<mapping row="3" col="13">material.supplierPtr</mapping>
-				<mapping row="3" col="14">material.stdCost</mapping>
-				<mapping row="3" col="15">material.stockPurch</mapping>
-				<mapping row="3" col="16">material.erpstatus</mapping>
+        <loop startRow="2" endRow="2"  items="list" var="material" varType="com.wondersgroup.materiel.encoding.vo.Data0017">  
+			<section startRow="2" endRow="2">
+				<mapping row="2" col="0">material.erpid</mapping>
+				<mapping row="2" col="1">material.id</mapping>
+				<mapping row="2" col="2">material.invPartNumber</mapping>
+				<mapping row="2" col="2">material.extraDesc</mapping>
+				<mapping row="2" col="4">material.prodCodeSellPtr</mapping>
+				<mapping row="2" col="5">material.prodSupper</mapping>
+				<mapping row="2" col="6">material.package_</mapping>
+				<mapping row="2" col="7">material.smtFlag</mapping>
+				<mapping row="2" col="8">material.invPartDescriptionC</mapping>
+				<mapping row="2" col="9">material.custPartName</mapping>
+				<mapping row="2" col="10">material.custPartCode</mapping>
+				<mapping row="2" col="11">material.purchUnitPtr</mapping>
+				<mapping row="2" col="12">material.stockUnitPtr</mapping>
+				<mapping row="2" col="12">material.supplierPtr</mapping>
+				<mapping row="2" col="14">material.stdCost</mapping>
+				<mapping row="2" col="15">material.stockPurch</mapping>
+				<mapping row="2" col="16">material.erpstatus</mapping>
             </section>
 			<loopbreakcondition>
 				<rowcheck offset="0">

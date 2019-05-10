@@ -116,4 +116,18 @@ public class BrandSupplierController extends BaseController{
 
 		return result;
 	}
+	
+	
+	@ResponseBody
+	@RequestMapping("getProdSupperId")
+	public MaterielBrand getProdSupperId(@RequestParam String brandname){
+		return brandSupplierService.getProdSupperId(brandname);
+	}
+	
+	
+	@ResponseBody
+	@RequestMapping("getSupplierPtrById")
+	public MaterielSupplier getSupplierPtrById(@RequestParam Integer id){
+		return brandSupplierService.getProdSupperId(id);
+	}
 }

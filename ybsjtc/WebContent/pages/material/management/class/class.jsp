@@ -128,8 +128,8 @@ html, body {
 						<div field="classname" width="20%" headerAlign="center"
 							align="center">小类名称</div>
 						<div field="rules" width="40%" headerAlign="center" align="center">物料名称（描述）规则</div>
-						<div field="remark" width="40%" headerAlign="center"
-							align="center">备注</div>
+						<div field="ensample" width="40%" headerAlign="center"
+							align="center">物料名称（描述）示列</div>
 					</div>
 				</div>
 			</div>
@@ -161,12 +161,6 @@ html, body {
 			});
 		});
 		
-		smallGrid.on("rowclick", function(e) {
-			var id = e.record.bigclassid;
-			bigGrid.load({
-				bigclassid : id
-			});
-		});
 
 		function add() {
 			mini

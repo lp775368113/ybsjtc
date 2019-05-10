@@ -15,4 +15,8 @@ public interface MaterielSupplierMapper {
 	List<MaterielBrand> getPage(Map<String, Object> params);
 
 	Integer getPageCount(Map<String, Object> params);
+
+	MaterielSupplier getProdSupperId(Integer id);
+
+	Integer countSuppliername(MaterielSupplier supplier);
 }

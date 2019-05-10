@@ -25,4 +25,8 @@ public interface MaterielBrandMapper {
 	Integer getPageCount(Map<String, Object> params);
 
 	List<MaterielDevice> getProdSupper(Map<String, Object> params);
+
+	MaterielBrand getProdSupperId(String brandname);
+
+	Integer countBrandname(MaterielBrand brand);
 }

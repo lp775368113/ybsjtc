@@ -48,7 +48,11 @@ public class BrandSupplierService {
 	@Autowired
 	MaterielBrandSupplierMapper materielBrandSupplierMapper;
 
-	public void addBrand(MaterielBrand brand) {
+	public void addBrand(MaterielBrand brand) throws Exception {
+		Integer count=materielBrandMapper.countBrandname(brand);
+		if(count!=0) {
+			throw new RuntimeException("品牌名称已存在");
+		}
 		materielBrandMapper.insertSelective(brand);
 	}
 
@@ -70,7 +74,11 @@ public class BrandSupplierService {
 		return result;
 	}
 
-	public void addSupplier(MaterielSupplier supplier) {
+	public void addSupplier(MaterielSupplier supplier) throws Exception {
+		Integer count=materielSupplierMapper.countSuppliername(supplier);
+		if(count!=0) {
+			throw new RuntimeException("代理商名称已存在");
+		}
 		materielSupplierMapper.insertSelective(supplier);
 	}
 
@@ -149,6 +157,12 @@ public class BrandSupplierService {
 		return true;
 	}
 
-	
+	public MaterielBrand getProdSupperId(String brandname) {
+		return materielBrandMapper.getProdSupperId(brandname);
+	}
+
+	public MaterielSupplier getProdSupperId(Integer id) {
+		return materielSupplierMapper.getProdSupperId(id);
+	}
 
 }

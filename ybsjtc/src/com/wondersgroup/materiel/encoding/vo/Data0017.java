@@ -22,10 +22,16 @@ public class Data0017 {
     private String extraDesc;
 
     private String prodCodeSellPtr;
+    
+    private String prodCodeSellPtrStr;
 
     private String prodSupper;
+    
+    private String prodSupperStr;
 
     private String package_;
+    
+    private String package_Str;
 
     private String smtFlag;
 
@@ -54,6 +60,8 @@ public class Data0017 {
     private String fileidstr;
     
     private String maxclass;
+    
+    private String supplierPtrStr;
 
     public Integer getId() {
         return id;
@@ -255,4 +263,38 @@ public class Data0017 {
 	public void setMaxclass(String maxclass) {
 		this.maxclass = maxclass;
 	}
+
+	public String getProdCodeSellPtrStr() {
+		return prodCodeSellPtrStr;
+	}
+
+	public void setProdCodeSellPtrStr(String prodCodeSellPtrStr) {
+		this.prodCodeSellPtrStr = prodCodeSellPtrStr;
+	}
+
+	public String getPackage_Str() {
+		return package_Str;
+	}
+
+	public void setPackage_Str(String package_Str) {
+		this.package_Str = package_Str;
+	}
+
+	public String getProdSupperStr() {
+		return prodSupperStr;
+	}
+
+	public void setProdSupperStr(String prodSupperStr) {
+		this.prodSupperStr = prodSupperStr;
+	}
+
+	public String getSupplierPtrStr() {
+		return supplierPtrStr;
+	}
+
+	public void setSupplierPtrStr(String supplierPtrStr) {
+		this.supplierPtrStr = supplierPtrStr;
+	}
+	
+	
 }

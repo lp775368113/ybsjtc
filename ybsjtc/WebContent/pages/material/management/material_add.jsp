@@ -50,38 +50,32 @@ html, body {
 					<td width="16%" class="mini_title"><span style="color: red">*</span>小类名称：</td>
 					<td width="16%"><input id="prodCodeSellPtr"
 						name="prodCodeSellPtr" class="mini-combobox" url=""
-						required="true" textField="classname" width="100%"
-						valueField="id" onvaluechanged="setWLMS" /></td>
-					<td width="16%" class="mini_title">封装：</td>
+						required="true" textField="classname" width="100%" valueField="id"
+						onvaluechanged="setWLMS" /></td>
+					<td width="16%" class="mini_title"><span style="color: red">*</span>封装：</td>
 					<td width="16%"><input id="package_" name="package_"
-						class="mini-textbox" width="100%" /></td>
+						class="mini-combobox" valueFromSelect="true" allowInput="true"
+						url="${pageContext.request.contextPath}/package/getAllpackage.do" required="true"
+						textField="packagename" width="100%" valueField="id" /></td>
 				</tr>
 				<tr>
 					<td class="mini_title" width="16%"><span style="color: red">*</span>厂商料号：</td>
 					<td width="16%"><input class="mini-textbox"
 						name="custPartCode" id="custPartCode" required="true" width="100%" />
-						<td class="mini_title" width="16%"><span style="color: red">*</span>SMT/DIP：</td>
-						<td width="16%"><input class="mini-combobox" name="smtFlag"
-							id="smtFlag" required="true" width="100%"
-							data="[{text:'无',code:0},{text:'SMT',code:1},{text:'DIP',code:2}]"
-							textField="text" valueField="code" /></td>
-						<td class="mini_title" width="16%"><span style="color: red">*</span>制造商：</td>
-						<td width="16%">
-						<input id="prodSupper" name="prodSupper"
-						class="mini-combobox" 
+						<td class="mini_title" width="16%">供应商物料名称：</td>
+						<td width="16%"><input class="mini-textbox"
+							name="custPartName" id="custPartName" width="100%" />
+					<td class="mini_title" width="16%"><span style="color: red">*</span>制造商：</td>
+					<td width="16%"><input id="prodSupper" name="prodSupper"
+						class="mini-combobox"
 						url="${pageContext.request.contextPath}/encoding/getProdSupper.do"
-						onvaluechanged="onProdSupperChanged" required="true" valueFromSelect="true"
-						textField="brandname" width="100%" valueField="id" allowInput="true" />
-						</td>
+						onvaluechanged="onProdSupperChanged" required="true"
+						valueFromSelect="true" textField="brandname" width="100%"
+						valueField="id" allowInput="true" /></td>
 				</tr>
 				<tr>
-					<td class="mini_title" width="16%">供应商物料名称：</td>
-					<td width="16%"><input class="mini-textbox"
-						name="custPartName" id="custPartName" width="100%" />
-						<td class="mini_title" width="16%"></td>
-						<td width="16%"></td>
-						<td class="mini_title" width="16%"></td>
-						<td width="16%"></td>
+					<td class="mini_title" width="16%">物料名称(描述)示列：</td>
+					<td width="100%" colspan="5" id="ensample"></td>
 				</tr>
 				<tr>
 					<td class="mini_title" width="16%"><span style="color: red">*</span>物料名称(描述)：
@@ -104,9 +98,9 @@ html, body {
 						valueField="rkey" /></td>
 					<td class="mini_title" width="16%"><span style="color: red">*</span>优先供应商：</td>
 					<td width="16%"><input id="supplierPtr" name="supplierPtr"
-						class="mini-combobox" valueFromSelect="true"
-						required="true" textField="supplier_name" width="100%"
-						valueField="id" allowInput="true"  /></td>
+						class="mini-combobox" valueFromSelect="true" required="true"
+						textField="supplier_name" width="100%" valueField="id"
+						allowInput="true" /></td>
 				</tr>
 				<tr>
 					<td class="mini_title" width="16%"><span style="color: red">*</span>包装数量：</td>
@@ -124,13 +118,13 @@ html, body {
 				</tr>
 				<tr>
 					<td class="mini_title">备注：</td>
-					<td colspan="5"><input class="mini-TextArea" name="remark" maxLength="250"  emptyText="备注系统物料出现的风险、问题等信息,最多250字。"
-						id="remark" width="100%" height="100px"  /></td>
+					<td colspan="5"><input class="mini-TextArea" name="remark"
+						maxLength="250" emptyText="备注系统物料出现的风险、问题等信息,最多250字。" id="remark"
+						width="100%" height="100px" /></td>
 				</tr>
 				<tr>
 					<td class="mini_title">已上传文件：</td>
-					<td colspan="5"><div id="fj"
-							style="width: 700px; height: auto; word-wrap: break-word"></div></td>
+					<td colspan="5"><div id="fj" style="width: 700px; height: auto; word-wrap: break-word"></div></td>
 				</tr>
 			</table>
 			<table>
@@ -142,7 +136,8 @@ html, body {
 								onclick="save();">
 								<span class="bc"></span>发起审批
 							</button>
-							<button id="button_reset" type="button" class="cz_color" onclick="resetForm()">
+							<button id="button_reset" type="button" class="cz_color"
+								onclick="resetForm()">
 								<span class="cz"></span>重置
 							</button>
 						</div>
@@ -156,7 +151,8 @@ html, body {
 		mini.parse();
 		var files = [];
 		var fileidstr = "";
-		var check={};
+		var check = {}; 
+		var canCheck=true;
 		var form = new mini.Form("form2");
 		var MS = 0;
 		function SetData(data) {
@@ -164,12 +160,16 @@ html, body {
 			data = mini.clone(data);
 		}
 		function save() {
-			$("#button_save").attr("disabled", true); 
-			$("#button_reset").attr("disabled", true); 
 			form.validate();
 			if (form.isValid() == false) {
 				return;
 			}
+			if(!canCheck){
+				mini.alert("文件正在上传，请上传后发起审批。");
+				return;
+			}
+			$("#button_save").attr("disabled", true);
+			$("#button_reset").attr("disabled", true);
 			var data = form.getData(true);
 			var invPartDescriptionC = '';
 			for (var i = 0; i < MS; i++) {
@@ -182,20 +182,21 @@ html, body {
 			}
 			mini.get("invPartDescriptionC").setValue(invPartDescriptionC);
 			var data = form.getData(true);
-			data.fileidstr=fileidstr;
+			data.fileidstr = fileidstr;
 			checkValue(data);
-			if(!check.countCustPartCode){
+			if (!check.countCustPartCode) {
 				mini.alert("厂商料号系统已存在！");
-				$("#button_save").attr("disabled", false); 
-				$("#button_reset").attr("disabled", false); 
+				$("#button_save").attr("disabled", false);
+				$("#button_reset").attr("disabled", false);
 				return;
-			}else if(!check.conutInvPartDescriptionC){
+			} else if (!check.conutInvPartDescriptionC) {
 				mini.alert("物料名称(描述)系统已存在！");
-				$("#button_save").attr("disabled", false); 
-				$("#button_reset").attr("disabled", false); 
+				$("#button_save").attr("disabled", false);
+				$("#button_reset").attr("disabled", false);
 				return;
 			}
-			$.ajax({
+			$
+					.ajax({
 						url : "${pageContext.request.contextPath}/encoding/saveData0017.do",
 						type : "post",
 						dataType : "json",
@@ -212,18 +213,19 @@ html, body {
 						}
 					});
 		}
-		function checkValue(data){
-			$.ajax({
-				url : "${pageContext.request.contextPath}/encoding/checkValue.do",
-				type : "post",
-				async: false,
-				dataType : "json",
-				cache : false,
-				data : data,
-				success : function(get) {
-					check=get;
-				}
-			});
+		function checkValue(data) {
+			$
+					.ajax({
+						url : "${pageContext.request.contextPath}/encoding/checkValue.do",
+						type : "post",
+						async : false,
+						dataType : "json",
+						cache : false,
+						data : data,
+						success : function(get) {
+							check = get;
+						}
+					});
 		}
 
 		function onClassChanged() {
@@ -233,22 +235,21 @@ html, body {
 					+ bigclassid;
 			mini.get("prodCodeSellPtr").setUrl(url);
 		}
-		
-		function onProdSupperChanged(){
-			var prodSupper= mini.get("prodSupper");
-			var brandid=prodSupper.getValue();
+
+		function onProdSupperChanged() {
+			var prodSupper = mini.get("prodSupper");
+			var brandid = prodSupper.getValue();
 			console.log(brandid);
 			var url = "${pageContext.request.contextPath}/encoding/getSupplier.do?brandid="
-				+ brandid;
+					+ brandid;
 			mini.get("supplierPtr").setUrl(url);
 		}
 
 		function resetForm() {
 			form.reset();
-			files=[];
+			files = [];
 			showfiles();
 		}
-		
 
 		function setWLMS() {
 			var prodCodeSellPtr = mini.get("prodCodeSellPtr");
@@ -265,6 +266,8 @@ html, body {
 						success : function(data) {
 							var html = '';
 							var btname = 'MS'
+							var ensampleValue=data.ensample;
+							$('#ensample').html(ensampleValue);
 							var smallinformation = data.rules;
 							var mss = smallinformation.split("-");
 							MS = mss.length;
@@ -295,10 +298,10 @@ html, body {
 									}
 								} else {
 									if (i == 0) {
-										html = '<input class="mini-textbox"  name="'+btname+i+'"  width="100px" required="true" value="'+mss[i]+'" />';
+										html = '<input class="mini-textbox"  name="'+btname+i+'"  width="100px" required="true" value="'+mss[i]+'" emptyText="'+mss[i]+'" />';
 									} else {
 										html = html
-												+ ' 一  <input class="mini-textbox"  name="'+btname+i+'"  width="100px" required="true" value="'+mss[i]+'" />';
+												+ ' 一  <input class="mini-textbox"  name="'+btname+i+'"  width="100px" required="true" emptyText="'+mss[i]+'" />';
 									}
 								}
 							}
@@ -308,8 +311,8 @@ html, body {
 					});
 		}
 
-
 		function upload() {
+			canCheck=false;
 			var data = {};
 			var fileids = [ 'myfile' ];
 			$.ajaxFileUpload({
@@ -320,15 +323,17 @@ html, body {
 						data : data,//需要传输的数据  
 						success : function(data) {
 							if (data.success) {
-								files.push(mini.decode ( data.file, true ));
+								files.push(mini.decode(data.file, true));
 								$("#reload")
 										.empty()
 										.html(
 												"<input class='mini-htmlfile' name='myfile'  id='myfile' width='100%' onfileselect='upload' />");
 								mini.parse();
 								showfiles();
+								canCheck=true;
 							} else {
 								mini.alert(data.error);
+								canCheck=true;
 							}
 						},
 						error : function(data) {
@@ -338,19 +343,23 @@ html, body {
 							var fun = jQuery
 									.parseJSON(data.responseXML.activeElement.innerText);
 							if (fun.success) {
-								files.push(mini.decode ( fun.file, true ));
+								files.push(mini.decode(fun.file, true));
 								$("#reload")
 										.empty()
 										.html(
 												"<input class='mini-htmlfile' name='myfile'  id='myfile' width='100%' onfileselect='upload' />");
 								mini.parse();
 								showfiles();
+								canCheck=true;
 							} else if (fun.error) {
 								mini.alert(fun.error);
+								canCheck=true;
 							} else if (fun.error) {
 								mini.alert(fun.error);
+								canCheck=true;
 							} else {
 								mini.alert("服务器异常上传失败，请重新尝试！");
+								canCheck=true;
 							} //tomcat 使用
 							//mini.alert("服务器异常，请重新尝试！","失败",window.CloseOwnerWindow);
 						}
@@ -377,8 +386,9 @@ html, body {
 						+ files[i].filename
 						+ "</a>&nbsp&nbsp&nbsp";
 			}
-			document.getElementById('fj').innerHTML =htmlstr;
+			document.getElementById('fj').innerHTML = htmlstr;
 		}
+		
 	</script>
 </body>
 

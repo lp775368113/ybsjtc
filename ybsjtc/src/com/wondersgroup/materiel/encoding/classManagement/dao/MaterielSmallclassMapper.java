@@ -31,4 +31,6 @@ public interface MaterielSmallclassMapper {
 
 	MaterielSmallclass getSmallclassById(int parseInt);
 
+	List<MaterielSmallclass> getAllSmallClass(Map<String, Object> params);
+
 }

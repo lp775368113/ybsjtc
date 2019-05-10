@@ -59,6 +59,13 @@ html, body {
                     class="mini-textarea"  /></td>
 			</tr>
 			<tr>
+				<th class="mini_title">物料名称（描述）示列：</th>
+				<td><input id="ensample" name="ensample" class="mini-textarea"
+					width="100%" required="true" /></td>
+				<th class="mini_title"></th>
+				<td></td>
+			</tr>
+			<tr>
 				<td colspan="4" align="center">
 					<div class="operate">
 						<button id="saveBtn" type="button" class="bc_color"

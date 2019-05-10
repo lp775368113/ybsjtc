@@ -111,6 +111,11 @@ public class ClassService {
 	public List<MaterielSmallclass> getSmallClassPre(Map<String, Object> params) {
 		return materielSmallclassMapper.getSmallClassPre(params);
 	}
+	
+	
+	public List<MaterielSmallclass> getAllSmallClass(Map<String, Object> params) {
+		return materielSmallclassMapper.getAllSmallClass(params);
+	}
 
 
 	public List<MaterielBigclass> getAllbigclassPre() {
@@ -121,5 +126,10 @@ public class ClassService {
 	public MaterielSmallclass getSmallclassById(Map<String, Object> params) {
 		Integer id=Integer.parseInt((String)params.get("id"));
 		return materielSmallclassMapper.selectByPrimaryKey(id);
+	}
+
+
+	public List<MaterielSmallclass> getBigClassBySmallclassid(Map<String, Object> params) {
+		return materielBigclassMapper.getBigClassBySmallclassid(params);
 	}
 }

@@ -123,6 +123,17 @@
     ) g
   </select>
   <select id="getProdSupper" resultMap="BaseResultMap" parameterType="java.util.Map">
-  	select * from materiel_brand where 1=1
+  	select * from materiel_brand  a where 1=1 order by  a.id
+  </select>
+  <select id="getProdSupperId" resultMap="BaseResultMap" parameterType="String" >
+  	select a.* from materiel_brand a where 1=1 and a.brandname=#{brandname}
+  	limit 0,1
+  </select>
+  
+  <select id="countBrandname" resultType="Integer" parameterType="com.wondersgroup.materiel.encoding.brandManagement.vo.MaterielBrand" >
+  		select count(*) from materiel_brand a where a.brandname=#{brandname}
+  		<if test="id != null and id!=''" >
+        and id!=#{id}
+     	</if>
   </select>
 </mapper>

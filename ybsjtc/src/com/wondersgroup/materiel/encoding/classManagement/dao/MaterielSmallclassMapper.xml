@@ -14,9 +14,10 @@
 		<result column="remark" property="remark" jdbcType="VARCHAR" />
 		<result column="removed" property="removed" jdbcType="VARCHAR" />
 		<result column="status" property="status" jdbcType="VARCHAR" />
+		<result column="ensample" property="ensample" jdbcType="VARCHAR" />
 	</resultMap>
 	<sql id="Base_Column_List">
-		id, bigclassid, code, classname, rules, remark, removed, status
+		id, bigclassid, code, classname, rules, remark, removed, status, ensample
 	</sql>
 	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
 		parameterType="java.lang.Integer">
@@ -33,11 +34,11 @@
 	<insert id="insert"
 		parameterType="com.wondersgroup.materiel.encoding.classManagement.vo.MaterielSmallclass">
 		insert into materiel_smallclass (id, bigclassid, code,
-		classname, rules, remark,
+		classname, rules, ensample,remark,
 		removed, status)
 		values (#{id,jdbcType=INTEGER}, #{bigclassid,jdbcType=INTEGER},
 		#{code,jdbcType=VARCHAR},
-		#{classname,jdbcType=VARCHAR}, #{rules,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR},
+		#{classname,jdbcType=VARCHAR}, #{rules,jdbcType=VARCHAR},#{ensample,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR},
 		#{removed,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR})
 	</insert>
 	<insert id="insertSelective"
@@ -58,6 +59,9 @@
 			</if>
 			<if test="rules != null">
 				rules,
+			</if>
+			<if test="ensample != null">
+				ensample,
 			</if>
 			<if test="remark != null">
 				remark,
@@ -84,6 +88,9 @@
 			</if>
 			<if test="rules != null">
 				#{rules,jdbcType=VARCHAR},
+			</if>
+			<if test="ensample != null">
+				#{ensample,jdbcType=VARCHAR},
 			</if>
 			<if test="remark != null">
 				#{remark,jdbcType=VARCHAR},
@@ -112,6 +119,9 @@
 			<if test="rules != null">
 				rules = #{rules,jdbcType=VARCHAR},
 			</if>
+			<if test="ensample != null">
+				ensample = #{ensample,jdbcType=VARCHAR},
+			</if>
 			<if test="remark != null">
 				remark = #{remark,jdbcType=VARCHAR},
 			</if>
@@ -131,6 +141,7 @@
 		code = #{code,jdbcType=VARCHAR},
 		classname = #{classname,jdbcType=VARCHAR},
 		rules = #{rules,jdbcType=VARCHAR},
+		ensample=#{ensample,jdbcType=VARCHAR},
 		remark = #{remark,jdbcType=VARCHAR},
 		removed = #{removed,jdbcType=VARCHAR},
 		status = #{status,jdbcType=VARCHAR}
@@ -153,7 +164,7 @@
 		<if test="rules != null and rules!='' ">
 			and a.rules like concat('%',#{rules},'%')
 		</if>
-		ORDER BY a.id desc
+		ORDER BY a.code+0 
 		limit #{start},#{row}
 	</select>
 	<select id="getPageCount" resultType="Integer"
@@ -178,17 +189,30 @@
 		select count(*) from materiel_smallclass a where a.removed='0' and
 		bigclassid=#{bigclassid,jdbcType=INTEGER} and
 		a.code=#{code,jdbcType=VARCHAR}
+		<if test="id != null and id!='' " >
+        AND a.id!=#{id,jdbcType=INTEGER}
+      </if>
 	</select>
 	<select id="canClassName" resultType="Integer"
 		parameterType="com.wondersgroup.materiel.encoding.classManagement.vo.MaterielSmallclass">
 		select count(*) from materiel_smallclass a where a.removed='0' and
 		bigclassid=#{bigclassid,jdbcType=INTEGER} and
 		a.classname=#{classname,jdbcType=VARCHAR}
+		<if test="id != null and id!='' " >
+        AND a.id!=#{id,jdbcType=INTEGER}
+      </if>
 	</select>
 	<select id="getSmallClassPre" resultMap="BaseResultMap"
 		parameterType="java.util.Map">
 		select a.* from materiel_smallclass a where a.removed='0' and a.status='0'
 		and a.code!='' and a.bigclassid=#{bigclassid,jdbcType=INTEGER}
+		ORDER BY a.code+0 
+	</select>
+	
+	
+	<select id="getAllSmallClass" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select a.* from materiel_smallclass a  ORDER BY a.code+0 
 	</select>
 
 	<select id="getSmallclassById" resultMap="BaseResultMap"
