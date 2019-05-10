@@ -54,7 +54,7 @@ html, body {
 						onvaluechanged="setWLMS" /></td>
 					<td width="16%" class="mini_title"><span style="color: red">*</span>封装：</td>
 					<td width="16%"><input id="package_" name="package_"
-						class="mini-combobox" valueFromSelect="true" allowInput="true"
+						class="mini-combobox" valueFromSelect="true" allowInput="true" onvaluechanged="onpackageChanged"
 						url="${pageContext.request.contextPath}/package/getAllpackage.do" required="true"
 						textField="packagename" width="100%" valueField="id" /></td>
 				</tr>
@@ -159,6 +159,11 @@ html, body {
 			//跨页面传递的数据对象，克隆后才可以安全使用
 			data = mini.clone(data);
 		}
+		
+		function onpackageChanged(){
+			mini.get("fz").setValue(mini.get("package_").getText());
+		}
+		
 		function save() {
 			form.validate();
 			if (form.isValid() == false) {
@@ -300,8 +305,12 @@ html, body {
 									if (i == 0) {
 										html = '<input class="mini-textbox"  name="'+btname+i+'"  width="100px" required="true" value="'+mss[i]+'" emptyText="'+mss[i]+'" />';
 									} else {
-										html = html
-												+ ' 一  <input class="mini-textbox"  name="'+btname+i+'"  width="100px" required="true" emptyText="'+mss[i]+'" />';
+										if(mss[i] == "封装"){
+											var package_=mini.get("package_").getText();
+											html = html + ' 一  <input class="mini-textbox" id=fz name="'+btname+i+'"  width="100px" required="true" emptyText="'+mss[i]+'"  value="'+package_+'" />';
+										}else{
+											html = html + ' 一  <input class="mini-textbox"  name="'+btname+i+'"  width="100px" required="true" emptyText="'+mss[i]+'" />';
+										}
 									}
 								}
 							}
