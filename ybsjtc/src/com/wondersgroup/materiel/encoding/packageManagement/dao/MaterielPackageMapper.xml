@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wondersgroup.materiel.encoding.packageManagement.dao.MaterielPackageMapper" >
+  <resultMap id="BaseResultMap" type="com.wondersgroup.materiel.encoding.packageManagement.vo.MaterielPackage" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="packagename" property="packagename" jdbcType="VARCHAR" />
+    <result column="process" property="process" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="icon1" property="icon1" jdbcType="VARCHAR" />
+    <result column="icon2" property="icon2" jdbcType="VARCHAR" />
+    <result column="icon3" property="icon3" jdbcType="VARCHAR" />
+    <result column="icon4" property="icon4" jdbcType="VARCHAR" />
+    <result column="icon5" property="icon5" jdbcType="VARCHAR" />
+    <result column="createuserid" property="createuserid" jdbcType="INTEGER" />
+    <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="removed" property="removed" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, packagename, process, description, icon1, icon2, icon3, icon4, icon5, createuserid, 
+    createtime, removed
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from materiel_package
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from materiel_package
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.wondersgroup.materiel.encoding.packageManagement.vo.MaterielPackage" >
+    insert into materiel_package (id, packagename, process, 
+      description, icon1, icon2, 
+      icon3, icon4, icon5, 
+      createuserid, createtime, removed
+      )
+    values (#{id,jdbcType=INTEGER}, #{packagename,jdbcType=VARCHAR}, #{process,jdbcType=VARCHAR}, 
+      #{description,jdbcType=VARCHAR}, #{icon1,jdbcType=VARCHAR}, #{icon2,jdbcType=VARCHAR}, 
+      #{icon3,jdbcType=VARCHAR}, #{icon4,jdbcType=VARCHAR}, #{icon5,jdbcType=VARCHAR}, 
+      #{createuserid,jdbcType=INTEGER}, #{createtime,jdbcType=TIMESTAMP}, #{removed,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.wondersgroup.materiel.encoding.packageManagement.vo.MaterielPackage" >
+    insert into materiel_package
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="packagename != null" >
+        packagename,
+      </if>
+      <if test="process != null" >
+        process,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="icon1 != null" >
+        icon1,
+      </if>
+      <if test="icon2 != null" >
+        icon2,
+      </if>
+      <if test="icon3 != null" >
+        icon3,
+      </if>
+      <if test="icon4 != null" >
+        icon4,
+      </if>
+      <if test="icon5 != null" >
+        icon5,
+      </if>
+      <if test="createuserid != null" >
+        createuserid,
+      </if>
+      <if test="createtime != null" >
+        createtime,
+      </if>
+      <if test="removed != null" >
+        removed,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="packagename != null" >
+        #{packagename,jdbcType=VARCHAR},
+      </if>
+      <if test="process != null" >
+        #{process,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="icon1 != null" >
+        #{icon1,jdbcType=VARCHAR},
+      </if>
+      <if test="icon2 != null" >
+        #{icon2,jdbcType=VARCHAR},
+      </if>
+      <if test="icon3 != null" >
+        #{icon3,jdbcType=VARCHAR},
+      </if>
+      <if test="icon4 != null" >
+        #{icon4,jdbcType=VARCHAR},
+      </if>
+      <if test="icon5 != null" >
+        #{icon5,jdbcType=VARCHAR},
+      </if>
+      <if test="createuserid != null" >
+        #{createuserid,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="removed != null" >
+        #{removed,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wondersgroup.materiel.encoding.packageManagement.vo.MaterielPackage" >
+    update materiel_package
+    <set >
+      <if test="packagename != null" >
+        packagename = #{packagename,jdbcType=VARCHAR},
+      </if>
+      <if test="process != null" >
+        process = #{process,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="icon1 != null" >
+        icon1 = #{icon1,jdbcType=VARCHAR},
+      </if>
+      <if test="icon2 != null" >
+        icon2 = #{icon2,jdbcType=VARCHAR},
+      </if>
+      <if test="icon3 != null" >
+        icon3 = #{icon3,jdbcType=VARCHAR},
+      </if>
+      <if test="icon4 != null" >
+        icon4 = #{icon4,jdbcType=VARCHAR},
+      </if>
+      <if test="icon5 != null" >
+        icon5 = #{icon5,jdbcType=VARCHAR},
+      </if>
+      <if test="createuserid != null" >
+        createuserid = #{createuserid,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="removed != null" >
+        removed = #{removed,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wondersgroup.materiel.encoding.packageManagement.vo.MaterielPackage" >
+    update materiel_package
+    set packagename = #{packagename,jdbcType=VARCHAR},
+      process = #{process,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      icon1 = #{icon1,jdbcType=VARCHAR},
+      icon2 = #{icon2,jdbcType=VARCHAR},
+      icon3 = #{icon3,jdbcType=VARCHAR},
+      icon4 = #{icon4,jdbcType=VARCHAR},
+      icon5 = #{icon5,jdbcType=VARCHAR},
+      createuserid = #{createuserid,jdbcType=INTEGER},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      removed = #{removed,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="getPage" resultMap="BaseResultMap" parameterType="java.util.Map">
+  	select * from  materiel_package  a  where a.removed='0' 
+      <if test="packagename != null and packagename!='' " >
+        and a.packagename like concat('%',#{packagename},'%')
+      </if>
+     	ORDER BY a.id desc
+     	limit #{start},#{row}
+  </select>
+  
+  <select id="getPageCount" resultType="Integer" parameterType="java.util.Map">
+  	select count(*) from  materiel_package  a  where a.removed='0'
+  	<if test="packagename != null and packagename!='' " >
+        and a.packagename like concat('%',#{packagename},'%')
+      </if>
+  </select>
+  
+  
+  <select id="getPackage" resultMap="BaseResultMap" parameterType="java.util.Map" >
+  	select a.* from  materiel_package  a  where a.removed='0'
+  	<if test="packagename != null and packagename!='' " >
+        and a.packagename = #{packagename}
+    </if>
+    ORDER BY a.id 
+  </select>
+  
+  
+   <select id="countPackagename" resultType="Integer"  parameterType="com.wondersgroup.materiel.encoding.packageManagement.vo.MaterielPackage">
+  	select count(*) from  materiel_package  a  where a.removed='0'
+  	<if test="packagename != null and packagename!='' " >
+        and a.packagename = #{packagename}
+    </if>
+    <if test="id != null and id!='' " >
+        and a.id != #{id}
+    </if>
+  </select>
+  
+</mapper>
