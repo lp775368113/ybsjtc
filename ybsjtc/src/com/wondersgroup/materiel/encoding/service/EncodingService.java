@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -457,6 +458,46 @@ public class EncodingService {
 	public Data0017 lodingremark(Integer params) {
 		return data0017Mapper.lodingremark(params);
 	}
+
+
+
+	/**@throws UnsupportedEncodingException 
+	 * @Title: 		 updatedata0017   
+	 * @Description: TODO[用一句话描述这个方法的作用]         
+	 * @return_type: void      
+	 */
+	public  void updatedata0017() throws UnsupportedEncodingException {
+		List<Data0017> list=data0017Mapper.getAllData();
+		for(Data0017 po:list) {
+			if(po.getCustPartCode()!=""&&po.getCustPartCode()!=null) {
+				po.setCustPartCode(getZW(po.getCustPartCode()));
+			}
+			if(po.getCustPartName()!=""&&po.getCustPartName()!=null) {
+				po.setCustPartName(getZW(po.getCustPartName()));
+			}
+			if(po.getExtraDesc()!=""&&po.getExtraDesc()!=null) {
+				po.setExtraDesc(getZW(po.getExtraDesc()));
+			}
+			if(po.getProdSupper()!=""&&po.getProdSupper()!=null) {
+				po.setProdSupper(getZW(po.getProdSupper()));
+			}
+			if(po.getPackage_()!=""&&po.getPackage_()!=null){
+				po.setPackage_(getZW(po.getPackage_()));
+			}
+			if(po.getInvPartDescriptionC()!=""&&po.getInvPartDescriptionC()!=null) {
+				po.setInvPartDescriptionC(getZW(po.getInvPartDescriptionC()));
+			}
+			po.setCreatetime(new Date());
+			po.setUserid(1);
+			data0017Mapper.updateThisData(po);
+			System.out.println("更新一条成功！"+po.toString());
+		}
+	}
+	
+	public  String getZW(String str) throws UnsupportedEncodingException {
+		return new String(str.getBytes("ISO8859-1"),"gbk");
+	}
+
 
 	
 

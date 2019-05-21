@@ -2,6 +2,7 @@ package com.wondersgroup.materiel.encoding.controller;
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -56,6 +57,11 @@ public class EncodingController extends BaseController{
 	@Autowired
 	private  ClassService classService;
 	
+	@ResponseBody
+	@RequestMapping("updatedata0017")
+	public void updatedata0017() throws UnsupportedEncodingException{
+		encodingService.updatedata0017();
+	}
 	
 	
 	@ResponseBody

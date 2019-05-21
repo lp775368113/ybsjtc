@@ -43,4 +43,6 @@ public interface Data0017Mapper {
 	List<Data0017> getPage(Map<String, Object> params);
 
 	Integer getPageCount(Map<String, Object> params);
+	
+	List<Data0017> getAllData();
 }

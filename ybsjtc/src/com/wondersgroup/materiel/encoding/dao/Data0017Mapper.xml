@@ -414,5 +414,8 @@
 			)
 		</if>
 	</select>
+	<select id="getAllData" resultMap="BaseResultMap"> 
+		SELECT * FROM materiel_info
+	</select>
 
 </mapper>
