@@ -10,6 +10,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 		<meta/>
 		<title>禾川科技</title>
+		<link rel="icon" type="../images/hechuan.png" href="../images/hechuan.png" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/resource/assets/css/bootstrap.css" />
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/resource/assets/css/ace.css" class="ace-main-stylesheet" id="main-ace-style" />

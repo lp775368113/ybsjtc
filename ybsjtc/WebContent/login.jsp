@@ -7,6 +7,7 @@
 	<head>
 
 		<title>禾川科技</title>
+		<link rel="icon" type="" href="../images/hechuan.png" />
 		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resource/assets/css/login.css" />
 		<script>
 			$(document).ready(function(){
