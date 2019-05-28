@@ -2,11 +2,7 @@ package com.wondersgroup.materiel.encoding.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.wondersgroup.framework.dingding.config.Constant;
-import com.wondersgroup.framework.dingding.config.MessageUtil;
-import com.wondersgroup.framework.dingding.config.URLConstant;
-import com.wondersgroup.framework.dingding.util.AccessTokenUtil;
-import com.wondersgroup.materiel.encoding.service.EncodingService;
+
 import com.dingtalk.api.DefaultDingTalkClient;
 import com.dingtalk.api.DingTalkClient;
 import com.dingtalk.api.request.OapiCallBackDeleteCallBackRequest;
@@ -17,25 +13,38 @@ import com.dingtalk.api.response.OapiUserGetResponse;
 import com.dingtalk.oapi.lib.aes.DingTalkEncryptor;
 import com.dingtalk.oapi.lib.aes.Utils;
 import com.taobao.api.ApiException;
+import com.wondersgroup.framework.dingding.config.Constant;
+import com.wondersgroup.framework.dingding.config.MessageUtil;
+import com.wondersgroup.framework.dingding.config.URLConstant;
+import com.wondersgroup.framework.dingding.util.AccessTokenUtil;
+import com.wondersgroup.materiel.encoding.service.EncodingService;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import javax.annotation.Resource;
+
 /**
  * E应用回调信息处理
  */
-@RestController
+@Controller
 public class CallbackController {
 	
 	@Autowired
-	private  EncodingService encodingService;
+	private EncodingService encodingService;
 	
     private static final Logger bizLogger = LoggerFactory.getLogger("BIZ_CALLBACKCONTROLLER");
     private static final Logger mainLogger = LoggerFactory.getLogger(CallbackController.class);
@@ -87,64 +96,57 @@ public class CallbackController {
                 //todo: 实现审批的业务逻辑，如发消息
                 String processInstanceId = obj.getString("processInstanceId");
                 //区域权限申请回调
-                if (obj.containsKey("result") && obj.getString("result").equals("agree")&&"PROC-FFYJ66TV-XQZ3EWD526QFE96HMKEN3-MI1XMNTJ-N1".equals(processCode)) {
+                if (obj.containsKey("result") && obj.getString("result").equals("agree")&&"PROC-FFYJ66TV-XQZ3EWD526QFE96HMKEN3-MI1XMNTJ-N1".equals(processCode)) {/*
                     Map<String,String> a=MessageUtil.getProcessinstanceById(processInstanceId);
-//                    String userid=a.get("userid");
-//                    String accessToken = AccessTokenUtil.getToken();
-//                    OapiUserGetResponse userProfile = getUserProfile(accessToken, userid);
-//            		String userName = userProfile.getName();
-//            		String title=a.get("title");
-//            		title=title.substring(title.length()-6,title.length());
-//            		if("查看区域权限".equals(title)) {
-//                		List<Dd_Info_Dic> quyulist=voMapper.getQuyu(a.get("区域权限"));//用户提交的区域权限数据
-//                		List<Dd_User_Quyu_Per> oldPermission=voMapper.getAllPermission(userid);
-//                		for(Dd_User_Quyu_Per old:oldPermission) {
-//                			old.setRemoved("1");
-//                		}
-//                		for(Dd_Info_Dic newPer:quyulist) {
-//                			Boolean flag=false;
-//                			for(Dd_User_Quyu_Per old:oldPermission) {
-//                				if((newPer.getCode()).equals(old.getPermission())) {
-//                					flag=true;
-//                					old.setRemoved("0");
-//                				}
-//                			}
-//                			if(!flag) {
-//                				Dd_User_Quyu_Per p=new Dd_User_Quyu_Per();
-//                				p.setType("1");
-//                				p.setUserid(userid);
-//                				p.setRemoved("0");
-//                				p.setPermission(newPer.getCode());
-//                				//新增权限
-//                				voMapper.addDd_User_Quyu_Per(p);
-//                			}
-//                		}
-//                		for(Dd_User_Quyu_Per old:oldPermission) {
-//                			voMapper.updateDd_User_Quyu_Per(old);
-//            			}
-//                		mainLogger.info("区域权限授权成功！");
-//                		Dd_Operation op=Dd_Operation.getInstance(userid, 17, "授权区域："+a.get("区域权限"), "true", "");
-//            			voMapper.addOperation(op);//添加登录日志到数据库
-//                		 MessageUtil.sendMessageToOriginator(processInstanceId);//发送通知
-//            		}
-//            		//物料审批回调 同意
-                }else if(obj.containsKey("result") && obj.getString("result").equals("agree")&&"PROC-D2BB2099-F117-4B81-AEF1-A9ABD1FFEE21".equals(processCode)) {
+                    String userid=a.get("userid");
+                    String accessToken = AccessTokenUtil.getToken();
+                    OapiUserGetResponse userProfile = getUserProfile(accessToken, userid);
+            		String userName = userProfile.getName();
+            		String title=a.get("title");
+            		title=title.substring(title.length()-6,title.length());
+            		if("查看区域权限".equals(title)) {
+                		List<Dd_Info_Dic> quyulist=voMapper.getQuyu(a.get("区域权限"));//用户提交的区域权限数据
+                		List<Dd_User_Quyu_Per> oldPermission=voMapper.getAllPermission(userid);
+                		for(Dd_User_Quyu_Per old:oldPermission) {
+                			old.setRemoved("1");
+                		}
+                		for(Dd_Info_Dic newPer:quyulist) {
+                			Boolean flag=false;
+                			for(Dd_User_Quyu_Per old:oldPermission) {
+                				if((newPer.getCode()).equals(old.getPermission())) {
+                					flag=true;
+                					old.setRemoved("0");
+                				}
+                			}
+                			if(!flag) {
+                				Dd_User_Quyu_Per p=new Dd_User_Quyu_Per();
+                				p.setType("1");
+                				p.setUserid(userid);
+                				p.setRemoved("0");
+                				p.setPermission(newPer.getCode());
+                				//新增权限
+                				voMapper.addDd_User_Quyu_Per(p);
+                			}
+                		}
+                		for(Dd_User_Quyu_Per old:oldPermission) {
+                			voMapper.updateDd_User_Quyu_Per(old);
+            			}
+                		mainLogger.info("区域权限授权成功！");
+                		 MessageUtil.sendMessageToOriginator(processInstanceId);//发送通知
+            		}
+            		//物料审批回调 同意
+                */}else if(obj.containsKey("result") && obj.getString("result").equals("agree")&&"PROC-D2BB2099-F117-4B81-AEF1-A9ABD1FFEE21".equals(processCode)) {
                 	Map<String,String> a=MessageUtil.getProcessinstanceById(processInstanceId);
+                	bizLogger.info("同意："+a.get("物料唯一识别码"));
                 	String id=a.get("物料唯一识别码");
-                	int num=encodingService.agree(id);
-                	if(num==0) {
-                		mainLogger.error("更新的数据不存在！");
-                	}
+                	encodingService.agree(id);
                 	//物料审批回调 不同意
                 }else if(obj.containsKey("result") && obj.getString("result").equals("refuse")&&"PROC-D2BB2099-F117-4B81-AEF1-A9ABD1FFEE21".equals(processCode)) {
                 	Map<String,String> a=MessageUtil.getProcessinstanceById(processInstanceId);
+                	bizLogger.info("不同意："+a.get("物料唯一识别码"));
                 	String id=a.get("物料唯一识别码");
-                	int num=encodingService.refuse(id);
-                	if(num==0) {
-                		mainLogger.error("更新的数据不存在！");
-                	}
-                	}
-//                }
+                	encodingService.refuse(id);
+                }
             } else{
             	
             }
@@ -155,6 +157,7 @@ public class CallbackController {
             mainLogger.error("process callback failed！"+params,e);
             return null;
         }
+
     }
 
     public static void main(String[] args) throws Exception{
@@ -167,7 +170,7 @@ public class CallbackController {
         // 重新为企业注册回调
         client = new DefaultDingTalkClient(URLConstant.REGISTER_CALLBACK);
         OapiCallBackRegisterCallBackRequest registerRequest = new OapiCallBackRegisterCallBackRequest();
-        registerRequest.setUrl(Constant.CALLBACK_URL_HOST + "/callback");
+        registerRequest.setUrl(Constant.CALLBACK_URL_HOST + "/ybsjtc/callback.do");
         registerRequest.setAesKey(Constant.ENCODING_AES_KEY);
         registerRequest.setToken(Constant.TOKEN);
         registerRequest.setCallBackTag(Arrays.asList("bpms_instance_change", "bpms_task_change"));

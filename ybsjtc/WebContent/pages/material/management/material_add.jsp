@@ -106,7 +106,7 @@ html, body {
 					<td class="mini_title" width="16%"><span style="color: red">*</span>包装数量：</td>
 					<td width="16%"><input class="mini-textbox" name="stockPurch"
 						id="stockPurch" width="100%" required="true" vtype="float"
-						value="1" readonly="true" /></td>
+						value="1" /></td>
 					<td class="mini_title" width="16%"><span style="color: red">*</span>核算单价：</td>
 					<td width="16%"><input class="mini-textbox" name="stdCost"
 						id="stdCost" width="100%" required="true" vtype="float" /></td>

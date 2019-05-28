@@ -11,6 +11,7 @@ import com.dingtalk.api.response.OapiProcessinstanceCreateResponse;
 import com.wondersgroup.framework.dingding.config.Constant;
 import com.wondersgroup.framework.dingding.config.URLConstant;
 import com.wondersgroup.materiel.encoding.vo.Data0017;
+import com.wondersgroup.materiel.encoding.vo.MaterielCheck;
 import com.wondersgroup.permission.user.vo.Dd_User;
 
 /**   ***********************************************
@@ -29,7 +30,7 @@ import com.wondersgroup.permission.user.vo.Dd_User;
 public class Check {
 	public static Logger logger = Logger.getLogger(Check.class);
 	
-	public static void startProcessInstance(Data0017 params,Dd_User dd_user,String message) throws Exception {
+	public static void startProcessInstance(MaterielCheck params,Dd_User dd_user,String message) throws Exception {
 		
 		DefaultDingTalkClient client = new DefaultDingTalkClient(URLConstant.URL_PROCESSINSTANCE_START);
 		OapiProcessinstanceCreateRequest request = new OapiProcessinstanceCreateRequest();

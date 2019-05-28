@@ -32,4 +32,8 @@ public interface MaterielBigclassMapper {
 	List<MaterielBigclass> getAllbigclassPre();
 
 	List<MaterielSmallclass> getBigClassBySmallclassid(Map<String, Object> params);
+
+	MaterielBigclass getbigClassByclassname(String group_name);
+
+	void updateByclassname(MaterielBigclass mb);
 }

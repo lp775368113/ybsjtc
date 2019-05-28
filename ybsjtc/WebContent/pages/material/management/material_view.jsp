@@ -222,7 +222,7 @@ html, body {
 									data="[{text:'无',code:0},{text:'SMT',code:1},{text:'DIP',code:2}]"
 									textField="text" valueField="code" /></td>
 								<td class="mini_title" width="16%">制造商：</td>
-								<td width="16%"><input id="prodSupper" name="prodSupper"
+								<td width="16%"><input id="prodSuppersStr" name="prodSuppersStr"
 									class="mini-textbox asLable" enabled="false"
 									style="cursor: hand; width: 100%" borderStyle="border:0px;"
 									width="100%" /></td>

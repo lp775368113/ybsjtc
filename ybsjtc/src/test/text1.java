@@ -3,11 +3,14 @@ package test;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
+import java.sql.Connection;
+import java.sql.SQLException;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 
+import com.wondersgroup.framework.dbutil.centre.centreJdbcUtil;
 import com.wondersgroup.framework.util.DESUtil;
 import com.wondersgroup.framework.util.EncryptUtil;
 
@@ -35,12 +38,24 @@ public class text1 {
 	 * @throws IllegalBlockSizeException 
 	 * @throws NoSuchAlgorithmException 
 	 * @throws InvalidKeyException 
+	 * @throws SQLException 
 	 * @return_type: void      
 	 */
-	public static void main(String[] args) throws InvalidKeyException, NoSuchAlgorithmException, IllegalBlockSizeException, BadPaddingException, NoSuchPaddingException, InvalidKeySpecException {
-		String des=DESUtil.encrypt(DESUtil.KEY, "1111");
-		String md5 = EncryptUtil.generate(des);  
-		System.out.println(md5);
+	public static void main(String[] args) throws Exception {
+//		String des=DESUtil.encrypt(DESUtil.KEY, "1111");
+//		String md5 = EncryptUtil.generate(des);  
+//		System.out.println(md5);
+		String str="精密电阻1%-规格=430R(431)/10W-封装=SMD0603";
+		int i;
+		if(str.indexOf(" ", 1)==-1) {
+			i=str.indexOf("(", 1);
+		}else {
+			i=str.indexOf(" ", 1);
+		}
+		String hou=str.substring(str.indexOf("阻")+1, str.indexOf("-",1));
+		String qian=str.substring(str.indexOf("=", 1)+1, i);
+		String out=qian+"/"+hou;
+		System.out.println(out);
 	}
 
 }

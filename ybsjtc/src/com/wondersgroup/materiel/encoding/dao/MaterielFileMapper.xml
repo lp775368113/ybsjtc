@@ -147,6 +147,11 @@
     </set>
     where id in (${fileids})
   </update>
+  <update id="updateFileinfoid" parameterType="java.util.Map" >
+    update materiel_file
+    set   materiel_id = #{materielId,jdbcType=INTEGER}
+    where materiel_id=#{oldmaterielId,jdbcType=INTEGER}
+  </update>
   <select id="getFilesPre" parameterType="java.util.Map" resultMap="BaseResultMap" >
 	select a.* FROM materiel_file a,materiel_info  b where b.id=a.materiel_id
 	and b.erpid=#{erpid,jdbcType=INTEGER}

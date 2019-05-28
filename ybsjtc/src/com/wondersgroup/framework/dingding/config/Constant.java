@@ -48,6 +48,9 @@ public class Constant {
 
     /**
      * 回调host
+     * 
      */
-    public static final String CALLBACK_URL_HOST = "http://115.238.111.190:8087";
+     public static final String CALLBACK_URL_HOST = "http://115.238.111.190:8088";
+  // public static final String CALLBACK_URL_HOST = "http://hechuankeji.vaiwan.com";
+    
 }

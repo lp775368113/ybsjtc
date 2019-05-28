@@ -41,34 +41,41 @@ html, body {
 				<table width="99%" border="0" cellpadding="0" cellspacing="0px"
 					style="padding-top: 8px;">
 					<tr height="28px">
-						<td class="mini_title" align="right">大类名称：</td>
+						<td class="mini_title" align="right" width="60px" >大类名称：</td>
 						<td><input id="maxclass" name="maxclass"
 							class="mini-combobox"
 							url="${pageContext.request.contextPath}/class/getAllbigclassPre.do"
 							onvaluechanged="onClassChanged"  showNullItem="true"
-							textField="classname" width="300px" valueField="id" /></td>
-						<td class="mini_title" align="right">制造厂商：</td>
+							textField="classname" width="80%" valueField="id" /></td>
+						<td class="mini_title" align="right" width="80px"  >制造厂商：</td>
 						<td><input id="prodSupper" name="prodSupper"
 							class="mini-combobox"
-							url="${pageContext.request.contextPath}/encoding/getProdSupper.do"
-							valueFromSelect="true" textField="brandname" width="300px" 
-							valueField="id" allowInput="true" /></td>
-						<td class="mini_title" align="right">封装：</td>
-						<td><input class="mini-textbox" id="package_" name="package_"
-							style="width: 300px" /></td>
+							url=""
+							valueFromSelect="true" textField="brandname"  width="80%" 
+							valueField="id" allowInput="true" onclick="loadprodSupper" /></td>
+						<td class="mini_title" align="right" width="110px">封装：</td>
+						<td><input id="package_" name="package_"
+						class="mini-combobox" valueFromSelect="true" allowInput="true" 
+						url="" 
+						textField="packagename"  width="80%"  valueField="id" onclick="loadpackage" /></td>
+						<td class="mini_title" width="80px">供应商：</td>
+							<td width="16%"><input id="supplierPtr" name="supplierPtr"
+								class="mini-combobox"  valueFromSelect="true"   showNullItem="true"
+								url="" onclick="loadsupplierPtr"
+								textField="supplier_name" width="80%" valueField="id"  allowInput="true" /></td>
 					</tr>
 					<tr height="28px">
-						<td class="mini_title" align="right">小类名称：</td>
+						<td class="mini_title" align="right"  width="60px" >小类名称：</td>
 						<td><input id="prodCodeSellPtr" name="prodCodeSellPtr"
 							class="mini-combobox" url=""  showNullItem="true"
-							textField="classname" width="300px" valueField="id"
+							textField="classname"  width="80%"  valueField="id"
 							 /></td>
-						<td class="mini_title" align="right">供应商料号：</td>
+						<td class="mini_title" align="right"  width="80px" >供应商料号：</td>
 						<td><input class="mini-textbox" id="custPartCode"
-							name="custPartCode" style="width: 300px" /></td>
-						<td class="mini_title" align="right">物料名称（描述）：</td>
+							name="custPartCode"  width="80%"  /></td>
+						<td class="mini_title" align="right" width="110px"  >物料名称（描述）：</td>
 						<td><input class="mini-textbox" id="ipdcSTR" name="ipdcSTR"
-							style="width: 300px" emptyText="多个关键词用空格隔开" /></td>
+							 width="80%"  emptyText="多个关键词用空格隔开" /></td>
 						<td colspan="2" align="center" valign="right">
 							<div style="width: 150px; padding-right: 12px;" class="operate">
 								<button type="button" class="cx_color" onclick="search()">
@@ -81,17 +88,17 @@ html, body {
 						</td>
 					</tr>
 					<tr height="28px">
-						<td class="mini_title" align="right">审核：</td>
+						<td class="mini_title" align="right"  width="60px" >审核：</td>
 						<td><input class="mini-combobox" name="status" id="status"
-							width="300px"
-							data="[{text:'ERP同步',code:9},{text:'审核中',code:2},{text:'不同意',code:4}]"
+							 width="80%" 
+							data="[{text:'ERP同步',code:9},{text:'审核中',code:1},{text:'不同意',code:3}]"
 							textField="text" valueField="code" value=9 onvaluechanged="onStatusChanged" /></td>
-						<td class="mini_title" align="right">物料编码：</td>
+						<td class="mini_title" align="right" width="80px"  >物料编码：</td>
 						<td><input class="mini-textbox" id="invPartNumber"
-							name="invPartNumber" style="width: 300px" /></td>
-						<td class="mini_title" align="right">禾川编码：</td>
+							name="invPartNumber"  width="80%"  /></td>
+						<td class="mini_title" align="right" width="110px" >禾川编码：</td>
 						<td><input class="mini-textbox" id="extraDesc"
-							name="extraDesc" style="width: 300px" /></td>
+							name="extraDesc"  width="80%"  /></td>
 
 					</tr>
 
@@ -132,28 +139,26 @@ html, body {
 				url="${pageContext.request.contextPath}/encoding/getMaterielList.do">
 				<div property="columns">
 					<div type="checkcolumn"></div>
-					<div field="prodCodeSellPtrStr" width="25%" headerAlign="center"
+					<div field="prodCodeSellPtrStr" width="20%" headerAlign="center"
 						align="center">物料小类</div> 
 					<!-- <div field="rkey" width="13%" headerAlign="center" align="center">RKEY</div>  -->
 					<!-- <div field="ttype" width="20%" headerAlign="center" align="center">原料标识</div> -->
 					<div field="invPartNumber" width="20%" headerAlign="center"
 						align="center">物料编码</div>
-					<div field="extraDesc" width="33%" headerAlign="center"
+					<div field="extraDesc" width="15%" headerAlign="center"
 						align="center">禾川编码</div>
 					<!-- <div field="invPartDescriptionC" width="33%" headerAlign="center" align="center">物料大类</div> -->
-					<div field="prodSupper" width="25%" headerAlign="center"
+					<div field="prodSuppersStr" width="15%" headerAlign="center"
 						align="center">制造厂商</div>
-					<div field="package_Str" width="25%" headerAlign="center"
+					<div field="package_Str" width="17%" headerAlign="center"
 						align="center">封装</div>
-					<!-- <div field="smtFlag" width="33%" headerAlign="center"
-						align="center">SMT/DIP</div>  -->
-					<div field="invPartDescriptionC" width="40%" headerAlign="center"
+					<div field="invPartDescriptionC" width="45%" headerAlign="center"
 						align="center">物料名称（描述）</div>
-					<!-- <div field="custPartName" width="33%" headerAlign="center"
-						align="center">供应商物料名称</div> -->
+					<div field="supplierPtrStr" width="25%" headerAlign="center"
+						align="center">供应商</div>
 					<div field="custPartCode" width="25%" headerAlign="center"
 						align="center">供应商料号</div>
-					<div field="stockPurch" width="33%" headerAlign="center"
+					<div field="stockPurch" width="10%" headerAlign="center"
 						align="center">包装数量</div>
 				</div>
 			</div>
@@ -202,6 +207,21 @@ html, body {
 		var data = form.getData(true);
 		grid.load(data);
 	}
+	
+	function loadprodSupper(){
+		var url="${pageContext.request.contextPath}/encoding/getProdSupper.do";
+		mini.get("prodSupper").setUrl(url);
+	}
+	
+	function loadpackage(){
+		var url="${pageContext.request.contextPath}/package/getAllpackage.do";
+		mini.get("package_").setUrl(url);
+	}
+	
+	function loadsupplierPtr(){
+		var url="${pageContext.request.contextPath}/encoding/getAllSupplier.do";
+		mini.get("supplierPtr").setUrl(url);
+	}
 
 	function onClassChanged() {
 		var maxclass = mini.get("maxclass");
@@ -217,11 +237,6 @@ html, body {
 			return;
 		}
 		var data = form.getData(true);
-		var status=mini.get("status").getValue();
-		if(9==status){
-			var prodSupper = mini.get("prodSupper").getText();
-			data.prodSupper = prodSupper;
-		}
 		grid.load(data);
 	}
 

@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wondersgroup.materiel.encoding.dao.MaterielCheckMapper" >
+  <resultMap id="BaseResultMap" type="com.wondersgroup.materiel.encoding.vo.MaterielCheck" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="wlid" property="wlid" jdbcType="INTEGER" />
+    <result column="erpid" property="erpid" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="inv_part_number" property="invPartNumber" jdbcType="VARCHAR" />
+    <result column="extra_desc" property="extraDesc" jdbcType="VARCHAR" />
+    <result column="prod_code_sell_ptr" property="prodCodeSellPtr" jdbcType="VARCHAR" />
+    <result column="prod_supper" property="prodSupper" jdbcType="VARCHAR" />
+    <result column="package_" property="package_" jdbcType="VARCHAR" />
+    <result column="smt_flag" property="smtFlag" jdbcType="VARCHAR" />
+    <result column="inv_part_description_c" property="invPartDescriptionC" jdbcType="VARCHAR" />
+    <result column="cust_part_name" property="custPartName" jdbcType="VARCHAR" />
+    <result column="cust_part_code" property="custPartCode" jdbcType="VARCHAR" />
+    <result column="purch_unit_ptr" property="purchUnitPtr" jdbcType="VARCHAR" />
+    <result column="stock_unit_ptr" property="stockUnitPtr" jdbcType="VARCHAR" />
+    <result column="supplier_ptr" property="supplierPtr" jdbcType="VARCHAR" />
+    <result column="std_cost" property="stdCost" jdbcType="VARCHAR" />
+    <result column="stock_purch" property="stockPurch" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="userid" property="userid" jdbcType="INTEGER" />
+    <result column="starttime" property="starttime" jdbcType="TIMESTAMP" />
+    <result column="endtime" property="endtime" jdbcType="TIMESTAMP" />
+    <result column="prodSuppersStr" property="prodSuppersStr" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, wlid, erpid, status,  inv_part_number, extra_desc, prod_code_sell_ptr, 
+    prod_supper, package_, smt_flag, inv_part_description_c, cust_part_name, cust_part_code, 
+    purch_unit_ptr, stock_unit_ptr, supplier_ptr, std_cost, stock_purch, remark, userid, 
+    starttime, endtime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from materiel_check
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from materiel_check
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <update id="agree" parameterType="Integer" >
+		update materiel_check a set a.status=2 where a.id=#{id}
+	</update>
+	<update id="refuse" parameterType="Integer" >
+		update materiel_check a set a.status=3 where a.id=#{id}
+	</update>
+  <insert id="insert" parameterType="com.wondersgroup.materiel.encoding.vo.MaterielCheck" >
+    insert into materiel_check (id, wlid, erpid, 
+      status,   inv_part_number, 
+      extra_desc, prod_code_sell_ptr, prod_supper, 
+      package_, smt_flag, inv_part_description_c, 
+      cust_part_name, cust_part_code, purch_unit_ptr, 
+      stock_unit_ptr, supplier_ptr, std_cost, 
+      stock_purch, remark, userid, 
+      starttime, endtime)
+    values (#{id,jdbcType=INTEGER}, #{wlid,jdbcType=INTEGER}, #{erpid,jdbcType=INTEGER}, 
+      #{status,jdbcType=VARCHAR},   #{invPartNumber,jdbcType=VARCHAR}, 
+      #{extraDesc,jdbcType=VARCHAR}, #{prodCodeSellPtr,jdbcType=VARCHAR}, #{prodSupper,jdbcType=VARCHAR}, 
+      #{package_,jdbcType=VARCHAR}, #{smtFlag,jdbcType=VARCHAR}, #{invPartDescriptionC,jdbcType=VARCHAR}, 
+      #{custPartName,jdbcType=VARCHAR}, #{custPartCode,jdbcType=VARCHAR}, #{purchUnitPtr,jdbcType=VARCHAR}, 
+      #{stockUnitPtr,jdbcType=VARCHAR}, #{supplierPtr,jdbcType=VARCHAR}, #{stdCost,jdbcType=VARCHAR}, 
+      #{stockPurch,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{userid,jdbcType=INTEGER}, 
+      #{starttime,jdbcType=TIMESTAMP}, #{endtime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.wondersgroup.materiel.encoding.vo.MaterielCheck" useGeneratedKeys="true" keyProperty="id" >
+    insert into materiel_check
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="wlid != null" >
+        wlid,
+      </if>
+      <if test="erpid != null" >
+        erpid,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="invPartNumber != null" >
+        inv_part_number,
+      </if>
+      <if test="extraDesc != null" >
+        extra_desc,
+      </if>
+      <if test="prodCodeSellPtr != null" >
+        prod_code_sell_ptr,
+      </if>
+      <if test="prodSupper != null" >
+        prod_supper,
+      </if>
+      <if test="package_ != null" >
+        package_,
+      </if>
+      <if test="smtFlag != null" >
+        smt_flag,
+      </if>
+      <if test="invPartDescriptionC != null" >
+        inv_part_description_c,
+      </if>
+      <if test="custPartName != null" >
+        cust_part_name,
+      </if>
+      <if test="custPartCode != null" >
+        cust_part_code,
+      </if>
+      <if test="purchUnitPtr != null" >
+        purch_unit_ptr,
+      </if>
+      <if test="stockUnitPtr != null" >
+        stock_unit_ptr,
+      </if>
+      <if test="supplierPtr != null" >
+        supplier_ptr,
+      </if>
+      <if test="stdCost != null" >
+        std_cost,
+      </if>
+      <if test="stockPurch != null" >
+        stock_purch,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="userid != null" >
+        userid,
+      </if>
+      <if test="starttime != null" >
+        starttime,
+      </if>
+      <if test="endtime != null" >
+        endtime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="wlid != null" >
+        #{wlid,jdbcType=INTEGER},
+      </if>
+      <if test="erpid != null" >
+        #{erpid,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="invPartNumber != null" >
+        #{invPartNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="extraDesc != null" >
+        #{extraDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="prodCodeSellPtr != null" >
+        #{prodCodeSellPtr,jdbcType=VARCHAR},
+      </if>
+      <if test="prodSupper != null" >
+        #{prodSupper,jdbcType=VARCHAR},
+      </if>
+      <if test="package_ != null" >
+        #{package_,jdbcType=VARCHAR},
+      </if>
+      <if test="smtFlag != null" >
+        #{smtFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="invPartDescriptionC != null" >
+        #{invPartDescriptionC,jdbcType=VARCHAR},
+      </if>
+      <if test="custPartName != null" >
+        #{custPartName,jdbcType=VARCHAR},
+      </if>
+      <if test="custPartCode != null" >
+        #{custPartCode,jdbcType=VARCHAR},
+      </if>
+      <if test="purchUnitPtr != null" >
+        #{purchUnitPtr,jdbcType=VARCHAR},
+      </if>
+      <if test="stockUnitPtr != null" >
+        #{stockUnitPtr,jdbcType=VARCHAR},
+      </if>
+      <if test="supplierPtr != null" >
+        #{supplierPtr,jdbcType=VARCHAR},
+      </if>
+      <if test="stdCost != null" >
+        #{stdCost,jdbcType=VARCHAR},
+      </if>
+      <if test="stockPurch != null" >
+        #{stockPurch,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="starttime != null" >
+        #{starttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endtime != null" >
+        #{endtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wondersgroup.materiel.encoding.vo.MaterielCheck" >
+    update materiel_check
+    <set >
+      <if test="wlid != null" >
+        wlid = #{wlid,jdbcType=INTEGER},
+      </if>
+      <if test="erpid != null" >
+        erpid = #{erpid,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="invPartNumber != null" >
+        inv_part_number = #{invPartNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="extraDesc != null" >
+        extra_desc = #{extraDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="prodCodeSellPtr != null" >
+        prod_code_sell_ptr = #{prodCodeSellPtr,jdbcType=VARCHAR},
+      </if>
+      <if test="prodSupper != null" >
+        prod_supper = #{prodSupper,jdbcType=VARCHAR},
+      </if>
+      <if test="package_ != null" >
+        package_ = #{package_,jdbcType=VARCHAR},
+      </if>
+      <if test="smtFlag != null" >
+        smt_flag = #{smtFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="invPartDescriptionC != null" >
+        inv_part_description_c = #{invPartDescriptionC,jdbcType=VARCHAR},
+      </if>
+      <if test="custPartName != null" >
+        cust_part_name = #{custPartName,jdbcType=VARCHAR},
+      </if>
+      <if test="custPartCode != null" >
+        cust_part_code = #{custPartCode,jdbcType=VARCHAR},
+      </if>
+      <if test="purchUnitPtr != null" >
+        purch_unit_ptr = #{purchUnitPtr,jdbcType=VARCHAR},
+      </if>
+      <if test="stockUnitPtr != null" >
+        stock_unit_ptr = #{stockUnitPtr,jdbcType=VARCHAR},
+      </if>
+      <if test="supplierPtr != null" >
+        supplier_ptr = #{supplierPtr,jdbcType=VARCHAR},
+      </if>
+      <if test="stdCost != null" >
+        std_cost = #{stdCost,jdbcType=VARCHAR},
+      </if>
+      <if test="stockPurch != null" >
+        stock_purch = #{stockPurch,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        userid = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="starttime != null" >
+        starttime = #{starttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endtime != null" >
+        endtime = #{endtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wondersgroup.materiel.encoding.vo.MaterielCheck" >
+    update materiel_check
+    set wlid = #{wlid,jdbcType=INTEGER},
+      erpid = #{erpid,jdbcType=INTEGER},
+      status = #{status,jdbcType=VARCHAR},
+      inv_part_number = #{invPartNumber,jdbcType=VARCHAR},
+      extra_desc = #{extraDesc,jdbcType=VARCHAR},
+      prod_code_sell_ptr = #{prodCodeSellPtr,jdbcType=VARCHAR},
+      prod_supper = #{prodSupper,jdbcType=VARCHAR},
+      package_ = #{package_,jdbcType=VARCHAR},
+      smt_flag = #{smtFlag,jdbcType=VARCHAR},
+      inv_part_description_c = #{invPartDescriptionC,jdbcType=VARCHAR},
+      cust_part_name = #{custPartName,jdbcType=VARCHAR},
+      cust_part_code = #{custPartCode,jdbcType=VARCHAR},
+      purch_unit_ptr = #{purchUnitPtr,jdbcType=VARCHAR},
+      stock_unit_ptr = #{stockUnitPtr,jdbcType=VARCHAR},
+      supplier_ptr = #{supplierPtr,jdbcType=VARCHAR},
+      std_cost = #{stdCost,jdbcType=VARCHAR},
+      stock_purch = #{stockPurch,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      userid = #{userid,jdbcType=INTEGER},
+      starttime = #{starttime,jdbcType=TIMESTAMP},
+      endtime = #{endtime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="getPage" parameterType="java.util.Map"
+		resultMap="BaseResultMap">
+		SELECT id, erpid, status,  inv_part_number, extra_desc, (select
+		y.classname from materiel_smallclass y where y.id=a.prod_code_sell_ptr
+		) prodCodeSellPtrStr, prod_code_sell_ptr,
+		package_,(select o.packagename from materiel_package o where o.id=a.package_)
+		package_Str,
+		smt_flag, inv_part_description_c, cust_part_name, cust_part_code,
+		purch_unit_ptr,
+		stock_unit_ptr, supplier_ptr, std_cost, stock_purch,remark,userid,prod_supper,(select
+		h.brandname from materiel_brand h where h.id=a.prod_supper
+		) prodSuppersStr FROM materiel_check a where 1=1
+		<if test="invPartNumber != null and invPartNumber!=''">
+			AND a.INV_PART_NUMBER like '%${invPartNumber}%'
+		</if>
+		<if test="prodSupper != null and prodSupper!=''">
+			AND a.PROD_SUPPER =#{prodSupper}
+		</if>
+		<if test="package_ != null and package_!=''">
+			AND a.PACKAGE_ = #{package_}
+		</if>
+		<if test="extraDesc != null and extraDesc!=''">
+			AND a.EXTRA_DESC like '%${extraDesc}%'
+		</if>
+		<if test="status != null and status!=''">
+			AND a.status =#{status}
+		</if>
+		<if test="custPartCode != null and custPartCode!=''">
+			AND a.CUST_PART_CODE like '%${custPartCode}%'
+		</if>
+		<if test="list!= null and list.size()>0">
+			AND (
+			<foreach collection="list" item="item" index="index"
+				separator="AND">
+				a.inv_part_description_c LIKE
+				'%${item}%'
+			</foreach>
+			)
+		</if>
+		<if test="prodCodeSellPtr != null and prodCodeSellPtr!=''">
+			AND a.prod_code_sell_ptr =#{prodCodeSellPtr}
+		</if>
+		limit #{start},#{row}
+	</select>
+
+	<select id="getPageCount" parameterType="java.util.Map"
+		resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM materiel_info a where 1=1
+		<if test="invPartNumber != null and invPartNumber!=''">
+			AND a.INV_PART_NUMBER like '%${invPartNumber}%'
+		</if>
+		<if test="prodSupper != null and prodSupper!=''">
+			AND a.PROD_SUPPER =#{prodSupper}
+		</if>
+		<if test="package_ != null and package_!=''">
+			AND a.PACKAGE_ = #{package_}
+		</if>
+		<if test="extraDesc != null and extraDesc!=''">
+			AND a.EXTRA_DESC like '%${extraDesc}%'
+		</if>
+		<if test="status != null and status!=''">
+			AND a.status =#{status}
+		</if>
+		<if test="custPartCode != null and custPartCode!=''">
+			AND a.CUST_PART_CODE like '%${custPartCode}%'
+		</if>
+		<if test="prodCodeSellPtr != null and prodCodeSellPtr!=''">
+			AND a.prod_code_sell_ptr =#{prodCodeSellPtr}
+		</if>
+		<if test="list!= null and list.size()>0">
+			AND (
+			<foreach collection="list" item="item" index="index"
+				separator="AND">
+				a.inv_part_description_c LIKE
+				'%${item}%'
+			</foreach>
+			)
+		</if>
+	</select>
+</mapper>

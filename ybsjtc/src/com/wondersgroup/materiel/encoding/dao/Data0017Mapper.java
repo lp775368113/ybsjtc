@@ -28,10 +28,6 @@ public interface Data0017Mapper {
 
 	Data0017 getData0017ById(Data0017 params);
 
-	int agree(Integer id);
-
-	int refus(Integer id);
-
 	List<Units> getUnit();
 
 	List<MaterielSupplier> getSupplier(Map map);
@@ -45,4 +41,13 @@ public interface Data0017Mapper {
 	Integer getPageCount(Map<String, Object> params);
 	
 	List<Data0017> getAllData();
+
+	Integer countCustPartCode(Map<String, Object> params);
+
+	Integer countInvPartDescriptionC(Map<String, Object> params);
+
+	Data0017 getMaterielInfoByErpid(Integer erpid);
+
+	void updateMaterielInfo(Data0017 cen);
+
 }

@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Map;
 
 import com.wondersgroup.materiel.encoding.brandManagement.vo.MaterielBrand;
-import com.wondersgroup.materiel.encoding.vo.MaterielDevice;
 
 public interface MaterielBrandMapper {
 
@@ -24,9 +23,9 @@ public interface MaterielBrandMapper {
 
 	Integer getPageCount(Map<String, Object> params);
 
-	List<MaterielDevice> getProdSupper(Map<String, Object> params);
-
 	MaterielBrand getProdSupperId(String brandname);
 
 	Integer countBrandname(MaterielBrand brand);
+
+	List<MaterielBrand> getProdSupper(Map<String, Object> params);
 }

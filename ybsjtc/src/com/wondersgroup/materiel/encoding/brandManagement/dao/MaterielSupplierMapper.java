@@ -19,4 +19,8 @@ public interface MaterielSupplierMapper {
 	MaterielSupplier getProdSupperId(Integer id);
 
 	Integer countSuppliername(MaterielSupplier supplier);
+
+	MaterielSupplier getsupplierByname(String supplier_name);
+
+	void updateByname(MaterielSupplier mb);
 }

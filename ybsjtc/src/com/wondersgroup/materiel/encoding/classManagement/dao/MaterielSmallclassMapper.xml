@@ -224,4 +224,44 @@
 		where a.bigclassid=b.id
 		and a.id = #{id,jdbcType=INTEGER}
 	</select>
+	
+	<select id="getSmallClassByclassname" resultMap="BaseResultMap"
+		parameterType="String">
+		select
+		<include refid="Base_Column_List" />
+		from materiel_smallclass
+		where classname = #{classname,jdbcType=INTEGER}
+	</select>
+	
+	<update id="updateByclassname"
+		parameterType="com.wondersgroup.materiel.encoding.classManagement.vo.MaterielSmallclass">
+		update materiel_smallclass
+		<set>
+			<if test="id != null">
+				id = #{id,jdbcType=INTEGER},
+			</if>
+			<if test="bigclassid != null">
+				bigclassid = #{bigclassid,jdbcType=INTEGER},
+			</if>
+			<if test="code != null">
+				code = #{code,jdbcType=VARCHAR},
+			</if>
+			<if test="rules != null">
+				rules = #{rules,jdbcType=VARCHAR},
+			</if>
+			<if test="ensample != null">
+				ensample = #{ensample,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				remark = #{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="removed != null">
+				removed = #{removed,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				status = #{status,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where classname = #{classname,jdbcType=VARCHAR}
+	</update>
 </mapper>

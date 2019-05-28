@@ -80,7 +80,7 @@ public class BrandSupplierController extends BaseController{
 	public Map<String, Object> addSupplier(MaterielSupplier supplier){
 		Map<String, Object> result = new HashMap<String, Object>();
 		try {
-			supplier.setRemoved("0");
+			supplier.setRemoved("1");
 			supplier.setStatus("1");
 			brandSupplierService.addSupplier(supplier);
 			result.put("success", true);

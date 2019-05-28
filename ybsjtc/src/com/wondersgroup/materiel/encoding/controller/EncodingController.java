@@ -23,11 +23,12 @@ import com.wondersgroup.framework.comwork.controller.BaseController;
 import com.wondersgroup.framework.comwork.controller.SessionConstants;
 import com.wondersgroup.framework.jxls.JxlsExcelView;
 import com.wondersgroup.framework.jxls.JxlsRead;
+import com.wondersgroup.materiel.encoding.brandManagement.vo.MaterielBrand;
 import com.wondersgroup.materiel.encoding.classManagement.service.ClassService;
 import com.wondersgroup.materiel.encoding.classManagement.vo.MaterielSmallclass;
 import com.wondersgroup.materiel.encoding.service.EncodingService;
 import com.wondersgroup.materiel.encoding.vo.Data0017;
-import com.wondersgroup.materiel.encoding.vo.MaterielDevice;
+import com.wondersgroup.materiel.encoding.vo.MaterielCheck;
 import com.wondersgroup.materiel.encoding.vo.MaterielFile;
 import com.wondersgroup.materiel.encoding.vo.MaterielSupplier;
 import com.wondersgroup.materiel.encoding.vo.Units;
@@ -130,7 +131,7 @@ public class EncodingController extends BaseController{
 	 */
 	@ResponseBody
 	@RequestMapping("saveData0017")
-	public Map saveData0017(Data0017 params,HttpServletRequest request){
+	public Map saveData0017(MaterielCheck params,HttpServletRequest request){
 		Map<String,Object> result=new HashMap<String,Object>();
 		try {
 			User user=(User)request.getSession().getAttribute(SessionConstants.CW_LOGINUSER);
@@ -148,11 +149,10 @@ public class EncodingController extends BaseController{
 	
 	@ResponseBody
 	@RequestMapping("editData0017")
-	public Map editData0017(Data0017 params,HttpServletRequest request){
+	public Map editData0017(MaterielCheck params,HttpServletRequest request){
 		Map<String,Object> result=new HashMap<String,Object>();
 		try {
 			User user=(User)request.getSession().getAttribute(SessionConstants.CW_LOGINUSER);
-			params.setErpid(Integer.parseInt(params.getRkey()));
 			encodingService.editData0017(params,user);
 			result.put("success", true);
 		} catch (Exception e) {
@@ -167,7 +167,7 @@ public class EncodingController extends BaseController{
 	
 	@ResponseBody
 	@RequestMapping("saveReplaceData0017")
-	public Map saveReplaceData0017(Data0017 params,HttpServletRequest request){
+	public Map saveReplaceData0017(MaterielCheck params,HttpServletRequest request){
 		Map<String,Object> result=new HashMap<String,Object>();
 		try {
 			User user=(User)request.getSession().getAttribute(SessionConstants.CW_LOGINUSER);
@@ -194,12 +194,11 @@ public class EncodingController extends BaseController{
 	public Map SD(@RequestParam Map<String, Object> params,@RequestParam String SD,HttpServletRequest request){
 		Map<String,Object> result=new HashMap<String,Object>();
 		try {
-			Data0017 bean=new Data0017();
+			MaterielCheck bean=new MaterielCheck();
 			bean.setInvPartNumber((String)params.get("invPartNumber"));
 			bean.setProdSupper((String)params.get("prodSupper"));
 			bean.setPackage_((String)params.get("package_"));
-			bean.setErpid(Integer.parseInt((String)params.get("rkey")));
-			bean.setTtype((String)params.get("ttype"));
+			bean.setErpid(Integer.parseInt((String)params.get("erpid")));
 			bean.setProdCodeSellPtr((String)params.get("prodCodeSellPtr"));
 			bean.setSmtFlag((String)params.get("smtFlag"));
 			bean.setInvPartDescriptionC((String)params.get("invPartDescriptionC"));
@@ -330,7 +329,7 @@ public class EncodingController extends BaseController{
 	
 	@ResponseBody
 	@RequestMapping("getProdSupper")
-	public List<MaterielDevice> getProdSupper(@RequestParam Map<String, Object> params){
+	public List<MaterielBrand>  getProdSupper(@RequestParam Map<String, Object> params){
 		return encodingService.getProdSupper(params);
 	}
 	

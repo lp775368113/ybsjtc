@@ -152,4 +152,30 @@
   <select id="getBigClassBySmallclassid" resultMap="BaseResultMap" parameterType="java.util.Map">
   select a.* from materiel_bigclass a,materiel_smallclass b where a.id=b.bigclassid and b.id=#{smallclassid} ORDER BY a.code+0 
   </select>
+  
+  <select id="getbigClassByclassname" resultMap="BaseResultMap" parameterType="String">
+  	select a.* from  materiel_bigclass  a  where   a.classname=#{classname,jdbcType=VARCHAR} 
+  </select>
+  
+   <update id="updateByclassname" parameterType="com.wondersgroup.materiel.encoding.classManagement.vo.MaterielBigclass" >
+    update materiel_bigclass
+    <set >
+      <if test="id != null" >
+        id = #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null" >
+        code = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="removed != null" >
+        removed = #{removed,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where classname = #{classname,jdbcType=VARCHAR}
+  </update>
 </mapper>

@@ -1,4 +1,5 @@
 package com.wondersgroup.materiel.encoding.dao;
+import com.wondersgroup.materiel.encoding.vo.Data0017;
 import com.wondersgroup.materiel.encoding.vo.MaterielFile;
 
 import java.util.List;
@@ -20,4 +21,8 @@ public interface MaterielFileMapper {
 	void updateByids(Map<String, Object> para);
 
 	List<MaterielFile> getFilesPre(Map<String, Object> params);
+
+	void updateFileinfoid(Map<String, Object> para);
+
+
 }

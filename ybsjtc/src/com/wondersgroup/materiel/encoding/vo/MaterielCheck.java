@@ -2,18 +2,14 @@ package com.wondersgroup.materiel.encoding.vo;
 
 import java.util.Date;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
-public class Data0017 {
+public class MaterielCheck {
     private Integer id;
 
+    private Integer wlid;
+
     private Integer erpid;
-    
-    private  String erpstatus;
-    
+
     private String status;
-    
-    private String rkey;
 
     private String ttype;
 
@@ -24,14 +20,16 @@ public class Data0017 {
     private String prodCodeSellPtr;
     
     private String prodCodeSellPtrStr;
-
-    private String prodSupper;
     
     private String prodSupperStr;
-
-    private String package_;
     
     private String package_Str;
+    
+    private String supplierPtrStr;
+
+    private String prodSupper;
+
+    private String package_;
 
     private String smtFlag;
 
@@ -50,26 +48,65 @@ public class Data0017 {
     private String stdCost;
 
     private String stockPurch;
-    
+
     private String remark;
-    
+
     private Integer userid;
-    
-    private Date createtime; 
+
+    private Date starttime;
+
+    private Date endtime;
     
     private String fileidstr;
     
-    private String maxclass;
-    
-    private String supplierPtrStr;
-    
     private String prodSuppersStr;
+
     public Integer getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public String getProdCodeSellPtrStr() {
+		return prodCodeSellPtrStr;
+	}
+
+	public void setProdCodeSellPtrStr(String prodCodeSellPtrStr) {
+		this.prodCodeSellPtrStr = prodCodeSellPtrStr;
+	}
+
+	public String getProdSupperStr() {
+		return prodSupperStr;
+	}
+
+	public void setProdSupperStr(String prodSupperStr) {
+		this.prodSupperStr = prodSupperStr;
+	}
+
+	public String getPackage_Str() {
+		return package_Str;
+	}
+
+	public void setPackage_Str(String package_Str) {
+		this.package_Str = package_Str;
+	}
+
+	public String getSupplierPtrStr() {
+		return supplierPtrStr;
+	}
+
+	public void setSupplierPtrStr(String supplierPtrStr) {
+		this.supplierPtrStr = supplierPtrStr;
+	}
+
+	public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Integer getWlid() {
+        return wlid;
+    }
+
+    public void setWlid(Integer wlid) {
+        this.wlid = wlid;
     }
 
     public Integer getErpid() {
@@ -78,6 +115,14 @@ public class Data0017 {
 
     public void setErpid(Integer erpid) {
         this.erpid = erpid;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status == null ? null : status.trim();
     }
 
     public String getTtype() {
@@ -119,6 +164,7 @@ public class Data0017 {
     public void setProdSupper(String prodSupper) {
         this.prodSupper = prodSupper == null ? null : prodSupper.trim();
     }
+
 
     public String getPackage_() {
 		return package_;
@@ -200,54 +246,37 @@ public class Data0017 {
         this.stockPurch = stockPurch == null ? null : stockPurch.trim();
     }
 
+    public String getRemark() {
+        return remark;
+    }
 
-	public String getRkey() {
-		return rkey;
-	}
+    public void setRemark(String remark) {
+        this.remark = remark == null ? null : remark.trim();
+    }
 
-	public void setRkey(String rkey) {
-		this.rkey = rkey;
-	}
+    public Integer getUserid() {
+        return userid;
+    }
 
-	public String getStatus() {
-		return status;
-	}
+    public void setUserid(Integer userid) {
+        this.userid = userid;
+    }
 
-	public void setStatus(String status) {
-		this.status = status;
-	}
+    public Date getStarttime() {
+        return starttime;
+    }
 
-	public String getErpstatus() {
-		return erpstatus;
-	}
+    public void setStarttime(Date starttime) {
+        this.starttime = starttime;
+    }
 
-	public void setErpstatus(String erpstatus) {
-		this.erpstatus = erpstatus;
-	}
+    public Date getEndtime() {
+        return endtime;
+    }
 
-	public String getRemark() {
-		return remark;
-	}
-
-	public void setRemark(String remark) {
-		this.remark = remark;
-	}
-
-	public Integer getUserid() {
-		return userid;
-	}
-
-	public void setUserid(Integer userid) {
-		this.userid = userid;
-	}
-
-	public Date getCreatetime() {
-		return createtime;
-	}
-
-	public void setCreatetime(Date createtime) {
-		this.createtime = createtime;
-	}
+    public void setEndtime(Date endtime) {
+        this.endtime = endtime;
+    }
 
 	public String getFileidstr() {
 		return fileidstr;
@@ -257,46 +286,6 @@ public class Data0017 {
 		this.fileidstr = fileidstr;
 	}
 
-	public String getMaxclass() {
-		return maxclass;
-	}
-
-	public void setMaxclass(String maxclass) {
-		this.maxclass = maxclass;
-	}
-
-	public String getProdCodeSellPtrStr() {
-		return prodCodeSellPtrStr;
-	}
-
-	public void setProdCodeSellPtrStr(String prodCodeSellPtrStr) {
-		this.prodCodeSellPtrStr = prodCodeSellPtrStr;
-	}
-
-	public String getPackage_Str() {
-		return package_Str;
-	}
-
-	public void setPackage_Str(String package_Str) {
-		this.package_Str = package_Str;
-	}
-
-	public String getProdSupperStr() {
-		return prodSupperStr;
-	}
-
-	public void setProdSupperStr(String prodSupperStr) {
-		this.prodSupperStr = prodSupperStr;
-	}
-
-	public String getSupplierPtrStr() {
-		return supplierPtrStr;
-	}
-
-	public void setSupplierPtrStr(String supplierPtrStr) {
-		this.supplierPtrStr = supplierPtrStr;
-	}
-
 	public String getProdSuppersStr() {
 		return prodSuppersStr;
 	}
@@ -304,6 +293,4 @@ public class Data0017 {
 	public void setProdSuppersStr(String prodSuppersStr) {
 		this.prodSuppersStr = prodSuppersStr;
 	}
-	
-	
 }

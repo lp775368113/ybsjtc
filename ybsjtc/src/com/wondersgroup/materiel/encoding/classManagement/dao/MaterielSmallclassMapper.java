@@ -33,4 +33,8 @@ public interface MaterielSmallclassMapper {
 
 	List<MaterielSmallclass> getAllSmallClass(Map<String, Object> params);
 
+	MaterielSmallclass getSmallClassByclassname(String classname);
+
+	void updateByclassname(MaterielSmallclass mb);
+
 }

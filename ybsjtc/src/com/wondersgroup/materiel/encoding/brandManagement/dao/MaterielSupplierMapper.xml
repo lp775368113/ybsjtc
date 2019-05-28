@@ -106,4 +106,27 @@
         and id!=#{id}
      	</if>
   </select>
+  
+  <select id="getsupplierByname" resultMap="BaseResultMap" parameterType="String">
+  	select * from materiel_supplier a where  a.supplier_Name=#{supplierName}
+  </select>
+  
+  <update id="updateByname" parameterType="com.wondersgroup.materiel.encoding.brandManagement.vo.MaterielSupplier" >
+    update materiel_supplier
+    <set >
+      <if test="id != null" >
+        id = #{id,jdbcType=INTEGER},
+      </if>
+      <if test="removed != null" >
+        removed = #{removed,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where supplier_Name = #{supplierName,jdbcType=VARCHAR}
+  </update>
 </mapper>

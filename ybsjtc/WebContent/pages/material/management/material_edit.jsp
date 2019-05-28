@@ -37,7 +37,8 @@ html, body {
 	<div class="mini-fit">
 		<form id="form2" name="form2" style="padding-top: 10px" action="#"
 			method="post">
-			<input class="mini-hidden" name="rkey" id="rkey" /> <input
+			<input class="mini-hidden" name="erpid" id="erpid" />
+			<input class="mini-hidden" name="wlid" id="wlid" /> <input
 				class="mini-hidden" name="extraDesc" id="extraDesc" />
 			<table cellpadding="0" class="main-table" cellspacing="10px"
 				border="0px" width="98%">
@@ -160,13 +161,16 @@ html, body {
 		function SetData(data) {
 			//跨页面传递的数据对象，克隆后才可以安全使用
 			data = mini.clone(data);
+			mini.get("wlid").setValue(data.id);
 			form.setData(data);
 			setClass(data.prodCodeSellPtr);//设置大类小类值
 			row = data;
 			lodingFiles(data.rkey);//加载文件
-			setProdSupper(data.prodSupper);//设置品牌的值
-			lodingremark(data);//显示备注
-			setPackage_(data);//设置封装信息
+			onProdSupperChanged();
+			setSupplierPtr(data.supplierPtr);
+			//setProdSupper(data.prodSupper);//设置品牌的值
+			//lodingremark(data);//显示备注
+			//setPackage_(data);//设置封装信息
 		}
 		
 		function setPackage_(req){
@@ -248,20 +252,22 @@ html, body {
 					});
 		}
 
-		function error(supplierPtr) {
+		function setSupplierPtr(supplierPtr) {
 			var data = {};
 			data.id = supplierPtr;
-			$
-					.ajax({
+			var prodSupper=mini.get("prodSupper").getText();
+			mini.get("supplierPtr").setValue(supplierPtr);
+			$.ajax({
 						url : "${pageContext.request.contextPath}/BrandSupplier/getSupplierPtrById.do",
 						type : "post",
 						dataType : "json",
-						cache : false,
 						data : data,
 						success : function(data) {
-							mini.alert('品牌：“' + row.prodSupper + '”中不存在代理商：“'
-									+ data.supplierName
-									+ '”,请到品牌管理添加该品牌对应的代理商。');
+							if(mini.get("supplierPtr").getText()==''&&data.supplierName!=""){
+								mini.alert('品牌：“' + prodSupper + '”中不存在代理商：“'
+										+ data.supplierName
+										+ '”,请到品牌管理添加该品牌对应的代理商。');
+							}
 						}
 					});
 		}

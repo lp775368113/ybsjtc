@@ -51,6 +51,7 @@ public class PrivilegeInterceptor extends HandlerInterceptorAdapter {
 		whiteList.add("/login/doLoginout.do");// 退出登录界面
 		whiteList.add("/user/signin.do");//注册界面
 		whiteList.add("/user/getloginname.do");//注册界面
+		whiteList.add("/callback.do");//审批回调
 	}
 
 	// 方法前 /buyer/
