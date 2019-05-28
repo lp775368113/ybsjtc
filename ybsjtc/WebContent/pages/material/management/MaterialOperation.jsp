@@ -209,18 +209,27 @@ html, body {
 	}
 	
 	function loadprodSupper(){
-		var url="${pageContext.request.contextPath}/encoding/getProdSupper.do";
-		mini.get("prodSupper").setUrl(url);
+		var url=mini.get("prodSupper").getUrl();
+		if(!url){
+			url="${pageContext.request.contextPath}/encoding/getProdSupper.do";
+			mini.get("prodSupper").setUrl(url);
+		}
 	}
 	
 	function loadpackage(){
+		var url=mini.get("package_").getUrl();
+		if(!url){
 		var url="${pageContext.request.contextPath}/package/getAllpackage.do";
 		mini.get("package_").setUrl(url);
+		}
 	}
 	
 	function loadsupplierPtr(){
+		var url=mini.get("supplierPtr").getUrl();
+		if(!url){
 		var url="${pageContext.request.contextPath}/encoding/getAllSupplier.do";
 		mini.get("supplierPtr").setUrl(url);
+		}
 	}
 
 	function onClassChanged() {
