@@ -9,6 +9,7 @@
 <%-- <script type="text/javascript" src="${pageContext.request.contextPath}/resource/scripts/jquery-1.10.0.min.js"></script> --%>
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/resource/scripts/ajaxfileupload.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resource/scripts/buttonPremission.js"></script>
 <style type="text/css">
 html, body {
 	font-size: 12px;
@@ -270,15 +271,28 @@ html, body {
 						</tr>
 						<tr>
 							<td class="mini_title" width="16%">包装数量：</td>
-							<td width="16%"><input class="mini-textbox asLable"
+							<td width="16%"><input class="mini-textbox asLable" style="cursor: hand; width: 100%"
+								borderStyle="border:0px;"
 								enabled="false" name="stockPurch"
 								style="cursor: hand; width: 100%" borderStyle="border:0px;"
 								id="stockPurch" width="100%" vtype="float" value="1" /></td>
 							<td class="mini_title" width="16%">核算单价：</td>
-							<td width="16%"><input class="mini-textbox asLable"
-								enabled="false" name="stdCost" style="cursor: hand; width: 100%"
+							<td width="16%"><input class="mini-textbox asLable"  style="cursor: hand; width: 100%;display:none;"
+								borderStyle="border:0px;"
+								enabled="false" name="stdCost"
 								borderStyle="border:0px;" id="stdCost" width="100%" /></td>
 						</tr>
+						<tr>
+					<td class="mini_title" width="16%"><span style="color: red">*</span>原理图封装：</td>
+					<td width="16%"><input class="mini-textbox  asLable" borderStyle="border:0px;" 
+								enabled="false" style="cursor: hand; width: 100%" name="schematic"
+						id="schematic" width="100%" required="true"  
+						 /></td>
+					<td class="mini_title" width="16%"><span style="color: red">*</span>相关文件名称：</td>
+					<td width="16%"><input class="mini-textbox asLable" borderStyle="border:0px;" 
+								enabled="false" style="cursor: hand; width: 100%" name="filename"
+						id="filename" width="100%" required="true"  /></td>
+				</tr>
 						<tr>
 							<td class="mini_title">备注：</td>
 							<td colspan="5"><input class="mini-TextArea" enabled="false"

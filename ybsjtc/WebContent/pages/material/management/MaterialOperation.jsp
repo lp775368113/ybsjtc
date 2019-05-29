@@ -5,6 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <%@ taglib prefix="cw" uri="/widget-tags"%>
 <%@ include file="/pages/include/header.jsp"%>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resource/scripts/buttonPremission.js"></script>
 <head>
 <title>物料编码</title>
 
@@ -108,20 +109,20 @@ html, body {
 		<div style="width: 100%;">
 			<div class="mini-toolbar">
 				<div class="operate" style="text-align: left !important">
-					<button type="button" class="bc_color" onclick="add()">
+					<button type="button" class="bc_color" onclick="add()" id="addMaterialInfo" style="display:none;" >
 						<span class=""></span>新增物料
 					</button>
-					<button type="button" class="bc_color" onclick="addReplace()">
+					<button type="button" class="bc_color" onclick="addReplace()" style="display:none;" id="addReplace" >
 						<span class=""></span>新增替换料
 					</button>
-					<button type="button" class="bc_color" onclick="modify()">
+					<button type="button" class="bc_color" onclick="modify()" id="modifyMaterialInfo" style="display:none;" >
 						<span class=""></span>修改物料
 					</button>
-					<button id="shixiao" type="button" class="bc_color"
+					<button id="shixiaocode" type="button" class="bc_color" style="display:none;"
 						onclick="SD('S')">
 						<span class=""></span>失效编码审批
 					</button>
-					<button id="zuofei" type="button" class="bc_color"
+					<button id="zuofeicode" type="button" class="bc_color" style="display:none;"
 						onclick="SD('D')">
 						<span class=""></span>作废编码审批
 					</button>

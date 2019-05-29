@@ -97,6 +97,8 @@ public class GetMaterielsService {
 			cen.setCreatetime(po.getStarttime());
 			cen.setRemark(po.getRemark());
 			cen.setUserid(po.getUserid());
+			cen.setFilename(po.getFilename());
+			cen.setSchematic(po.getSchematic());
 			cen.setId(null);
 			Data0017 bo=data0017Mapper.getMaterielInfoByErpid(cen.getErpid());
 			if(bo==null) {

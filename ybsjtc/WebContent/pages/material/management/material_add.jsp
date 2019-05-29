@@ -114,7 +114,16 @@ html, body {
 					<td width="16%"><div id="reload">
 							<input class="mini-htmlfile" name="myfile" id="myfile"
 								width="100%" onfileselect="upload" />
-						</div>
+						</div></td>
+				</tr>
+				<tr>
+					<td class="mini_title" width="16%"><span style="color: red">*</span>原理图封装：</td>
+					<td width="16%"><input class="mini-textbox" name="schematic"
+						id="schematic" width="100%" required="true"  
+						 /></td>
+					<td class="mini_title" width="16%"><span style="color: red">*</span>相关文件名称：</td>
+					<td width="16%"><input class="mini-textbox" name="filename"
+						id="filename" width="100%" required="true"  /></td>
 				</tr>
 				<tr>
 					<td class="mini_title">备注：</td>

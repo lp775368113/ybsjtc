@@ -119,6 +119,15 @@ html, body {
 						</div>
 				</tr>
 				<tr>
+					<td class="mini_title" width="16%"><span style="color: red">*</span>原理图封装：</td>
+					<td width="16%"><input class="mini-textbox" name="schematic"
+						id="schematic" width="100%" required="true"  
+						 /></td>
+					<td class="mini_title" width="16%"><span style="color: red">*</span>相关文件名称：</td>
+					<td width="16%"><input class="mini-textbox" name="filename"
+						id="filename" width="100%" required="true"  /></td>
+				</tr>
+				<tr>
 					<td class="mini_title">备注：</td>
 					<td colspan="5"><input class="mini-TextArea" name="remark" maxLength="250"  emptyText="备注系统物料出现的风险、问题等信息,最多250字。"
 						id="remark" width="100%" height="100px"  /></td>

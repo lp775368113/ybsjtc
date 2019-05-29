@@ -63,8 +63,30 @@ public class Data0017 {
     
     private String supplierPtrStr;
     
-    private String prodSuppersStr;
-    public Integer getId() {
+    private String prodSuppersStr; 
+    
+    private String filename;
+    
+    private String schematic;
+    
+    
+    public String getFilename() {
+		return filename;
+	}
+
+	public void setFilename(String filename) {
+		this.filename = filename;
+	}
+
+	public String getSchematic() {
+		return schematic;
+	}
+
+	public void setSchematic(String schematic) {
+		this.schematic = schematic;
+	}
+
+	public Integer getId() {
         return id;
     }
 

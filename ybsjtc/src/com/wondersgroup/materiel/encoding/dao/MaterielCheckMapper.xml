@@ -25,12 +25,14 @@
     <result column="starttime" property="starttime" jdbcType="TIMESTAMP" />
     <result column="endtime" property="endtime" jdbcType="TIMESTAMP" />
     <result column="prodSuppersStr" property="prodSuppersStr" jdbcType="VARCHAR" />
+    <result column="filename" property="filename" jdbcType="VARCHAR" />
+    <result column="schematic" property="schematic" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
     id, wlid, erpid, status,  inv_part_number, extra_desc, prod_code_sell_ptr, 
     prod_supper, package_, smt_flag, inv_part_description_c, cust_part_name, cust_part_code, 
     purch_unit_ptr, stock_unit_ptr, supplier_ptr, std_cost, stock_purch, remark, userid, 
-    starttime, endtime
+    starttime, endtime,filename,schematic
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -56,7 +58,7 @@
       cust_part_name, cust_part_code, purch_unit_ptr, 
       stock_unit_ptr, supplier_ptr, std_cost, 
       stock_purch, remark, userid, 
-      starttime, endtime)
+      starttime, endtime,filename,schematic)
     values (#{id,jdbcType=INTEGER}, #{wlid,jdbcType=INTEGER}, #{erpid,jdbcType=INTEGER}, 
       #{status,jdbcType=VARCHAR},   #{invPartNumber,jdbcType=VARCHAR}, 
       #{extraDesc,jdbcType=VARCHAR}, #{prodCodeSellPtr,jdbcType=VARCHAR}, #{prodSupper,jdbcType=VARCHAR}, 
@@ -64,7 +66,7 @@
       #{custPartName,jdbcType=VARCHAR}, #{custPartCode,jdbcType=VARCHAR}, #{purchUnitPtr,jdbcType=VARCHAR}, 
       #{stockUnitPtr,jdbcType=VARCHAR}, #{supplierPtr,jdbcType=VARCHAR}, #{stdCost,jdbcType=VARCHAR}, 
       #{stockPurch,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{userid,jdbcType=INTEGER}, 
-      #{starttime,jdbcType=TIMESTAMP}, #{endtime,jdbcType=TIMESTAMP})
+      #{starttime,jdbcType=TIMESTAMP}, #{endtime,jdbcType=TIMESTAMP},#{filename,jdbcType=VARCHAR},#{schematic,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.wondersgroup.materiel.encoding.vo.MaterielCheck" useGeneratedKeys="true" keyProperty="id" >
     insert into materiel_check
@@ -135,6 +137,12 @@
       <if test="endtime != null" >
         endtime,
       </if>
+      <if test="filename != null" >
+        filename,
+      </if>
+       <if test="schematic != null" >
+        schematic,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -202,6 +210,12 @@
       </if>
       <if test="endtime != null" >
         #{endtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="filename != null" >
+        #{filename,jdbcType=TIMESTAMP},
+      </if>
+      <if test="schematic != null" >
+        #{schematic,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -271,6 +285,12 @@
       <if test="endtime != null" >
         endtime = #{endtime,jdbcType=TIMESTAMP},
       </if>
+      <if test="filename != null" >
+        filename = #{filename,jdbcType=VARCHAR},
+      </if>
+      <if test="schematic != null" >
+        schematic = #{schematic,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -311,7 +331,7 @@
 		purch_unit_ptr,
 		stock_unit_ptr, supplier_ptr, std_cost, stock_purch,remark,userid,prod_supper,(select
 		h.brandname from materiel_brand h where h.id=a.prod_supper
-		) prodSuppersStr FROM materiel_check a where 1=1
+		) prodSuppersStr,filename,schematic FROM materiel_check a where 1=1
 		<if test="invPartNumber != null and invPartNumber!=''">
 			AND a.INV_PART_NUMBER like '%${invPartNumber}%'
 		</if>
