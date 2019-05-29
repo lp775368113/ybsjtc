@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wondersgroup.permission.button.dao.ButtonMapper" >
+  <resultMap id="BaseResultMap" type="com.wondersgroup.permission.button.vo.Button" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="buttonname" property="buttonname" jdbcType="VARCHAR" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="buttonid" property="buttonid" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="removed" property="removed" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, buttonname, code, buttonid, description, removed
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from button
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from button
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.wondersgroup.permission.button.vo.Button" >
+    insert into button (id, buttonname, code, 
+      buttonid, description, removed
+      )
+    values (#{id,jdbcType=INTEGER}, #{buttonname,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, 
+      #{buttonid,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{removed,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.wondersgroup.permission.button.vo.Button" >
+    insert into button
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="buttonname != null" >
+        buttonname,
+      </if>
+      <if test="code != null" >
+        code,
+      </if>
+      <if test="buttonid != null" >
+        buttonid,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="removed != null" >
+        removed,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="buttonname != null" >
+        #{buttonname,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null" >
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="buttonid != null" >
+        #{buttonid,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="removed != null" >
+        #{removed,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wondersgroup.permission.button.vo.Button" >
+    update button
+    <set >
+      <if test="buttonname != null" >
+        buttonname = #{buttonname,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null" >
+        code = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="buttonid != null" >
+        buttonid = #{buttonid,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="removed != null" >
+        removed = #{removed,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wondersgroup.permission.button.vo.Button" >
+    update button
+    set buttonname = #{buttonname,jdbcType=VARCHAR},
+      code = #{code,jdbcType=VARCHAR},
+      buttonid = #{buttonid,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      removed = #{removed,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="buttonPer" parameterType="com.wondersgroup.permission.user.vo.User" resultMap="BaseResultMap" >
+	select u.* FROM ((select distinct a.* from button a,role_permission b,user_role_permission c
+	where c.roleid=b.roleid and b.permissionid=a.id	 
+	and c.userid=#{id}
+	and b.permissiontype=2
+	and b.removed=0 
+	and c.removed=0
+	and a.removed=0) 
+UNION 
+(select d.* from button d,user_button_permission e where d.id=e.buttonid and e.userid=#{id} and e.removed=0))u  
+  </select>
+  
+  <select id="getPage" resultMap="BaseResultMap" parameterType="java.util.Map" >
+  		select DISTINCT a.* from button a LEFT JOIN role_permission b 
+  		on a.id=b.permissionid and b.removed=0 and b.permissiontype=2   
+  		where a.removed=0  
+		<if test="buttonname != null">
+			and a.buttonname   like concat(concat('%',#{buttonname},'%'))
+		</if>
+		<if test="roleid != null">
+			and b.roleid=#{roleid}
+		</if>
+		limit #{start},#{row}	
+  </select>
+  <select id="getPageCount" resultType="Integer" parameterType="java.util.Map" >
+  		select count(*) from (select DISTINCT a.* from button a LEFT JOIN role_permission b 
+  		on a.id=b.permissionid and b.removed=0 and b.permissiontype=2   
+  		where a.removed=0
+		<if test="roleid != null">
+			and b.roleid=#{roleid}  
+		</if>
+		<if test="buttonname != null">
+			and a.buttonname   like concat(concat('%',#{buttonname},'%'))
+		</if>
+		) d
+  </select>
+  
+  <select id="getUserButtonPage" resultMap="BaseResultMap" parameterType="java.util.Map" >
+  		select DISTINCT a.* from button a LEFT JOIN user_button_permission b 
+  		on a.id=b.buttonid and b.removed=0 
+  		where a.removed=0  
+		<if test="buttonname != null">
+			and a.buttonname   like concat(concat('%',#{buttonname},'%'))
+		</if>
+		<if test="userid != null">
+			and b.userid=#{userid}
+		</if>
+		limit #{start},#{row}	
+  </select>
+  <select id="getUserButtonPageCount" resultType="Integer" parameterType="java.util.Map" >
+  		select count(*) from (select DISTINCT a.* from button a LEFT JOIN user_button_permission b 
+  		on a.id=b.buttonid and b.removed=0 
+  		where a.removed=0  
+		<if test="buttonname != null">
+			and a.buttonname   like concat(concat('%',#{buttonname},'%'))
+		</if>
+		<if test="userid != null">
+			and b.userid=#{userid}
+		</if>
+		) d
+  </select>
+  <select id="getUserButton" resultType="com.wondersgroup.permission.button.vo.UserButtonPermission" parameterType="java.util.Map">
+  	SELECT * FROM user_button_permission
+       WHERE USERID = #{userid}
+        AND buttonid = #{buttonid}
+  </select>
+  
+  <update id="updateUserButton"  parameterType="com.wondersgroup.permission.button.vo.UserButtonPermission">
+            UPDATE user_button_permission
+                SET removed = #{removed}
+            WHERE id = #{id}
+    </update>
+    
+    <insert id="insertUserButton" parameterType="java.util.List"
+        useGeneratedKeys="true" keyProperty="id">
+        insert into user_button_permission
+        (buttonid,userid,removed)
+        values
+        <foreach collection="list" item="item" index="index"
+            separator=",">
+            (#{item.buttonid},#{item.userid},#{item.removed})
+        </foreach>
+    </insert>
+</mapper>
