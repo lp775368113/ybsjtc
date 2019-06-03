@@ -5,125 +5,173 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <%@ taglib prefix="cw" uri="/widget-tags"%>
 <%@ include file="/pages/include/header.jsp"%>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resource/scripts/buttonPremission.js"></script>
 <head>
-<title>工伤认定查询导出</title>
+<title>物料编码</title>
 
 <style type="text/css">
 html, body {
-    font-size: 13px;
-    padding: 0;
-    margin: 0;
-    border: 0;
-    height: 100%;
-    overflow: hidden;
+	font-size: 13px;
+	padding: 0;
+	margin: 0;
+	border: 0;
+	height: 100%;
+	overflow: hidden;
 }
-.mini-panel-header{
-    background-color:#E0EEEE;
+
+.mini-panel-header {
+	background-color: #E0EEEE;
 }
-.mini-panel-body{
-padding:0px;
+
+.mini-panel-body {
+	padding: 0px;
 }
+
 #form1 table tr {
-	height:28px;
+	height: 28px;
 }
 </style>
 
 
 </head>
 <body>
-<div class="mini-fit">
-    <div class="mini-panel" title="查询" showCollapseButton="false"
-        style="width: 98%; height: auto;" >
-        <form id="form1" name="form1" style="" action="#" method="post">
-            <table width="99%" border="0" cellpadding="0" cellspacing="0px" style="padding-top:8px;">
-    <tr height="28px">
-      <td class="mini_title" align="right">业务编号：</td>
-      <td>
-      	<input class="mini-hidden" name="pageindex" id="pageindex"/> 
-		<input class="mini-hidden" name="pagesize" id="pagesize"/> 
-		<input class="mini-hidden" name="contentvalue" id="contentvalue"/>
-		<input class="mini-hidden" name="sele" id="sele"/>
-      	<input class="mini-textbox"  id="qrecordid" name="qrecordid" style="width:100px"/>		
-      </td>
-      <td class="mini_title" align="right">编号：</td>
-      <td>
-      	<input class="mini-textbox"  id="qdocumentyear" name="qdocumentyear" style="width:100px" />&nbsp年
-      	<input class="mini-textbox"  id="qdocumentno1" name="qdocumentno1" style="width:100px" />
-      	- <input class="mini-textbox"  id="qdocumentno2" name="qdocumentno2" style="width:100px" />
-      </td>
-      <td class="mini_title" align="right">业务状态：</td>
-      <td>
-      	<input id="qstatusid" name="qstatusid" style="width:100px" class="mini-combobox" style="width:100%" showNullItem="true"  textField="name" valueField="code"
-				url="<%-- ${pageContext.request.contextPath}/common/listDic.do?type_code=GSRDSTATUS --%>" />
-      </td>
-    </tr>
-    <tr height="28px">
-      <td class="mini_title" align="right">姓名：</td>
-      <td>
-      	<input class="mini-textbox"  id="qname" name="qname" style="width:100px"/>
-      </td>
-      <td class="mini_title" align="right">审核时间：</td>
-      <td>
-      	<input class="mini-datepicker"  id="qoptime1" name="qoptime1" style="width:170px"/>一<input class="mini-datepicker"  id="qoptime2" name="qoptime2" style="width:170px"/>
-      </td>
-      <td class="mini_title" align="right">身份证号码：</td>
-      <td>
-      	<input class="mini-textbox"  id="qidcard" name="qidcard" style="width:100px"/>
-      </td>
-    </tr>
-    <tr height="28px">
-      <td class="mini_title" align="right">认定结果：</td>
-      <td>
-      	<input id="qresult" name="qresult" class="mini-combobox" style="width:100px;" showNullItem="true"  textField="name" valueField="code"
-				url="<%-- ${pageContext.request.contextPath}/common/listDic.do?type_code=RDJG --%>" />
-      </td>
-      <td class="mini_title" align="right">单位名称：</td>
-      <td>
-      	<input class="mini-textbox"  id="qcompany" name="qcompany" style="width:354px"/>
-      </td>
-      <td colspan="2" align="right" valign="right">
-            <div style="width: 150px;padding-right:12px;" class="operate">
-				<button type="button" class="cx_color" onclick="search()">
-					<span class=""></span>查询
-				</button>
-				<button type="button" class="cz_color" onclick="resetForm()">
-					<span class=""></span>重置
-				</button>
+	<div class="mini-fit">
+		<div class="mini-panel" title="查询条件" showCollapseButton="false"
+			style="width: 100%; height: auto;">
+			<form id="form1" name="form1" style="" action="#" method="post">
+				<table width="99%" border="0" cellpadding="0" cellspacing="0px"
+					style="padding-top: 8px;">
+					<tr height="28px">
+						<td class="mini_title" align="right" width="60px" >大类名称：</td>
+						<td><input id="maxclass" name="maxclass"
+							class="mini-combobox"
+							url="${pageContext.request.contextPath}/class/getAllbigclassPre.do"
+							onvaluechanged="onClassChanged"  showNullItem="true"
+							textField="classname" width="80%" valueField="id" /></td>
+						<td class="mini_title" align="right" width="80px"  >制造厂商：</td>
+						<td><input id="prodSupper" name="prodSupper"
+							class="mini-combobox"
+							url=""
+							valueFromSelect="true" textField="brandname"  width="80%" 
+							valueField="id" allowInput="true" onclick="loadprodSupper" /></td>
+						<td class="mini_title" align="right" width="110px">封装：</td>
+						<td><input id="package_" name="package_"
+						class="mini-combobox" valueFromSelect="true" allowInput="true" 
+						url="" 
+						textField="packagename"  width="80%"  valueField="id" onclick="loadpackage" /></td>
+						<td class="mini_title" width="80px">供应商：</td>
+							<td width="16%"><input id="supplierPtr" name="supplierPtr"
+								class="mini-combobox"  valueFromSelect="true"   showNullItem="true"
+								url="" onclick="loadsupplierPtr"
+								textField="supplier_name" width="80%" valueField="id"  allowInput="true" /></td>
+					</tr>
+					<tr height="28px">
+						<td class="mini_title" align="right"  width="60px" >小类名称：</td>
+						<td><input id="prodCodeSellPtr" name="prodCodeSellPtr"
+							class="mini-combobox" url=""  showNullItem="true"
+							textField="classname"  width="80%"  valueField="id"
+							 /></td>
+						<td class="mini_title" align="right"  width="80px" >供应商料号：</td>
+						<td><input class="mini-textbox" id="custPartCode"
+							name="custPartCode"  width="80%"  /></td>
+						<td class="mini_title" align="right" width="110px"  >物料名称（描述）：</td>
+						<td><input class="mini-textbox" id="ipdcSTR" name="ipdcSTR"
+							 width="80%"  emptyText="多个关键词用空格隔开" /></td>
+						<td colspan="2" align="center" valign="right">
+							<div style="width: 150px; padding-right: 12px;" class="operate">
+								<button type="button" class="cx_color" onclick="search()">
+									<span class=""></span>查询
+								</button>
+								<button type="button" class="cz_color" onclick="resetForm()">
+									<span class=""></span>重置
+								</button>
+							</div>
+						</td>
+					</tr>
+					<tr height="28px">
+						<td class="mini_title" align="right"  width="60px" >审核：</td>
+						<td><input class="mini-combobox" name="status" id="status"
+							 width="80%" 
+							data="[{text:'ERP同步',code:9},{text:'审核中',code:1},{text:'不同意',code:3}]"
+							textField="text" valueField="code" value=9 onvaluechanged="onStatusChanged" /></td>
+						<td class="mini_title" align="right" width="80px"  >物料编码：</td>
+						<td><input class="mini-textbox" id="invPartNumber"
+							name="invPartNumber"  width="80%"  /></td>
+						<td class="mini_title" align="right" width="110px" >禾川编码：</td>
+						<td><input class="mini-textbox" id="extraDesc"
+							name="extraDesc"  width="80%"  /></td>
+
+					</tr>
+
+				</table>
+			</form>
+		</div>
+		<div style="width: 100%;">
+			<div class="mini-toolbar">
+				<div class="operate" style="text-align: left !important">
+					<button type="button" class="bc_color" onclick="add()" id="addMaterialInfo" style="display:none;" >
+						<span class=""></span>新增物料
+					</button>
+					<button type="button" class="bc_color" onclick="copy()" id="copyMaterialInfo" style="display:none;" >
+						<span class=""></span>复制物料
+					</button>
+					<button type="button" class="bc_color" onclick="addReplace()" style="display:none;" id="addReplace" >
+						<span class=""></span>新增替换料
+					</button>
+					<button type="button" class="bc_color" onclick="modify()" id="modifyMaterialInfo" style="display:none;" >
+						<span class=""></span>修改物料
+					</button>
+					<button id="shixiaocode" type="button" class="bc_color" style="display:none;"
+						onclick="SD('S')">
+						<span class=""></span>失效编码审批
+					</button>
+					<button id="zuofeicode" type="button" class="bc_color" style="display:none;"
+						onclick="SD('D')">
+						<span class=""></span>作废编码审批
+					</button>
+				</div>
 			</div>
-	  </td>
-    </tr>
-  </table>
-</form>
-</div>
-
-
-
-        <!-- center begin -->
+		</div>
+		<!-- center begin -->
 		<div class="mini-panel" title="查询结果" showCollapseButton="false"
-			style="width: 98%; height: auto;" >
-       
-
-			<div id="grid1" class="mini-datagrid" idField="id" multiSelect="true"
-				style="width: 100%; height: auto;" allowResize="false" pageSize="10"
-				 showReloadButton="flase" showPageSize="false"  multiSelect="false"
-				onload="onload" url="${pageContext.request.contextPath}/gsrd/gsrdQuery.do"
-				
-				>
+			style="width: 100%; height: auto;">
+			<div id="grid1" class="mini-datagrid" idField="id"
+				multiSelect="false" style="width: 100%; height: auto;"
+				allowResize="false" pageSize="20" showReloadButton="flase"
+				showPageSize="false" virtualScroll="true"
+				allowResize="true"
+				url="${pageContext.request.contextPath}/encoding/getMaterielList.do">
 				<div property="columns">
-					<div type="checkcolumn" ></div>
-					<div field="recordid" width="10%" headerAlign="center" align="center">业务编号</div>
-					<div field="documentno"  width="12%"   headerAlign="center" align="center" renderer="viewRDBH">认定书编号</div>
-                    <div field="statusname" width="10%" headerAlign="center" align="center">业务状态</div>
-				    <div field="name"  width="10%"   headerAlign="center" align="center">姓名 </div>
-                   	<div field="idcard" width="15%" headerAlign="center" align="center">身份证号</div>
-					<div field="result" width="10%" headerAlign="center" align="center" renderer="viewRDJG">认定结果</div>
-					<div field="optime" width="33%" headerAlign="center" align="center" renderer="ondayRenderer">审核时间</div>	
+					<div type="checkcolumn"></div>
+					<div field="prodCodeSellPtrStr" width="20%" headerAlign="center"
+						align="center">物料小类</div> 
+					<!-- <div field="rkey" width="13%" headerAlign="center" align="center">RKEY</div>  -->
+					<!-- <div field="ttype" width="20%" headerAlign="center" align="center">原料标识</div> -->
+					<div field="invPartNumber" width="20%" headerAlign="center"
+						align="center">物料编码</div>
+					<div field="extraDesc" width="15%" headerAlign="center"
+						align="center">禾川编码</div>
+					<!-- <div field="invPartDescriptionC" width="33%" headerAlign="center" align="center">物料大类</div> -->
+					<div field="prodSuppersStr" width="15%" headerAlign="center"
+						align="center">制造厂商</div>
+					<div field="package_Str" width="17%" headerAlign="center"
+						align="center">封装</div>
+					<div field="invPartDescriptionC" width="45%" headerAlign="center"
+						align="center">物料名称（描述）</div>
+					<div field="supplierPtrStr" width="25%" headerAlign="center"
+						align="center">供应商</div>
+					<div field="custPartCode" width="25%" headerAlign="center"
+						align="center">供应商料号</div>
+					<div field="stockPurch" width="10%" headerAlign="center"
+						align="center">包装数量</div>
+					<div field="warehouse" width="10%" headerAlign="center"
+						align="center">仓存</div>
 				</div>
 			</div>
 			<!-- center end -->
 		</div>
-	<div id="hid1" style="display:block" >
-	<table width="100%" border="0" cellpadding="0" cellspacing="0" >
+		<div id="hid1" style="display: block">
+			<!-- <table width="100%" border="0" cellpadding="0" cellspacing="0" >
 		<tr align="center">
 			<td>&nbsp;</td>
 		</tr>
@@ -146,92 +194,234 @@ padding:0px;
 				</div>
 			</td>
 		</tr>
-	</table>
-</div> 	
-</div>
-   
+	</table> -->
+		</div>
+	</div>
+
 
 </body>
 </html>
 <script type="text/javascript">
-        mini.parse();
-        var form = new mini.Form("form1");
-        var grid = mini.get("grid1");
-        //grid.load();
-        function search(){
-			 form.validate();
-			if (form.isValid() == false) {
-				return;
-			} 
-			var data = form.getData(true);
-			grid.load(data);			
+	mini.parse();
+	var form = new mini.Form("form1");
+	var grid = mini.get("grid1");
+	grid.load({
+		status : 9
+	});
+	
+	function onStatusChanged(){
+		var data = form.getData(true);
+		grid.load(data);
+	}
+	
+	function loadprodSupper(){
+		var url=mini.get("prodSupper").getUrl();
+		if(!url){
+			url="${pageContext.request.contextPath}/encoding/getProdSupper.do";
+			mini.get("prodSupper").setUrl(url);
 		}
-		
-		function resetForm() {
-			form.reset();
+	}
+	
+	function loadpackage(){
+		var url=mini.get("package_").getUrl();
+		if(!url){
+		var url="${pageContext.request.contextPath}/package/getAllpackage.do";
+		mini.get("package_").setUrl(url);
 		}
-		
-		function viewRDJG(e){
-        	var value = e.value;
-        	if(value==1){
-        		return "认定";
-        	}
-        	if(value==2){
-        		return "视同";
-        	}
-        	if(value==3){
-        		return "不予认定";
-        	}
-        	return "";
-        }
-        
-        function viewRDBH(e){
-        	var value = e.value;
-        	var record = e.record;
-        	var doyear = "";
-        	var dono = "";
-        	if(record.documentyear!=null){
-        		doyear = record.documentyear;
-        	}
-        	if(record.documentno!=null){
-        		dono = record.documentno;
-        	}
-        	return doyear+"-"+dono;
-        }
-        function ondayRenderer(e) {
-            	//var value = mini.get("utime").value;
-                var dateValue = new Date(e.value);
-                if (dateValue){
-                	 return mini.formatDate(dateValue, "yyyy-MM-dd HH:mm:ss");
-                }
-              
-        }
-        function toexport(){
-        	var content=document.getElementsByName("exportcontent");
-        	var forlen=content.length;
-			var contentvalue="";
-			for(var i=0;i<forlen;i++){
-				if(content[i].checked==true){
-					contentvalue=content[i].value;
-				}
+	}
+	
+	function loadsupplierPtr(){
+		var url=mini.get("supplierPtr").getUrl();
+		if(!url){
+		var url="${pageContext.request.contextPath}/encoding/getAllSupplier.do";
+		mini.get("supplierPtr").setUrl(url);
+		}
+	}
+
+	function onClassChanged() {
+		var maxclass = mini.get("maxclass");
+		var bigclassid = maxclass.getValue();
+		var url = "${pageContext.request.contextPath}/class/getSmallClassPre.do?bigclassid="
+				+ bigclassid;
+		mini.get("prodCodeSellPtr").setUrl(url);
+	}
+
+	function search() {
+		form.validate();
+		if (form.isValid() == false) {
+			return;
+		}
+		var data = form.getData(true);
+		grid.load(data);
+	}
+
+	function resetForm() {
+		form.reset();
+	}
+	
+	function copy(){
+		var row = grid.getSelected();
+		if (row) {
+			var status=mini.get("status").getValue();
+			row.status=status;
+			mini
+					.open({
+						targetWindow : window,
+						url : "${pageContext.request.contextPath}/pages/material/management/material_copy.jsp",
+						title : "新增物料",
+						width : 1100,
+						height : 650,
+						showMaxButton : true,
+						allowResize : true,
+						onload : function() {
+							var iframe = this.getIFrameEl();
+							iframe.contentWindow.SetData(row);
+						},
+						ondestroy : function(action) {
+							grid.reload();
+						}
+					});
+		} else {
+			mini.alert("请选择需要复制的物料");
+		}
+	}
+
+	function modify() {
+		var row = grid.getSelected();
+		if (row) {
+			var status=mini.get("status").getValue();
+			row.status=status;
+			mini
+					.open({
+						targetWindow : window,
+						url : "${pageContext.request.contextPath}/pages/material/management/material_edit.jsp",
+						title : "修改物料",
+						width : 1100,
+						height : 650,
+						showMaxButton : true,
+						allowResize : true,
+						onload : function() {
+							var iframe = this.getIFrameEl();
+							iframe.contentWindow.SetData(row);
+						},
+						ondestroy : function(action) {
+							grid.reload();
+						}
+					});
+		} else {
+			mini.alert("请选择需要修改的物料");
+		}
+	}
+
+	function add() {
+		mini
+				.open({
+					targetWindow : window,
+					url : "${pageContext.request.contextPath}/pages/material/management/material_add.jsp",
+					title : "新增物料",
+					width : 1100,
+					height : 650,
+					showMaxButton : true,
+					allowResize : true,
+					onload : function() {
+						var iframe = this.getIFrameEl();
+						iframe.contentWindow.SetData();
+					},
+					ondestroy : function(action) {
+						grid.reload();
+					}
+				});
+	}
+
+	function addReplace() {
+		var row = grid.getSelected();
+		if (row) {
+			var status=mini.get("status").getValue();
+			row.status=status;
+			mini.open({
+						targetWindow : window,
+						url : "${pageContext.request.contextPath}/pages/material/management/material_addReplace.jsp",
+						title : "新增替代料",
+						width : 1100,
+						height : 650,
+						showMaxButton : true,
+						allowResize : true,
+						onload : function() {
+							var iframe = this.getIFrameEl();
+							iframe.contentWindow.SetData(row);
+						},
+						ondestroy : function(action) {
+							grid.reload();
+						}
+					});
+		} else {
+			mini.alert("请选择替代的物料");
+		}
+	}
+
+	grid.on(
+					"rowdblclick",
+					function(e) {
+						var row = e.row;
+						mini
+								.open({
+									targetWindow : window,
+									url : "${pageContext.request.contextPath}/pages/material/management/material_view.jsp",
+									title : "物料详情",
+									width : "100%",
+									height : "100%",
+									showMaxButton : true,
+									allowResize : true,
+									onload : function() {
+										var iframe = this.getIFrameEl();
+										iframe.contentWindow.SetData(row);
+									},
+									ondestroy : function(action) {
+
+									}
+								});
+					});
+
+	function SD(e) {
+		var row = grid.getSelected();
+		if (row) {
+			row.SD = e;
+			var title = '';
+			if ('S' == e) {
+				title = "失效编码";
+			} else {
+				title = "作废编码";
 			}
-			mini.get("contentvalue").setValue(contentvalue);
-        	if(contentvalue=="all"){
-				document.form1.action ="${pageContext.request.contextPath}/gsrd/exportGsrd.do";
-            	document.form1.submit();
-    		}else if(contentvalue=="current"){
-            	var pageindex = grid.getPageIndex();
-            	var pagesize = grid.getPageSize();
-            	mini.get("pageindex").setValue(pageindex);
-            	mini.get("pagesize").setValue(pagesize);
-            	var data = form.getData(true);
-            	document.form1.action ="${pageContext.request.contextPath}/gsrd/exportGsrd.do";
-            	document.form1.submit();
-			}else if(contentvalue=="selected"){
-				var sele = mini.encode(grid.getSelecteds());
-				mini.get("sele").setValue(sele);
-				document.form1.action ="${pageContext.request.contextPath}/gsrd/exportGsrd.do";
-            	document.form1.submit();
-			}
-        }
+			console.log(row);
+			mini
+					.confirm(
+							"确定" + title + "？",
+							"确定？",
+							function(action) {
+								if (action == "ok") {
+									$
+											.ajax({
+												url : "${pageContext.request.contextPath}/encoding/SD.do",
+												type : "post",
+												dataType : "json",
+												cache : false,
+												data : row,
+												success : function(data) {
+													if (data.success) {
+														mini.alert("成功发起审批！",
+																"成功");
+													} else {
+														mini.alert(
+																data.message,
+																"失败");
+													}
+												}
+											});
+								}
+							});
+		} else {
+			mini.alert("请选择一条记录");
+		}
+
+	}
 </script>

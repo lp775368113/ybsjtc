@@ -161,6 +161,7 @@ html, body {
 		mini.parse();
 		var flag=true;
 		var files = [];
+		var canCheck=true;
 		var fileidstr = "";
 		var check={};
 		var form = new mini.Form("form2");
@@ -213,6 +214,10 @@ html, body {
 		}
 		
 		function save() {
+			if(!canCheck){
+				mini.alert("文件正在上传，请上传后发起审批。");
+				return;
+			}
 			if(!flag){
 				mini.alert("封装数据不完整，请到封装管理添加相关数据！","失败",window.CloseOwnerWindow);
 				return;
@@ -366,6 +371,7 @@ html, body {
 
 
 		function upload() {
+			canCheck=false;
 			var data = {};
 			var fileids = [ 'myfile' ];
 			$.ajaxFileUpload({
@@ -383,8 +389,11 @@ html, body {
 												"<input class='mini-htmlfile' name='myfile'  id='myfile' width='100%' onfileselect='upload' />");
 								mini.parse();
 								showfiles();
+								canCheck=true;
 							} else {
 								mini.alert(data.error);
+								canCheck=true;
+								
 							}
 						},
 						error : function(data) {
@@ -401,6 +410,7 @@ html, body {
 												"<input class='mini-htmlfile' name='myfile'  id='myfile' width='100%' onfileselect='upload' />");
 								mini.parse();
 								showfiles();
+								canCheck=true;
 							} else if (fun.error) {
 								mini.alert(fun.error);
 							} else if (fun.error) {

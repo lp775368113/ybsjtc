@@ -107,8 +107,8 @@ html, body {
 				<tr>
 					<td class="mini_title" width="16%"><span style="color: red">*</span>包装数量：</td>
 					<td width="16%"><input class="mini-textbox" name="stockPurch"
-						id="stockPurch" width="100%" required="true" vtype="float"
-						value="1" readonly="true" /></td>
+						id="stockPurch" width="100%"  required="true" vtype="float"
+						value="1"  /></td>
 					<td class="mini_title" width="16%"><span style="color: red">*</span>核算单价：</td>
 					<td width="16%"><input class="mini-textbox" name="stdCost"
 						id="stdCost" width="100%" required="true" vtype="float" /></td>
@@ -164,6 +164,7 @@ html, body {
 		var row = {};
 		var files = [];
 		var fileidstr = "";
+		canCheck=true;
 		var check = {};
 		var form = new mini.Form("form2");
 		var MS = 0;
@@ -319,6 +320,10 @@ html, body {
 		}
 
 		function save() {
+			if(!canCheck){
+				mini.alert("文件正在上传，请上传后发起审批。");
+				return;
+			}
 			$("#button_save").attr("disabled", true);
 			$("#button_reset").attr("disabled", true);
 			form.validate();
@@ -485,8 +490,8 @@ html, body {
 							var invPartDescriptionC = row.invPartDescriptionC;
 							var ipdpcs = invPartDescriptionC.split("-");
 							ipdpcslength = ipdpcs.length;
+							MS = mss.length;
 							if (MS == ipdpcslength) {
-								MS = mss.length;
 								for (var i = 0; i < mss.length; i++) {
 									var box = ipdpcs[i].split("|");
 									if (box.length > 1) {
@@ -533,6 +538,7 @@ html, body {
 		}
 
 		function upload() {
+			canCheck=false;
 			var data = {};
 			var fileids = [ 'myfile' ];
 			$
@@ -551,8 +557,10 @@ html, body {
 												"<input class='mini-htmlfile' name='myfile'  id='myfile' width='100%' onfileselect='upload' />");
 								mini.parse();
 								showfiles();
+								canCheck=true;
 							} else {
 								mini.alert(data.error);
+								canCheck=true;
 							}
 						},
 						error : function(data) {
@@ -569,6 +577,7 @@ html, body {
 												"<input class='mini-htmlfile' name='myfile'  id='myfile' width='100%' onfileselect='upload' />");
 								mini.parse();
 								showfiles();
+								canCheck=true;
 							} else if (fun.error) {
 								mini.alert(fun.error);
 							} else if (fun.error) {

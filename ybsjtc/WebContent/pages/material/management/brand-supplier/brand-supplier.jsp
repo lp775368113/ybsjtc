@@ -29,7 +29,7 @@ html,body {
 </head>
 <body>
 	<div class="mini-splitter" style="width: 98%; height: 100%;">
-		<div size="55%" showCollapseButton="false">
+		<div size="20%" showCollapseButton="false">
 			<div class="mini-panel" title="品牌列表" showCollapseButton="false"
 				style="width: 100%; height: auto;">
 				<div style="border-bottom: 0; padding: 0px;">
@@ -45,7 +45,7 @@ html,body {
 
 							</tr>
 							<tr height="30px">
-								<td colspan="2" style="padding-left: 20px">
+								<td colspan="2">
 									<div style="width: 440px;" class="operate">
 										<button type="button" class="cz_color" onclick="search()">
 											<span class=""></span>查询
@@ -65,11 +65,11 @@ html,body {
 				</div>
 				<div id="brandGrid" class="mini-datagrid" multiSelect="true"
 					style="width: 100%; height: auto;" allowResize="false"
-					showReloadButton="flase" showPageSize="false"
+					showReloadButton="flase" showPageSize="false" pageSize="20"
 					url="${pageContext.request.contextPath}/BrandSupplier/queryBrand.do">
 					<div property="columns">
 						<div type="indexcolumn" headerAlign="center" align="center"
-							width="10%">序号</div>
+							width="15%">序号</div>
 						<div type="checkcolumn" headerAlign="center" align="center"
 							width="10%"></div>
 						<div field="brandname" width="80%" headerAlign="center" align="center">品牌名称</div>
@@ -149,12 +149,12 @@ html,body {
 			});
 		});
 
-		supplierGrid.on("rowclick", function(e) {
+		/* supplierGrid.on("rowclick", function(e) {
 			var id = e.record.id;
 			brandGrid.load({
 				supplierid : id
 			});
-		});
+		}); */
 
 		function addbrand() {
 			mini

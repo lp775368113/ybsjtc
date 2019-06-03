@@ -69,8 +69,20 @@ public class Data0017 {
     
     private String schematic;
     
+    private String warehouse;
     
-    public String getFilename() {
+    
+    
+    
+    public String getWarehouse() {
+		return warehouse;
+	}
+
+	public void setWarehouse(String warehouse) {
+		this.warehouse = warehouse;
+	}
+
+	public String getFilename() {
 		return filename;
 	}
 

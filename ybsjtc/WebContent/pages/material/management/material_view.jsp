@@ -281,6 +281,11 @@ html, body {
 								borderStyle="border:0px;"
 								enabled="false" name="stdCost"
 								borderStyle="border:0px;" id="stdCost" width="100%" /></td>
+							<td class="mini_title" width="16%">仓存：</td>
+							<td width="16%"><input class="mini-textbox asLable"  style="cursor: hand; width: 100%;"
+								borderStyle="border:0px;"
+								enabled="false" name="warehouse"
+								borderStyle="border:0px;" id="warehouse" width="100%" /></td>
 						</tr>
 						<tr>
 					<td class="mini_title" width="16%"><span style="color: red">*</span>原理图封装：</td>

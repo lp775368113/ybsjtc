@@ -31,7 +31,6 @@ public class Check {
 	public static Logger logger = Logger.getLogger(Check.class);
 	
 	public static void startProcessInstance(MaterielCheck params,Dd_User dd_user,String message) throws Exception {
-		
 		DefaultDingTalkClient client = new DefaultDingTalkClient(URLConstant.URL_PROCESSINSTANCE_START);
 		OapiProcessinstanceCreateRequest request = new OapiProcessinstanceCreateRequest();
 		request.setProcessCode(Constant.PROCESS_CODE);

@@ -457,7 +457,7 @@
 			AND (
 			<foreach collection="list" item="item" index="index"
 				separator="AND">
-				a.inv_part_description_c LIKE
+				upper(a.inv_part_description_c) LIKE
 				'%${item}%'
 			</foreach>
 			)

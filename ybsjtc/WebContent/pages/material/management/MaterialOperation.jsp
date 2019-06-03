@@ -112,6 +112,9 @@ html, body {
 					<button type="button" class="bc_color" onclick="add()" id="addMaterialInfo" style="display:none;" >
 						<span class=""></span>新增物料
 					</button>
+					<button type="button" class="bc_color" onclick="copy()" id="copyMaterialInfo" style="display:none;" >
+						<span class=""></span>复制物料
+					</button>
 					<button type="button" class="bc_color" onclick="addReplace()" style="display:none;" id="addReplace" >
 						<span class=""></span>新增替换料
 					</button>
@@ -161,6 +164,8 @@ html, body {
 						align="center">供应商料号</div>
 					<div field="stockPurch" width="10%" headerAlign="center"
 						align="center">包装数量</div>
+					<div field="warehouse" width="10%" headerAlign="center"
+						align="center">仓存</div>
 				</div>
 			</div>
 			<!-- center end -->
@@ -252,6 +257,33 @@ html, body {
 
 	function resetForm() {
 		form.reset();
+	}
+	
+	function copy(){
+		var row = grid.getSelected();
+		if (row) {
+			var status=mini.get("status").getValue();
+			row.status=status;
+			mini
+					.open({
+						targetWindow : window,
+						url : "${pageContext.request.contextPath}/pages/material/management/material_copy.jsp",
+						title : "新增物料",
+						width : 1100,
+						height : 650,
+						showMaxButton : true,
+						allowResize : true,
+						onload : function() {
+							var iframe = this.getIFrameEl();
+							iframe.contentWindow.SetData(row);
+						},
+						ondestroy : function(action) {
+							grid.reload();
+						}
+					});
+		} else {
+			mini.alert("请选择需要复制的物料");
+		}
 	}
 
 	function modify() {

@@ -104,32 +104,49 @@ public class EncodingService {
 	public Map<String, Object> getPage(Map<String, Object> params) {
 		String status=(String) params.get("status");
 		if("9".equals(status)) {
-//			JaxWsProxyFactoryBean jwpfb = new JaxWsProxyFactoryBean();
-//			jwpfb.setServiceClass(MaterialService.class);
-//			InputStream is = EncodingService.class.getClassLoader().getResourceAsStream("SetSystem.properties");
-//			Properties pro = new Properties();
-//			try {
-//				pro.load(is);
-//			} catch (IOException e) {
-//				e.printStackTrace();
-//				logger.error(e.getMessage(), e);
-//			}
-//			String webServiceURL = pro.getProperty("webServiceURL");
-//			jwpfb.setAddress(webServiceURL);
-//			MaterialService ms = (MaterialService) jwpfb.create();
-//			JSONObject postPara = JSONObject.fromObject(params);
-//			String resultstr = ms.getWLInfo(postPara.toString());
-//			JSONObject jsonObject = JSONObject.fromObject(resultstr);
-//			Map<String, Object> classMap = new HashMap<String, Object>();
-//			classMap.put("data", Data0017.class);
-//			Map stu = (Map) JSONObject.toBean(jsonObject, Map.class, classMap);
+			JaxWsProxyFactoryBean jwpfb = new JaxWsProxyFactoryBean();
+			jwpfb.setServiceClass(MaterialService.class);
+			InputStream is = EncodingService.class.getClassLoader().getResourceAsStream("SetSystem.properties");
+			Properties pro = new Properties();
+			try {
+				pro.load(is);
+			} catch (IOException e) {
+				e.printStackTrace();
+				logger.error(e.getMessage(), e);
+			}
+			String webServiceURL = pro.getProperty("webServiceURL");
+			jwpfb.setAddress(webServiceURL);
+			MaterialService ms = (MaterialService) jwpfb.create();
+			
 			String ipdcSTR=(String) params.get("ipdcSTR");
 			if(!"".equals(ipdcSTR)&&ipdcSTR!=null) {
+				ipdcSTR=ipdcSTR.toUpperCase();
 				String [] list = ipdcSTR.split("\\s+");
 				 List<String> stringB = Arrays.asList(list);
 				 params.put("list", stringB);
 			}
 			List<Data0017> list=data0017Mapper.getPage(params);
+			if(list.size()>0) {
+				String kerys="";
+				for (int i = 0; i < list.size(); i++) {
+					if(i==0) {
+						kerys=String.valueOf(list.get(i).getErpid());
+					}else {
+						kerys=kerys+","+list.get(i).getErpid();
+					}
+				}
+				Map<String,Object> reqpara=new HashMap<String,Object>();
+				reqpara.put("rkeys", kerys);
+				JSONObject postPara = JSONObject.fromObject(reqpara);
+				String resultstr = ms.getWLInfo(postPara.toString());
+				JSONObject jsonObject = JSONObject.fromObject(resultstr);
+				Map stu = (Map) JSONObject.toBean(jsonObject, Map.class);
+				for(int i = 0; i < list.size(); i++) {
+					String kery=String.valueOf(list.get(i).getErpid());
+					list.get(i).setWarehouse((String)stu.get(kery));
+				}
+				
+			}
 			Integer count=data0017Mapper.getPageCount(params);
 			Map<String, Object> result = new HashMap<String, Object>();
 			result.put("total", count);
@@ -218,7 +235,7 @@ public class EncodingService {
 	public void saveData0017(MaterielCheck params, User user) throws Exception {
 		Dd_User dd_user = userMapper.getDd_users(String.valueOf((int) user.getId()));
 		if (dd_user == null) {
-			throw new Exception("您的账户和钉钉未绑定！请联系管理员！");
+			throw new RuntimeException("您的账户和钉钉未绑定！请联系管理员！");
 		}
 		String smallid=params.getProdCodeSellPtr();
 		MaterielSmallclass msc=materielSmallclassMapper.getSmallclassById(Integer.parseInt(smallid));
