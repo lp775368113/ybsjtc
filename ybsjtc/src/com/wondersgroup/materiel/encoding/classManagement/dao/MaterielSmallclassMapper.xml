@@ -15,6 +15,7 @@
 		<result column="removed" property="removed" jdbcType="VARCHAR" />
 		<result column="status" property="status" jdbcType="VARCHAR" />
 		<result column="ensample" property="ensample" jdbcType="VARCHAR" />
+		<result column="ttype" property="ttype" jdbcType="VARCHAR" />
 	</resultMap>
 	<sql id="Base_Column_List">
 		id, bigclassid, code, classname, rules, remark, removed, status, ensample
@@ -72,6 +73,9 @@
 			<if test="status != null">
 				status,
 			</if>
+			<if test="ttype != null">
+				ttype,
+			</if>
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="id != null">
@@ -100,6 +104,9 @@
 			</if>
 			<if test="status != null">
 				#{status,jdbcType=VARCHAR},
+			</if>
+			<if test="ttype != null">
+				#{ttype,jdbcType=VARCHAR},
 			</if>
 		</trim>
 	</insert>
@@ -130,6 +137,9 @@
 			</if>
 			<if test="status != null">
 				status = #{status,jdbcType=VARCHAR},
+			</if>
+			<if test="ttype != null">
+				ttype = #{ttype,jdbcType=VARCHAR},
 			</if>
 		</set>
 		where id = #{id,jdbcType=INTEGER}
@@ -206,6 +216,12 @@
 		parameterType="java.util.Map">
 		select a.* from materiel_smallclass a where a.removed='0' and a.status='0'
 		and a.code!='' and a.bigclassid=#{bigclassid,jdbcType=INTEGER}
+		<if test="ttype != null and ttype!='' " >
+        	and a.ttype=#{ttype}
+      	</if>
+      	<if test="nottype != null and nottype!='' " >
+        	and a.ttype!=#{nottype}
+      	</if>
 		ORDER BY a.code+0 
 	</select>
 	

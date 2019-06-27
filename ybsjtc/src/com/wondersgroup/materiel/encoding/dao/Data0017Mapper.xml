@@ -46,18 +46,27 @@
 			jdbcType="VARCHAR" />
 		<result column="supplierPtrStr" property="supplierPtrStr"
 			jdbcType="VARCHAR" />
-		<result column="prodSuppersStr" property="prodSuppersStr"
+		<result column="filename" property="filename"
 			jdbcType="VARCHAR" />
-		<result column="filename" property="filename" jdbcType="VARCHAR" />
-    	<result column="schematic" property="schematic" jdbcType="VARCHAR" />
-			
+		<result column="schematic" property="schematic"
+			jdbcType="VARCHAR" />
+		<result column="smtFlagStr" property="smtFlagStr"
+			jdbcType="VARCHAR" />
+		<result column="pe_version_date" property="peVersionDate"
+			jdbcType="VARCHAR" />
+		<result column="pe_version" property="peVersion"
+			jdbcType="VARCHAR" />
+
+
 	</resultMap>
 	<sql id="Base_Column_List">
 		id, erpid, status, ttype, inv_part_number, extra_desc,
 		prod_code_sell_ptr, prod_supper,
-		package_, smt_flag, inv_part_description_c, cust_part_name, cust_part_code,
+		package_, smt_flag,
+		inv_part_description_c, cust_part_name, cust_part_code,
 		purch_unit_ptr,
-		stock_unit_ptr, supplier_ptr, std_cost, stock_purch,remark,userid,createtime,filename,schematic
+		stock_unit_ptr, supplier_ptr, std_cost,
+		stock_purch,remark,userid,createtime,filename,schematic,pe_version_date,pe_version
 	</sql>
 	<insert id="insertSelective"
 		parameterType="com.wondersgroup.materiel.encoding.vo.Data0017"
@@ -127,12 +136,18 @@
 			<if test="createtime != null">
 				createtime,
 			</if>
-			<if test="filename != null" >
-        		filename,
-      		</if>
-       		<if test="schematic != null" >
-        		schematic,
-      		</if>
+			<if test="filename != null">
+				filename,
+			</if>
+			<if test="schematic != null">
+				schematic,
+			</if>
+			<if test="peVersionDate != null">
+				pe_version_date,
+			</if>
+			<if test="peVersion != null">
+				pe_version,
+			</if>
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="id != null">
@@ -198,27 +213,38 @@
 			<if test="createtime != null">
 				#{createtime,jdbcType=TIMESTAMP},
 			</if>
-			<if test="filename != null" >
-        		#{filename,jdbcType=TIMESTAMP},
-      		</if>
-      		<if test="schematic != null" >
-        		#{schematic,jdbcType=TIMESTAMP},
-      		</if>
+			<if test="filename != null">
+				#{filename,jdbcType=TIMESTAMP},
+			</if>
+			<if test="schematic != null">
+				#{schematic,jdbcType=TIMESTAMP},
+			</if>
+			<if test="peVersionDate != null">
+				#{peVersionDate,jdbcType=VARCHAR},
+			</if>
+			<if test="peVersion != null">
+				#{peVersion,jdbcType=VARCHAR},
+			</if>
 		</trim>
 	</insert>
 
 	<select id="getExportPage" parameterType="java.util.Map"
 		resultMap="BaseResultMap">
 		SELECT
-		a.id, a.erpid, a.status, a.ttype, a.inv_part_number, a.extra_desc,
-		a.prod_code_sell_ptr, a.prod_supper,(select k.brandname from
+		a.id, a.erpid, a.status, a.ttype, a.inv_part_number,
+		a.extra_desc,
+		a.prod_code_sell_ptr, a.prod_supper,(select k.brandname
+		from
 		materiel_brand k where k.id=a.prod_supper ) prodSupperStr,
-		(select p.packagename from materiel_package p where p.id=a.package_ )
+		(select
+		p.packagename from materiel_package p where p.id=a.package_ )
 		package_Str,a.package_, a.smt_flag, a.inv_part_description_c,
 		a.cust_part_name, a.cust_part_code, a.purch_unit_ptr,
-		a.stock_unit_ptr, a.supplier_ptr, a.std_cost,(select y.supplier_Name from materiel_supplier y where y.id=a.supplier_ptr) supplierPtrStr,
+		a.stock_unit_ptr, a.supplier_ptr, a.std_cost,(select y.supplier_Name
+		from materiel_supplier y where y.id=a.supplier_ptr) supplierPtrStr,
 		a.stock_purch,a.remark,a.userid,a.createtime
-		FROM materiel_info a where 1=1 and a.status in('3','7')
+		FROM materiel_info a where
+		1=1 and a.status in('3','7')
 		order by a.id desc
 		limit #{start},#{row}
 	</select>
@@ -227,29 +253,37 @@
 	<select id="getExportData" parameterType="java.util.Map"
 		resultMap="BaseResultMap">
 		SELECT 0 as erpstatus,
-		a.id, a.erpid, a.status, a.ttype, a.inv_part_number, a.extra_desc,
-		a.prod_code_sell_ptr,(select k.brandname from
-		materiel_brand k where k.id=a.prod_supper ) prod_supper,
-		(select p.packagename from materiel_package p where p.id=a.package_ )
+		a.id, a.erpid, a.status, a.ttype,
+		a.inv_part_number, a.extra_desc,
+		a.prod_code_sell_ptr,(select
+		k.brandname from
+		materiel_brand k where k.id=a.prod_supper )
+		prod_supper,
+		(select p.packagename from materiel_package p where
+		p.id=a.package_ )
 		package_, a.smt_flag, a.inv_part_description_c,
 		a.cust_part_name, a.cust_part_code, a.purch_unit_ptr,
 		a.stock_unit_ptr, a.supplier_ptr, a.std_cost,
 		a.stock_purch,a.remark,a.userid,a.createtime
 		FROM materiel_info a
-		where 1=1 and a.status in('3','7')
+		where
+		1=1 and a.status in('3','7')
 		order by a.id desc
 	</select>
 
 	<select id="getPageExportCount" parameterType="java.util.Map"
 		resultType="java.lang.Integer">
-		SELECT COUNT(*) FROM materiel_info a where 1=1 and a.status in('3','7')
+		SELECT COUNT(*) FROM materiel_info a where 1=1 and a.status
+		in('3','7')
 	</select>
 
 	<select id="getExtraDesc" resultType="java.lang.String"
 		parameterType="java.lang.String">
 		select a.Extra_Desc from materiel_check a
-		where a.Extra_Desc like '${_parameter}%'
-		order by REPLACE(a.Extra_Desc,'-','')+0 desc
+		where
+		a.Extra_Desc like '${_parameter}%'
+		order by
+		REPLACE(a.Extra_Desc,'-','')+0 desc
 		limit 0,1
 	</select>
 
@@ -285,7 +319,8 @@
 				smt_flag = #{smtFlag,jdbcType=VARCHAR},
 			</if>
 			<if test="invPartDescriptionC != null">
-				inv_part_description_c = #{invPartDescriptionC,jdbcType=VARCHAR},
+				inv_part_description_c =
+				#{invPartDescriptionC,jdbcType=VARCHAR},
 			</if>
 			<if test="custPartName != null">
 				cust_part_name = #{custPartName,jdbcType=VARCHAR},
@@ -311,12 +346,18 @@
 			<if test="remark != null">
 				remark = #{remark,jdbcType=VARCHAR},
 			</if>
-			<if test="filename != null" >
-        		filename = #{filename,jdbcType=VARCHAR},
-      		</if>
-      		<if test="schematic != null" >
-       		    schematic = #{schematic,jdbcType=VARCHAR},
-      		</if>
+			<if test="filename != null">
+				filename = #{filename,jdbcType=VARCHAR},
+			</if>
+			<if test="schematic != null">
+				schematic = #{schematic,jdbcType=VARCHAR},
+			</if>
+			<if test="peVersionDate != null">
+				pe_version_date=#{peVersionDate,jdbcType=VARCHAR},
+			</if>
+			<if test="peVersion != null">
+				pe_version=#{peVersion,jdbcType=VARCHAR},
+			</if>
 		</set>
 		where id = #{id,jdbcType=INTEGER}
 	</update>
@@ -349,7 +390,8 @@
 				smt_flag = #{smtFlag,jdbcType=VARCHAR},
 			</if>
 			<if test="invPartDescriptionC != null">
-				inv_part_description_c = #{invPartDescriptionC,jdbcType=VARCHAR},
+				inv_part_description_c =
+				#{invPartDescriptionC,jdbcType=VARCHAR},
 			</if>
 			<if test="custPartName != null">
 				cust_part_name = #{custPartName,jdbcType=VARCHAR},
@@ -381,20 +423,27 @@
 			<if test="createtime != null">
 				createtime = #{createtime,jdbcType=TIMESTAMP},
 			</if>
-			<if test="filename != null" >
-        		filename = #{filename,jdbcType=VARCHAR},
-      		</if>
-      		<if test="schematic != null" >
-        		schematic = #{schematic,jdbcType=VARCHAR},
-      		</if>
+			<if test="filename != null">
+				filename = #{filename,jdbcType=VARCHAR},
+			</if>
+			<if test="schematic != null">
+				schematic = #{schematic,jdbcType=VARCHAR},
+			</if>
+			<if test="peVersionDate != null">
+				pe_version_date=#{peVersionDate,jdbcType=VARCHAR},
+			</if>
+			<if test="peVersion != null">
+				pe_version=#{peVersion,jdbcType=VARCHAR},
+			</if>
 		</set>
 		where erpid = #{erpid,jdbcType=INTEGER}
 	</update>
-	
+
 
 	<update id="updateStatus"
 		parameterType="com.wondersgroup.materiel.encoding.vo.Data0017">
-		update materiel_info set status = #{status,jdbcType=VARCHAR}
+		update materiel_info set status =
+		#{status,jdbcType=VARCHAR}
 		where id=#{id}
 	</update>
 
@@ -414,8 +463,13 @@
 	<select id="getSupplier"
 		resultType="com.wondersgroup.materiel.encoding.vo.MaterielSupplier"
 		parameterType="java.util.Map">
-		select a.* from Materiel_Supplier a,materiel_brand_supplier b where
-		a.id=b.supplierid and b.brandid=#{brandid} and b.removed='0'
+		select DISTINCT a.* from Materiel_Supplier a LEFT JOIN
+		materiel_brand_supplier b on a.id=b.supplierid
+		and b.removed='0' where
+		a.removed='0'
+		<if test="brandid != null and brandid!='' ">
+			and b.brandid=#{brandid}
+		</if>
 	</select>
 	<select id="getAllSupplier"
 		resultType="com.wondersgroup.materiel.encoding.vo.MaterielSupplier"
@@ -425,16 +479,31 @@
 
 	<select id="getPage" parameterType="java.util.Map"
 		resultMap="BaseResultMap">
-		SELECT id, erpid, status, ttype, inv_part_number, extra_desc, (select
-		y.classname from materiel_smallclass y where y.id=a.prod_code_sell_ptr
-		) prodCodeSellPtrStr, prod_code_sell_ptr,
-		package_,(select z.supplier_Name from materiel_supplier z where z.id=a.supplier_ptr) supplierPtrStr,
-		(select o.packagename from materiel_package o where o.id=a.package_) package_Str,
-		smt_flag, inv_part_description_c, cust_part_name, cust_part_code,
-		purch_unit_ptr,
-		stock_unit_ptr, supplier_ptr, std_cost, stock_purch,remark,userid,createtime,prod_supper,(select
-		h.brandname from materiel_brand h where h.id=a.prod_supper
-		) prodSuppersStr,filename,schematic FROM materiel_info a where 1=1
+		SELECT CASE a.smt_flag WHEN '1' THEN 'SMT' WHEN '2' THEN 'DIP' WHEN
+		'0' THEN '无' end smtFlagStr,
+		CASE a.ttype WHEN '1' THEN (select
+		y.classname from materiel_smallclass y
+		where y.id=a.prod_code_sell_ptr
+		) else
+		(select f.name from dic_code_info f where
+		f.code=a.prod_code_sell_ptr and
+		f.type_code in('CP','BCP','XNCP')) end
+		prodCodeSellPtrStr,
+		(select z.supplier_Name from materiel_supplier z
+		where z.id=a.supplier_ptr)
+		supplierPtrStr,
+		(select o.packagename from
+		materiel_package o where o.id=a.package_)
+		package_Str,
+		(select
+		h.brandname from materiel_brand h where h.id=a.prod_supper )
+		prodSupperStr,a.* FROM materiel_info a where 1=1
+		<if test="ttype != null and ttype!=''">
+			AND a.ttype = #{ttype}
+		</if>
+		<if test="nottype != null and nottype!=''">
+			AND a.ttype != #{nottype}
+		</if>
 		<if test="invPartNumber != null and invPartNumber!=''">
 			AND a.INV_PART_NUMBER like '%${invPartNumber}%'
 		</if>
@@ -465,12 +534,19 @@
 		<if test="prodCodeSellPtr != null and prodCodeSellPtr!=''">
 			AND a.prod_code_sell_ptr =#{prodCodeSellPtr}
 		</if>
+		order by a.erpid desc
 		limit #{start},#{row}
 	</select>
 
 	<select id="getPageCount" parameterType="java.util.Map"
 		resultType="java.lang.Integer">
 		SELECT COUNT(*) FROM materiel_info a where 1=1
+		<if test="ttype != null and ttype!=''">
+			AND a.ttype = #{ttype}
+		</if>
+		<if test="nottype != null and nottype!=''">
+			AND a.ttype != #{nottype}
+		</if>
 		<if test="invPartNumber != null and invPartNumber!=''">
 			AND a.INV_PART_NUMBER like '%${invPartNumber}%'
 		</if>
@@ -502,10 +578,10 @@
 			)
 		</if>
 	</select>
-	<select id="getAllData" resultMap="BaseResultMap"> 
+	<select id="getAllData" resultMap="BaseResultMap">
 		SELECT * FROM materiel_info
 	</select>
-	
+
 	<select id="countCustPartCode" parameterType="java.util.Map"
 		resultType="java.lang.Integer">
 		SELECT COUNT(*) FROM materiel_info a where a.CUST_PART_CODE =
@@ -523,10 +599,21 @@
 			AND a.id != #{id}
 		</if>
 	</select>
-	
-	<select id="getMaterielInfoByErpid" parameterType="Integer" resultMap="BaseResultMap">
+
+	<select id="getMaterielInfoByErpid" parameterType="Integer"
+		resultMap="BaseResultMap">
 		SELECT * FROM materiel_info a where a.erpid=#{erpid}
-	
+
+	</select>
+
+	<select id="getMaterielByCustPartCode" resultMap="BaseResultMap"
+		parameterType="String">
+		SELECT * FROM materiel_info a
+		where a.CUST_PART_CODE =
+		#{key}
+	</select>
+	<select id="getOneMaterial" resultMap="BaseResultMap" parameterType="java.util.Map" >
+		select * from  materiel_info where id=#{id}
 	</select>
 
 </mapper>

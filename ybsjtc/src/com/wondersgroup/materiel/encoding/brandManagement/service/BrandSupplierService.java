@@ -18,6 +18,8 @@ import com.wondersgroup.materiel.encoding.brandManagement.dao.MaterielSupplierMa
 import com.wondersgroup.materiel.encoding.brandManagement.vo.MaterielBrand;
 import com.wondersgroup.materiel.encoding.brandManagement.vo.MaterielBrandSupplier;
 import com.wondersgroup.materiel.encoding.brandManagement.vo.MaterielSupplier;
+import com.wondersgroup.materiel.encoding.smallclass_brand.dao.SmallclassBrandMapper;
+import com.wondersgroup.materiel.encoding.smallclass_brand.vo.SmallclassBrand;
 import com.wondersgroup.permission.role.vo.Role;
 import com.wondersgroup.permission.user.vo.User;
 import com.wondersgroup.permission.userRole.vo.UserRole;
@@ -47,6 +49,9 @@ public class BrandSupplierService {
 	
 	@Autowired
 	MaterielBrandSupplierMapper materielBrandSupplierMapper;
+	
+	@Autowired
+	SmallclassBrandMapper smallclassBrandMapper;
 
 	public void addBrand(MaterielBrand brand) throws Exception {
 		Integer count=materielBrandMapper.countBrandname(brand);
@@ -163,6 +168,65 @@ public class BrandSupplierService {
 
 	public MaterielSupplier getProdSupperId(Integer id) {
 		return materielSupplierMapper.getProdSupperId(id);
+	}
+
+	public Map<String, Object> queryClassBrand(Map<String, Object> params) {
+		List<MaterielBrand> list=materielBrandMapper.queryClassBrandPage(params);
+		Integer count=materielBrandMapper.queryClassBrandCount(params);
+		Map<String, Object> result = new HashMap<String, Object>();
+		result.put("total", count);
+		result.put("data", list);
+		return result;
+	}
+
+	public boolean changeSmallClassBrand(Map<String, Object> map) {
+		String smallclassid = map.get("smallclassid") != null ? map.get("smallclassid").toString() : "";
+		String json = map.get("data").toString();
+		List<SmallclassBrand> addList = new ArrayList<SmallclassBrand>();
+		List<SmallclassBrand> updateList = new ArrayList<SmallclassBrand>();
+		if (StringUtils.isNotEmpty(smallclassid)) {
+			List<MaterielBrand> list = JSONArray.parseArray(json, MaterielBrand.class);
+			for (MaterielBrand brand : list) {
+				boolean flag = false;// 默认更新
+				Map<String, Object> params = new HashMap<String, Object>();
+				params.put("smallclassid", Integer.valueOf(smallclassid));
+				params.put("brandid", brand.getId());
+				SmallclassBrand smallclassBrand = smallclassBrandMapper.getSmallClassBrand(params);
+				if (smallclassBrand == null) {
+					smallclassBrand = new SmallclassBrand();
+					flag = true;
+				}
+				smallclassBrand.setSmallclassid(Integer.valueOf(smallclassid));
+				smallclassBrand.setBrandid(brand.getId());
+				// 判断是删除还是增加
+				if ("added".equals(brand.get_state())) {
+					smallclassBrand.setRemoved("0");
+				} else if ("removed".equals(brand.get_state())) {
+					smallclassBrand.setRemoved("1");
+				}
+				// 判断是insert还是update
+				if (flag) {
+					addList.add(smallclassBrand);
+				} else {
+					updateList.add(smallclassBrand);
+				}
+			}
+		} else {
+			return false;
+		}
+		if (addList.size() > 0) {
+			smallclassBrandMapper.saveSmallClassBrand(addList);
+		}
+		if (updateList.size() > 0) {
+			for(SmallclassBrand smallclassBrand:updateList) {
+				smallclassBrandMapper.updateByPrimaryKeySelective(smallclassBrand);
+			}
+		}
+		return true;
+	}
+
+	public List<MaterielBrand> queryClassBrandPre(Map<String, Object> params) {
+		return materielBrandMapper.queryClassBrandPre(params);
 	}
 
 }

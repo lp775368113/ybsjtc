@@ -17,7 +17,7 @@ import static com.wondersgroup.framework.dingding.config.URLConstant.URL_GET_TOK
 public class AccessTokenUtil {
     private static final Logger bizLogger = LoggerFactory.getLogger(AccessTokenUtil.class);
 
-    public static String getToken() throws RuntimeException {
+    public static String getToken(){
         try {
             DefaultDingTalkClient client = new DefaultDingTalkClient(URL_GET_TOKKEN);
             OapiGettokenRequest request = new OapiGettokenRequest();
@@ -30,7 +30,7 @@ public class AccessTokenUtil {
             return accessToken;
         } catch (ApiException e) {
             bizLogger.error("getAccessToken failed", e);
-            throw new RuntimeException();
+            throw new RuntimeException(e.getMessage());
         }
 
     }

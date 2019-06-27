@@ -37,6 +37,7 @@ html, body {
 	<div class="mini-fit">
 		<form id="form2" name="form2" style="padding-top: 10px" action="#"
 			method="post">
+			<input class="mini-hidden" name="ttype" id="ttype" value="1" />
 			<input class="mini-hidden" name="extraDesc" id="extraDesc"/>
 			<table cellpadding="0" class="main-table" cellspacing="10px"
 				border="0px" width="98%">
@@ -49,7 +50,7 @@ html, body {
 						textField="classname" width="100%" valueField="id" /></td>
 					<td width="16%" class="mini_title"><span style="color: red">*</span>小类名称：</td>
 					<td width="16%"><input id="prodCodeSellPtr"  readonly="true"
-						name="prodCodeSellPtr" class="mini-combobox" 
+						name="prodCodeSellPtr" class="mini-combobox"   
 						url = "${pageContext.request.contextPath}/class/getAllSmallClass.do"
 						required="true" textField="classname" width="100%"
 						valueField="id" onvaluechanged="setWLMS" /></td>
@@ -126,6 +127,8 @@ html, body {
 					<td class="mini_title" width="16%"><span style="color: red">*</span>相关文件名称：</td>
 					<td width="16%"><input class="mini-textbox" name="filename"
 						id="filename" width="100%" required="true"  /></td>
+				</tr>
+				<tr id="yinzhiban" >
 				</tr>
 				<tr>
 					<td class="mini_title">备注：</td>
@@ -297,7 +300,6 @@ html, body {
 		function onProdSupperChanged(){
 			var prodSupper= mini.get("prodSupper");
 			var brandid=prodSupper.getValue();
-			console.log(brandid);
 			var url = "${pageContext.request.contextPath}/encoding/getSupplier.do?brandid="
 				+ brandid;
 			mini.get("supplierPtr").setUrl(url);
@@ -313,6 +315,15 @@ html, body {
 		function setWLMS() {
 			var prodCodeSellPtr = mini.get("prodCodeSellPtr");
 			var id = prodCodeSellPtr.getValue();
+			var html='';
+			if(id==2541){//印制版
+				html='<td class="mini_title"><span style="color: red">*</span>版本号：</td>'+
+				'<td colspan="3" ><input class="mini-textbox" name="peVersion"  id="peVersion"  required="true" width="150px" height="100px" /><input class="mini-datepicker" name="peVersionDate" required="true" id="peVersionDate" width="100px" height="100px" /></td>';
+				$('#yinzhiban').append(html);
+				mini.parse();
+			}else{
+				$('#yinzhiban').empty();
+			}
 			$
 					.ajax({
 						url : "${pageContext.request.contextPath}/encoding/getSmallclass.do",
@@ -367,6 +378,12 @@ html, body {
 							mini.parse();
 						}
 					});
+		}
+		
+		function onSmallClassChanged(){
+			var smallclassid=mini.get("prodCodeSellPtr").getValue();
+			url="${pageContext.request.contextPath}/BrandSupplier/queryClassBrandPre.do?smallclassid="+smallclassid;
+			mini.get("prodSupper").setUrl(url);
 		}
 
 

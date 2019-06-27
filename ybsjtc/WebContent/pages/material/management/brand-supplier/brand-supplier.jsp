@@ -70,10 +70,7 @@ html,body {
 					<div property="columns">
 						<div type="indexcolumn" headerAlign="center" align="center"
 							width="15%">序号</div>
-						<div type="checkcolumn" headerAlign="center" align="center"
-							width="10%"></div>
 						<div field="brandname" width="80%" headerAlign="center" align="center">品牌名称</div>
-						<div field="remark" width="80%" headerAlign="center" align="center">备注</div>
 					</div>
 				</div>
 			</div>

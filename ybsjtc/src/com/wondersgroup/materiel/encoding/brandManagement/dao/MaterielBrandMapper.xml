@@ -136,4 +136,40 @@
         and id!=#{id}
      	</if>
   </select>
+  
+  
+  <select id="queryClassBrandPage" resultMap="BaseResultMap" parameterType="java.util.Map" >
+   select  DISTINCT d.* from materiel_brand d LEFT JOIN materiel_smallclass_brand a on  d.id=a.brandid
+	and   a.removed=0 where  d.removed=0
+	 <if test="brandname != null and brandname!=''" >
+        and d.brandname=#{brandname}
+     </if>
+     <if test="smallclassid != null and smallclassid!=''" >
+        and a.smallclassid=#{smallclassid}
+     </if>
+    order by d.id 
+    limit #{start},#{row}
+  </select>
+  <select id="queryClassBrandCount" resultType="Integer" parameterType="java.util.Map" >
+    select count(*) from (select  DISTINCT d.* from materiel_brand d LEFT JOIN materiel_smallclass_brand a on  d.id=a.brandid
+	and   a.removed=0 where  d.removed=0
+	 <if test="brandname != null and brandname!=''" >
+        and d.brandname=#{brandname}
+     </if>
+     <if test="smallclassid != null and smallclassid!=''" >
+        and a.smallclassid=#{smallclassid}
+     </if>)g
+  </select>
+  
+  
+  <select id="queryClassBrandPre" resultMap="BaseResultMap" parameterType="java.util.Map" >
+   select  DISTINCT d.* from materiel_brand d LEFT JOIN materiel_smallclass_brand a on  d.id=a.brandid
+	and   a.removed=0 where  d.removed=0
+	 <if test="brandname != null and brandname!=''" >
+        and d.brandname=#{brandname}
+     </if>
+     <if test="smallclassid != null and smallclassid!=''" >
+        and a.smallclassid=#{smallclassid}
+     </if>
+  </select>
 </mapper>

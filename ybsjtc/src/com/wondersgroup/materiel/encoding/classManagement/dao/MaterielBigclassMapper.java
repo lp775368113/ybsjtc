@@ -29,7 +29,7 @@ public interface MaterielBigclassMapper {
 
 	List<MaterielBigclass> getAllbigclass();
 
-	List<MaterielBigclass> getAllbigclassPre();
+	List<MaterielBigclass> getAllbigclassPre(Map<String, Object> params);
 
 	List<MaterielSmallclass> getBigClassBySmallclassid(Map<String, Object> params);
 

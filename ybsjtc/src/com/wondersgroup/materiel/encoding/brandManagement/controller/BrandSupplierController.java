@@ -1,5 +1,6 @@
 package com.wondersgroup.materiel.encoding.brandManagement.controller;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +43,26 @@ public class BrandSupplierController extends BaseController{
 		params.put("row",pageSize);
 		params.put("start",start);
 		Map<String, Object> map =brandSupplierService.getBrandPage(params);
+		return map;
+	}
+	
+	
+	@ResponseBody
+	@RequestMapping("queryClassBrand")
+	public Map<String, Object> queryClassBrand(@RequestParam Map<String, Object> params){
+		int pageIndex = Integer.parseInt( params.get("pageIndex").toString());
+        int pageSize = Integer.parseInt(params.get("pageSize").toString());
+		int start = pageIndex * pageSize;
+		params.put("row",pageSize);
+		params.put("start",start);
+		Map<String, Object> map =brandSupplierService.queryClassBrand(params);
+		return map;
+	}
+	
+	@ResponseBody
+	@RequestMapping("queryClassBrandPre")
+	public List<MaterielBrand> queryClassBrandPre(@RequestParam Map<String, Object> params){
+		List<MaterielBrand> map =brandSupplierService.queryClassBrandPre(params);
 		return map;
 	}
 	
@@ -130,4 +151,29 @@ public class BrandSupplierController extends BaseController{
 	public MaterielSupplier getSupplierPtrById(@RequestParam Integer id){
 		return brandSupplierService.getProdSupperId(id);
 	}
+	
+	@ResponseBody
+	@RequestMapping("changeSmallClassBrand")
+	public Map<String, Object> changeSmallClassBrand(@RequestParam Map<String, Object> map) {
+		Map<String, Object> result = new HashMap<String, Object>();
+
+		try {
+			if(brandSupplierService.changeSmallClassBrand(map)){
+				result.put("success", true);
+				result.put("message", "操作成功");
+			}else{
+				result.put("success", false);
+				result.put("message", "操作失败");
+				return result;
+			}
+		} catch (Exception e) {
+			logger.error("操作失败：" + e.getMessage(), e);
+			result.put("success", false);
+			result.put("message", "操作失败：" + e.getMessage());
+		}
+
+		return result;
+	}
+	
+	
 }

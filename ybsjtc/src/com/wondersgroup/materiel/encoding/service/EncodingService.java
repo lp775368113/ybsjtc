@@ -33,16 +33,19 @@ import com.dingtalk.api.DefaultDingTalkClient;
 import com.dingtalk.api.request.OapiProcessinstanceCreateRequest;
 import com.dingtalk.api.response.OapiProcessinstanceCreateResponse;
 import com.wondersgroup.framework.comwork.controller.SessionConstants;
+import com.wondersgroup.framework.cxf.centerservice.CommonService;
 import com.wondersgroup.framework.cxf.materialservice.MaterialService;
 import com.wondersgroup.framework.dbutil.centre.CentreDao;
 import com.wondersgroup.framework.dingding.config.Constant;
 import com.wondersgroup.framework.dingding.config.URLConstant;
 import com.wondersgroup.framework.dingding.util.AccessTokenUtil;
-import com.wondersgroup.framework.dingding.util.Check;
+import com.wondersgroup.framework.dingding.util.CheckMateriel;
 import com.wondersgroup.framework.util.Base64Util;
 import com.wondersgroup.materiel.encoding.brandManagement.dao.MaterielBrandMapper;
 import com.wondersgroup.materiel.encoding.brandManagement.vo.MaterielBrand;
+import com.wondersgroup.materiel.encoding.classManagement.dao.MaterielBigclassMapper;
 import com.wondersgroup.materiel.encoding.classManagement.dao.MaterielSmallclassMapper;
+import com.wondersgroup.materiel.encoding.classManagement.vo.MaterielBigclass;
 import com.wondersgroup.materiel.encoding.classManagement.vo.MaterielSmallclass;
 import com.wondersgroup.materiel.encoding.dao.Data0017Mapper;
 import com.wondersgroup.materiel.encoding.dao.MaterielCheckMapper;
@@ -100,9 +103,31 @@ public class EncodingService {
 	
 	@Autowired
 	MaterielSmallclassMapper materielSmallclassMapper;
+	
+	@Autowired
+	MaterielBigclassMapper materielBigclassMapper;
+	
+	public List<Map<String, Object>> treeList(Map<String, Object> params) {
+		List<MaterielBigclass> list = materielBigclassMapper.getAllbigclass();
+		List<Map<String, Object>> treeList = new ArrayList<Map<String, Object>>();
+		for (MaterielBigclass big : list) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("id", big.getId());
+			map.put("text", big.getClassname());
+			map.put("type","bigclass");
+			map.put("isLeaf", false);
+			map.put("expanded", false);
+			treeList.add(map);
+		}
+		return treeList;
+	}
 
 	public Map<String, Object> getPage(Map<String, Object> params) {
 		String status=(String) params.get("status");
+		String productType=(String)params.get("productType");
+		if(productType!=null&&productType!="") {
+			params.put("prodCodeSellPtr", productType);
+		}
 		if("9".equals(status)) {
 			JaxWsProxyFactoryBean jwpfb = new JaxWsProxyFactoryBean();
 			jwpfb.setServiceClass(MaterialService.class);
@@ -145,7 +170,6 @@ public class EncodingService {
 					String kery=String.valueOf(list.get(i).getErpid());
 					list.get(i).setWarehouse((String)stu.get(kery));
 				}
-				
 			}
 			Integer count=data0017Mapper.getPageCount(params);
 			Map<String, Object> result = new HashMap<String, Object>();
@@ -261,9 +285,10 @@ public class EncodingService {
 		String package_=params.getPackage_();
 		MaterielPackage materielPackage=materielPackageMapper.selectByPrimaryKey(Integer.parseInt(package_)); 
 		params.setSmtFlag(materielPackage.getProcess()); 
+		params.setTtype("1");//物料
 		materielCheckMapper.insertSelective(params);
 		// 发起审批流程
-		Check.startProcessInstance(params, dd_user, "新增物料");
+		CheckMateriel.startProcessInstance(params, dd_user, "新增物料");
 		String fileids=params.getFileidstr();
 		//关联相关文件
 		if(!"".equals(fileids)) {
@@ -274,6 +299,48 @@ public class EncodingService {
 		}
 	}
 	
+	public void saveProduct(MaterielCheck params, User user) throws Exception {
+		Dd_User dd_user = userMapper.getDd_users(String.valueOf((int) user.getId()));
+		if (dd_user == null) {
+			throw new RuntimeException("您的账户和钉钉未绑定！请联系管理员！");
+		}
+		String smallid=params.getProdCodeSellPtr();
+		MaterielSmallclass msc=materielSmallclassMapper.getSmallclassById(Integer.parseInt(smallid));
+		String extraDesc = msc.getBigcode() + "-" + msc.getCode() + "-";
+		String daoed = data0017Mapper.getExtraDesc(extraDesc);
+		//生成禾川编码
+		if (daoed == null || "".equals(daoed)) {
+			extraDesc = extraDesc + "0001";
+			params.setExtraDesc(extraDesc);
+		} else {
+			String[] d = daoed.split("-");
+			Integer i = Integer.parseInt(d[2]);
+			i += 1;
+			DecimalFormat df = new DecimalFormat("0000");
+			String str2 = df.format(i);
+			extraDesc = extraDesc + str2;
+			params.setExtraDesc(extraDesc);
+		}
+		params.setUserid(user.getId());
+		params.setStarttime(new Date());
+		params.setStatus("1");//审核中的数据
+		//获取工序
+		String package_=params.getPackage_();
+		MaterielPackage materielPackage=materielPackageMapper.selectByPrimaryKey(Integer.parseInt(package_)); 
+		params.setSmtFlag(materielPackage.getProcess()); 
+		params.setProdCodeSellPtr(params.getProductType());
+		materielCheckMapper.insertSelective(params);
+		// 发起审批流程
+		CheckMateriel.startProcessInstance(params, dd_user, "新增物料");
+		String fileids=params.getFileidstr();
+		//关联相关文件
+		if(!"".equals(fileids)) {
+			Map<String,Object> para=new HashMap<String,Object>();
+			para.put("fileids", fileids);
+			para.put("materielId", params.getId());
+			materielFileMapper.updateByids(para);
+		}
+	}
 	
 	public void editData0017(MaterielCheck params, User user) throws Exception {
 		Dd_User dd_user = userMapper.getDd_users(String.valueOf((int) user.getId()));
@@ -290,7 +357,7 @@ public class EncodingService {
 				params.setSmtFlag(materielPackage.getProcess()); 
 		params.setWlid(params.getId());
 		materielCheckMapper.insertSelective(params);
-		Check.startProcessInstance(params, dd_user, "修改物料");// 发起审批流程
+		CheckMateriel.startProcessInstance(params, dd_user, "修改物料");// 发起审批流程
 		String fileids=params.getFileidstr();
 		materielId=params.getId();
 		if(!"".equals(fileids)) {
@@ -315,7 +382,7 @@ public class EncodingService {
 				MaterielPackage materielPackage=materielPackageMapper.selectByPrimaryKey(Integer.parseInt(package_)); 
 				params.setSmtFlag(materielPackage.getProcess()); 
 		materielCheckMapper.insertSelective(params);
-		Check.startProcessInstance(params, dd_user, "新增替换料");// 发起审批流程
+		CheckMateriel.startProcessInstance(params, dd_user, "新增替换料");// 发起审批流程
 		String fileids=params.getFileidstr();
 		if(!"".equals(fileids)) {
 			Map<String,Object> para=new HashMap<String,Object>();
@@ -343,11 +410,13 @@ public class EncodingService {
 		params.setStatus("1");//审核中的数据
 		//获取工序
 				String package_=params.getPackage_();
-				MaterielPackage materielPackage=materielPackageMapper.selectByPrimaryKey(Integer.parseInt(package_)); 
-				params.setSmtFlag(materielPackage.getProcess()); 
+				if(package_!=null&&"".equals(package_)) {
+					MaterielPackage materielPackage=materielPackageMapper.selectByPrimaryKey(Integer.parseInt(package_)); 
+					params.setSmtFlag(materielPackage.getProcess()); 
+				}
 		params.setWlid(params.getId());
 		materielCheckMapper.insertSelective(params);
-		Check.startProcessInstance(params, dd_user, message);// 发起审批流程
+		CheckMateriel.startProcessInstance(params, dd_user, message);// 发起审批流程
 	}
 	/**
 	 * @Title: getThisPage
@@ -466,8 +535,25 @@ public class EncodingService {
 				  agree.setProdSupper(bd.getBrandname());
 			  }
 		  }
-		  CentreDao centreDao=new CentreDao();
-		  centreDao.insertMateriel(agree);//插入中间表
+		  JaxWsProxyFactoryBean jwpfb = new JaxWsProxyFactoryBean();
+			jwpfb.setServiceClass(CommonService.class);
+			InputStream is = EncodingService.class.getClassLoader().getResourceAsStream("SetSystem.properties");
+			Properties pro = new Properties();
+			try {
+				pro.load(is);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			String URL = pro.getProperty("centerServiceURL");
+			jwpfb.setAddress(URL);
+			CommonService ms = (CommonService) jwpfb.create();
+			JSONObject postPara = JSONObject.fromObject(agree);
+			String resultstr = ms.insertMaterielInfo(postPara.toString());
+			JSONObject jsonObject = JSONObject.fromObject(resultstr);
+			Map stu = (Map) JSONObject.toBean(jsonObject, Map.class);
+			if(!(boolean)stu.get("success")) {
+				logger.error(stu.get("message"));
+			}
 	}
 
 
@@ -539,7 +625,14 @@ public class EncodingService {
 		return new String(str.getBytes("ISO8859-1"),"gbk");
 	}
 
-
-	
+	/**@Title: 		 getOneMaterial   
+	 * @Description: TODO[用一句话描述这个方法的作用]   
+	 * @param params
+	 * @return      
+	 * @return_type: Data0017      
+	 */
+	public Data0017 getOneMaterial(Map<String, Object> params) {
+		return data0017Mapper.getOneMaterial(params);
+	}
 
 }

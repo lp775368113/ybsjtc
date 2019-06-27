@@ -42,15 +42,20 @@ public class Constant {
     public static final Long AGENTID = 245227362L;
 
     /**
-     * 审批模板唯一标识，可以在审批管理后台找到
+     * 审批模板唯一标识，可以在审批管理后台找到       物料审批模版
      */
-    public static final String PROCESS_CODE = "PROC-D2BB2099-F117-4B81-AEF1-A9ABD1FFEE21";
+    public static final String PROCESS_CODE_MATERIEL = "PROC-D2BB2099-F117-4B81-AEF1-A9ABD1FFEE21";
+    
+    /**
+     * 审批模板唯一标识，可以在审批管理后台找到       ECN审批模版
+     */
+    public static final String PROCESS_CODE_ECN = "PROC-05A70FFF-9B55-4B1E-8BD8-A42DB55EE6E4";
 
     /**
      * 回调host
      * 
      */
-     public static final String CALLBACK_URL_HOST = "http://115.238.111.190:8088";
-  // public static final String CALLBACK_URL_HOST = "http://hechuankeji.vaiwan.com";
+    public static final String CALLBACK_URL_HOST = "http://115.238.111.190:8088";
+    //public static final String CALLBACK_URL_HOST = "http://hechuankeji.vaiwan.com";
     
 }

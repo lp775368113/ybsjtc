@@ -63,18 +63,44 @@ public class Data0017 {
     
     private String supplierPtrStr;
     
-    private String prodSuppersStr; 
-    
     private String filename;
     
     private String schematic;
     
     private String warehouse;
     
+    private String smtFlagStr;
+    
+    private String peVersionDate;
+    
+    private String peVersion;
     
     
-    
-    public String getWarehouse() {
+    public String getPeVersionDate() {
+		return peVersionDate;
+	}
+
+	public void setPeVersionDate(String peVersionDate) {
+		this.peVersionDate = peVersionDate;
+	}
+
+	public String getPeVersion() {
+		return peVersion;
+	}
+
+	public void setPeVersion(String peVersion) {
+		this.peVersion = peVersion;
+	}
+
+	public String getSmtFlagStr() {
+		return smtFlagStr;
+	}
+
+	public void setSmtFlagStr(String smtFlagStr) {
+		this.smtFlagStr = smtFlagStr;
+	}
+
+	public String getWarehouse() {
 		return warehouse;
 	}
 
@@ -331,13 +357,4 @@ public class Data0017 {
 		this.supplierPtrStr = supplierPtrStr;
 	}
 
-	public String getProdSuppersStr() {
-		return prodSuppersStr;
-	}
-
-	public void setProdSuppersStr(String prodSuppersStr) {
-		this.prodSuppersStr = prodSuppersStr;
-	}
-	
-	
 }

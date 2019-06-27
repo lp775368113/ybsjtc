@@ -54,16 +54,18 @@ html, body {
 				<th class="mini_title">物料名称（描述）规则：</th>
 				<td><input id="rules" name="rules" class="mini-textarea"
 					width="100%" required="true" /></td>
-				<th class="mini_title">备注：</th>
-				<td><input id="remark" name="remark" width="100%"
-                    class="mini-textarea"  /></td>
+				<th class="mini_title">产品类型：</th>
+				<td><input id="ttype" name="ttype" class="mini-combobox"
+					url="${pageContext.request.contextPath}/dictionaries/getDic.do?type_code=CPLX"
+					required="true"  textField="name" width="100%" valueField="code"   /></td>
 			</tr>
 			<tr>
 				<th class="mini_title">物料名称（描述）示列：</th>
 				<td><input id="ensample" name="ensample" class="mini-textarea"
 					width="100%" required="true" /></td>
-				<th class="mini_title"></th>
-				<td></td>
+				<th class="mini_title">备注：</th>
+				<td><input id="remark" name="remark" width="100%"
+                    class="mini-textarea"  /></td>
 			</tr>
 			<tr>
 				<td colspan="4" align="center">

@@ -1,18 +1,48 @@
 package test;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.URL;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 
+import org.apache.cxf.jaxws.JaxWsProxyFactoryBean;
+import org.jxls.area.Area;
+import org.jxls.builder.AreaBuilder;
+import org.jxls.builder.xls.XlsCommentAreaBuilder;
+import org.jxls.common.CellRef;
+import org.jxls.common.Context;
+import org.jxls.transform.Transformer;
+import org.jxls.util.TransformerFactory;
+
+import com.wondersgroup.framework.cxf.centerservice.CommonService;
+import com.wondersgroup.framework.cxf.materialservice.MaterialService;
 import com.wondersgroup.framework.dbutil.centre.centreJdbcUtil;
+import com.wondersgroup.framework.pdfutil.Doc2Pdf;
 import com.wondersgroup.framework.util.DESUtil;
 import com.wondersgroup.framework.util.EncryptUtil;
+import com.wondersgroup.materiel.encoding.service.EncodingService;
+import com.wondersgroup.materiel.encoding.vo.Data0017;
+import java.io.ByteArrayOutputStream;  
+import java.io.InputStream;  
+import java.net.HttpURLConnection;  
+import java.net.URL;  
+import net.sf.json.JSONObject;
 
 /**   ***********************************************
  * Simple to Introduction  
@@ -42,20 +72,7 @@ public class text1 {
 	 * @return_type: void      
 	 */
 	public static void main(String[] args) throws Exception {
-//		String des=DESUtil.encrypt(DESUtil.KEY, "1111");
-//		String md5 = EncryptUtil.generate(des);  
-//		System.out.println(md5);
-		String str="精密电阻1%-规格=430R(431)/10W-封装=SMD0603";
-		int i;
-		if(str.indexOf(" ", 1)==-1) {
-			i=str.indexOf("(", 1);
-		}else {
-			i=str.indexOf(" ", 1);
-		}
-		String hou=str.substring(str.indexOf("阻")+1, str.indexOf("-",1));
-		String qian=str.substring(str.indexOf("=", 1)+1, i);
-		String out=qian+"/"+hou;
-		System.out.println(out);
+		 Doc2Pdf.doc2pdf("C:\\Users\\Administrator\\Desktop\\周报");
 	}
-
+	
 }

@@ -232,7 +232,7 @@
 			<groupId>org.jxls</groupId>
 			<artifactId>jxls-jexcel</artifactId>
 			<version>1.0.6</version>
-		</dependency> 
+		</dependency>
 		<!-- jxls解析表单 -->
 		<dependency>
 			<groupId>org.jxls</groupId>
@@ -460,6 +460,12 @@
 			<artifactId>cxf-rt-transports-http-jetty</artifactId>
 			<version>${cxf.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>org.freemarker</groupId>
+			<artifactId>freemarker</artifactId>
+			<version>2.3.28</version>
+		</dependency>
+
 
 
 	</dependencies>
@@ -471,7 +477,7 @@
 		<plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-compiler-plugin</artifactId> 
 		<version>3.5.1</version> </plugin> </plugins> </build> -->
 	<build>
-		<finalName>ybsjct</finalName>
+		<finalName>ybsjtc</finalName>
 		<!-- <sourceDirectory>src</sourceDirectory> <outputDirectory>target/classes</outputDirectory> 
 			<resources> <resource> <directory>config</directory> <includes><include>*.*</include></includes> 
 			</resource> </resources> <directory>target</directory> -->

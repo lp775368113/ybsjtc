@@ -33,7 +33,7 @@ html,body {
 			<div size="30%" showCollapseButton="true" style="padding:5px;">
 				<ul id="tree1" class="mini-tree"
 					url="${pageContext.request.contextPath}/menu/listMenu.do"
-					style="width:100%;height:100%;padding:5px;" showTreeIcon="true"
+					style="width:100%;height:100%;padding:5px;" showTreeIcon="false"
 					textField="text" idField="id" parentField="pid"
 					resultAsTree="false"
 					imgPath="${pageContext.request.contextPath}/images/"

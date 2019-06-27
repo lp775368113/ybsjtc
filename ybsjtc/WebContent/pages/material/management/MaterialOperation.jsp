@@ -41,16 +41,17 @@ html, body {
 			<form id="form1" name="form1" style="" action="#" method="post">
 				<table width="99%" border="0" cellpadding="0" cellspacing="0px"
 					style="padding-top: 8px;">
+					<input class="mini-hidden" name="ttype" id="ttype" value="1" />
 					<tr height="28px">
 						<td class="mini_title" align="right" width="60px" >大类名称：</td>
 						<td><input id="maxclass" name="maxclass"
 							class="mini-combobox"
-							url="${pageContext.request.contextPath}/class/getAllbigclassPre.do"
+							url="${pageContext.request.contextPath}/class/getAllbigclassPre.do?ttype=1"
 							onvaluechanged="onClassChanged"  showNullItem="true"
 							textField="classname" width="80%" valueField="id" /></td>
 						<td class="mini_title" align="right" width="80px"  >制造厂商：</td>
-						<td><input id="prodSupper" name="prodSupper"
-							class="mini-combobox"
+						<td><input id="prodSupper" name="prodSupper" onvaluechanged="onProdSupperChanged"
+							class="mini-combobox"  showNullItem="true"
 							url=""
 							valueFromSelect="true" textField="brandname"  width="80%" 
 							valueField="id" allowInput="true" onclick="loadprodSupper" /></td>
@@ -69,7 +70,7 @@ html, body {
 						<td class="mini_title" align="right"  width="60px" >小类名称：</td>
 						<td><input id="prodCodeSellPtr" name="prodCodeSellPtr"
 							class="mini-combobox" url=""  showNullItem="true"
-							textField="classname"  width="80%"  valueField="id"
+							textField="classname"  width="80%"  valueField="id" onvaluechanged="onSmallClassChanged"
 							 /></td>
 						<td class="mini_title" align="right"  width="80px" >供应商料号：</td>
 						<td><input class="mini-textbox" id="custPartCode"
@@ -152,7 +153,7 @@ html, body {
 					<div field="extraDesc" width="15%" headerAlign="center"
 						align="center">禾川编码</div>
 					<!-- <div field="invPartDescriptionC" width="33%" headerAlign="center" align="center">物料大类</div> -->
-					<div field="prodSuppersStr" width="15%" headerAlign="center"
+					<div field="prodSupperStr" width="15%" headerAlign="center"
 						align="center">制造厂商</div>
 					<div field="package_Str" width="17%" headerAlign="center"
 						align="center">封装</div>
@@ -206,11 +207,13 @@ html, body {
 	var form = new mini.Form("form1");
 	var grid = mini.get("grid1");
 	grid.load({
-		status : 9
+		status : 9,
+		ttype:1
 	});
 	
 	function onStatusChanged(){
 		var data = form.getData(true);
+		data.ttype=1
 		grid.load(data);
 	}
 	
@@ -221,6 +224,13 @@ html, body {
 			mini.get("prodSupper").setUrl(url);
 		}
 	}
+	
+	function onSmallClassChanged(){
+		var smallclassid=mini.get("prodCodeSellPtr").getValue();
+		url="${pageContext.request.contextPath}/BrandSupplier/queryClassBrandPre.do?smallclassid="+smallclassid;
+		mini.get("prodSupper").setUrl(url);
+	}
+	
 	
 	function loadpackage(){
 		var url=mini.get("package_").getUrl();
@@ -241,7 +251,7 @@ html, body {
 	function onClassChanged() {
 		var maxclass = mini.get("maxclass");
 		var bigclassid = maxclass.getValue();
-		var url = "${pageContext.request.contextPath}/class/getSmallClassPre.do?bigclassid="
+		var url = "${pageContext.request.contextPath}/class/getSmallClassPre.do?ttype=1&bigclassid="
 				+ bigclassid;
 		mini.get("prodCodeSellPtr").setUrl(url);
 	}
@@ -258,6 +268,7 @@ html, body {
 	function resetForm() {
 		form.reset();
 	}
+	
 	
 	function copy(){
 		var row = grid.getSelected();
@@ -331,6 +342,14 @@ html, body {
 						grid.reload();
 					}
 				});
+	}
+	
+	function onProdSupperChanged() {
+		var prodSupper = mini.get("prodSupper");
+		var brandid = prodSupper.getValue();
+		var url = "${pageContext.request.contextPath}/encoding/getSupplier.do?brandid="
+				+ brandid;
+		mini.get("supplierPtr").setUrl(url);
 	}
 
 	function addReplace() {

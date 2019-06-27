@@ -37,6 +37,7 @@ html, body {
 	<div class="mini-fit">
 		<form id="form2" name="form2" style="padding-top: 10px" action="#"
 			method="post">
+			<input class="mini-hidden" name="ttype" id="ttype" value="1" />
 			<input class="mini-hidden" name="wlid" id="wlid" /> <input
 				class="mini-hidden" name="extraDesc" id="extraDesc" />
 			<table cellpadding="0" class="main-table" cellspacing="10px"
@@ -46,12 +47,12 @@ html, body {
 					<td width="16%" class="mini_title"><span style="color: red">*</span>大类名称：</td>
 					<td width="16%"><input id="maxclass" name="maxclass"
 						class="mini-combobox"
-						url="${pageContext.request.contextPath}/class/getAllbigclassPre.do"
+						url="${pageContext.request.contextPath}/class/getAllbigclassPre.do?ttype=1"
 						onvaluechanged="onClassChanged" required="true"
 						textField="classname" width="100%" valueField="id" /></td>
 					<td width="16%" class="mini_title"><span style="color: red">*</span>小类名称：</td>
 					<td width="16%"><input id="prodCodeSellPtr"
-						name="prodCodeSellPtr" class="mini-combobox" url=""
+						name="prodCodeSellPtr" class="mini-combobox" url=""  
 						required="true" textField="classname" width="100%" valueField="id"
 						onvaluechanged="setWLMS" /></td>
 					<td width="16%" class="mini_title">封装：</td>
@@ -126,6 +127,8 @@ html, body {
 					<td width="16%"><input class="mini-textbox" name="filename"
 						id="filename" width="100%" required="true"  /></td>
 				</tr>
+				<tr id="yinzhiban" >
+				</tr>
 				<tr>
 					<td class="mini_title">备注：</td>
 					<td colspan="5"><input class="mini-TextArea" name="remark"
@@ -180,6 +183,12 @@ html, body {
 			//setProdSupper(data.prodSupper);//设置品牌的值
 			//lodingremark(data);//显示备注
 			//setPackage_(data);//设置封装信息
+		}
+		
+		function onSmallClassChanged(){
+			var smallclassid=mini.get("prodCodeSellPtr").getValue();
+			url="${pageContext.request.contextPath}/BrandSupplier/queryClassBrandPre.do?smallclassid="+smallclassid;
+			mini.get("prodSupper").setUrl(url);
 		}
 		
 		function setPackage_(req){
@@ -391,7 +400,7 @@ html, body {
 		function onClassChanged() {
 			var maxclass = mini.get("maxclass");
 			var bigclassid = maxclass.getValue();
-			var url = "${pageContext.request.contextPath}/class/getSmallClassPre.do?bigclassid="
+			var url = "${pageContext.request.contextPath}/class/getSmallClassPre.do?ttype=1&bigclassid="
 					+ bigclassid;
 			mini.get("prodCodeSellPtr").setUrl(url);
 		}
@@ -412,6 +421,14 @@ html, body {
 		function setWLMS() {
 			var prodCodeSellPtr = mini.get("prodCodeSellPtr");
 			var id = prodCodeSellPtr.getValue();
+			if(id==2541){//印制版
+				html='<td class="mini_title"><span style="color: red">*</span>版本号：</td>'+
+				'<td colspan="3" ><input class="mini-textbox" name="peVersion"  id="peVersion"   required="true" width="150px" height="100px" /><input class="mini-datepicker" name="peVersionDate"   required="true" id="peVersionDate" width="100px" height="100px" /></td>';
+				$('#yinzhiban').append(html);
+				mini.parse();
+			}else{
+				$('#yinzhiban').empty();
+			}
 			$
 					.ajax({
 						url : "${pageContext.request.contextPath}/encoding/getSmallclass.do",
@@ -471,6 +488,21 @@ html, body {
 		function setms() {
 			var prodCodeSellPtr = mini.get("prodCodeSellPtr");
 			var id = prodCodeSellPtr.getValue();
+			if(id==2541){//印制版
+				html='<td class="mini_title"><span style="color: red">*</span>版本号：</td>'+
+				'<td colspan="3" ><input class="mini-textbox" name="peVersion"  id="peVersion"   required="true" width="150px" height="100px" /><input class="mini-datepicker" name="peVersionDate"  required="true" id="peVersionDate" width="100px" height="100px" /></td>';
+				$('#yinzhiban').append(html);
+				mini.parse();
+				if(row.peVersion!=null&&row.peVersion!=""){
+					mini.get("peVersion").setValue(row.peVersion);
+				}
+				if(row.peVersionDate!=null&&row.peVersionDate!=""){
+					mini.get("peVersionDate").setValue(row.peVersionDate);
+				}
+				
+			}else{
+				$('#yinzhiban').empty();
+			}
 			$
 					.ajax({
 						url : "${pageContext.request.contextPath}/encoding/getSmallclass.do",

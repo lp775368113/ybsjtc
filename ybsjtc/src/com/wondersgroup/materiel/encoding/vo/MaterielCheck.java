@@ -59,11 +59,39 @@ public class MaterielCheck {
     
     private String fileidstr;
     
-    private String prodSuppersStr;
-    
     private String filename;
     
     private String schematic;
+    
+    private String peVersionDate;
+    
+    private String peVersion;
+    
+    private String productType;
+    
+    public String getProductType() {
+		return productType;
+	}
+
+	public void setProductType(String productType) {
+		this.productType = productType;
+	}
+
+	public String getPeVersionDate() {
+		return peVersionDate;
+	}
+
+	public void setPeVersionDate(String peVersionDate) {
+		this.peVersionDate = peVersionDate;
+	}
+
+	public String getPeVersion() {
+		return peVersion;
+	}
+
+	public void setPeVersion(String peVersion) {
+		this.peVersion = peVersion;
+	}
     
     
     public String getFilename() {
@@ -307,11 +335,4 @@ public class MaterielCheck {
 		this.fileidstr = fileidstr;
 	}
 
-	public String getProdSuppersStr() {
-		return prodSuppersStr;
-	}
-
-	public void setProdSuppersStr(String prodSuppersStr) {
-		this.prodSuppersStr = prodSuppersStr;
-	}
 }

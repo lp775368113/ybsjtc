@@ -44,12 +44,12 @@ html, body {
 					<td width="16%" class="mini_title"><span style="color: red">*</span>大类名称：</td>
 					<td width="16%"><input id="maxclass" name="maxclass"
 						class="mini-combobox"
-						url="${pageContext.request.contextPath}/class/getAllbigclassPre.do"
+						url="${pageContext.request.contextPath}/class/getAllbigclassPre.do?ttype=1"
 						onvaluechanged="onClassChanged" required="true"
 						textField="classname" width="100%" valueField="id" /></td>
 					<td width="16%" class="mini_title"><span style="color: red">*</span>小类名称：</td>
 					<td width="16%"><input id="prodCodeSellPtr"
-						name="prodCodeSellPtr" class="mini-combobox" url=""
+						name="prodCodeSellPtr" class="mini-combobox" url=""   
 						required="true" textField="classname" width="100%" valueField="id"
 						onvaluechanged="setWLMS" /></td>
 					<td width="16%" class="mini_title"><span style="color: red">*</span>封装：</td>
@@ -124,6 +124,8 @@ html, body {
 					<td class="mini_title" width="16%"><span style="color: red">*</span>相关文件名称：</td>
 					<td width="16%"><input class="mini-textbox" name="filename"
 						id="filename" width="100%" required="true"  /></td>
+				</tr>
+				<tr id="yinzhiban" >
 				</tr>
 				<tr>
 					<td class="mini_title">备注：</td>
@@ -245,7 +247,7 @@ html, body {
 		function onClassChanged() {
 			var maxclass = mini.get("maxclass");
 			var bigclassid = maxclass.getValue();
-			var url = "${pageContext.request.contextPath}/class/getSmallClassPre.do?bigclassid="
+			var url = "${pageContext.request.contextPath}/class/getSmallClassPre.do?ttype=1&bigclassid="
 					+ bigclassid;
 			mini.get("prodCodeSellPtr").setUrl(url);
 		}
@@ -253,10 +255,15 @@ html, body {
 		function onProdSupperChanged() {
 			var prodSupper = mini.get("prodSupper");
 			var brandid = prodSupper.getValue();
-			console.log(brandid);
 			var url = "${pageContext.request.contextPath}/encoding/getSupplier.do?brandid="
 					+ brandid;
 			mini.get("supplierPtr").setUrl(url);
+		}
+		
+		function onSmallClassChanged(){
+			var smallclassid=mini.get("prodCodeSellPtr").getValue();
+			url="${pageContext.request.contextPath}/BrandSupplier/queryClassBrandPre.do?smallclassid="+smallclassid;
+			mini.get("prodSupper").setUrl(url);
 		}
 
 		function resetForm() {
@@ -268,6 +275,18 @@ html, body {
 		function setWLMS() {
 			var prodCodeSellPtr = mini.get("prodCodeSellPtr");
 			var id = prodCodeSellPtr.getValue();
+			var html='';
+			if(id==2541){//印制版
+				html='<td class="mini_title"><span style="color: red">*</span>版本号：</td>'+
+				'<td colspan="3" ><input class="mini-textbox" name="peVersion"  id="peVersion"  required="true" width="150px" height="100px" /><input class="mini-datepicker" name="peVersionDate" required="true" id="peVersionDate" width="100px" height="100px" /></td>';
+				$('#yinzhiban').append(html);
+				mini.parse();
+			}else{
+				$('#yinzhiban').empty();
+			}
+				
+				
+			
 			$
 					.ajax({
 						url : "${pageContext.request.contextPath}/encoding/getSmallclass.do",

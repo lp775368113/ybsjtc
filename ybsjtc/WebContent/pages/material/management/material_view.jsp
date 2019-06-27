@@ -214,7 +214,7 @@ html, body {
 							<td width="16%"><input class="mini-textbox asLable"
 								enabled="false" style="cursor: hand; width: 100%"
 								borderStyle="border:0px;" name="custPartCode" id="custPartCode"
-								width="100%" />
+								width="100%" /></td>
 								<td class="mini_title" width="16%">SMT/DIP：</td>
 								<td width="16%"><input class="mini-combobox asLable"
 									enabled="false" name="smtFlag"
@@ -223,7 +223,7 @@ html, body {
 									data="[{text:'无',code:0},{text:'SMT',code:1},{text:'DIP',code:2}]"
 									textField="text" valueField="code" /></td>
 								<td class="mini_title" width="16%">制造商：</td>
-								<td width="16%"><input id="prodSuppersStr" name="prodSuppersStr"
+								<td width="16%"><input id="prodSupperStr" name="prodSupperStr"
 									class="mini-textbox asLable" enabled="false"
 									style="cursor: hand; width: 100%" borderStyle="border:0px;"
 									width="100%" /></td>
@@ -233,7 +233,7 @@ html, body {
 							<td width="16%"><input class="mini-textbox asLable"
 								enabled="false" style="cursor: hand; width: 100%"
 								borderStyle="border:0px;" name="custPartName" id="custPartName"
-								width="100%" />
+								width="100%" /></td>
 								<td class="mini_title" width="16%"></td>
 								<td width="16%"></td>
 								<td class="mini_title" width="16%"></td>
@@ -294,9 +294,10 @@ html, body {
 						id="schematic" width="100%" required="true"  
 						 /></td>
 					<td class="mini_title" width="16%"><span style="color: red">*</span>相关文件名称：</td>
-					<td width="16%"><input class="mini-textbox asLable" borderStyle="border:0px;" 
-								enabled="false" style="cursor: hand; width: 100%" name="filename"
+					<td width="16%"><input class="mini-textbox asLable" borderStyle="border:0px;"  enabled="false" style="cursor: hand; width: 100%" name="filename"
 						id="filename" width="100%" required="true"  /></td>
+				</tr>
+				<tr id="yinzhiban" >
 				</tr>
 						<tr>
 							<td class="mini_title">备注：</td>
@@ -431,6 +432,14 @@ html, body {
 					+ smallclassid;
 			maxclass.setUrl(url);
 			maxclass.select(0);
+			if(smallclassid==2541){//印制版
+				html='<td class="mini_title"><span style="color: red">*</span>版本号：</td>'+
+				'<td colspan="3" ><input class="mini-textbox asLable" borderStyle="border:0px;"  enabled="false" style="cursor: hand;" name="peVersion"  id="peVersion"   required="true" width="150px" height="100px" /><input class="mini-datepicker asLable" borderStyle="border:0px;"  enabled="false" style="cursor: hand;" name="peVersionDate"   required="true" id="peVersionDate" width="100px" height="100px" /></td>';
+				$('#yinzhiban').append(html);
+				mini.parse();
+			}else{
+				$('#yinzhiban').empty();
+			}
 		}
 		function lodingremark(req) {
 			var data = {};

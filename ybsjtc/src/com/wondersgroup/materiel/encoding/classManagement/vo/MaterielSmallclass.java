@@ -20,6 +20,8 @@ public class MaterielSmallclass {
     private String removed;
 
     private String status;
+    
+    private String ttype;
 
     public Integer getId() {
         return id;
@@ -101,5 +103,12 @@ public class MaterielSmallclass {
 	public void setEnsample(String ensample) {
 		this.ensample = ensample;
 	}
-    
+
+	public String getTtype() {
+		return ttype;
+	}
+
+	public void setTtype(String ttype) {
+		this.ttype = ttype;
+	}
 }

@@ -71,8 +71,6 @@ html, body {
 					<div property="columns">
 						<div type="indexcolumn" headerAlign="center" align="center"
 							width="7%">序号</div>
-						<div type="checkcolumn" headerAlign="center" align="center"
-							width="7%"></div>
 						<div field="code" width="15%" headerAlign="center" align="center">编码</div>
 						<div field="classname" width="20%" headerAlign="center"
 							align="center">大类名称</div>

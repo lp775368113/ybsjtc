@@ -39,4 +39,19 @@ public class URLConstant {
      * 注册企业回调接口url
      */
     public static final String REGISTER_CALLBACK = "https://oapi.dingtalk.com/call_back/register_call_back";
+    
+    /**
+     *钉盘控件的上传授权并获取到space_id
+     */
+    public static final String GET_SPACE_ID="https://oapi.dingtalk.com/topapi/processinstance/cspace/info";
+    
+    /**
+     *新增文件到用户钉盘
+     */
+    public static final String FILE_ADD_USER="https://oapi.dingtalk.com/cspace/add";
+    
+    /**
+     *ecn图片附件地址
+     */
+    public static final String ECN_PNG="http://115.238.111.190:8088/ybsjtc/FILE/";
 }

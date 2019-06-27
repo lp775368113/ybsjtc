@@ -50,4 +50,8 @@ public interface Data0017Mapper {
 
 	void updateMaterielInfo(Data0017 cen);
 
+	Data0017 getMaterielByCustPartCode(String key);
+
+	Data0017 getOneMaterial(Map<String, Object> params);
+
 }

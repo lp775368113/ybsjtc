@@ -90,8 +90,8 @@ public class ClassController extends BaseController{
 	
 	@ResponseBody
 	@RequestMapping("getAllbigclassPre")
-	public List<MaterielBigclass> getAllbigclassPre( ){
-		return classService.getAllbigclassPre();
+	public List<MaterielBigclass> getAllbigclassPre(@RequestParam Map<String, Object> params ){
+		return classService.getAllbigclassPre(params);
 	}
 	
 	@ResponseBody

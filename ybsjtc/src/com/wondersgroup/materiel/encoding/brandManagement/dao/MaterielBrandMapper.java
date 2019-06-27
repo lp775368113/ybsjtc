@@ -28,4 +28,10 @@ public interface MaterielBrandMapper {
 	Integer countBrandname(MaterielBrand brand);
 
 	List<MaterielBrand> getProdSupper(Map<String, Object> params);
+
+	List<MaterielBrand> queryClassBrandPage(Map<String, Object> params);
+
+	Integer queryClassBrandCount(Map<String, Object> params);
+
+	List<MaterielBrand> queryClassBrandPre(Map<String, Object> params);
 }

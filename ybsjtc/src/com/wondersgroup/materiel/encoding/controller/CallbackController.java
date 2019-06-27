@@ -17,6 +17,7 @@ import com.wondersgroup.framework.dingding.config.Constant;
 import com.wondersgroup.framework.dingding.config.MessageUtil;
 import com.wondersgroup.framework.dingding.config.URLConstant;
 import com.wondersgroup.framework.dingding.util.AccessTokenUtil;
+import com.wondersgroup.materiel.bomsys.ecn.service.MaterielBomEcnService;
 import com.wondersgroup.materiel.encoding.service.EncodingService;
 
 import org.slf4j.Logger;
@@ -45,6 +46,9 @@ public class CallbackController {
 	
 	@Autowired
 	private EncodingService encodingService;
+	
+	@Autowired
+	private MaterielBomEcnService materielBomEcnService;
 	
     private static final Logger bizLogger = LoggerFactory.getLogger("BIZ_CALLBACKCONTROLLER");
     private static final Logger mainLogger = LoggerFactory.getLogger(CallbackController.class);
@@ -146,7 +150,18 @@ public class CallbackController {
                 	bizLogger.info("不同意："+a.get("物料唯一识别码"));
                 	String id=a.get("物料唯一识别码");
                 	encodingService.refuse(id);
-                }
+                }else if(obj.containsKey("result") && obj.getString("result").equals("agree")&&"PROC-D2BB2099-F117-4B81-AEF1-A9ABD1FFEE21".equals(processCode)) {
+                	Map<String,String> a=MessageUtil.getProcessinstanceById(processInstanceId);
+                	bizLogger.info("不同意："+a.get("工程变更编号"));
+                	String id=a.get("工程变更编号");
+                	materielBomEcnService.agree(id);
+                	//物料审批回调 不同意
+                }else if(obj.containsKey("result") && obj.getString("result").equals("refuse")&&"PROC-05A70FFF-9B55-4B1E-8BD8-A42DB55EE6E4".equals(processCode)) {
+            	Map<String,String> a=MessageUtil.getProcessinstanceById(processInstanceId);
+            	bizLogger.info("不同意："+a.get("工程变更编号"));
+            	String id=a.get("工程变更编号");
+            	materielBomEcnService.refuse(id);
+            }
             } else{
             	
             }
@@ -173,7 +188,7 @@ public class CallbackController {
         registerRequest.setUrl(Constant.CALLBACK_URL_HOST + "/ybsjtc/callback.do");
         registerRequest.setAesKey(Constant.ENCODING_AES_KEY);
         registerRequest.setToken(Constant.TOKEN);
-        registerRequest.setCallBackTag(Arrays.asList("bpms_instance_change", "bpms_task_change"));
+        registerRequest.setCallBackTag(Arrays.asList("bpms_instance_change"));
         OapiCallBackRegisterCallBackResponse registerResponse = client.execute(registerRequest,AccessTokenUtil.getToken());
         if (registerResponse.isSuccess()) {
             System.out.println("回调注册成功了！！！");

@@ -27,13 +27,14 @@ import com.wondersgroup.permission.user.vo.Dd_User;
  * @UpdateRemark: [说明本次修改内容]     
  * @Version:      [v1.0] 		   
  ************************************************** **/
-public class Check {
-	public static Logger logger = Logger.getLogger(Check.class);
+public class CheckMateriel {
+	public static Logger logger = Logger.getLogger(CheckMateriel.class);
 	
-	public static void startProcessInstance(MaterielCheck params,Dd_User dd_user,String message) throws Exception {
+	public static void startProcessInstance(MaterielCheck params,Dd_User dd_user,String message){
+		try {
 		DefaultDingTalkClient client = new DefaultDingTalkClient(URLConstant.URL_PROCESSINSTANCE_START);
 		OapiProcessinstanceCreateRequest request = new OapiProcessinstanceCreateRequest();
-		request.setProcessCode(Constant.PROCESS_CODE);
+		request.setProcessCode(Constant.PROCESS_CODE_MATERIEL);
 		
 		List<OapiProcessinstanceCreateRequest.FormComponentValueVo> formComponentValues = new ArrayList<OapiProcessinstanceCreateRequest.FormComponentValueVo>();
 		OapiProcessinstanceCreateRequest.FormComponentValueVo obj1 = new OapiProcessinstanceCreateRequest.FormComponentValueVo();
@@ -79,7 +80,11 @@ public class Check {
 		if (response.getErrcode().longValue() != 0) {
 			logger.error(response.getErrorCode());
 			logger.error(response.getErrmsg());
-			throw new Exception(response.getErrmsg());
+			throw new RuntimeException(response.getErrmsg());
+		}
+		} catch (Exception e) {
+			logger.error(e.getMessage(),e);
+			throw new RuntimeException("发起物料审批失败！");
 		}
 	}
 

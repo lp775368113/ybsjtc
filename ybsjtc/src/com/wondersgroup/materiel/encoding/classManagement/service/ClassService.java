@@ -118,8 +118,8 @@ public class ClassService {
 	}
 
 
-	public List<MaterielBigclass> getAllbigclassPre() {
-		return materielBigclassMapper.getAllbigclassPre();
+	public List<MaterielBigclass> getAllbigclassPre(Map<String, Object> params) {
+		return materielBigclassMapper.getAllbigclassPre(params);
 	}
 
 

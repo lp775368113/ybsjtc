@@ -7,8 +7,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
+
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.cxf.jaxws.JaxWsProxyFactoryBean;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.wondersgroup.framework.comwork.controller.BaseController;
 import com.wondersgroup.framework.comwork.controller.SessionConstants;
+import com.wondersgroup.framework.cxf.centerservice.CommonService;
 import com.wondersgroup.framework.jxls.JxlsExcelView;
 import com.wondersgroup.framework.jxls.JxlsRead;
 import com.wondersgroup.materiel.encoding.brandManagement.vo.MaterielBrand;
@@ -33,6 +37,8 @@ import com.wondersgroup.materiel.encoding.vo.MaterielFile;
 import com.wondersgroup.materiel.encoding.vo.MaterielSupplier;
 import com.wondersgroup.materiel.encoding.vo.Units;
 import com.wondersgroup.permission.user.vo.User;
+
+import net.sf.json.JSONObject;
 /**   ***********************************************
  * Simple to Introduction  
  * @ProjectName:  [hzxzxt]
@@ -57,6 +63,31 @@ public class EncodingController extends BaseController{
 	
 	@Autowired
 	private  ClassService classService;
+	
+
+	@ResponseBody
+	@RequestMapping("getOneMaterial")
+	public Data0017 getOneMaterial(@RequestParam Map<String, Object> params) {
+		Data0017 a =null;
+		try {
+			a =encodingService.getOneMaterial(params);
+		} catch (Exception e) {
+			logger.error(e.getMessage(),e);
+		}
+		return a;
+	}
+	
+	@ResponseBody
+	@RequestMapping("listTree")
+	public List<Map<String, Object>> listTree(@RequestParam Map<String, Object> params) {
+		List<Map<String, Object>> treeList = new ArrayList<Map<String, Object>>();
+		try {
+			treeList=encodingService.treeList(params);
+		} catch (Exception e) {
+			logger.error(e.getMessage(),e);
+		}
+		return treeList;
+	}
 	
 	@ResponseBody
 	@RequestMapping("updatedata0017")
@@ -146,6 +177,23 @@ public class EncodingController extends BaseController{
 		return result;
 	}
 	
+	@ResponseBody
+	@RequestMapping("saveProduct")
+	public Map saveProduct(MaterielCheck params,HttpServletRequest request){
+		Map<String,Object> result=new HashMap<String,Object>();
+		try {
+			User user=(User)request.getSession().getAttribute(SessionConstants.CW_LOGINUSER);
+			encodingService.saveProduct(params,user);
+			result.put("success", true);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error(e.getMessage());
+			result.put("success", false);
+			result.put("message", e.getMessage());
+		}
+		return result;
+	}
+	
 	
 	@ResponseBody
 	@RequestMapping("editData0017")
@@ -195,6 +243,16 @@ public class EncodingController extends BaseController{
 		Map<String,Object> result=new HashMap<String,Object>();
 		try {
 			MaterielCheck bean=new MaterielCheck();
+			bean.setRemark((String)params.get("remark"));
+			bean.setTtype("1");
+			bean.setFilename((String)params.get("filename"));
+			bean.setSchematic((String)params.get("schematic"));
+			if((String)params.get("peVersion")!=null&&(String)params.get("peVersion")!="") {
+				bean.setPeVersion((String)params.get("peVersion"));
+			}
+			if((String)params.get("peVersionDate")!=null&&(String)params.get("peVersionDate")!="") {
+				bean.setPeVersionDate((String)params.get("peVersionDate"));
+			}
 			bean.setInvPartNumber((String)params.get("invPartNumber"));
 			bean.setProdSupper((String)params.get("prodSupper"));
 			bean.setPackage_((String)params.get("package_"));
