@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wondersgroup.materiel.bomsys.product.dao.MaterielProductMapper" >
+  <resultMap id="BaseResultMap" type="com.wondersgroup.materiel.bomsys.product.vo.MaterielProduct" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="product_code" property="productCode" jdbcType="VARCHAR" />
+    <result column="product_name" property="productName" jdbcType="VARCHAR" />
+    <result column="ptype" property="ptype" jdbcType="VARCHAR" />
+    <result column="smallclass" property="smallclass" jdbcType="VARCHAR" />
+    <result column="unit_cost" property="unitCost" jdbcType="VARCHAR" />
+    <result column="compensation" property="compensation" jdbcType="VARCHAR" />
+    <result column="new_cost" property="newCost" jdbcType="VARCHAR" />
+    <result column="purch_unit" property="purchUnit" jdbcType="VARCHAR" />
+    <result column="stock_unit" property="stockUnit" jdbcType="VARCHAR" />
+    <result column="smt_flag" property="smtFlag" jdbcType="VARCHAR" />
+    <result column="create_userid" property="createUserid" jdbcType="INTEGER" />
+    <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="update_userid" property="updateUserid" jdbcType="INTEGER" />
+    <result column="updatetime" property="updatetime" jdbcType="TIMESTAMP" />
+    <result column="removed" property="removed" jdbcType="VARCHAR" />
+    <result column="ptypeStr" property="ptypeStr" jdbcType="VARCHAR" />
+    <result column="smallclassStr" property="smallclassStr" jdbcType="VARCHAR" />
+    <result column="createName" property="createName" jdbcType="VARCHAR" />
+    <result column="updateName" property="updateName" jdbcType="VARCHAR" />
+    
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, product_code, product_name, ptype, smallclass, unit_cost, compensation, new_cost, 
+    purch_unit, stock_unit, smt_flag, create_userid, createtime, update_userid, updatetime, 
+    removed
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from materiel_product
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from materiel_product
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.wondersgroup.materiel.bomsys.product.vo.MaterielProduct" >
+    insert into materiel_product (id, product_code, product_name, 
+      ptype, smallclass, unit_cost, 
+      compensation, new_cost, purch_unit, 
+      stock_unit, smt_flag, create_userid, 
+      createtime, update_userid, updatetime, 
+      removed)
+    values (#{id,jdbcType=INTEGER}, #{productCode,jdbcType=VARCHAR}, #{productName,jdbcType=VARCHAR}, 
+      #{ptype,jdbcType=VARCHAR}, #{smallclass,jdbcType=VARCHAR}, #{unitCost,jdbcType=VARCHAR}, 
+      #{compensation,jdbcType=VARCHAR}, #{newCost,jdbcType=VARCHAR}, #{purchUnit,jdbcType=VARCHAR}, 
+      #{stockUnit,jdbcType=VARCHAR}, #{smtFlag,jdbcType=VARCHAR}, #{createUserid,jdbcType=INTEGER}, 
+      #{createtime,jdbcType=TIMESTAMP}, #{updateUserid,jdbcType=INTEGER}, #{updatetime,jdbcType=TIMESTAMP}, 
+      #{removed,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.wondersgroup.materiel.bomsys.product.vo.MaterielProduct" >
+    insert into materiel_product
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="productCode != null" >
+        product_code,
+      </if>
+      <if test="productName != null" >
+        product_name,
+      </if>
+      <if test="ptype != null" >
+        ptype,
+      </if>
+      <if test="smallclass != null" >
+        smallclass,
+      </if>
+      <if test="unitCost != null" >
+        unit_cost,
+      </if>
+      <if test="compensation != null" >
+        compensation,
+      </if>
+      <if test="newCost != null" >
+        new_cost,
+      </if>
+      <if test="purchUnit != null" >
+        purch_unit,
+      </if>
+      <if test="stockUnit != null" >
+        stock_unit,
+      </if>
+      <if test="smtFlag != null" >
+        smt_flag,
+      </if>
+      <if test="createUserid != null" >
+        create_userid,
+      </if>
+      <if test="createtime != null" >
+        createtime,
+      </if>
+      <if test="updateUserid != null" >
+        update_userid,
+      </if>
+      <if test="updatetime != null" >
+        updatetime,
+      </if>
+      <if test="removed != null" >
+        removed,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="productCode != null" >
+        #{productCode,jdbcType=VARCHAR},
+      </if>
+      <if test="productName != null" >
+        #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="ptype != null" >
+        #{ptype,jdbcType=VARCHAR},
+      </if>
+      <if test="smallclass != null" >
+        #{smallclass,jdbcType=VARCHAR},
+      </if>
+      <if test="unitCost != null" >
+        #{unitCost,jdbcType=VARCHAR},
+      </if>
+      <if test="compensation != null" >
+        #{compensation,jdbcType=VARCHAR},
+      </if>
+      <if test="newCost != null" >
+        #{newCost,jdbcType=VARCHAR},
+      </if>
+      <if test="purchUnit != null" >
+        #{purchUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="stockUnit != null" >
+        #{stockUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="smtFlag != null" >
+        #{smtFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="createUserid != null" >
+        #{createUserid,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUserid != null" >
+        #{updateUserid,jdbcType=INTEGER},
+      </if>
+      <if test="updatetime != null" >
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="removed != null" >
+        #{removed,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wondersgroup.materiel.bomsys.product.vo.MaterielProduct" >
+    update materiel_product
+    <set >
+      <if test="productCode != null" >
+        product_code = #{productCode,jdbcType=VARCHAR},
+      </if>
+      <if test="productName != null" >
+        product_name = #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="ptype != null" >
+        ptype = #{ptype,jdbcType=VARCHAR},
+      </if>
+      <if test="smallclass != null" >
+        smallclass = #{smallclass,jdbcType=VARCHAR},
+      </if>
+      <if test="unitCost != null" >
+        unit_cost = #{unitCost,jdbcType=VARCHAR},
+      </if>
+      <if test="compensation != null" >
+        compensation = #{compensation,jdbcType=VARCHAR},
+      </if>
+      <if test="newCost != null" >
+        new_cost = #{newCost,jdbcType=VARCHAR},
+      </if>
+      <if test="purchUnit != null" >
+        purch_unit = #{purchUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="stockUnit != null" >
+        stock_unit = #{stockUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="smtFlag != null" >
+        smt_flag = #{smtFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="createUserid != null" >
+        create_userid = #{createUserid,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUserid != null" >
+        update_userid = #{updateUserid,jdbcType=INTEGER},
+      </if>
+      <if test="updatetime != null" >
+        updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="removed != null" >
+        removed = #{removed,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wondersgroup.materiel.bomsys.product.vo.MaterielProduct" >
+    update materiel_product
+    set product_code = #{productCode,jdbcType=VARCHAR},
+      product_name = #{productName,jdbcType=VARCHAR},
+      ptype = #{ptype,jdbcType=VARCHAR},
+      smallclass = #{smallclass,jdbcType=VARCHAR},
+      unit_cost = #{unitCost,jdbcType=VARCHAR},
+      compensation = #{compensation,jdbcType=VARCHAR},
+      new_cost = #{newCost,jdbcType=VARCHAR},
+      purch_unit = #{purchUnit,jdbcType=VARCHAR},
+      stock_unit = #{stockUnit,jdbcType=VARCHAR},
+      smt_flag = #{smtFlag,jdbcType=VARCHAR},
+      create_userid = #{createUserid,jdbcType=INTEGER},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      update_userid = #{updateUserid,jdbcType=INTEGER},
+      updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      removed = #{removed,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+   <select id="getPage" resultMap="BaseResultMap" parameterType="java.util.Map" >
+	select CASE a.ptype WHEN '2' THEN  '成品' WHEN '3' THEN '半成品' end ptypeStr,
+	(select b.name from dic_code_info b where b.id=a.smallclass) smallclassStr,
+	(select b.vsername from users b where b.id=a.create_userid) createName,
+	(select b.vsername from users b where b.id=a.update_userid) updateName,
+	a.*  from materiel_product a where a.removed=0 
+	<if test="ptype != null and ptype!=''" >
+       and a.ptype = #{ptype}
+    </if>
+    <if test="smallclass != null and smallclass!=''" >
+       and a.smallclass = #{smallclass}
+    </if>
+    <if test="productCode != null and productCode!=''" >
+       and a.product_code = #{productCode}
+    </if>
+    <if test="productName != null and productName!=''" >
+      and  a.product_name like '%${productName}%'
+    </if>
+    <if test="starttime != null and starttime != ''">
+        	and unix_timestamp(date_format(a.createtime, '%Y%m%d'))>=unix_timestamp(#{starttime})
+    </if>
+    <if test="endtime != null and endtime != ''">
+        	and unix_timestamp(date_format(a.createtime, '%Y%m%d'))&lt;=unix_timestamp(#{endtime})
+    </if>
+    order by id desc
+	limit #{start},#{row}
+  </select>
+  <select id="getCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+	SELECT COUNT(*) FROM materiel_product a where a.removed=0
+	<if test="ptype != null and ptype!=''" >
+      and  a.ptype = #{ptype}
+    </if>
+    <if test="smallclass != null and smallclass!=''" >
+      and  a.smallclass = #{smallclass}
+    </if>
+    <if test="productCode != null and productCode!=''" >
+      and  a.product_code = #{productCode}
+    </if>
+    <if test="productName != null and productName!=''" >
+      and  a.product_name like '%${productName}%'
+    </if>
+    <if test="starttime != null and starttime != ''">
+        	and unix_timestamp(date_format(a.createtime, '%Y%m%d'))>=unix_timestamp(#{starttime})
+    </if>
+    <if test="endtime != null and endtime != ''">
+        	and unix_timestamp(date_format(a.createtime, '%Y%m%d'))&lt;=unix_timestamp(#{endtime})
+    </if>
+	</select>
+</mapper>

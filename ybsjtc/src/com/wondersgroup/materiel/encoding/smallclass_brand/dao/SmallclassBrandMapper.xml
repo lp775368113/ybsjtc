@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wondersgroup.materiel.encoding.smallclass_brand.dao.SmallclassBrandMapper" >
+  <resultMap id="BaseResultMap" type="com.wondersgroup.materiel.encoding.smallclass_brand.vo.SmallclassBrand" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="smallclassid" property="smallclassid" jdbcType="INTEGER" />
+    <result column="brandid" property="brandid" jdbcType="INTEGER" />
+    <result column="removed" property="removed" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, smallclassid, brandid, removed
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from materiel_smallclass_brand
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from materiel_smallclass_brand
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.wondersgroup.materiel.encoding.smallclass_brand.vo.SmallclassBrand" >
+    insert into materiel_smallclass_brand (id, smallclassid, brandid, 
+      removed)
+    values (#{id,jdbcType=INTEGER}, #{smallclassid,jdbcType=INTEGER}, #{brandid,jdbcType=INTEGER}, 
+      #{removed,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.wondersgroup.materiel.encoding.smallclass_brand.vo.SmallclassBrand" >
+    insert into materiel_smallclass_brand
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="smallclassid != null" >
+        smallclassid,
+      </if>
+      <if test="brandid != null" >
+        brandid,
+      </if>
+      <if test="removed != null" >
+        removed,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="smallclassid != null" >
+        #{smallclassid,jdbcType=INTEGER},
+      </if>
+      <if test="brandid != null" >
+        #{brandid,jdbcType=INTEGER},
+      </if>
+      <if test="removed != null" >
+        #{removed,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wondersgroup.materiel.encoding.smallclass_brand.vo.SmallclassBrand" >
+    update materiel_smallclass_brand
+    <set >
+      <if test="smallclassid != null" >
+        smallclassid = #{smallclassid,jdbcType=INTEGER},
+      </if>
+      <if test="brandid != null" >
+        brandid = #{brandid,jdbcType=INTEGER},
+      </if>
+      <if test="removed != null" >
+        removed = #{removed,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wondersgroup.materiel.encoding.smallclass_brand.vo.SmallclassBrand" >
+    update materiel_smallclass_brand
+    set smallclassid = #{smallclassid,jdbcType=INTEGER},
+      brandid = #{brandid,jdbcType=INTEGER},
+      removed = #{removed,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+   <select id="getSmallClassBrand" resultMap="BaseResultMap" parameterType="java.util.Map">
+  		select a.* from materiel_smallclass_brand a
+  		where a.smallclassid=#{smallclassid}
+  		and  a.brandid=#{brandid}
+  </select>
+  <insert id="saveSmallClassBrand" parameterType="java.util.List"
+        useGeneratedKeys="true" keyProperty="id">
+        insert into materiel_smallclass_brand
+        (brandid,smallclassid,removed)
+        values
+        <foreach collection="list" item="item" index="index"
+            separator=",">
+            (#{item.brandid},#{item.smallclassid},#{item.removed})
+        </foreach>
+    </insert>
+</mapper>

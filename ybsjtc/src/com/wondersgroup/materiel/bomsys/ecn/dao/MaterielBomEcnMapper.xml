@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wondersgroup.materiel.bomsys.ecn.dao.MaterielBomEcnMapper" >
+  <resultMap id="BaseResultMap" type="com.wondersgroup.materiel.bomsys.ecn.vo.MaterielBomEcn" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="cut_date" property="cutDate" jdbcType="VARCHAR" />
+    <result column="theme" property="theme" jdbcType="VARCHAR" />
+    <result column="tryto" property="tryto" jdbcType="VARCHAR" />
+    <result column="why" property="why" jdbcType="VARCHAR" />
+    <result column="summarize" property="summarize" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="userid" property="userid" jdbcType="INTEGER" />
+    <result column="check_status" property="checkStatus" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="check_time" property="checkTime" jdbcType="TIMESTAMP" />
+    <result column="removed" property="removed" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, cut_date, theme, tryto, why, summarize, remark, userid, check_status, create_time, 
+    check_time, removed
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from materiel_bom_ecn
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from materiel_bom_ecn
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.wondersgroup.materiel.bomsys.ecn.vo.MaterielBomEcn" >
+    insert into materiel_bom_ecn (id, cut_date, theme, 
+      tryto, why, summarize, 
+      remark, userid, check_status, 
+      create_time, check_time, removed
+      )
+    values (#{id,jdbcType=INTEGER}, #{cutDate,jdbcType=VARCHAR}, #{theme,jdbcType=VARCHAR}, 
+      #{tryto,jdbcType=VARCHAR}, #{why,jdbcType=VARCHAR}, #{summarize,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{userid,jdbcType=INTEGER}, #{checkStatus,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{checkTime,jdbcType=TIMESTAMP}, #{removed,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.wondersgroup.materiel.bomsys.ecn.vo.MaterielBomEcn" useGeneratedKeys="true" keyProperty="id" >
+    insert into materiel_bom_ecn
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="cutDate != null" >
+        cut_date,
+      </if>
+      <if test="theme != null" >
+        theme,
+      </if>
+      <if test="tryto != null" >
+        tryto,
+      </if>
+      <if test="why != null" >
+        why,
+      </if>
+      <if test="summarize != null" >
+        summarize,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="userid != null" >
+        userid,
+      </if>
+      <if test="checkStatus != null" >
+        check_status,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="checkTime != null" >
+        check_time,
+      </if>
+      <if test="removed != null" >
+        removed,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="cutDate != null" >
+        #{cutDate,jdbcType=VARCHAR},
+      </if>
+      <if test="theme != null" >
+        #{theme,jdbcType=VARCHAR},
+      </if>
+      <if test="tryto != null" >
+        #{tryto,jdbcType=VARCHAR},
+      </if>
+      <if test="why != null" >
+        #{why,jdbcType=VARCHAR},
+      </if>
+      <if test="summarize != null" >
+        #{summarize,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="checkStatus != null" >
+        #{checkStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="checkTime != null" >
+        #{checkTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="removed != null" >
+        #{removed,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wondersgroup.materiel.bomsys.ecn.vo.MaterielBomEcn" >
+    update materiel_bom_ecn
+    <set >
+      <if test="cutDate != null" >
+        cut_date = #{cutDate,jdbcType=VARCHAR},
+      </if>
+      <if test="theme != null" >
+        theme = #{theme,jdbcType=VARCHAR},
+      </if>
+      <if test="tryto != null" >
+        tryto = #{tryto,jdbcType=VARCHAR},
+      </if>
+      <if test="why != null" >
+        why = #{why,jdbcType=VARCHAR},
+      </if>
+      <if test="summarize != null" >
+        summarize = #{summarize,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        userid = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="checkStatus != null" >
+        check_status = #{checkStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="checkTime != null" >
+        check_time = #{checkTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="removed != null" >
+        removed = #{removed,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wondersgroup.materiel.bomsys.ecn.vo.MaterielBomEcn" >
+    update materiel_bom_ecn
+    set cut_date = #{cutDate,jdbcType=VARCHAR},
+      theme = #{theme,jdbcType=VARCHAR},
+      tryto = #{tryto,jdbcType=VARCHAR},
+      why = #{why,jdbcType=VARCHAR},
+      summarize = #{summarize,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      userid = #{userid,jdbcType=INTEGER},
+      check_status = #{checkStatus,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      check_time = #{checkTime,jdbcType=TIMESTAMP},
+      removed = #{removed,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
